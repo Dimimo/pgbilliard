@@ -5,9 +5,24 @@
  */
 
 import axios from 'axios';
+import Echo from '@ably/laravel-echo';
+import * as Ably from 'ably';
+
 window.axios = axios;
+/*window.Ably = Ably;
+window.Echo = new Echo({
+    broadcaster: 'ably',
+});*/
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/* Ably */
+/*window.Echo.connector.ably.connection.on((stateChange) => {
+    console.log("LOGGER:: Connection event :: ", stateChange);
+    if (stateChange.current === 'disconnected' && stateChange.reason?.code === 40142) { // key/token status expired
+        console.log("LOGGER:: Connection token expired https://help.ably.io/error/40142");
+    }
+});*/
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
