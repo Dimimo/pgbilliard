@@ -1,7 +1,7 @@
 <x-layout>
     @volt
     <div>
-        <livewire:teams />
+        <livewire:calendar />
     </div>
     @endvolt
 </x-layout>
