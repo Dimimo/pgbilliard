@@ -4,11 +4,10 @@ namespace App\Models;
 
 use Database\Factories\PlayerFactory;
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Player
@@ -20,28 +19,31 @@ use Illuminate\Support\Carbon;
  * @property string|null $gender
  * @property bool $captain
  * @property string|null $contact_nr
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Team|null $team
  * @property-read \App\Models\User|null $user
  *
  * @method static \Database\Factories\PlayerFactory factory($count = null, $state = [])
- * @method static Builder|Player newModelQuery()
- * @method static Builder|Player newQuery()
- * @method static Builder|Player query()
- * @method static Builder|Player whereCaptain($value)
- * @method static Builder|Player whereContactNr($value)
- * @method static Builder|Player whereCreatedAt($value)
- * @method static Builder|Player whereGender($value)
- * @method static Builder|Player whereId($value)
- * @method static Builder|Player whereName($value)
- * @method static Builder|Player whereTeamId($value)
- * @method static Builder|Player whereUpdatedAt($value)
- * @method static Builder|Player whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Player newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Player query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereCaptain($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereContactNr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereGender($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereTeamId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Player whereUserId($value)
  *
  * @mixin Eloquent
  *
+ * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+ *
+ * @mixin IdeHelperPlayer
  */
 class Player extends Model
 {
@@ -60,9 +62,7 @@ class Player extends Model
     protected $casts = [
         'user_id' => 'integer',
         'team_id' => 'integer',
-        'name' => 'string',
         'captain' => 'boolean',
-        'contact_nr' => 'string',
     ];
 
     /**
@@ -71,14 +71,31 @@ class Player extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'id',
         'user_id',
         'team_id',
-        'name',
-        'gender',
         'captain',
-        'contact_nr',
     ];
+
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->user()->find($this->user_id)->name,
+        );
+    }
+
+    protected function contactNr(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->user()->find($this->user_id)->contact_nr,
+        );
+    }
+
+    protected function gender(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->user()->find($this->user_id)->gender,
+        );
+    }
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -87,9 +104,22 @@ class Player extends Model
      */
     protected $hidden = [];
 
+    protected $with = ['team'];
+
+    protected $appends = ['name', 'contact_nr'];
+
     protected static function newFactory(): PlayerFactory
     {
         return PlayerFactory::new();
+    }
+
+    public function isCaptain(Team $team): bool
+    {
+        if (! $this->captain) {
+            return false;
+        }
+
+        return $this->team->id === $team->id;
     }
 
     /**

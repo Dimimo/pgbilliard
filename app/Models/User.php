@@ -48,6 +48,8 @@ use Laravel\Sanctum\HasApiTokens;
  *
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+ *
+ * @mixin IdeHelperUser
  */
 class User extends Authenticatable
 {
@@ -63,6 +65,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'contact_nr',
+        'gender',
+        'last_game',
     ];
 
     /**
@@ -82,8 +87,19 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_game' => 'date',
         'password' => 'hashed',
     ];
+
+    public function isAdmin(): bool
+    {
+        return Admin::whereUserId($this->id)->exists();
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return Admin::whereUserId($this->id)->whereSuperAdmin(1)->exists();
+    }
 
     /**
      * Checks if the user is allowed to join a room

@@ -4,13 +4,10 @@ namespace App\Models;
 
 use Database\Factories\VenueFactory;
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Venue
@@ -24,33 +21,36 @@ use Illuminate\Support\Carbon;
  * @property string|null $remark
  * @property string|null $lat
  * @property string|null $lng
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property-read Collection<int, \App\Models\Event> $events
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Event> $events
  * @property-read int|null $events_count
  * @property-read \App\Models\User|null $owner
- * @property-read Collection<int, \App\Models\Team> $teams
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $teams
  * @property-read int|null $teams_count
  *
  * @method static \Database\Factories\VenueFactory factory($count = null, $state = [])
- * @method static Builder|Venue newModelQuery()
- * @method static Builder|Venue newQuery()
- * @method static Builder|Venue query()
- * @method static Builder|Venue whereAddress($value)
- * @method static Builder|Venue whereContactName($value)
- * @method static Builder|Venue whereContactNr($value)
- * @method static Builder|Venue whereCreatedAt($value)
- * @method static Builder|Venue whereId($value)
- * @method static Builder|Venue whereLat($value)
- * @method static Builder|Venue whereLng($value)
- * @method static Builder|Venue whereName($value)
- * @method static Builder|Venue whereRemark($value)
- * @method static Builder|Venue whereUpdatedAt($value)
- * @method static Builder|Venue whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue whereContactName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue whereContactNr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue whereLat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue whereLng($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue whereRemark($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Venue whereUserId($value)
  *
  * @mixin Eloquent
  *
+ * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+ *
+ * @mixin IdeHelperVenue
  */
 class Venue extends Model
 {

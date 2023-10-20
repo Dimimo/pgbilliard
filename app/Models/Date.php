@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Database\Factories\DateFactory;
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,32 +15,35 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property int $season_id
- * @property Carbon $date
+ * @property \Illuminate\Support\Carbon $date
  * @property bool $regular
  * @property string|null $title
  * @property string|null $remark
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property-read Collection<int, \App\Models\Event> $events
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Event> $events
  * @property-read int|null $events_count
  * @property-read \App\Models\Season $season
  *
  * @method static \Database\Factories\DateFactory factory($count = null, $state = [])
- * @method static Builder|Date newModelQuery()
- * @method static Builder|Date newQuery()
- * @method static Builder|Date query()
- * @method static Builder|Date whereCreatedAt($value)
- * @method static Builder|Date whereDate($value)
- * @method static Builder|Date whereId($value)
- * @method static Builder|Date whereRegular($value)
- * @method static Builder|Date whereRemark($value)
- * @method static Builder|Date whereSeasonId($value)
- * @method static Builder|Date whereTitle($value)
- * @method static Builder|Date whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Date newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Date newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Date query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Date whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Date whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Date whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Date whereRegular($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Date whereRemark($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Date whereSeasonId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Date whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Date whereUpdatedAt($value)
  *
  * @mixin Eloquent
  *
+ * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+ *
+ * @mixin IdeHelperDate
  */
 class Date extends Model
 {

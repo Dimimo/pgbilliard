@@ -4,13 +4,10 @@ namespace App\Models;
 
 use Database\Factories\TeamFactory;
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Team
@@ -20,32 +17,35 @@ use Illuminate\Support\Carbon;
  * @property int $venue_id
  * @property int $season_id
  * @property string|null $remark
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property-read Collection<int, \App\Models\Player> $players
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Player> $players
  * @property-read int|null $players_count
  * @property-read \App\Models\Season $season
- * @property-read Collection<int, \App\Models\Event> $team_1
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Event> $team_1
  * @property-read int|null $team_1_count
- * @property-read Collection<int, \App\Models\Event> $team_2
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Event> $team_2
  * @property-read int|null $team_2_count
  * @property-read \App\Models\Venue $venue
  *
  * @method static \Database\Factories\TeamFactory factory($count = null, $state = [])
- * @method static Builder|Team newModelQuery()
- * @method static Builder|Team newQuery()
- * @method static Builder|Team query()
- * @method static Builder|Team whereCreatedAt($value)
- * @method static Builder|Team whereId($value)
- * @method static Builder|Team whereName($value)
- * @method static Builder|Team whereRemark($value)
- * @method static Builder|Team whereSeasonId($value)
- * @method static Builder|Team whereUpdatedAt($value)
- * @method static Builder|Team whereVenueId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Team newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Team query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereRemark($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereSeasonId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereVenueId($value)
  *
  * @mixin Eloquent
  *
+ * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+ *
+ * @mixin IdeHelperTeam
  */
 class Team extends Model
 {
@@ -87,7 +87,7 @@ class Team extends Model
      */
     protected $hidden = [];
 
-    protected $with = ['venue', 'players'];
+    protected $with = [];
 
     /**
      * Calculates the percentages of a given score table of a team
@@ -103,8 +103,12 @@ class Team extends Model
      */
     public function captain(): ?Player
     {
-        /** @phpstan-ignore-next-line */
         return $this->players()->where('captain', '1')->get()->first();
+    }
+
+    public function hasGames(): bool
+    {
+        return $this->team_1()->count() || $this->team_2()->count();
     }
 
     protected static function newFactory(): TeamFactory
