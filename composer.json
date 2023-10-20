@@ -6,7 +6,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "ext-pdo": "*",
         "ably/laravel-broadcaster": "^1.0",
+        "aws/aws-sdk-php":  "3.283.3",
         "aws/aws-sdk-php-laravel": "^3.8",
         "doctrine/dbal": "^3.7",
         "guzzlehttp/guzzle": "^7.2",
@@ -45,6 +47,7 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan vendor:publish --force --tag=livewire:assets --ansi",
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
