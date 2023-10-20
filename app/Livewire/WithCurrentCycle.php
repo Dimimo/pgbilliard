@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Livewire;
+
+use App\Models\Season;
+
+trait WithCurrentCycle
+{
+    public ?string $cycle;
+
+    public function mountWithCurrentCycle(): void
+    {
+        $this->cycle = $this->getCurrentCycle();
+    }
+
+    private function getCurrentCycle()
+    {
+        if (! session()->exists('cycle') || is_null(session('cycle'))) {
+            //when no cycle is in the session, put the most recent date cycle as a starting point
+            $current_season = Season::orderByDesc('cycle')->first();
+            session()->put('cycle', $current_season->cycle);
+        }
+
+        return session('cycle');
+    }
+
+    public function getCycle(): Season
+    {
+        return Season::whereCycle($this->cycle)->first();
+    }
+}

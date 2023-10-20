@@ -19,7 +19,7 @@ state([
 ]);
 
 rules([
-    'name' => ['required', 'string', 'max:255'],
+    'name' => ['required', 'string', 'max:255', 'unique:'.User::class],
     'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
     'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
 ]);
