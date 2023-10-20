@@ -16,10 +16,7 @@ return new class extends Migration
                 $table->id();
                 $table->unsignedBigInteger('user_id')->nullable()->index();
                 $table->unsignedBigInteger('team_id')->nullable()->index();
-                $table->string('name', 24);
-                $table->enum('gender', ['M', 'F', 'K'])->nullable();
                 $table->boolean('captain')->default(false)->index();
-                $table->string('contact_nr')->nullable();
                 $table->timestamps();
 
                 $table->foreign('user_id')->references('id')->on('users');

@@ -12,8 +12,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('season_id')->index();
             $table->date('date');
-            $table->boolean('regular')->index();
-            $table->string('title')->nullable();
+            $table->boolean('regular')->default(false)->index();
+            $table->string('title', 48)->nullable();
             $table->text('remark')->nullable();
             $table->timestamps();
 
