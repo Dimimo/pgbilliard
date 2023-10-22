@@ -8,9 +8,6 @@ use Illuminate\Support\Carbon;
 trait WithUsersSelect
 {
     public array $users;
-
-    public ?Carbon $last_game = null;
-
     public string $carbon_sub = '20 years';
 
     public function MountWithUsersSelect(): void
@@ -20,8 +17,8 @@ trait WithUsersSelect
 
     private function loadUsersList(): void
     {
-        $this->last_game = Carbon::now()->sub($this->carbon_sub);
-        $this->users = User::where('last_game', '>', $this->last_game)
+        $date_filter = Carbon::now()->sub($this->carbon_sub);
+        $this->users = User::where('last_game', '>', $date_filter)
             ->orderBy('name')
             ->whereNotIn('id', [1]) //get rid of the administrator
             ->get(['id', 'name', 'last_game'])
