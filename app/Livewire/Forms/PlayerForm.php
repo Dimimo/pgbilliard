@@ -3,21 +3,37 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Player;
-use Livewire\Attributes\Rule;
+use App\Models\Team;
 use Livewire\Form;
+use Illuminate\Validation\Rule as ValidationRule;
 
 class PlayerForm extends Form
 {
     public Player $player;
 
-    #[Rule('bool')]
     public bool $captain = false;
 
-    #[Rule('nullable|unique:App\Models\User,id')]
     public ?int $user_id;
 
-    #[Rule('nullable|unique:App\Models\Team,id')]
-    public int $team_id;
+    public ?int $team_id;
+
+    public function rules(): array
+    {
+        return [
+            'captain' => 'bool',
+            'user_id' => ValidationRule::unique('users')->ignore(\Auth::id()),
+            'team_id' => 'required|exists:'.Team::class,
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'user_id.unique' => 'Any user can be linked to only one player, this username is already taken by another player',
+            'team_id.required' => 'The player needs a team',
+            'team_id.unique' => 'The given team does not exist',
+        ];
+    }
 
     public function setPlayer(Player $player)
     {
