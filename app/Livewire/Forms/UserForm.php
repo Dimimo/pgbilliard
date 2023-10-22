@@ -10,16 +10,16 @@ class UserForm extends Form
 {
     public User $user;
 
-    #[Rule(['unique:App\Models\User,name'])]
+    #[Rule(['required', 'string', 'min:2', 'max:24', 'unique:'.User::class.',name'])]
     public $name = '';
 
-    #[Rule(['sometimes', 'email', 'max:254'])]
+    #[Rule(['required', 'email', 'max:254', 'unique:'.User::class.',email'])]
     public $email = '';
 
-    #[Rule('nullable|max:24')]
+    #[Rule('nullable', 'max:24')]
     public ?string $contact_nr;
 
-    #[Rule('nullable|string')]
+    #[Rule('nullable', 'string')]
     public ?string $gender;
 
     #[Rule(['nullable', 'date'])]
@@ -30,6 +30,18 @@ class UserForm extends Form
 
     #[Rule(['sometimes'])]
     public $password;
+
+    public $messages = [
+        'name.required' => 'A name is required',
+        'name.unique' => 'A name has to be unique',
+        'name.string' => 'A name needs to be a regular string',
+        'name.min' => 'A name needs at least 2 characters',
+        'name.max' => 'A name can not be longer than 24 characters',
+        'email.required' => 'A valid email address is required',
+        'email.email' => 'A valid email address is required',
+        'email.unique' => 'The email has to be unique',
+    ];
+
 
     public function setUser(User $user)
     {
