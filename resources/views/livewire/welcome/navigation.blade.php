@@ -10,5 +10,6 @@
         @if (Route::has('register'))
             <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" wire:navigate>Register</a>
         @endif
+        <a href="/players/accounts" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" wire:navigate>Claim existing account</a>
     @endauth
 </div>
