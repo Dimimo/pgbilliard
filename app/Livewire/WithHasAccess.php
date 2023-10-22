@@ -13,6 +13,6 @@ trait WithHasAccess
 
     public function mountWithHasAccess(): void
     {
-        $this->hasAccess = Admin::find(Auth::id())->exists();
+        $this->hasAccess = Admin::whereId(Auth::id())->exists();
     }
 }
