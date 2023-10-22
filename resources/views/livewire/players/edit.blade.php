@@ -5,6 +5,7 @@
                 <x-captain :player="$player"
                            wire:click="toggleCaptain({{ $player->id }})"
                            class=" cursor-pointer"
+                           :title="$player->captain ? 'Toggle to make a regular player' : 'Toggle to make a captain'"
                 />
                 <div>
                     <img
@@ -63,38 +64,47 @@
 
         <form class="border-2 border-green-500 p-2 m-4 w-auto" wire:submit="addUser">
             <div class="flex flex-col items-center">
-                <div class="p-2 mt-1 text-xl">
-                    Or add a user
+                <div class="p-2 mt-1">
+                    <div class="text-center text-xl">Or add a new player</div>
+                    <div class="text-red-700 text-center text-sm">(Make sure the player doesn't already exists!)</div>
                 </div>
                 <div class="p-2">
                     <label class="mr-2" for="user_form.name">Name</label>
-                    <input id="user_form.name" type="text" wire:model.live="user_form.name">
+                    <input id="user_form.name" type="text" wire:model.live.debounce.500ms="user_form.name">
+                    <x-spinner target="user_form.name" />
                     <div>
                         @error('user_form.name') <span class="text-red-700">{{ $message }}</span> @enderror
                     </div>
-
+                </div>
+                <div class="p-2">
+                    <label class="mr-2" for="user_form.email">Email</label>
+                    <input id="user_form.email" type="text" wire:model="user_form.email">
+                    <div class="text-sm text-gray-500 italic">
+                        An email is auto generated, the password is '<strong>secret</strong>'
+                    </div>
+                    <div>
+                        @error('user_form.email') <span class="text-red-700">{{ $message }}</span> @enderror
+                    </div>
                 </div>
                 <div class="p-2">
                     <label class="mr-2" for="user_form.contact_nr">Contact number</label>
                     <input id="user_form.contact_nr" type="text" wire:model="user_form.contact_nr">
+                    <div class="text-sm text-gray-500 italic">You can leave this empty if you don't have the number</div>
                     <div>
                         @error('form.contact_nr') <span class="text-red-700">{{ $message }}</span> @enderror
                     </div>
                 </div>
                 <div class="p-2">
                     <x-primary-button>Create</x-primary-button>
-                    @error('user_form.email')
-                        {{ $message }}
-                    @enderror
-                    @error('user_form.contact_nr')
-                    {{ $message }}
-                    @enderror
-                    @error('user_form.password')
-                    {{ $message }}
-                    @enderror
-                    @error('user_form.gender')
-                    {{ $message }}
-                    @enderror
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </div>
                 <x-spinner target="addUser" />
                 <x-action-message class="p-2" on="user-created" class="text-xl">
