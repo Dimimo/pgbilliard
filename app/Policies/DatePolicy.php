@@ -12,30 +12,26 @@ class DatePolicy
 
     public function viewAny(User $user): bool
     {
-
+        return true;
     }
 
     public function view(User $user, date $dates): bool
     {
+        return true;
     }
 
     public function create(User $user): bool
     {
+        return $user->isAdmin();
     }
 
     public function update(User $user, date $dates): bool
     {
+        return $user->isAdmin();
     }
 
     public function delete(User $user, date $dates): bool
     {
-    }
-
-    public function restore(User $user, date $dates): bool
-    {
-    }
-
-    public function forceDelete(User $user, date $dates): bool
-    {
+        return $user->isAdmin();
     }
 }
