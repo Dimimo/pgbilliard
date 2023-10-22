@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Player;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -10,12 +11,12 @@ class PlayerPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(): bool
+    public function viewAny(User $user): bool
     {
         return true;
     }
 
-    public function view(): bool
+    public function view(User $user, Player $player): bool
     {
         return true;
     }
@@ -25,24 +26,17 @@ class PlayerPolicy
         return $this->returnAdminOrCaptain($user, $team);
     }
 
-    public function update(User $user, Team $team): bool
+    public function update(User $user, Player $player): bool
     {
-        return $this->returnAdminOrCaptain($user, $team);
+        if ($this->returnAdminOrCaptain($user, $player->team)) {
+            return true;
+        }
+        return $user->id === $player->user_id;
     }
 
-    public function delete(User $user, Team $team): bool
+    public function delete(User $user, Player $player): bool
     {
-        return $this->returnAdminOrCaptain($user, $team);
-    }
-
-    public function restore(User $user): bool
-    {
-        return $user->isAdmin();
-    }
-
-    public function forceDelete(User $user): bool
-    {
-        return $user->isAdmin();
+        return $this->returnAdminOrCaptain($user, $player->team);
     }
 
     private function returnAdminOrCaptain(User $user, Team $team): bool
