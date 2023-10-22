@@ -45,6 +45,13 @@ class Edit extends Component
         return view('livewire.players.edit');
     }
 
+    public function updatedUserFormName($value)
+    {
+        $this->validateOnly('user_form.name');
+        $this->user_form->name = Str::title($value);
+        $this->user_form->email = Str::lower(Str::snake($value, '-')) . '@puertopool.com';
+    }
+
     private function getPlayers()
     {
         $this->players = $this->team->players()->get()->sortBy('name')->sortByDesc('captain');
