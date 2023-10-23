@@ -8,9 +8,12 @@ trait WithCurrentCycle
 {
     public ?string $cycle;
 
+    public Season $season;
+
     public function mountWithCurrentCycle(): void
     {
         $this->cycle = $this->getCurrentCycle();
+        $this->season = $this->getCycle();
     }
 
     private function getCurrentCycle()
