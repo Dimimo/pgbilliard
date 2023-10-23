@@ -1,15 +1,12 @@
 <?php
 
-use function Livewire\Volt\
-{state, uses
-};
-use App\Livewire\WithHasAccess;
+use function Livewire\Volt\state;
 
 state(['team' => fn() => $team]);
 ?>
 <x-layout>
     @volt
-    <div>
+    <section>
         <x-title title="Edit the team <strong>{{$team->name}}</strong>"/>
         @can('update', $team)
             @can('create', $team)
@@ -23,6 +20,6 @@ state(['team' => fn() => $team]);
             <div class="text-red-700 text-xl">You don't have access to this page</div>
         @endcan
 
-    </div>
+    </section>
     @endvolt
 </x-layout>

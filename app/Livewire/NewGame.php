@@ -14,8 +14,6 @@ use Livewire\Component;
 
 class NewGame extends Component
 {
-    use WithHasAccess;
-
     public Date $date;
 
     public Event $event;
@@ -82,11 +80,9 @@ class NewGame extends Component
     public function store()
     {
         $this->validate();
-        if ($this->hasAccess) {
-            $this->event->exists ? $this->event->update() : $this->event->save();
-            $this->event = new Event(['pool_date_id' => $this->date->id]);
-            $this->date->refresh();
-        }
+        $this->event->exists ? $this->event->update() : $this->event->save();
+        $this->event = new Event(['pool_date_id' => $this->date->id]);
+        $this->date->refresh();
     }
 
     private function getDates(): Collection

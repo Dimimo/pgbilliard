@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class Teams extends Component
 {
-    use WithCurrentCycle, WithHasAccess;
+    use WithCurrentCycle;
 
     public Team $team;
 
