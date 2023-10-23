@@ -1,6 +1,6 @@
 <section>
     <x-title title="Claim an open user account"/>
-    <div class="border border-gray-500 p-4 mb-5">
+    <div class="border border-gray-500 p-4 mb-5 text-justify">
         <div class="text-2xl">What is this page about?</div>
         <p class="my-3">
             Because the database is rebuild from scratch, <strong>all players</strong> are linked to a <strong>user</strong>
@@ -10,7 +10,7 @@
         <p class="my-3">
             The list underneath is build up from the <i>old</i> database. Mainly, only <strong>captains</strong> are in the list.
             As a result, <strong>it is perfectly possible you are not in the list at all</strong>. Because in recent seasons,
-            we didn't add all the team players. You will recognize some player names from a distant past. For better or for worse.
+            we didn't add all the team players. You will recognize some player names from the past. For better or for worse.
             It's the way it is.
         </p>
         <p class="my-3">
@@ -18,7 +18,7 @@
             <strong>team you played for</strong>.
         </p>
         <p class="my-3">
-            <strong>User names have to be unique</strong>! For that reason alone, you should claim your account if are you in the list.
+            <strong>User names have to be unique!</strong> For that reason alone, you should claim your account if are you in the list.
             There can only be one Richard or one Ann. If you are twice in the list because of misspelling, <strong>claim one</strong> and
             <a class="border border-white font-semibold text-blue-700 hover:bg-blue-100 hover:border hover:border-blue-700"
                href="mailto:admin@puertopool.com?subject=[PuertoPool] Double account names">send me an email</a>
@@ -31,7 +31,7 @@
         </p>
         <p class="my-3">
             If you are listed, <strong>claim the account</strong>. <strong>Change your email address</strong>
-            <span class="text-red-700">(this is important, so your account is not listed anymore!)</span>
+            <span class="text-red-700">(this is important, so you can reset your password and receive notifications!)</span>
             and <strong>change your password</strong>. The current password is '<strong>secret</strong>' for all bogus accounts.
         </p>
         <p class="my-3">
@@ -50,9 +50,9 @@
             <tr>
                 <th class="p-2 text-left">Name</th>
                 <th class="p-2 text-left">Email address</th>
+                <th class="p-2 text-left">Claim</th>
                 <th class="p-2 text-left">Last game</th>
                 <th class="p-2 text-left">Last team</th>
-                <th class="p-2 text-left">Claim</th>
             </tr>
         </theader>
         <tbody class="whitespace-nowrap">
@@ -60,11 +60,18 @@
             <tr wire:key="{{ $user->id }}">
                 <td class="p-2">{{ $user->name }}</td>
                 <td class="p-2">{{ $user->email }}</td>
+                <td class="p-2">
+                    <a
+                        class="border border-white font-semibold text-blue-700 hover:bg-blue-100 hover:border hover:border-blue-700"
+                        href="/players/claim/{{ $user->id }}"
+                    >
+                        Claim...
+                    </a>
+                </td>
                 <td class="p-2">{{ $user->last_game->format('d-m-Y') }}</td>
                 <td class="p-2">
                     {{ $user->players()->orderByDesc('team_id')->first()->team->name }}
                 </td>
-                <td class="p-2">This is me!</td>
             </tr>
         @endforeach
         </tbody>
