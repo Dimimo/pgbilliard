@@ -100,14 +100,14 @@ class Venue extends Model
      */
     protected $hidden = [];
 
-    protected function contactName(): Attribute
+    protected function getContactName(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->owner ? $this->owner->name : $this->contact_name,
+            get: fn () => $this->owner ? ($this->owner->name ?: $this->contact_name) : $this->contact_name,
         );
     }
 
-    protected function contactNr(): Attribute
+    protected function getContactNr(): Attribute
     {
         return Attribute::make(
             get: fn () => $this->owner ? ($this->owner->contact_nr ?: $this->contact_nr) : $this->contact_nr,
