@@ -43,7 +43,7 @@ class Season extends Model
      *
      * @return HasMany<Team>
      */
-    public function team(): HasMany
+    public function teams(): HasMany
     {
         return $this->hasMany(Team::class);
     }
@@ -53,7 +53,7 @@ class Season extends Model
      *
      * @return HasMany<Team>
      */
-    public function date(): HasMany
+    public function dates(): HasMany
     {
         return $this->hasMany(Date::class);
     }
