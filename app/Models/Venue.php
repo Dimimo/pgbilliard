@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Database\Factories\VenueFactory;
 use Eloquent;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -98,6 +99,20 @@ class Venue extends Model
      * @var array<int, string>
      */
     protected $hidden = [];
+
+    protected function contactName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->owner ? $this->owner->name : $this->contact_name,
+        );
+    }
+
+    protected function contactNr(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->owner ? ($this->owner->contact_nr ?: $this->contact_nr) : $this->contact_nr,
+        );
+    }
 
     protected static function newFactory(): VenueFactory
     {
