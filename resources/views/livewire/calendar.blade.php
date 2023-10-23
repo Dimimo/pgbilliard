@@ -89,12 +89,12 @@
                             </table>
                         @else
                             <div class="border-b-2 border-x-2 border-green-500 bg-green-100/25 p-2">
-                                @if ($hasAccess)
+                                @can ('create', $date)
                                     There are no games yet, <a href="/dates/show/{{ $date->id }}">please create
                                         some</a> or <a href="admin/dates/list/edit">delete the date if this is an error</a>.
                                 @else
                                     There are no games yet. This is a placeholder. The teams will appear when the calendar is created.
-                                @endif
+                                @endcan
                             </div>
                         @endif
                     </div>

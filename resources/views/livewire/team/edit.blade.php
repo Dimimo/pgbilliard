@@ -1,5 +1,5 @@
-<div>
-    <div class="text-center my-4">
+<section>
+    <div class="text-center border-2 border-green-500 rounded-md p-4 my-4">
         <form wire:submit="team_save">
             <div class="grid justify-items-center gap-4">
                 <div>
@@ -40,5 +40,15 @@
                 </div>
             </div>
         </form>
+        @can ('update', $venue)
+            <a class="flex justify-end p-4" href="/venues/edit/{{  $team_form->team->venue->id }}" wire:navigate>
+                <div class="mr-2">
+                    <img src="{{ secure_asset('svg/pen-square.svg') }}" alt="" width="24" height="24">
+                </div>
+                <div class="text-blue-700">
+                    Edit the venue's details
+                </div>
+            </a>
+        @endcan
     </div>
-</div>
+</section>

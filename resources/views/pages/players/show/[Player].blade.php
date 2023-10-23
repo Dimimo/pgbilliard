@@ -1,3 +1,3 @@
 <div>
-    //
+    {{ dd($player) }}
 </div>
