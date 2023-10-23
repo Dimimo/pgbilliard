@@ -49,7 +49,7 @@ class Edit extends Component
     {
         $this->validateOnly('user_form.name');
         $this->user_form->name = Str::title($value);
-        $this->user_form->email = Str::lower(Str::snake($value, '-')) . '@puertopool.com';
+        $this->user_form->email = Str::lower(Str::snake($value, '-')).'@puertopool.com';
     }
 
     private function getPlayers()

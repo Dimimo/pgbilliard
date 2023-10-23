@@ -42,7 +42,6 @@ class UserForm extends Form
         'email.unique' => 'The email has to be unique',
     ];
 
-
     public function setUser(User $user)
     {
         $this->user = $user;

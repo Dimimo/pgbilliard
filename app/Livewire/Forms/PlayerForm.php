@@ -4,8 +4,8 @@ namespace App\Livewire\Forms;
 
 use App\Models\Player;
 use App\Models\Team;
-use Livewire\Form;
 use Illuminate\Validation\Rule as ValidationRule;
+use Livewire\Form;
 
 class PlayerForm extends Form
 {
