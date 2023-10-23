@@ -31,6 +31,7 @@ class PlayerPolicy
         if ($this->returnAdminOrCaptain($user, $player->team)) {
             return true;
         }
+
         return $user->id === $player->user_id;
     }
 

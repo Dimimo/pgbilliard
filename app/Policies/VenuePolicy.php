@@ -37,6 +37,7 @@ class VenuePolicy
         if ($venue->has('teams')) {
             return false;
         }
+
         return $user->isAdmin();
     }
 }
