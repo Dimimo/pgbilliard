@@ -8,6 +8,7 @@ use Illuminate\Support\Carbon;
 trait WithUsersSelect
 {
     public array $users;
+
     public string $carbon_sub = '20 years';
 
     public function MountWithUsersSelect(): void
