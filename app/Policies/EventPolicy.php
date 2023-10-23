@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\date;
+use App\Models\Event;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class DatePolicy
+class EventPolicy
 {
     use HandlesAuthorization;
 
@@ -30,8 +30,8 @@ class DatePolicy
         return $user->isAdmin();
     }
 
-    public function delete(User $user, date $dates): bool
+    public function delete(User $user, Event $event): bool
     {
-        return $user->isAdmin() && $dates->events->count() === 0;
+        return $user->isAdmin() && $event->score1 === null && $event->score2 === null;
     }
 }

@@ -10,12 +10,12 @@ class SeasonPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
+    public function viewAny(): bool
     {
         return true;
     }
 
-    public function view(User $user, Season $season): bool
+    public function view(): bool
     {
         return true;
     }
@@ -25,13 +25,13 @@ class SeasonPolicy
         return $user->isAdmin();
     }
 
-    public function update(User $user, Season $season): bool
+    public function update(User $user): bool
     {
         return $user->isAdmin();
     }
 
     public function delete(User $user, Season $season): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() && $season->teams()->count() === 0 && $season->dates()->count() === 0;
     }
 }
