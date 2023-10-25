@@ -1,29 +1,46 @@
 <div>
     <x-sub-title title="The players">
-        @foreach($players as $player)
-            <div class="grid grid-cols-8 w-full gap-4 p-4" wire:key="{{ $player->id }}">
-                <x-captain :player="$player"
-                           wire:click="toggleCaptain({{ $player->id }})"
-                           class=" cursor-pointer"
-                           :title="$player->captain ? 'Toggle to make a regular player' : 'Toggle to make a captain'"
-                />
-                <div>
-                    <img
-                        class="cursor-pointer" src="{{ secure_asset('svg/user-delete.svg') }}"
-                        title="Remove this user"
-                        alt=""
-                        width="24"
-                        height="24"
-                        wire:confirm="Are you sure you want to remove this player from the team?"
-                        wire:click="removePlayer({{ $player->id }})"
-                    >
+        <div>
+            @forelse($players as $player)
+                <div class="grid grid-cols-8 w-full gap-4 p-4" wire:key="{{ $player->id }}">
+                    <x-captain :player="$player"
+                               wire:click="toggleCaptain({{ $player->id }})"
+                               class=" cursor-pointer"
+                               :title="$player->captain ? 'Toggle to make a regular player' : 'Toggle to make a captain'"
+                    />
+                    <div>
+                        <img
+                            class="cursor-pointer" src="{{ secure_asset('svg/user-delete.svg') }}"
+                            title="Remove this user"
+                            alt=""
+                            width="24"
+                            height="24"
+                            wire:confirm="Are you sure you want to remove this player from the team?"
+                            wire:click="removePlayer({{ $player->id }})"
+                        >
+                    </div>
+                    <div class="col-span-3 text-xl">
+                        {{ $player->name }}
+                    </div>
+                    <div class="col-span-3 text-xl">{{ $player->contact_nr }}</div>
                 </div>
-                <div class="col-span-3 text-xl">
-                    {{ $player->name }}
-                </div>
-                <div class="col-span-3 text-xl">{{ $player->contact_nr }}</div>
+            @empty
+                <div class="text-xl text-center text-red-700 my-4">There are no players added to the team yet!</div>
+            @endforelse
+
+            <div class="block border border-green-400 bg-green-100 m-2 text-center text-lg font-semibold p-4">
+                <p>
+                    <span class="underline">Hint</span>: click on
+                    <img class="inline-block" alt="" src="{{ secure_asset('svg/user-circle.svg') }}" width="24px" height="24px">
+                    or <img class="inline-block" alt="" src="{{ secure_asset('svg/user-tie.svg') }}" width="24px" height="24px">
+                    to toggle the captain option.
+                </p>
+                <p>
+                    If the captain has no phone number, the contact number of the venue's owner is shown.
+                </p>
             </div>
-        @endforeach
+        </div>
+
     </x-sub-title>
 
     <x-sub-title title="Add a player to the team">
