@@ -25,6 +25,7 @@
                     @if(!$admin->super_admin && (Auth::user()->isSuperAdmin() || $admin->assigned_by === Auth::user()->id))
                         <button
                             type="button"
+                            title="Remove this administrator"
                             wire:click="removeAdmin({{ $admin->user_id }})"
                             wire:confirm="Do you want to remove this user as an administrator?"
                         >
@@ -59,6 +60,23 @@
                     @endforeach
                 </select>
             </div>
+        </div>
+        <div class="border border-green-500 bg-green-100 m-2 p-4 text-green-700">
+            <p class="p-1">
+                <u>It goes without saying</u>: <strong>please be careful</strong> who you choose to become an administrator.
+                They'll have the same powers as you!
+            </p>
+            <p class="p-1">
+                To remove an admin, simply click
+                <img class="inline-block align-text-top mt-1" src="{{ secure_asset('svg/user-delete.svg') }}" alt="" width="14" height="14">
+            </p>
+            <p class="p-1">
+                <u>Fun fact</u>: you can accidentally remove yourself... and you can't undo it! It gives you a warning though. Don't worry.
+            </p>
+            <p class="p-1">
+                For practical reasons, you can't remove the Administrator (user id 1).
+                Because, at least one person <strong>needs</strong> to be an admin...
+            </p>
         </div>
     </x-sub-title>
 </div>
