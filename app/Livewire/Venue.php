@@ -9,9 +9,12 @@ class Venue extends Component
 {
     public \App\Models\Venue $venue;
 
-    public function mount(\App\Models\Venue $venue)
+    public ?string $title = null;
+
+    public function mount(\App\Models\Venue $venue, $title)
     {
         $this->venue = $venue;
+        $this->title = $title;
     }
 
     public function render(): View

@@ -16,7 +16,7 @@ state(['venue' => fn() => $venue]);
             title="Details of the venue <strong>{{ $venue->name }}</strong>"
             subtitle="Season {{ $cycle }}"
         />
-        <livewire:venue :venue="$venue"/>
+        <livewire:venue :venue="$venue" :title="$venue->name"/>
 
         @foreach($venue->teams->where('season_id', $season->id)->sortBy('name') as $team)
             <x-sub-title title="Team {{ $team->name }}">

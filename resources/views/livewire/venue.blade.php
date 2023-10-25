@@ -1,6 +1,10 @@
 <section class="border-2 border-green-500 rounded-md p-4 my-4">
     <div class="my-2 text-center text-xl">
-        Plays at <strong>{{ $venue->name }}</strong>
+        @isset($title)
+            <strong>{!! $title !!}</strong>
+        @else
+            Plays at <strong>{{ $venue->name }}</strong>
+        @endisset
     </div>
     <div class="my-2 text-center text-xl">
         {{ $venue->address }}
