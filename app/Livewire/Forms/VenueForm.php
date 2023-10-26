@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Constants;
 use App\Models\User;
 use App\Models\Venue;
 use Livewire\Attributes\Rule;
@@ -13,7 +14,7 @@ class VenueForm extends Form
 
     public bool $show_name;
 
-    #[Rule(['required', 'min:2', 'max:24', 'unique:'.Venue::class.',name'])]
+    #[Rule(['required', 'min:2', 'max:'.Constants::VENUECHARS, 'unique:'.Venue::class.',name'])]
     public string $name;
 
     #[Rule(['nullable', 'exists:'.User::class.',id'])]
@@ -22,10 +23,10 @@ class VenueForm extends Form
     #[Rule(['required', 'string', 'max:120'])]
     public ?string $address;
 
-    #[Rule(['nullable', 'string'.'max:24'])]
+    #[Rule(['nullable', 'string'.'max:'.Constants::USERCHARS])]
     public ?string $contact_name;
 
-    #[Rule(['nullable', 'string', 'max:24'])]
+    #[Rule(['nullable', 'string', 'max:'.Constants::PHONECHARS])]
     public ?string $contact_nr;
 
     #[Rule(['nullable', 'string', 'max:255'])]
@@ -40,13 +41,13 @@ class VenueForm extends Form
     public $messages = [
         'name.required' => 'The venue needs a name',
         'name.min' => 'The name of a venue needs to be at least 2 characters long',
-        'name.max' => 'The name of a venue can not be longer than 24 characters',
+        'name.max' => 'The name of a venue can not be longer than '.Constants::VENUECHARS.' characters',
         'name.unique' => 'This name already exists. Needs to be unique.',
         'address.required' => 'Please provide at least some description how to find the venue',
         'address.string' => 'An address has to alphanumerical',
         'address.max' => 'Please limit the address to 120 characters',
-        'contact_name.max' => 'The contact name can not be longer than 24 characters',
-        'contact_nr.max' => 'The contact number can not be longer than 24 characters',
+        'contact_name.max' => 'The contact name can not be longer than '.Constants::USERCHARS.' characters',
+        'contact_nr.max' => 'The contact number can not be longer than '.Constants::PHONECHARS.' characters',
         'lat.regex' => 'Please provide an existing latitude expressed in a decimal number',
         'lng.regex' => 'Please provide an existing latitude expressed in a decimal number',
     ];

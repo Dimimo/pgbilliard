@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Constants;
 use App\Models\Team;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
@@ -10,16 +11,16 @@ class TeamForm extends Form
 {
     public ?Team $team;
 
-    #[Rule('required|min:2|max:16')]
+    #[Rule(['required', 'min:2', 'max:'.Constants::TEAMCHARS])]
     public string $name;
 
-    #[Rule('required|exists:App\Models\Venue,id')]
+    #[Rule(['required', 'exists:App\Models\Venue,id'])]
     public int $venue_id;
 
-    #[Rule('required|exists:App\Models\Season,id')]
+    #[Rule(['required', 'exists:App\Models\Season,id'])]
     public int $season_id;
 
-    #[Rule('nullable|text')]
+    #[Rule(['nullable', 'text'])]
     public ?string $remark;
 
     public function setTeam(Team $team)
