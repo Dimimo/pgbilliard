@@ -1,8 +1,8 @@
 <x-layout>
     @volt
-    <div>
+    <section>
         <x-title title="Overview of administrators" />
         <livewire:admin.overview />
-    </div>
+    </section>
     @endvolt
 </x-layout>
