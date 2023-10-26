@@ -23,6 +23,13 @@ class Venue extends Component
         return view('livewire.admin.venue');
     }
 
+    public function updated($name, $value)
+    {
+        if ($name == 'venue_form.user_id') {
+            $this->venue_form->show_name = ! $value;
+        }
+    }
+
     public function save()
     {
         $this->venue_form->update();

@@ -56,19 +56,19 @@ class VenueForm extends Form
         $this->venue = $venue;
         $this->name = $venue->name;
         $this->user_id = $venue->user_id;
+        $this->show_name = ! $this->user_id;
         $this->address = $venue->address;
         $this->contact_name = $venue->contact_name;
         $this->contact_nr = $venue->contact_nr;
         $this->remark = $venue->remark;
         $this->lat = $venue->lat;
         $this->lng = $venue->lng;
-        $this->show_name = true;
     }
 
-    public function store()
+    public function create()
     {
         $this->validate();
-        Venue::create($this->only(['name', 'user_id', 'address', 'contact_nr', 'contact_name', 'remark', 'lat', 'lng']));
+        $this->venue = $this->venue->create($this->all());
     }
 
     public function update()
@@ -76,11 +76,5 @@ class VenueForm extends Form
         $this->validate();
         $this->venue->update($this->all());
         $this->venue->refresh();
-    }
-
-    public function create()
-    {
-        $this->validate();
-        $this->venue = $this->venue->create($this->all());
     }
 }
