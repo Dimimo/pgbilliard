@@ -32,22 +32,22 @@
         <x-sub-title title='Seasons <span class="text-sm text-gray-700">(puertoparrot database)</span>'>
             <div class="grid grid-cols-8">
                 @foreach($seasons as $season)
-                @if ($season->done)
-                    <div
-                        class="border border-blue-600 p-2 bg-green-500 text-center cursor-default"
-                        wire:key="{{ $season->cycle }}"
-                    >
-                        {{ $season->cycle }}
-                    </div>
-                @else
-                    <div
-                        class="border border-blue-600 p-2 text-center cursor-pointer"
-                        wire:key="{{ $season->cycle }}"
-                        wire:click="getDates('{{ $season->cycle }}')"
-                    >
-                        {{ $season->cycle }}
-                    </div>
-                @endif
+                    @if ($season->done)
+                        <div
+                            class="border border-blue-600 p-2 bg-green-500 text-center cursor-default"
+                            wire:key="{{ $season->cycle }}"
+                        >
+                            {{ $season->cycle }}
+                        </div>
+                    @else
+                        <div
+                            class="border border-blue-600 p-2 text-center cursor-pointer"
+                            wire:key="{{ $season->cycle }}"
+                            wire:click="getDates('{{ $season->cycle }}')"
+                        >
+                            {{ $season->cycle }}
+                        </div>
+                    @endif
                 @endforeach
             </div>
         </x-sub-title>
