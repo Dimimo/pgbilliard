@@ -2,19 +2,17 @@
 
 namespace App\Livewire;
 
+use App\Models\Venue as VenueModel;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class Venue extends Component
 {
-    public \App\Models\Venue $venue;
+    public VenueModel $venue;
 
-    public ?string $title = null;
-
-    public function mount(\App\Models\Venue $venue, $title)
+    public function mount(VenueModel $venue)
     {
         $this->venue = $venue;
-        $this->title = $title;
     }
 
     public function render(): View
