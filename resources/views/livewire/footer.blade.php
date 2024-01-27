@@ -1,4 +1,4 @@
-    <div class="border-2 border-gray-300 bg-gray-50 text-center p-2 mt-4">
+    <div class="border-2 border-gray-300 bg-gray-50 text-center p-4 my-12">
         <div class="text-4xl">Disclaimer</div>
         <p>
             This website is mainly for statistics. The data you see should be correct.<br>
