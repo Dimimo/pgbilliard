@@ -2,26 +2,22 @@
 
 namespace App\Livewire\Admin;
 
+use App\Livewire\WithAdmins;
 use App\Livewire\WithUsersSelect;
 use App\Models\Admin;
 use Auth;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
 class Overview extends Component
 {
-    use WithUsersSelect;
-
-    public Collection $admins;
-
-    public array $ids;
+    use WithAdmins, WithUsersSelect;
 
     public ?int $user_id = null;
 
     public function mount()
     {
-        $this->loadVars();
+        $this->user_id = null;
     }
 
     public function render(): View
@@ -31,8 +27,7 @@ class Overview extends Component
 
     private function loadVars()
     {
-        $this->admins = Admin::all();
-        $this->ids = $this->admins->pluck('user_id')->toArray();
+        $this->loadAdmins();
         $this->user_id = null;
     }
 
