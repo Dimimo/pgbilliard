@@ -9,8 +9,6 @@
     <meta name="copyright" content="&copy; &reg; {{ date("Y") }} Puerto Galera Pool League">
     <meta name="description" content="Puerto Galera Pool League">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    {{--<link rel="stylesheet" href="{{ secure_asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ secure_asset('css/fontawesome-all.min.css') }}">--}}
     <link rel="stylesheet" href="{{ secure_asset('build/fonts/roboto/roboto.css') }}">
 
     @stack('css')
@@ -78,10 +76,7 @@
     </div>
 </div>
 
-{{-- Start script --}}
-{{--<script src="{{ secure_asset("js/jquery.min.js") }}"></script>--}}
-{{--<script src="{{ secure_asset("js/bootstrap.js") }}" defer></script>--}}
-
+{{-- Begin script --}}
 @stack('js')
 
 <script>
