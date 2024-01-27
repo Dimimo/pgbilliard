@@ -64,7 +64,7 @@ class Edit extends Component
         $this->occupied_players = User::whereIn('id', $players)->pluck('name')->toArray();
     }
 
-    private function setPlayerForm(int $user_id = null)
+    private function setPlayerForm(?int $user_id = null)
     {
         $this->player_form->setPlayer(new Player([
             'captain' => 0,
