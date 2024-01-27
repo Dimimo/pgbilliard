@@ -6,10 +6,9 @@ state(['team' => fn() => $team]);
 ?>
 <x-layout>
     @volt
-    <div>
-        <x-title title="Details of <strong>{{ $team->name }}</strong>">
-            <livewire:venue :venue="$team->venue"/>
-        </x-title>
+    <section>
+        <x-title title="Details of <strong>{{ $team->name }}</strong>"/>
+        <livewire:venue :venue="$team->venue"/>
 
         <x-sub-title title="Players">
             <livewire:players.overview :team="$team"/>
@@ -18,6 +17,6 @@ state(['team' => fn() => $team]);
         <x-sub-title title="The playing schedule of {{ $team->name }}">
             <livewire:players.schedule :team="$team"/>
         </x-sub-title>
-    </div>
+    </section>
     @endvolt
 </x-layout>

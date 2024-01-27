@@ -106,6 +106,11 @@ class Team extends Model
         return $this->players()->where('captain', '1')->get()->first();
     }
 
+    public function getUserIdAttribute()
+    {
+        return $this->captain()?->user_id;
+    }
+
     public function hasGames(): bool
     {
         return $this->team_1()->count() || $this->team_2()->count();
