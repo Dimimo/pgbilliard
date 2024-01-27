@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use App\Models\Player;
 use App\Models\Team;
+use Auth;
 use Illuminate\Validation\Rule as ValidationRule;
 use Livewire\Form;
 
@@ -21,7 +22,7 @@ class PlayerForm extends Form
     {
         return [
             'captain' => 'bool',
-            'user_id' => ValidationRule::unique('users')->ignore(\Auth::id()),
+            'user_id' => ValidationRule::unique('users')->ignore(Auth::id()),
             'team_id' => 'required|exists:'.Team::class,
         ];
     }
@@ -38,9 +39,9 @@ class PlayerForm extends Form
     public function setPlayer(Player $player)
     {
         $this->player = $player;
-        $this->captain = $this->player->captain;
-        $this->user_id = $this->player->user_id;
-        $this->team_id = $this->player->team_id;
+        $this->captain = $player->captain;
+        $this->user_id = $player->user_id;
+        $this->team_id = $player->team_id;
     }
 
     public function store()
@@ -51,8 +52,8 @@ class PlayerForm extends Form
 
     public function update()
     {
-        $this->validate();
-        $this->player->update($this->all());
+        $validated = $this->validate();
+        $this->player->update($validated);
         $this->player->refresh();
     }
 }

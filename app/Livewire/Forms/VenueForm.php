@@ -68,14 +68,14 @@ class VenueForm extends Form
 
     public function create()
     {
-        $this->validate();
-        $this->venue = $this->venue->create($this->all());
+        $validated = $this->validate();
+        $this->venue = $this->venue->create($validated);
     }
 
     public function update()
     {
-        $this->validate();
-        $this->venue->update($this->all());
+        $validated = $this->validate();
+        $this->venue->update($validated);
         $this->venue->refresh();
     }
 }
