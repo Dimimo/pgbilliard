@@ -11,16 +11,16 @@ class UserForm extends Form
 {
     public User $user;
 
-    #[Rule(['required', 'string', 'min:2', 'max:'.Constants::USERCHARS, 'unique:'.User::class.',name'])]
+    #[Rule(['sometimes', 'alpha_dash', 'min:2', 'max:'.Constants::USERCHARS, 'unique:'.User::class.',name'])]
     public $name = '';
 
     #[Rule(['required', 'email', 'max:254', 'unique:'.User::class.',email'])]
     public $email = '';
 
-    #[Rule('nullable', 'max:'.Constants::PHONECHARS)]
+    #[Rule(['nullable', 'max:'.Constants::PHONECHARS])]
     public ?string $contact_nr;
 
-    #[Rule('nullable', 'string')]
+    #[Rule(['nullable', 'string'])]
     public ?string $gender;
 
     #[Rule(['nullable', 'date'])]
@@ -33,9 +33,9 @@ class UserForm extends Form
     public $password;
 
     public $messages = [
-        'name.required' => 'A name is required',
-        'name.unique' => 'A name has to be unique',
-        'name.string' => 'A name needs to be a regular string',
+        //        'name.required' => 'A name is required',
+        'name.unique' => 'This username already exists',
+        'name.alpha_dash' => 'A name needs to be alpha-numeric, dashes (-) and underscores (_) allowed',
         'name.min' => 'A name needs at least 2 characters',
         'name.max' => 'A name can not be longer than '.Constants::PHONECHARS.' characters',
         'email.required' => 'A valid email address is required',
