@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants;
 use Database\Factories\DateFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -42,8 +43,6 @@ use Illuminate\Support\Carbon;
  *
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
- *
- * @mixin IdeHelperDate
  */
 class Date extends Model
 {
@@ -94,8 +93,8 @@ class Date extends Model
     public function checkIfGuestHasWritableAccess(): bool
     {
         $now = Carbon::now();
-        $begin = $this->date->format('Y-m-d 12:00:00');
-        $end = $this->date->format('Y-m-d 20:00:00');
+        $begin = $this->date->format(Constants::DATEFORMAT_START);
+        $end = $this->date->format(Constants::DATEFORMAT_END);
 
         return $now->between($begin, $end);
     }

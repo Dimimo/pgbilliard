@@ -29,8 +29,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
- *
- * @mixin IdeHelperSeason
  */
 class Season extends Model
 {

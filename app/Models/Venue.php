@@ -50,8 +50,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
- *
- * @mixin IdeHelperVenue
  */
 class Venue extends Model
 {

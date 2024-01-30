@@ -42,8 +42,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
- *
- * @mixin IdeHelperPlayer
  */
 class Player extends Model
 {

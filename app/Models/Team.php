@@ -44,8 +44,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
- *
- * @mixin IdeHelperTeam
  */
 class Team extends Model
 {

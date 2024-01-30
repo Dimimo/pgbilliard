@@ -44,8 +44,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
- *
- * @mixin IdeHelperEvent
  */
 class Event extends Model
 {

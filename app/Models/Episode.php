@@ -14,9 +14,6 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  *
  * @noinspection PhpFullyQualifiedNameUsageInspection
- * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
- *
- * @mixin IdeHelperEpisode
  */
 class Episode extends Model
 {

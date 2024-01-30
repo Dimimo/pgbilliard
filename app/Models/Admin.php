@@ -35,8 +35,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
- *
- * @mixin IdeHelperAdmin
  */
 class Admin extends Model
 {
