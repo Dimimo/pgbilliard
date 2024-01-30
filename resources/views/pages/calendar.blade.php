@@ -1,3 +1,8 @@
+<?php
+//use function Livewire\Volt\uses;
+
+//uses([\App\Livewire\WithHasAccess::class])
+?>
 <x-layout>
     @volt
     <div>

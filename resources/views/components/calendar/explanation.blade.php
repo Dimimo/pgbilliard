@@ -1,21 +1,41 @@
-<div class="text-2xl">How does it work?</div>
-<div class="my-2">
-    When you created this new Season, a starting date and day of week, the first date has
-    been created ({{ $dates->first()->date->format('Y-m-d') }}). Your starting point. Here
-    you can fill in the games.
-</div>
+@if(str_contains(URL::current(), 'calendar/update'))
+    @php
+        $new = false;
+    @endphp
+@else
+    @php
+        $new = true;
+    @endphp
+@endif
 
-<div class="text-2xl">Create a game</div>
-<div class="my-2">
-    Just make sure you are working on the correct date. The blue title and the 'Playing date'
-    dropdown list shows you. On the right you will see an overview of the whole calendar you
-    are creating. Only the <strong>teams</strong> are needed. The <strong>venue</strong> is
-    automatically selected.
-</div>
+@if($new)
+    <div class="text-2xl">How does it work?</div>
+    <div class="my-2">
+        When you created this new Season, a starting date and day of week, the first date has
+        been created ({{ $dates->first()->date->format('Y-m-d') }}). Your starting point. Here
+        you can fill in the games.
+    </div>
+
+    <div class="text-2xl">Create a game</div>
+    <div class="my-2">
+        Just make sure you are working on the correct date. The blue title and the 'Playing date'
+        dropdown list shows you. On the right you will see an overview of the whole calendar you
+        are creating. Only the <strong>teams</strong> are needed. The <strong>venue</strong> is
+        automatically selected.
+    </div>
+
+@else
+    <div class="text-2xl">Update an existing game</div>
+    <div class="my-2">
+        Make sure you select the correct playing date first. Games of a past date cannot be updated or
+        deleted.
+    </div>
+@endif
+
 
 <div class="text-2xl">Delete a game</div>
 <div class="my-2">
-    If you make a mistake, don't worry. Games on a selected date can be deleted and recreated.
+    If you made a mistake, don't worry. Games on a selected date can be deleted and recreated.
     Games that already happened can not be deleted. Not even by Dimitri. It is the past.
 </div>
 
