@@ -22,7 +22,10 @@
                     <div class="col-span-3 text-xl">
                         {{ $player->name }}
                     </div>
-                    <div class="col-span-3 text-xl">{{ $player->contact_nr }}</div>
+                    <div class="col-span-2 text-xl">{{ $player->contact_nr }}</div>
+                    <div class="">
+                        <img class="float-right" src="{{ secure_asset('svg/pen-square.svg') }}" alt="" width="24" height="24">
+                    </div>
                 </div>
             @empty
                 <div class="text-xl text-center text-red-700 my-4">There are no players added to the team yet!</div>
@@ -34,6 +37,14 @@
                     <img class="inline-block" alt="" src="{{ secure_asset('svg/user-circle.svg') }}" width="24px" height="24px">
                     or <img class="inline-block" alt="" src="{{ secure_asset('svg/user-tie.svg') }}" width="24px" height="24px">
                     to toggle the captain option.
+                </p>
+                <p>
+                    Click on <img
+                        class="inline-block" src="{{ secure_asset('svg/user-delete.svg') }}"
+                        title="Remove this user"
+                        alt=""
+                        width="24"
+                        height="24" /> will remove the player. A warning is given but it's easy to reassign any player.
                 </p>
                 <p>
                     If the captain has no phone number, the contact number of the venue's owner is shown.
@@ -61,6 +72,10 @@
                     {{ count(array_diff($users, $occupied_players)) }} users
                 </x-action-message>
             </div>
+        </div>
+
+        <div class="flex justify-center p-2 text-sm text-gray-500 italic">
+            If the player you are looking for is not in the list, (s)he is probably assigned to another team or is new.
         </div>
 
         <div class="flex justify-center items-center">
@@ -97,7 +112,7 @@
                     <label class="mr-2" for="user_form.email">Email</label>
                     <input id="user_form.email" type="text" wire:model="user_form.email">
                     <div class="text-sm text-gray-500 italic">
-                        An email is auto generated, the password is '<strong>secret</strong>'
+                        If you don't have the person's email, it is auto generated, the password is '<strong>secret</strong>'
                     </div>
                     <div>
                         @error('user_form.email') <span class="text-red-700">{{ $message }}</span> @enderror
