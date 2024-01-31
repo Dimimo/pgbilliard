@@ -11,17 +11,18 @@ class DateForm extends Form
 {
     public Date $pool_date;
 
-    #[Validate('required|date')]
+    #[Validate(['required', 'date'])]
     public Carbon $date;
 
-    #[Validate('required|boolean')]
+    #[Validate(['required', 'boolean'])]
     public bool $regular = false;
 
-    #[Validate('nullable|string')]
+    #[Validate('nullable')]
+    #[Validate('string', message: 'Only string values allowed')]
     #[Validate('max:20', message: 'Max 20 chars')]
     public ?string $title;
 
-    #[Validate('nullable|max:100')]
+    #[Validate(['nullable', 'max:100'])]
     public ?string $remark;
 
     public function setDate(Date $date)

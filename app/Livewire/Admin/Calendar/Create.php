@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Calendar;
 
+use App\Livewire\Forms\DateForm;
 use App\Livewire\Forms\EventForm;
 use App\Models\Date;
 use App\Models\Event;
@@ -24,6 +25,8 @@ class Create extends Component
 
     public Date $last_date;
 
+    public DateForm $dateForm;
+
     public Collection $teams;
 
     public Collection $venues;
@@ -31,7 +34,6 @@ class Create extends Component
     public function mount(Season $season)
     {
         $this->season = $season;
-        $this->dates = Date::whereSeasonId($season->id)->orderBy('date')->get();
         $this->getFirstEvent();
         $this->teams = Team::whereSeasonId($season->id)->orderBy('name')->get();
         $venue_ids = Team::whereSeasonId($season->id)->get()->unique('venue_id')->pluck('venue_id')->toArray();
@@ -47,11 +49,20 @@ class Create extends Component
     {
         if ($name === 'event.date_id' && $value) {
             $this->last_date = Date::find($value);
+            $this->dateForm->setDate($this->last_date);
             $this->events = $this->last_date->events;
             $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
         } elseif ($name === 'event.team1') {
             $team = Team::find($value);
             $this->event->venue_id = $team?->venue_id;
+        } elseif ($name === 'dateForm.regular') {
+            $this->dateForm->regular = $value ? 1 : 0;
+            $this->dateForm->update();
+            $this->last_date->refresh();
+        } elseif ($name === 'dateForm.title') {
+            $this->dateForm->title = $value;
+            $this->dateForm->update();
+            $this->last_date->refresh();
         }
     }
 
@@ -68,13 +79,12 @@ class Create extends Component
     {
         // first make sure it is set at the latest day to avoid doubles
         $this->last_date = $this->dates->last();
-
         // add a week and save it, refresh dates and events
         $next_week = $this->last_date->date->addWeek();
-        $this->last_date = Date::create(['season_id' => $this->season->id, 'date' => $next_week]);
+        $this->last_date = Date::create(['season_id' => $this->season->id, 'date' => $next_week, 'regular' => 0]);
+        $this->dateForm->setDate($this->last_date);
         $this->dates = Date::whereSeasonId($this->season->id)->orderBy('date')->get();
         $this->events = $this->last_date->events;
-
         // prepare the field for the next game
         $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
     }
@@ -86,9 +96,20 @@ class Create extends Component
         $this->events = $this->last_date->events;
     }
 
+    public function removeDate($date_id)
+    {
+        $this->last_date = Date::find($date_id);
+        if ($this->last_date->events()->count() == 0) {
+            $this->last_date->delete();
+            $this->getFirstEvent();
+        }
+    }
+
     private function getFirstEvent()
     {
+        $this->dates = Date::whereSeasonId($this->season->id)->orderBy('date')->get();
         $this->last_date = $this->dates->last();
+        $this->dateForm->setDate($this->last_date);
         $this->events = $this->last_date->events;
         $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
     }
@@ -98,6 +119,11 @@ class Create extends Component
         // make sure the first playing date games are set to 0-0
         $date_id = $this->dates->first()->id;
         Event::whereDateId($date_id)->update(['score1' => 0, 'score2' => 0]);
-        $this->redirect('/index', navigate: true);
+        $this->redirect('/calendar', navigate: true);
+    }
+
+    public function continueToCalendar()
+    {
+        $this->redirect('/calendar', navigate: true);
     }
 }
