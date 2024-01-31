@@ -1,6 +1,15 @@
+@if(str_contains(URL::current(), 'calendar/update'))
+    @php
+        $new = false;
+    @endphp
+@else
+    @php
+        $new = true;
+    @endphp
+@endif
 <div>
     <div class="border border-green-500 bg-green-100 p-4 m-2">
-        <x-calendar.explanation :dates="$dates" />
+        <x-calendar.explanation :dates="$dates" :new="$new" />
     </div>
     <div class="border border-gray-500 mx-2 my-4">
         <div class="relative flex flex-col">
@@ -32,7 +41,7 @@
                             </x-calendar.venue-choice>
                         </div>
 
-                        <div class="flex justify-between w-full border border-blue-600 border-2 rounded-md p-2 mb-4">
+                        {{--<div class="flex justify-between w-full border border-blue-600 border-2 rounded-md p-2 mb-4">
                             <x-calendar.team-score scoreNr="score1">
                                 The score of Team 1 <span class="text-gray-700">(optional)</span>
                             </x-calendar.team-score>
@@ -40,7 +49,7 @@
                             <x-calendar.team-score scoreNr="score2">
                                 The score of Team 2 <span class="text-gray-700">(optional)</span>
                             </x-calendar.team-score>
-                        </div>
+                        </div>--}}
 
                         <div class="block">
                             <x-primary-button>Create this game</x-primary-button>
@@ -50,11 +59,20 @@
                                 Game saved!
                             </x-action-message>
 
-                            <div class="mt-8">
-                                <x-secondary-button wire:click="concludeSeason">
-                                    The new Season is created
-                                </x-secondary-button>
-                            </div>
+                            @if($new === true)
+                                <div class="mt-8">
+                                    <x-secondary-button wire:click="concludeSeason">
+                                        The new Season is created
+                                    </x-secondary-button>
+                                </div>
+                            @else
+                                <div class="mt-8">
+                                    <x-secondary-button wire:click="continueToCalendar">
+                                        Continue to the Calendar overview
+                                    </x-secondary-button>
+                                </div>
+                            @endif
+
                         </div>
                     </form>
                 </div>
