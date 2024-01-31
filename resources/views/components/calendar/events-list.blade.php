@@ -1,8 +1,12 @@
 @props(['events', 'dates', 'last_date'])
 
-<div class="block text-lg text-blue-700 ml-4">{{ $last_date->date->format('Y-m-d') }}</div>
+<div class="block text-lg text-blue-900 ml-4">{{ $last_date->date->format('Y-m-d') }}</div>
+@if($last_date->title)
+    <div class="block text-blue-700 ml-4">{{ $last_date->title }}</div>
+@endif
 <div class="flex flex-col">
     @forelse($events as $event)
+
         <div class="inline-block">
             @if ($event->date->date->isAfter(now()))
                 <img
@@ -16,8 +20,21 @@
             @endif
             {{ $event->team_1->name }} - {{ $event->team_2->name }}
         </div>
+
     @empty
-        <div class="inline-block">(no games yet)</div>
+
+        <div class="inline-block">
+            (no games yet)
+            <img
+                class="inline-block button cursor-pointer px-2"
+                src="{{ secure_asset('svg/delete-item.svg') }}"
+                alt="Delete this date"
+                width="35"
+                height="35"
+                wire:click="removeDate({{ $last_date->id }})"
+                wire:confirm="Delete this date?"
+            >
+        </div>
     @endforelse
 </div>
 
@@ -30,14 +47,29 @@
 @forelse($dates as $date)
     @if($date->id !== $last_date->id)
         <div class="block text-lg text-green-700 ml-4">{{ $date->date->format('Y-m-d') }}</div>
+        @if($date->title)
+            <div class="block text-green-600 ml-4">{{ $date->title }}</div>
+        @endif
         <div class="flex flex-col mb-4">
             @forelse($date->events as $event)
                 <div class="inline-block">
                     {{ $event->team_1->name }} - {{ $event->team_2->name }}
                 </div>
             @empty
-                <div class="inline-block">(no games yet)</div>
+                <div class="inline-block">
+                    (no games yet)
+                    <img
+                        class="inline-block button cursor-pointer px-2"
+                        src="{{ secure_asset('svg/delete-item.svg') }}"
+                        alt="Delete this date"
+                        width="35"
+                        height="35"
+                        wire:click="removeDate({{ $date->id }})"
+                        wire:confirm="Delete this date?"
+                    >
+                </div>
             @endforelse
+
         </div>
     @endif
 @empty
