@@ -1,5 +1,6 @@
 <?php
 
+use App\Constants;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -13,6 +14,7 @@ layout('layouts.guest');
 
 state([
     'name' => '',
+    'contact_nr' => '',
     'email' => '',
     'password' => '',
     'password_confirmation' => ''
@@ -20,6 +22,7 @@ state([
 
 rules([
     'name' => ['required', 'string', 'max:255', 'unique:'.User::class],
+    'contact_nr' => ['nullable', 'max:'.Constants::PHONECHARS],
     'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
     'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
 ]);
@@ -45,6 +48,15 @@ $register = function () {
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input wire:model="name" id="name" class="block mt-1 w-full" type="text" name="name" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        </div>
+
+        <!-- Contact Number -->
+        <div class="mt-4">
+            <x-input-label for="contact_nr">
+                Contact Number <span class="text-sm text-gray-700">(optional)</span>
+            </x-input-label>
+            <x-text-input wire:model="contact_nr" id="contact_nr" class="block mt-1 w-full" type="text" name="contact_nr" required autofocus autocomplete="contact_nr" />
+            <x-input-error :messages="$errors->get('contact_nr')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
