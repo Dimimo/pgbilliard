@@ -54,7 +54,8 @@ class EventForm extends Form
 
     public function update()
     {
-        $this->event->update($this->validate());
+        $this->validate();
+        $this->event->update($this->only(['score1', 'score2']));
         $this->event->refresh();
     }
 }
