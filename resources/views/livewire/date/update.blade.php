@@ -33,10 +33,72 @@
                         {{ $event->team_2->name }}
                     </td>
                     <td class="p-4 text-center">
-                        <x-text-input size="2" maxlength="2" wire:model.blur="date.events.{{ $key }}.score1"/>
+                        @can('update', $event)
+                            <div class="flex flex-row my-2">
+                                <div>
+                                    <x-text-input size="2" maxlength="2" wire:model="date.events.{{ $key }}.score1"/>
+                                </div>
+                                <div class="flex flex-col ml-2">
+                                    <div>
+                                        <img
+                                            class="cursor-pointer"
+                                            src="{{ secure_asset('svg/plus-box-fill.svg') }}"
+                                            alt=""
+                                            title="Add one game"
+                                            width="20"
+                                            height="20"
+                                            wire:click="addOneGameScore1({{ $event->id }})"
+                                        >
+                                    </div>
+                                    <div>
+                                        <img
+                                            class="cursor-pointer"
+                                            src="{{ secure_asset('svg/minus-box-fill.svg') }}"
+                                            alt=""
+                                            title="Minus one game"
+                                            width="20"
+                                            height="20"
+                                            wire:click="minusOneGameScore1({{ $event->id }})"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            {{ $event->score1 }} - {{ $event->score2 }}
+                        @endcan
                     </td>
                     <td class="p-4 text-center">
-                        <x-text-input size="2" maxlength="2" wire:model.blur="date.events.{{ $key }}.score2"/>
+                        @can('update', $event)
+                            <div class="flex flex-row my-2">
+                                <div>
+                                    <x-text-input size="2" maxlength="2" wire:model.blur="date.events.{{ $key }}.score2"/>
+                                </div>
+                                <div class="flex flex-col ml-2">
+                                    <div>
+                                        <img
+                                            class="cursor-pointer"
+                                            src="{{ secure_asset('svg/plus-box-fill.svg') }}"
+                                            alt=""
+                                            title="Add one game"
+                                            width="20"
+                                            height="20"
+                                            wire:click="addOneGameScore2({{ $event->id }})"
+                                        >
+                                    </div>
+                                    <div>
+                                        <img
+                                            class="cursor-pointer"
+                                            src="{{ secure_asset('svg/minus-box-fill.svg') }}"
+                                            alt=""
+                                            title="Minus one game"
+                                            width="20"
+                                            height="20"
+                                            wire:click="minusOneGameScore2({{ $event->id }})"
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                        @endcan
                     </td>
                     <td class="p-4 text-left">{{ $event->venue->name }}</td>
                 </tr>
