@@ -96,6 +96,12 @@ class Event extends Model
         return EventFactory::new();
     }
 
+    public function playerBelongsToEvent(User $user): bool
+    {
+        return $this->team_1->players()->whereUserId($user->id)->count()
+                || $this->team_2->players()->whereUserId($user->id)->count();
+    }
+
     /**
      * An event belongs to a date
      *

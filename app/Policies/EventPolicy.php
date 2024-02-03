@@ -25,9 +25,9 @@ class EventPolicy
         return $user->isAdmin();
     }
 
-    public function update(User $user): bool
+    public function update(User $user, Event $event): bool
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || ($event->date->checkIfGuestHasWritableAccess() && $event->playerBelongsToEvent($user));
     }
 
     public function delete(User $user, Event $event): bool
