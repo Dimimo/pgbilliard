@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Episode newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Episode query()
  *
- * @mixin \Eloquent
- *
  * @noinspection PhpFullyQualifiedNameUsageInspection
+ *
+ * @mixin \Eloquent
  */
 class Episode extends Model
 {

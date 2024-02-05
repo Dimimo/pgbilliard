@@ -39,10 +39,10 @@ use Illuminate\Support\Carbon;
  * @method static \Illuminate\Database\Eloquent\Builder|Date whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Date whereUpdatedAt($value)
  *
- * @mixin Eloquent
- *
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+ *
+ * @mixin Eloquent
  */
 class Date extends Model
 {

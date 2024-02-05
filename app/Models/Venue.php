@@ -46,10 +46,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Venue whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Venue whereUserId($value)
  *
- * @mixin Eloquent
- *
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+ *
+ * @mixin Eloquent
  */
 class Venue extends Model
 {

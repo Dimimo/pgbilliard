@@ -25,10 +25,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Season whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Season whereUpdatedAt($value)
  *
- * @mixin \Eloquent
- *
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Date> $dates
+ * @property-read int|null $dates_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $teams
+ * @property-read int|null $teams_count
+ *
+ * @mixin \Eloquent
  */
 class Season extends Model
 {

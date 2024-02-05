@@ -40,10 +40,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Team whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Team whereVenueId($value)
  *
- * @mixin Eloquent
- *
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+ *
+ * @property-read mixed $user_id
+ *
+ * @mixin Eloquent
  */
 class Team extends Model
 {

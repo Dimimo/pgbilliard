@@ -31,10 +31,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Admin whereUserId($value)
  *
- * @mixin Eloquent
- *
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+ *
+ * @mixin Eloquent
  */
 class Admin extends Model
 {

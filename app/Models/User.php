@@ -44,10 +44,18 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  *
- * @mixin \Eloquent
- *
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+ *
+ * @property string|null $contact_nr
+ * @property string $gender
+ * @property \Illuminate\Support\Carbon|null $last_game
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereContactNr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGender($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereLastGame($value)
+ *
+ * @mixin \Eloquent
  */
 class User extends Authenticatable
 {

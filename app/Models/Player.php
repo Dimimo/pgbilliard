@@ -38,10 +38,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Player whereUserId($value)
  *
- * @mixin Eloquent
- *
  * @noinspection PhpFullyQualifiedNameUsageInspection
  * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+ *
+ * @mixin Eloquent
  */
 class Player extends Model
 {
