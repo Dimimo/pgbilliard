@@ -1,9 +1,8 @@
-@extends('layouts.app')
-@section('content')
-    <div class="container">
+<x-layout>
+    <div class="container mx-auto sm:px-4">
 
         @if (session('laravel-forum-status'))
-            <div class="alert alert-success">
+            <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800">
 
                 {{ session('laravel-forum-status') }}
             </div>
@@ -12,7 +11,7 @@
         <div>
             <a href="{{route('forum.tags.create')}}">New</a>
         </div>
-        <table class="table table-striped">
+        <table class="w-full max-w-full mb-4 bg-transparent table-striped">
             @if(count($tags))
                 <thead>
                 <tr>
@@ -37,7 +36,8 @@
                             @method('DELETE')
                         </form>
                     </td>
-                    <td><span class="badge" style="color:{{$tag->color}};background:{{$tag->background_color}}">
+                    <td><span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded"
+                              style="color:{{$tag->color}};background:{{$tag->background_color}}">
                         {{ $tag->name }}
                     </span>
                     </td>
@@ -51,4 +51,4 @@
 
     </div>
 
-@endsection
+</x-layout>

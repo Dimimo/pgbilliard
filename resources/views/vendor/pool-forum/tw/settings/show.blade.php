@@ -1,12 +1,12 @@
 <x-layout>
-    <div class="container">
+    <div class="container mx-auto sm:px-4">
         <h1> Settings Show </h1>
 
-        <div class="form-group">
+        <div class="mb-4">
             <label for="key">Key</label>
             <p>{{$setting->key}}</p>
         </div>
-        <div class="form-group">
+        <div class="mb-4">
             <label for="value">Value</label>
             <p>{{$setting->value}}</p>
         </div>

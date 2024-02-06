@@ -1,8 +1,8 @@
 <x-layout>
-    <div class="container">
+    <div class="container mx-auto sm:px-4">
 
         @if (session('laravel-forum-status'))
-            <div class="alert alert-success">
+            <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800">
 
                 {{ session('laravel-forum-status') }}
             </div>
@@ -11,7 +11,7 @@
         <div>
             <a href="{{route('forum.settings.create')}}">New</a>
         </div>
-        <table class="table table-striped">
+        <table class="w-full max-w-full mb-4 bg-transparent table-striped">
             @if(count($settings))
                 <thead>
                 <tr>

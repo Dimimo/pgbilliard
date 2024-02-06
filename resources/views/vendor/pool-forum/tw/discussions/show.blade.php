@@ -1,22 +1,24 @@
 <x-layout>
-    <div class="container posts">
-        <div class="row py-3 my-3 border-bottom border-color-secondary">
+    <div class="container mx-auto sm:px-4 posts">
+        <div class="flex flex-wrap  py-3 my-3 border-b border-color-secondary">
             <div class="col-auto">
-                <a href="{{route('forum.discussions.index')}}" class="h1 text-secondary">
+                <a href="{{route('forum.discussions.index')}}" class="h1 text-gray-600">
                     <i class="fas fa-chevron-left"></i>
                 </a>
             </div>
-            <div class="col  text-center">
-                <h1 class="text-secondary">{{$discussion->title}}</h1>
+            <div class="relative flex-grow max-w-full flex-1 px-4  text-center">
+                <h1 class="text-gray-600">{{$discussion->title}}</h1>
                 @foreach($discussion->tags as $tag)
-                    <span class="badge badge" style="color:{{$tag->color}};background-color:{{$tag->background_color}};">
+                    <span
+                        class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded"
+                        style="color:{{$tag->color}};background-color:{{$tag->background_color}};">
                 {{$tag->name}}
             </span>
                 @endforeach
             </div>
         </div>
         @if (session('laravel-forum-status'))
-            <div class="alert alert-success">
+            <div class="relative px-3 py-3 mb-4 border rounded bg-green-200 border-green-300 text-green-800">
 
                 {{ session('laravel-forum-status') }}
             </div>
@@ -24,11 +26,11 @@
 
         @livewire('forum.comments', ['discussion'=>$discussion,'posts' => $posts])
 
-        <div class="row py-3 my-3">
+        <div class="flex flex-wrap  py-3 my-3">
             @if(!$discussion->is_locked)
                 @livewire('forum.comment', ['discussion' => $discussion,'user'=>Auth::user()->name])
             @else
-                <div class="col text-center text-muted">
+                <div class="relative flex-grow max-w-full flex-1 px-4 text-center text-gray-700">
                     Discussion locked by owner
                 </div>
             @endif

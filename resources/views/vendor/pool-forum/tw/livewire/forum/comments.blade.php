@@ -2,11 +2,11 @@
     @forelse($posts as $post)
         <div x-data="{dropdown:false,edit:false}" x-init="edit=false;dropdown=false" class="flex items-start md:mx-4 pb-4">
             <div class="w-16 hidden md:block">
-                <div class="bg-primary-500 font-semibold inline-block mt-3 mx-auto p-3 rounded-full text-white">
+                <div class="bg-primary-500 font-semibold inline-block mt-3 mx-auto p-6 rounded-full text-white">
                     {{Str::of($post->user->name)->upper()}}
                 </div>
             </div>
-            <div class="bg-gray-100 mt-3 p-3 rounded w-full">
+            <div class="bg-gray-100 mt-3 p-6 rounded w-full">
                 <div class="">
                     <div x-show="!edit" class="text-gray-700" id="post-content-{{$post->id}}">
                         <p class="">
@@ -30,7 +30,7 @@
                 <div class="relative inline-block text-left mt-3" @click.away="dropdown=false">
                     <div>
                         <button @click="dropdown=!dropdown" class="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600">
-                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                            <svg class="mb-2 font-medium leading-tight text-lg w-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
                             </svg>
                         </button>
@@ -41,7 +41,8 @@
                                 @if($post->is_approved)
                                     <a class="flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                                        wire:click="status({{$post->id}},'approve',0)">
-                                        <svg class="h-4 w-4 mr-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        <svg class="mb-2 font-medium leading-tight text-xl w-4 mr-2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                             stroke-width="2"
                                              stroke="currentColor" viewBox="0 0 24 24">
                                             <path d="M6 18L18 6M6 6l12 12"></path>
                                         </svg>
@@ -56,7 +57,8 @@
                                 @if($post->hidden_at)
                                     <a class="flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                                        wire:click="status({{$post->id}},'hide',1)">
-                                        <svg class="h-4 w-4 mr-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        <svg class="mb-2 font-medium leading-tight text-xl w-4 mr-2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                             stroke-width="2"
                                              stroke="currentColor" viewBox="0 0 24 24">
                                             <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                             <path
@@ -67,7 +69,8 @@
                                 @else
                                     <a class="flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                                        wire:click="status({{$post->id}},'hide',0)">
-                                        <svg class="h-4 w-4 mr-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        <svg class="mb-2 font-medium leading-tight text-xl w-4 mr-2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                             stroke-width="2"
                                              stroke="currentColor" viewBox="0 0 24 24">
                                             <path
                                                 d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
@@ -77,7 +80,8 @@
                                 @endif
                                 <a class="flex items-center px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                                    @click="edit=true">
-                                    <svg class="h-4 w-4 mr-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor"
+                                    <svg class="mb-2 font-medium leading-tight text-xl w-4 mr-2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                         stroke-width="2" stroke="currentColor"
                                          viewBox="0 0 24 24">
                                         <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
                                     </svg>
@@ -89,7 +93,7 @@
                                     href="javascript:void(0)"
                                 >
                                     <svg
-                                        class="w-4 h-4 mr-2"
+                                        class="w-4 mb-2 font-medium leading-tight text-xl mr-2"
                                         fill="none" stroke-linecap="round"
                                         stroke-linejoin="round"
                                         stroke-width="2"
@@ -121,8 +125,8 @@
             </small>
         </div>
     @empty
-        <div class="row py-3 my-3">
-            <div class="col  text-center">
+        <div class="flex flex-wrap  py-3 my-3">
+            <div class="relative flex-grow max-w-full flex-1 px-4  text-center">
                 No comments yet.
                 @if(!$discussion->is_locked)
                     Be the first one!

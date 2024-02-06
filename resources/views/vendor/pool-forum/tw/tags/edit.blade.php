@@ -1,9 +1,8 @@
-@extends('layouts.app')
-@section('content')
-    <div class="container">
+<x-layout>
+    <div class="container mx-auto sm:px-4">
         <h1> Edit Tag </h1>
         @if ($errors->any())
-            <ul class="alert alert-danger">
+            <ul class="relative px-3 py-3 mb-4 border rounded bg-red-200 border-red-300 text-red-800">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -14,60 +13,64 @@
         <form action="{{route('forum.tags.update',['tag'=>$tag])}}" method="POST" id="form">
             @method('PUT')
             @csrf
-            <div class="form-group">
+            <div class="mb-4">
                 <label for="name">Name</label>
-                <input class="form-control"
+                <input class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
                        type="text"
                        name="name"
                        id="name"
                        value="{{old('name', $tag->name)}}"
                        maxlength="100">
                 @if($errors->has('name'))
-                    <p class="text-danger">{{$errors->first('name')}}</p>
+                    <p class="text-red-600">{{$errors->first('name')}}</p>
                 @endif
             </div>
 
-            <div class="form-group">
+            <div class="mb-4">
                 <label for="description">Description</label>
-                <textarea class="form-control" type="text" name="description" id="description"
+                <textarea class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
+                          type="text" name="description" id="description"
                           max-length="500">{{old('description', $tag->description)}}</textarea>
                 @if($errors->has('description'))
-                    <p class="text-danger">{{$errors->first('description')}}</p>
+                    <p class="text-red-600">{{$errors->first('description')}}</p>
                 @endif
             </div>
 
-            <div class="form-group">
+            <div class="mb-4">
                 <label for="color">Color</label>
                 <input
-                    class="form-control"
+                    class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
                     type="color"
                     name="color"
                     id="color"
                     value="{{old('color', $tag->color)}}"
                     max-length="50">
                 @if($errors->has('color'))
-                    <p class="text-danger">{{$errors->first('color')}}</p>
+                    <p class="text-red-600">{{$errors->first('color')}}</p>
                 @endif
             </div>
 
-            <div class="form-group">
+            <div class="mb-4">
                 <label for="background_color">Background Color</label>
-                <input class="form-control"
+                <input class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-200 rounded"
                        type="color"
                        name="background_color"
                        id="background_color"
                        value="{{old('background_color', $tag->background_color)}}"
                        max-length="100">
                 @if($errors->has('background_color'))
-                    <p class="text-danger">{{$errors->first('background_color')}}</p>
+                    <p class="text-red-600">{{$errors->first('background_color')}}</p>
                 @endif
             </div>
             <div>
-                <button class="btn btn-primary" type="submit">Save</button>
+                <button
+                    class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap rounded py-1 px-3 leading-normal no-underline bg-blue-600 text-white hover:bg-blue-600"
+                    type="submit">Save
+                </button>
                 <a href="{{route('forum.tags.index')}}">Back</a>
             </div>
 
         </form>
     </div>
 
-@endsection
+</x-layout>

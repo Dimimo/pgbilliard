@@ -1,30 +1,29 @@
-@extends('layouts.app')
-@section('content')
-    <div class="container">
+<x-layout>
+    <div class="container mx-auto sm:px-4">
         <h1> Show Tag </h1>
 
-        <div class="form-group">
+        <div class="mb-4">
             <label for="key">Name</label>
             <p>{{$tag->name}}</p>
         </div>
-        <div class="form-group">
+        <div class="mb-4">
             <label for="slug">Slug</label>
             <p>{{$tag->slug}}</p>
         </div>
 
-        <div class="form-group">
+        <div class="mb-4">
             <label for="color">Color</label>
             <p>{{$tag->color}}</p>
         </div>
 
-        <div class="form-group">
+        <div class="mb-4">
             <label for="background_color">Background color</label>
             <p>{{$tag->background_color}}</p>
         </div>
-        <div class="form-group">
+        <div class="mb-4">
             <label for="demo">Demo</label>
             <p>
-            <span class="badge"
+            <span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded"
                   style="color:{{$tag->color}};background:{{$tag->background_color}}">
                 {{ $tag->name }}
             </span>
@@ -33,4 +32,4 @@
 
         <a href="{{route('forum.tags.index')}}">Back</a>
     </div>
-@endsection
+</x-layout>

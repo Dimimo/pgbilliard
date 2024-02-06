@@ -1,7 +1,7 @@
 <?php
 
-use Vientodigital\LaravelForum\Models\Discussion;
-use Vientodigital\LaravelForum\Models\Discussion\User as DiscussionUser;
+use Dimimo\PoolForum\Models\Discussion;
+use Dimimo\PoolForum\Models\Discussion\User as DiscussionUser;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
@@ -15,7 +15,7 @@ if ( ! isset($back_url))
 if ( ! isset($discussion))
 {
     $discussion = Discussion::query()->where('slug', $slug)->first();
-    // If doesn't exist, we create it
+    // If it doesn't exist, we create it
     if ( ! $discussion)
     {
         //If no config, we set common config.
@@ -90,7 +90,7 @@ if (Auth::check())
             @if(!$discussion->is_locked)
                 @livewire('forum.comment', ['discussion' => $discussion,'user'=>Auth::user()->name])
             @else
-                <div class="col text-center text-gray-500">
+                <div class="relative flex-grow max-w-full flex-1 px-4 text-center text-gray-500">
                     Discussion locked by owner
                 </div>
             @endif
