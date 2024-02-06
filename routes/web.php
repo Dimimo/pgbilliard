@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Vientodigital\LaravelForum\LaravelForum;
+use Dimimo\PoolForum\PoolForum;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +27,5 @@ Route::view('profile', 'profile')
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth'])->prefix('forum')->group(function () {
-    LaravelForum::routes();
+    PoolForum::routes();
 });
