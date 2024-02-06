@@ -22,7 +22,7 @@
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
         "livewire/volt": "^1.0",
-        "vientodigital/laravel-forum": "@dev"
+        "dimimo/pool-forum": "@dev"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.9",
@@ -41,7 +41,7 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Vientodigital\\LaravelForum\\": "vendor/vientodigital/laravel-forum/src/"
+            "Dimimo\\PoolForum\\": "vendor/dimimo/pool-forum/src/"
         }
     },
     "autoload-dev": {
@@ -52,7 +52,7 @@
     "repositories": [
         {
             "type": "path",
-            "url": "D:/Git/laravel-forum",
+            "url": "D:/Git/pool-forum",
             "options": {
                 "symlink": true
             }
