@@ -52,7 +52,7 @@
     "repositories": [
         {
             "type": "path",
-            "url": "../../Git/laravel-forum",
+            "url": "D:/Git/laravel-forum",
             "options": {
                 "symlink": true
             }
