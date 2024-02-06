@@ -1,5 +1,4 @@
-@extends('layouts.app')
-@section('content')
+<x-layout>
     <div class="container">
 
         @if (session('laravel-forum-status'))
@@ -20,7 +19,6 @@
                     <th>Key</th>
                     <th>Value</th>
                 </tr>
-
                 </thead>
             @endif
             <tbody>
@@ -47,7 +45,5 @@
             @endforelse
             </tbody>
         </table>
-
     </div>
-
-@endsection
+</x-layout>

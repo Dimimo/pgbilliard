@@ -1,5 +1,4 @@
-@extends('layouts.app')
-@section('content')
+<x-layout>
     <div class="container">
         <h1> Settings Edit </h1>
         @if ($errors->any())
@@ -35,4 +34,4 @@
 
         </form>
     </div>
-@endsection
+</x-layout>

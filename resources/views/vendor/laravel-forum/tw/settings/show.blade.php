@@ -1,5 +1,4 @@
-@extends('layouts.app')
-@section('content')
+<x-layout>
     <div class="container">
         <h1> Settings Show </h1>
 
@@ -13,4 +12,4 @@
         </div>
         <a href="{{route('forum.settings.index')}}">Back</a>
     </div>
-@endsection
+</x-layout>
