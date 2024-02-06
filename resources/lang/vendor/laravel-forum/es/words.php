@@ -36,7 +36,6 @@ return [
     'update' => 'Actualizar',
     'approve' => 'Aprobar',
     'dissaprove' => 'Desaprobar',
-    'show' => 'Mostrar',
     'hide' => 'Ocultar',
     'approved' => 'Aprobado',
     'hidden' => 'Oculto',
