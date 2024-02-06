@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Vientodigital\LaravelForum\LaravelForum;
+use Dimimo\PoolForum\PoolForum;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware(['auth'])->prefix('forum')->group(function () {
-    LaravelForum::routes();
+    PoolForum::routes();
 });
