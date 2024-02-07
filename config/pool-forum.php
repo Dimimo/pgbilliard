@@ -4,20 +4,18 @@
 return [
     'name_prefix' => 'forum.',
     'table_names' => [
-        'settings' => 'forum_settings',
-        'discussions' => 'forum_discussions',
-        'discussion_users' => 'forum_discussion_user',
-        'posts' => 'forum_posts',
-        'tags' => 'forum_tags',
-        'discussion_tags' => 'forum_discussion_tag',
+        'posts'    => 'forum_posts',
+        'tags'     => 'forum_tags',
+        'comments' => 'forum_comments',
+        'post_tag' => 'forum_post_tag',
     ],
-    'models' => [
+    'models'      => [
         'user' => 'App\Models\User',
     ],
-    'views' => [
+    'views'       => [
         'folder' => 'tw.',
     ],
-    'roles' => [
+    'roles'       => [
         'admin' => 'admin', //laravel-permissions Admin Role
     ],
 ];

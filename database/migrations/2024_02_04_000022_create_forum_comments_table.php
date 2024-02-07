@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create(config('laravel-forum.table_names.discussion_tags'), function (Blueprint $table) {
+        Schema::create(config('pool-forum.table_names.comments'), function (Blueprint $table)
+        {
             $table->id();
-            $table->bigInteger('discussion_id')->unsigned();
-            $table->bigInteger('tag_id')->unsigned();
+            $table->text('body');
+            $table->foreignId('forum_post_id')->index()->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->index()->constrained();
             $table->timeStamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('forum_discussion_tag');
+        Schema::dropIfExists(config('pool-forum.table_names.comments'));
     }
 };

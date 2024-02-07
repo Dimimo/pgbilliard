@@ -11,18 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create(config('laravel-forum.table_names.tags'), function (Blueprint $table) {
+        Schema::create(config('pool-forum.table_names.tags'), function (Blueprint $table)
+        {
             $table->id();
-            $table->string('name', 100);
-            $table->string('slug', 100);
-            $table->text('description')->nullable();
-            $table->string('color', 50)->nullable();
-            $table->string('background_color', 100)->nullable();
-            $table->integer('discussion_count')->unsigned()->default(0);
-            $table->datetime('last_posted_at')->nullable();
-            $table->bigInteger('last_posted_discussion_id')->unsigned()->nullable();
-            $table->bigInteger('last_posted_user_id')->unsigned()->nullable();
-            $table->softDeletes();
+            $table->string('name', 20)->index();
+            $table->string('slug', 20)->index();
             $table->timeStamps();
         });
     }
@@ -32,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('forum_tags');
+        Schema::dropIfExists(config('pool-forum.table_names.tags'));
     }
 };

@@ -11,20 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create(config('laravel-forum.table_names.posts'), function (Blueprint $table) {
+        Schema::create(config('pool-forum.table_names.posts'), function (Blueprint $table)
+        {
             $table->id();
-            $table->bigInteger('discussion_id')->unsigned();
-            $table->integer('number')->unsigned()->nullable();
-            $table->bigInteger('user_id')->unsigned()->nullable();
-            $table->mediumtext('content')->nullable();
-            $table->datetime('edited_at')->nullable();
-            $table->bigInteger('edited_user_id')->unsigned()->nullable();
-            $table->datetime('hidden_at')->nullable();
-            $table->bigInteger('hidden_user_id')->unsigned()->nullable();
-            $table->string('ip_address', 45)->nullable();
-            $table->tinyInteger('is_private')->default(0);
-            $table->tinyInteger('is_approved')->default(1);
-            $table->softDeletes();
+            $table->string('title', 80);
+            $table->string('slug', 80);
+            $table->text('body');
+            $table->foreignId('user_id')->index()->constrained();
+            $table->tinyInteger('is_locked')->index()->default(0);
+            $table->tinyInteger('is_sticky')->index()->default(0);
             $table->timeStamps();
         });
     }
@@ -34,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('forum_posts');
+        Schema::dropIfExists(config('pool-forum.table_names.posts'));
     }
 };
