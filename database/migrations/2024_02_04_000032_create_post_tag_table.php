@@ -9,8 +9,8 @@ return new class extends Migration {
     {
         Schema::create(config('pool-forum.table_names.post_tag'), function (Blueprint $table)
         {
-            $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('forum_post_id')->index();
+            $table->unsignedBigInteger('forum_tag_id')->index();
         });
     }
 
