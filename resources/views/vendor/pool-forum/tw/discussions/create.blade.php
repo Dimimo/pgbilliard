@@ -24,19 +24,19 @@
             <div class="mt-4 font-semibold">
 
                 <div class="relative block mb-2 inline-block mr-2">
-                    <input class="absolute mt-1 -ml-6" name="is_private" type="checkbox" id="is_private" boolean value="{{old('is_private', '0')}}">
+                    <input class="absolute" name="is_private" type="checkbox" id="is_private" boolean value="{{old('is_private', '0')}}">
                     <label class="text-gray-700 pl-6 mb-0" for="is_private">private </label>
                 </div>
                 <div class="relative block mb-2 inline-block mr-2">
-                    <input class="absolute mt-1 -ml-6" name="is_approved" type="checkbox" id="is_approved" boolean value="{{old('is_approved', '1')}}">
+                    <input class="absolute" name="is_approved" type="checkbox" id="is_approved" boolean value="{{old('is_approved', '1')}}">
                     <label class="text-gray-700 pl-6 mb-0" for="is_approved">approved </label>
                 </div>
                 <div class="relative block mb-2 inline-block mr-2">
-                    <input class="absolute mt-1 -ml-6" name="is_locked" type="checkbox" id="is_locked" boolean value="{{old('is_locked', '0')}}">
+                    <input class="absolute" name="is_locked" type="checkbox" id="is_locked" boolean value="{{old('is_locked', '0')}}">
                     <label class="text-gray-700 pl-6 mb-0" for="is_locked">locked </label>
                 </div>
                 <div class="relative block mb-2 inline-block mr-2">
-                    <input class="absolute mt-1 -ml-6" name="is_sticky" type="checkbox" id="is_sticky" boolean value="{{old('is_sticky', '0')}}">
+                    <input class="absolute" name="is_sticky" type="checkbox" id="is_sticky" boolean value="{{old('is_sticky', '0')}}">
                     <label class="text-gray-700 pl-6 mb-0" for="is_sticky">sticky </label>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                     <span class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded"
                           style="color:{{$tag->color}};background-color:{{$tag->background_color}};">
                 <div class="relative block mb-2 inline-block mr-2">
-                    <input class="absolute mt-1 -ml-6" name="tags[{{$tag->id}}]" tag-checkbox type="checkbox" id="tags-{{$tag->id}}"
+                    <input class="absolute" name="tags[{{$tag->id}}]" tag-checkbox type="checkbox" id="tags-{{$tag->id}}"
                            {{old('tags.'.$tag->id, '0') === (string)$tag->id ? 'checked="checked"' : ''}} value="{{$tag->id}}" onclick="count_tags()">
                     <label class="text-gray-700 pl-6 mb-0" for="tags-{{$tag->id}}">{{$tag->name}}</label>
                 </div>
