@@ -4,28 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
+return new class extends Migration {
     public function up(): void
     {
-        Schema::create(config('pool-forum.table_names.comments'), function (Blueprint $table)
+        Schema::create(config('pool-forum.table_names.visits'), function (Blueprint $table)
         {
             $table->id();
-            $table->text('body');
             $table->foreignId('user_id')->index()->constrained();
             $table->foreignId('forum_post_id')->index()->constrained()->onDelete('cascade');
-            $table->timeStamps();
+            $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists(config('pool-forum.table_names.comments'));
+        Schema::dropIfExists(config('pool-forum.table_names.visits'));
     }
 };

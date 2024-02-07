@@ -8,6 +8,7 @@ return [
         'tags'     => 'forum_tags',
         'comments' => 'forum_comments',
         'post_tag' => 'forum_post_tag',
+        'visits'   => 'forum_visits',
     ],
     'models'      => [
         'user' => 'App\Models\User',
