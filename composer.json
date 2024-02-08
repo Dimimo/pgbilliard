@@ -13,7 +13,9 @@
         "ably/laravel-broadcaster": "^1.0",
         "aws/aws-sdk-php": "3.297.0",
         "aws/aws-sdk-php-laravel": "^3.8",
+        "dimimo/pool-forum": "@dev",
         "doctrine/dbal": "^3.7",
+        "filament/forms": "^3.2",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/breeze": "^1.25",
         "laravel/folio": "^1.1",
@@ -21,8 +23,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
-        "livewire/volt": "^1.0",
-        "dimimo/pool-forum": "@dev"
+        "livewire/volt": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.9",
@@ -62,7 +63,8 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan vendor:publish --force --tag=livewire:assets --ansi",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan filament:upgrade"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
