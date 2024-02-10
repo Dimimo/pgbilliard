@@ -1,7 +1,7 @@
 <?php
 
+//use Dimimo\PoolForum\PoolForum;
 use Illuminate\Support\Facades\Route;
-use Dimimo\PoolForum\PoolForum;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +26,6 @@ Route::view('profile', 'profile')
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth'])->prefix('forum')->group(function () {
+/*Route::middleware(['auth'])->prefix('forum')->group(function () {
     PoolForum::routes();
-});
+});*/
