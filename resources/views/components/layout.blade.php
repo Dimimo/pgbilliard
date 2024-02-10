@@ -84,6 +84,8 @@
     </div>
 </div>
 
+@livewire('notifications')
+
 {{-- Begin script --}}
 @filamentScripts
 @vite('resources/js/app.js')
