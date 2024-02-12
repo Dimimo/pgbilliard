@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Exception;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -18,14 +19,17 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-class OnePanelProvider extends PanelProvider
+class ForumPanelProvider extends PanelProvider
 {
+    /**
+     * @throws Exception
+     */
     public function panel(Panel $panel): Panel
     {
         return $panel
             ->default()
-            ->id('1')
-            ->path('1')
+            ->id('login')
+            ->path('login')
             ->login()
             ->colors([
                 'primary' => Color::Amber,
