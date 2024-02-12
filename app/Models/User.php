@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Forum\Comment;
+use App\Models\Forum\Post;
+use App\Models\Forum\Visit;
 use Database\Factories\UserFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -20,26 +23,26 @@ use Laravel\Sanctum\PersonalAccessToken;
 /**
  * App\Models\User
  *
- * @property int                                                            $id
- * @property string                                                         $name
- * @property string                                                         $email
- * @property string|null                                                    $contact_nr
- * @property string                                                         $gender
- * @property Carbon|null                                                    $last_game
- * @property Carbon|null                                                    $email_verified_at
- * @property mixed                                                          $password
- * @property string|null                                                    $remember_token
- * @property Carbon|null                                                    $created_at
- * @property Carbon|null                                                    $updated_at
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string|null $contact_nr
+ * @property string $gender
+ * @property Carbon|null $last_game
+ * @property Carbon|null $email_verified_at
+ * @property mixed $password
+ * @property string|null $remember_token
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property-read Admin|null                                                $admin
  * @property-read Collection<int, Admin>                                    $assignees
  * @property-read int|null                                                  $assignees_count
- * @property-read Collection<int, ForumComment>                             $forum_comments
- * @property-read int|null                                                  $forum_comments_count
- * @property-read Collection<int, ForumPost>                                $forum_posts
- * @property-read int|null                                                  $forum_posts_count
- * @property-read Collection<int, ForumVisit>                               $forum_visits
- * @property-read int|null                                                  $forum_visits_count
+ * @property-read Collection<int, Comment>                                  $comments
+ * @property-read int|null                                                  $comments_count
+ * @property-read Collection<int, Post>                                     $posts
+ * @property-read int|null                                                  $posts_count
+ * @property-read Collection<int, Visit>                                    $visits
+ * @property-read int|null                                                  $visits_count
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null                                                  $notifications_count
  * @property-read Collection<int, Player>                                   $players
@@ -84,6 +87,7 @@ class User extends Authenticatable
         'gender',
         'last_game',
     ];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -93,6 +97,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
     /**
      * The attributes that should be cast.
      *
@@ -100,8 +105,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'last_game'         => 'date',
-        'password'          => 'hashed',
+        'last_game' => 'date',
+        'password' => 'hashed',
     ];
 
     public function isAdmin(): bool
@@ -146,18 +151,18 @@ class User extends Authenticatable
         return $this->hasMany(Player::class, 'user_id', 'id');
     }
 
-    public function forum_posts(): HasMany
+    public function posts(): HasMany
     {
-        return $this->hasMany(ForumPost::class, 'user_id', 'id');
+        return $this->hasMany(Post::class, 'user_id', 'id');
     }
 
-    public function forum_comments(): HasMany
+    public function comments(): HasMany
     {
-        return $this->hasMany(ForumComment::class, 'user_id', 'id');
+        return $this->hasMany(Comment::class, 'user_id', 'id');
     }
 
-    public function forum_visits(): HasMany
+    public function visits(): HasMany
     {
-        return $this->hasMany(ForumVisit::class, 'user_id', 'id');
+        return $this->hasMany(Visit::class, 'user_id', 'id');
     }
 }

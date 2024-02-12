@@ -4,19 +4,19 @@
 return [
     'name_prefix' => 'forum.',
     'table_names' => [
-        'posts'    => 'forum_posts',
-        'tags'     => 'forum_tags',
-        'comments' => 'forum_comments',
-        'post_tag' => 'forum_post_tag',
-        'visits'   => 'forum_visits',
+        'posts' => 'posts',
+        'tags' => 'tags',
+        'comments' => 'comments',
+        'post_tag' => 'post_tag',
+        'visits' => 'visits',
     ],
-    'models'      => [
+    'models' => [
         'user' => 'App\Models\User',
     ],
-    'views'       => [
+    'views' => [
         'folder' => 'tw.',
     ],
-    'roles'       => [
+    'roles' => [
         'admin' => 'admin', //laravel-permissions Admin Role
     ],
 ];

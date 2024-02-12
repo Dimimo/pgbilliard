@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\ForumVisit;
+use App\Models\Forum\Visit;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ForumVisitPolicy
+class VisitPolicy
 {
     use HandlesAuthorization;
 
@@ -24,9 +24,9 @@ class ForumVisitPolicy
         return $user->exists();
     }
 
-    public function view(User $user, ForumVisit $forumVisit): bool
+    public function view(User $user, Visit $visit): bool
     {
-        return $user->id === $forumVisit->user_id;
+        return $user->id === $visit->user_id;
     }
 
     public function create(User $user): bool
@@ -34,13 +34,13 @@ class ForumVisitPolicy
         return $user->exists();
     }
 
-    public function update(User $user, ForumVisit $forumVisit): bool
+    public function update(User $user, Visit $visit): bool
     {
-        return $user->id === $forumVisit->user_id;
+        return $user->id === $visit->user_id;
     }
 
-    public function delete(User $user, ForumVisit $forumVisit): bool
+    public function delete(User $user, Visit $visit): bool
     {
-        return $user->id === $forumVisit->user_id;
+        return $user->id === $visit->user_id;
     }
 }

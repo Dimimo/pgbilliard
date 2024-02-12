@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\ForumPost;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ForumPostPolicy
+class TagPolicy
 {
     use HandlesAuthorization;
 
@@ -34,13 +33,13 @@ class ForumPostPolicy
         return $user->exists();
     }
 
-    public function update(User $user, ForumPost $forumPost): bool
+    public function update(): bool
     {
-        return $user->id === $forumPost->user_id;
+        return false;
     }
 
-    public function delete(User $user, ForumPost $forumPost): bool
+    public function delete(): bool
     {
-        return $user->id === $forumPost->user_id;
+        return false;
     }
 }

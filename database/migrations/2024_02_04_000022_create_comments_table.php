@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create(config('pool-forum.table_names.comments'), function (Blueprint $table)
-        {
+        Schema::create(config('pool-forum.table_names.comments'), function (Blueprint $table) {
             $table->id();
             $table->text('body');
             $table->foreignId('user_id')->index()->constrained();
-            $table->foreignId('forum_post_id')->index()->constrained()->onDelete('cascade');
+            $table->foreignId('post_id')->index()->constrained()->onDelete('cascade');
             $table->timeStamps();
         });
     }

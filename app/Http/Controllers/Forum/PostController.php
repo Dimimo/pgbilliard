@@ -1,22 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Forum;
 
-use App\Models\ForumPost;
+use App\Http\Controllers\Controller;
+use App\Models\Forum\Post;
 use Illuminate\Http\Request;
 
-class ForumPostController extends Controller
+class PostController extends Controller
 {
     public function index()
     {
-        $this->authorize('viewAny', ForumPost::class);
+        $this->authorize('viewAny', Post::class);
 
-        return ForumPost::all();
+        return Post::all();
     }
 
     public function store(Request $request)
     {
-        $this->authorize('create', ForumPost::class);
+        $this->authorize('create', Post::class);
         $data = $request->validate([
             'title' => ['required'],
             'slug' => ['required'],
@@ -26,19 +27,19 @@ class ForumPostController extends Controller
             'is_sticky' => ['boolean'],
         ]);
 
-        return ForumPost::create($data);
+        return Post::create($data);
     }
 
-    public function show(ForumPost $forumPost)
+    public function show(Post $post)
     {
-        $this->authorize('view', $forumPost);
+        $this->authorize('view', $post);
 
-        return $forumPost;
+        return $post;
     }
 
-    public function update(Request $request, ForumPost $forumPost)
+    public function update(Request $request, Post $post)
     {
-        $this->authorize('update', $forumPost);
+        $this->authorize('update', $post);
         $data = $request->validate([
             'title' => ['required'],
             'slug' => ['required'],
@@ -47,15 +48,15 @@ class ForumPostController extends Controller
             'is_locked' => ['boolean'],
             'is_sticky' => ['boolean'],
         ]);
-        $forumPost->update($data);
+        $post->update($data);
 
-        return $forumPost;
+        return $post;
     }
 
-    public function destroy(ForumPost $forumPost)
+    public function destroy(Post $post)
     {
-        $this->authorize('delete', $forumPost);
-        $forumPost->delete();
+        $this->authorize('delete', $post);
+        $post->delete();
 
         return response()->json();
     }

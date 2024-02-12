@@ -4,7 +4,6 @@ namespace App\Livewire\Players;
 
 use App\Models\User;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 

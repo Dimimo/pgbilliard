@@ -2,16 +2,18 @@
 
 namespace App\Policies;
 
+use App\Models\Forum\Comment;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ForumTagPolicy
+class CommentPolicy
 {
     use HandlesAuthorization;
 
     public function before(User $user): ?bool
     {
-        if ($user->isAdmin()) {
+        if ($user->isAdmin())
+        {
             return true;
         }
 
@@ -33,13 +35,13 @@ class ForumTagPolicy
         return $user->exists();
     }
 
-    public function update(): bool
+    public function update(User $user, Comment $comment): bool
     {
-        return false;
+        return $user->id === $comment->user_id;
     }
 
-    public function delete(): bool
+    public function delete(User $user, Comment $comment): bool
     {
-        return false;
+        return $user->id === $comment->user_id;
     }
 }

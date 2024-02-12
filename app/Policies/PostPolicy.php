@@ -2,18 +2,17 @@
 
 namespace App\Policies;
 
-use App\Models\ForumComment;
+use App\Models\Forum\Post;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ForumCommentPolicy
+class PostPolicy
 {
     use HandlesAuthorization;
 
     public function before(User $user): ?bool
     {
-        if ($user->isAdmin())
-        {
+        if ($user->isAdmin()) {
             return true;
         }
 
@@ -35,13 +34,13 @@ class ForumCommentPolicy
         return $user->exists();
     }
 
-    public function update(User $user, ForumComment $forumComment): bool
+    public function update(User $user, Post $post): bool
     {
-        return $user->id === $forumComment->user_id;
+        return $user->id === $post->user_id;
     }
 
-    public function delete(User $user, ForumComment $forumComment): bool
+    public function delete(User $user, Post $post): bool
     {
-        return $user->id === $forumComment->user_id;
+        return $user->id === $post->user_id;
     }
 }
