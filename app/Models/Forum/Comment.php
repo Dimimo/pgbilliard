@@ -5,6 +5,7 @@ namespace App\Models\Forum;
 use App\Models\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -12,12 +13,12 @@ use Illuminate\Support\Carbon;
 /**
  * App\Models\Forum\Comment
  *
- * @property int            $id
- * @property string         $body
- * @property int            $user_id
- * @property int            $post_id
- * @property Carbon|null    $created_at
- * @property Carbon|null    $updated_at
+ * @property int $id
+ * @property string $body
+ * @property int $user_id
+ * @property int $post_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property-read Post $post
  * @property-read User      $user
  *
@@ -35,6 +36,8 @@ use Illuminate\Support\Carbon;
  */
 class Comment extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'body',
         'user_id',

@@ -6,6 +6,7 @@ use App\Models\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -15,15 +16,15 @@ use Illuminate\Support\Carbon;
 /**
  * App\Models\Forum\Post
  *
- * @property int                              $id
- * @property string                           $title
- * @property string                           $slug
- * @property string                           $body
- * @property int                              $user_id
- * @property bool                             $is_locked
- * @property bool                             $is_sticky
- * @property Carbon|null                      $created_at
- * @property Carbon|null                      $updated_at
+ * @property int $id
+ * @property string $title
+ * @property string $slug
+ * @property string $body
+ * @property int $user_id
+ * @property bool $is_locked
+ * @property bool $is_sticky
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property-read Collection<int, Comment>    $comments
  * @property-read int|null                    $comments_count
  * @property-read Collection<int, Tag>        $tags
@@ -49,6 +50,8 @@ use Illuminate\Support\Carbon;
  */
 class Post extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'title',
         'slug',
@@ -57,6 +60,7 @@ class Post extends Model
         'is_locked',
         'is_sticky',
     ];
+
     protected $casts = [
         'is_locked' => 'bool',
         'is_sticky' => 'bool',

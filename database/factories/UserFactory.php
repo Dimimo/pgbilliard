@@ -22,6 +22,8 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'gender' => fake()->randomElement(['U', 'M', 'F', 'K']),
+            'last_game' => fake()->dateTimeBetween('-2 years', '-6 months')->format('Y-m-d'),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ];
