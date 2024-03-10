@@ -54,8 +54,8 @@ class Index extends Component implements HasForms, HasTable
                     //
                 ]),
             ])
-            ->emptyStateHeading('No posts yet')
-            ->emptyStateDescription('Once a post is created, it will appear here.')
+            ->emptyStateHeading('No posts found for your search query')
+            ->emptyStateDescription('Once a post is created, it will appear here. Or change your search keyword(s)')
             ->emptyStateActions([
                 Action::make('create')
                     ->label('Create post')
