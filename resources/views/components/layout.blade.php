@@ -8,16 +8,11 @@
     <meta name="author" content="Dimitri Mostrey (www.puertoparrot.com)">
     <meta name="copyright" content="&copy; &reg; {{ date("Y") }} Puerto Galera Pool League">
     <meta name="description" content="Puerto Galera Pool League">
-    <style>
-        [x-cloak] {
-            display: none !important;
-            }
-    </style>
 
     @filamentStyles
     @vite('resources/css/app.css')
 
-    <link rel="stylesheet" href="{{ secure_asset('build/fonts/roboto/roboto.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('webfonts/roboto/roboto.css') }}">
 
     @stack('css')
 
