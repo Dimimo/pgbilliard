@@ -22,14 +22,14 @@ class Score extends Component
 
     public ?int $score_id = null;
 
-    public function mount()
+    public function mount(): void
     {
         $this->scores = $this->getResults();
         $this->week = $this->getLastWeek();
         $this->date = $this->getLastWeek(true);
     }
 
-    public function updatedWithSetMyTeam()
+    public function updatedWithSetMyTeam(): void
     {
         $this->scores = $this->getResults();
     }

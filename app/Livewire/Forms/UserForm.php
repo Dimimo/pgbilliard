@@ -34,16 +34,16 @@ class UserForm extends Form
 
     public $messages = [
         //        'name.required' => 'A name is required',
-        'name.unique' => 'This username already exists',
+        'name.unique' => 'This name already exists',
         'name.alpha_dash' => 'A name needs to be alpha-numeric, dashes (-) and underscores (_) allowed',
         'name.min' => 'A name needs at least 2 characters',
-        'name.max' => 'A name can not be longer than '.Constants::PHONECHARS.' characters',
+        'name.max' => 'A name can not be longer than '.Constants::USERCHARS.' characters',
         'email.required' => 'A valid email address is required',
         'email.email' => 'A valid email address is required',
         'email.unique' => 'The email has to be unique',
     ];
 
-    public function setUser(User $user)
+    public function setUser(User $user): void
     {
         $this->user = $user;
         $this->name = $this->user->name;
@@ -65,7 +65,7 @@ class UserForm extends Form
         return $user;
     }
 
-    public function update()
+    public function update(): void
     {
         $this->validate();
         $this->user->update($this->all());

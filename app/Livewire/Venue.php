@@ -10,7 +10,7 @@ class Venue extends Component
 {
     public VenueModel $venue;
 
-    public function mount(VenueModel $venue)
+    public function mount(VenueModel $venue): void
     {
         $this->venue = $venue;
     }

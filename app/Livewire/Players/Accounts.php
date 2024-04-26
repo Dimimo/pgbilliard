@@ -11,7 +11,7 @@ class Accounts extends Component
 {
     public Collection $users;
 
-    public function mount()
+    public function mount(): void
     {
         $this->users = $this->getUsers();
     }
@@ -32,6 +32,7 @@ class Accounts extends Component
                            return $q->orderByDesc('id')->get();
                        },
                    ])*/
-            ->orderBy('name')->get(['id', 'name', 'email', 'last_game']);
+            ->orderBy('name')
+            ->get(['id', 'name', 'email', 'last_game']);
     }
 }

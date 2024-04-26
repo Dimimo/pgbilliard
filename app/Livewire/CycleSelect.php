@@ -12,7 +12,7 @@ class CycleSelect extends Component
 
     public string $cycle;
 
-    public function mount()
+    public function mount(): void
     {
         $this->cycles = $this->getCycles();
         $this->cycle = session('cycle');

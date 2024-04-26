@@ -31,7 +31,7 @@ class Edit extends Component
 
     public ?int $user_id;
 
-    public function mount(Team $team)
+    public function mount(Team $team): void
     {
         $this->team = $team;
         $this->setPlayerForm();
@@ -45,26 +45,26 @@ class Edit extends Component
         return view('livewire.players.edit');
     }
 
-    public function updatedUserFormName($value)
+    public function updatedUserFormName($value): void
     {
         $this->validateOnly('user_form.name');
         $this->user_form->name = Str::title($value);
         $this->user_form->email = Str::lower(Str::snake($value, '-')).'@puertopool.com';
     }
 
-    private function getPlayers()
+    private function getPlayers(): void
     {
         $this->players = $this->team->players()->get()->sortBy('name')->sortByDesc('captain');
     }
 
-    private function getPlayersActiveInCurrentSeason()
+    private function getPlayersActiveInCurrentSeason(): void
     {
         $teams = Team::tap(new Cycle())->pluck('id')->toArray();
         $players = Player::whereIn('team_id', $teams)->pluck('user_id')->toArray();
         $this->occupied_players = User::whereIn('id', $players)->pluck('name')->toArray();
     }
 
-    private function setPlayerForm(?int $user_id = null)
+    private function setPlayerForm(?int $user_id = null): void
     {
         $this->player_form->setPlayer(new Player([
             'captain' => 0,
@@ -73,12 +73,12 @@ class Edit extends Component
         ]));
     }
 
-    private function setUserForm(User $user)
+    private function setUserForm(User $user): void
     {
         $this->user_form->setUser($user);
     }
 
-    public function toggleCaptain(int $user_id)
+    public function toggleCaptain(int $user_id): void
     {
         $player = Player::find($user_id);
         $player->captain = ! $player->captain;
@@ -86,7 +86,7 @@ class Edit extends Component
         $this->getPlayers();
     }
 
-    public function updatedUserId($user_id)
+    public function updatedUserId($user_id): void
     {
         $this->setPlayerForm($user_id);
         $this->player_form->player->save();
@@ -96,12 +96,12 @@ class Edit extends Component
         $this->user_id = null;
     }
 
-    public function addUser()
+    public function addUser(): void
     {
         $name = $this->getPropertyValue('user_form.name');
         $user = new User([
             'name' => $name,
-            'email' => Str::of($name)->slug().'@puertoparrot.com',
+            'email' => Str::of($name)->slug().'@puertopool.com',
             'password' => Hash::make('secret'),
             'contact_nr' => $this->getPropertyValue('user_form.contact_nr'),
             'last_game' => now(),
@@ -117,7 +117,7 @@ class Edit extends Component
         $this->dispatch('user-created');
     }
 
-    public function removePlayer($player_id)
+    public function removePlayer($player_id): void
     {
         $player = Player::find($player_id);
         $player->delete();

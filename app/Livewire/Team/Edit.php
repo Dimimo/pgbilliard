@@ -15,7 +15,7 @@ class Edit extends Component
 
     public Collection $venues;
 
-    public function mount(Team $team)
+    public function mount(Team $team): void
     {
         $this->team_form->setTeam($team);
         $this->venues = Venue::where('name', '<>', 'BYE')->get();
@@ -26,13 +26,13 @@ class Edit extends Component
         return view('livewire.team.edit');
     }
 
-    public function team_save()
+    public function team_save(): void
     {
         $this->team_form->update();
         $this->dispatch('team-updated');
     }
 
-    public function updatedTeamFormVenueId(int $value)
+    public function updatedTeamFormVenueId(int $value): void
     {
         $this->team_form->venue_id = $value;
         $this->team_form->update();

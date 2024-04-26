@@ -13,7 +13,7 @@ class Overview extends Component
 
     public Collection $players;
 
-    public function mount(Team $team)
+    public function mount(Team $team): void
     {
         $this->team = $team;
         $this->players = $team->players()->get()->sortBy('name')->sortByDesc('captain');

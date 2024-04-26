@@ -25,7 +25,7 @@ class DateForm extends Form
     #[Validate(['nullable', 'max:100'])]
     public ?string $remark;
 
-    public function setDate(Date $date)
+    public function setDate(Date $date): void
     {
         $this->pool_date = $date;
         $this->date = $date->date;
@@ -34,14 +34,14 @@ class DateForm extends Form
         $this->remark = $date->remark;
     }
 
-    public function store()
+    public function store(): void
     {
         $this->validate();
 
         $this->pool_date = Date::create($this->only(['date', 'regular', 'title', 'remark']));
     }
 
-    public function update()
+    public function update(): void
     {
         $validated = $this->validate();
         $this->pool_date->update($validated);

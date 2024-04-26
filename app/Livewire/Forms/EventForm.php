@@ -35,7 +35,7 @@ class EventForm extends Form
     #[Validate('nullable|max:100')]
     public ?string $remark;
 
-    public function setEvent(Event $event)
+    public function setEvent(Event $event): void
     {
         $this->event = $event;
         $this->date_id = $event->date_id;
@@ -47,12 +47,12 @@ class EventForm extends Form
         $this->remark = $event->remark;
     }
 
-    public function store()
+    public function store(): void
     {
         $this->event = Event::create($this->validate());
     }
 
-    public function update()
+    public function update(): void
     {
         $this->validate();
         $this->event->update($this->only(['score1', 'score2']));

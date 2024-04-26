@@ -31,7 +31,7 @@ class Create extends Component
 
     public Collection $venues;
 
-    public function mount(Season $season)
+    public function mount(Season $season): void
     {
         $this->season = $season;
         $this->getFirstEvent();
@@ -45,7 +45,7 @@ class Create extends Component
         return view('livewire.admin.calendar.create');
     }
 
-    public function updating($name, $value)
+    public function updating($name, $value): void
     {
         if ($name === 'event.date_id' && $value) {
             $this->last_date = Date::find($value);
@@ -66,7 +66,7 @@ class Create extends Component
         }
     }
 
-    public function save()
+    public function save(): void
     {
         $this->event->store();
         $this->dispatch('event-created');
@@ -75,7 +75,7 @@ class Create extends Component
         $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
     }
 
-    public function addNextWeek()
+    public function addNextWeek(): void
     {
         // first make sure it is set at the latest day to avoid doubles
         $this->last_date = $this->dates->last();
@@ -89,14 +89,14 @@ class Create extends Component
         $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
     }
 
-    public function removeEvent($event_id)
+    public function removeEvent($event_id): void
     {
         Event::find($event_id)->delete();
         $this->last_date->refresh();
         $this->events = $this->last_date->events;
     }
 
-    public function removeDate($date_id)
+    public function removeDate($date_id): void
     {
         $this->last_date = Date::find($date_id);
         if ($this->last_date->events()->count() == 0) {
@@ -105,7 +105,7 @@ class Create extends Component
         }
     }
 
-    private function getFirstEvent()
+    private function getFirstEvent(): void
     {
         $this->dates = Date::whereSeasonId($this->season->id)->orderBy('date')->get();
         $this->last_date = $this->dates->last();
@@ -114,7 +114,7 @@ class Create extends Component
         $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
     }
 
-    public function concludeSeason()
+    public function concludeSeason(): void
     {
         // make sure the first playing date games are set to 0-0
         $date_id = $this->dates->first()->id;
@@ -122,7 +122,7 @@ class Create extends Component
         $this->redirect('/calendar', navigate: true);
     }
 
-    public function continueToCalendar()
+    public function continueToCalendar(): void
     {
         $this->redirect('/calendar', navigate: true);
     }

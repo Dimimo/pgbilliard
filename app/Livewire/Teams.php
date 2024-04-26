@@ -16,7 +16,7 @@ class Teams extends Component
 
     public Collection $teams;
 
-    public function mount()
+    public function mount(): void
     {
         $this->teams = $this->getTeams();
     }

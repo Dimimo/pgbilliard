@@ -14,7 +14,7 @@ class Create extends Component
 
     public VenueForm $venue_form;
 
-    public function mount(Venue $venue)
+    public function mount(Venue $venue): void
     {
         $this->venue_form->setVenue($venue);
     }
@@ -24,14 +24,14 @@ class Create extends Component
         return view('livewire.admin.venue');
     }
 
-    public function updated($name, $value)
+    public function updated($name, $value): void
     {
         if ($name == 'venue_form.user_id') {
             $this->venue_form->show_name = ! $value;
         }
     }
 
-    public function save()
+    public function save(): void
     {
         $this->venue_form->create();
         session()->flash('status', "The venue {$this->venue_form->venue->name} has been created");

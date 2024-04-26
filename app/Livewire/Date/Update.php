@@ -20,7 +20,7 @@ class Update extends Component
         'date.events.*.score2' => 'between:0,15',
     ];
 
-    public function mount(Date $date)
+    public function mount(Date $date): void
     {
         $this->date = $date;
     }
@@ -30,7 +30,7 @@ class Update extends Component
         return view('livewire.date.update');
     }
 
-    public function updated()
+    public function updated(): void
     {
         $this->all()['date']->events->each(function (Event $event) {
             $this->eventForm->setEvent($event);
@@ -41,27 +41,27 @@ class Update extends Component
     }
 
     //Todo: make sure it's not over 15 or less than 0
-    public function addOneGameScore1($event_id)
+    public function addOneGameScore1($event_id): void
     {
         $this->incrementScore($event_id, 'score1');
     }
 
-    public function minusOneGameScore1($event_id)
+    public function minusOneGameScore1($event_id): void
     {
         $this->decrementScore($event_id, 'score1');
     }
 
-    public function addOneGameScore2($event_id)
+    public function addOneGameScore2($event_id): void
     {
         $this->incrementScore($event_id, 'score2');
     }
 
-    public function minusOneGameScore2($event_id)
+    public function minusOneGameScore2($event_id): void
     {
         $this->decrementScore($event_id, 'score2');
     }
 
-    private function incrementScore($event_id, $field)
+    private function incrementScore($event_id, $field): void
     {
         $event = Event::whereId($event_id)->first();
         $event->increment($field);
@@ -71,7 +71,7 @@ class Update extends Component
         $this->dispatch('scores-updated');
     }
 
-    private function decrementScore($event_id, $field)
+    private function decrementScore($event_id, $field): void
     {
         $event = Event::whereId($event_id)->first();
         $event->decrement($field);

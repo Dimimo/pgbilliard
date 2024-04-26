@@ -13,12 +13,12 @@ class Calendar extends Component
 
     public Collection $dates;
 
-    public function mount()
+    public function mount(): void
     {
         $this->dates = $this->getCalendar();
     }
 
-    public function updatedWithSetMyTeam()
+    public function updatedWithSetMyTeam(): void
     {
         $this->dates = $this->getCalendar();
     }

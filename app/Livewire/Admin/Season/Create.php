@@ -22,7 +22,7 @@ class Create extends Component
 
     public bool $has_bye;
 
-    public function mount()
+    public function mount(): void
     {
         $this->season = new Season(['cycle' => Carbon::now()->format('Y/m')]);
         $this->cycle = $this->season->cycle;
@@ -38,7 +38,7 @@ class Create extends Component
         return view('livewire.admin.season.create');
     }
 
-    public function save()
+    public function save(): void
     {
         $validated = $this->validate($this->getValidation(), $this->getAlerts());
         $season = Season::create($validated);
@@ -55,7 +55,7 @@ class Create extends Component
         $this->redirect('/admin/teams/create/'.$season->id, navigate: true);
     }
 
-    public function updating($name, $value)
+    public function updating($name, $value): void
     {
         if ($name === 'number_of_teams') {
             $this->has_bye = $value % 2 !== 0;
@@ -66,24 +66,24 @@ class Create extends Component
         }
     }
 
-    public function addMonth()
+    public function addMonth(): void
     {
         $this->cycle = Carbon::createFromFormat('Y/m', $this->cycle)->addMonth()->format('Y/m');
         $this->validate($this->getValidation(), $this->getAlerts());
     }
 
-    public function subMonth()
+    public function subMonth(): void
     {
         $this->cycle = Carbon::createFromFormat('Y/m', $this->cycle)->subMonth()->format('Y/m');
         $this->validate($this->getValidation(), $this->getAlerts());
     }
 
-    public function addWeek()
+    public function addWeek(): void
     {
         $this->starting_date = Carbon::createFromFormat('Y-m-d', $this->starting_date)->addWeek()->format('Y-m-d');
     }
 
-    public function subWeek()
+    public function subWeek(): void
     {
         $this->starting_date = Carbon::createFromFormat('Y-m-d', $this->starting_date)->subWeek()->format('Y-m-d');
     }

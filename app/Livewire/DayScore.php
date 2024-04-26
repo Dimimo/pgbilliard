@@ -12,7 +12,7 @@ class DayScore extends Component
 
     public Date $date;
 
-    public function mount(Date $date)
+    public function mount(Date $date): void
     {
         $this->date = $date;
     }

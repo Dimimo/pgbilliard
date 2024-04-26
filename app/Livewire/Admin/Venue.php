@@ -13,7 +13,7 @@ class Venue extends Component
 
     public VenueForm $venue_form;
 
-    public function mount(\App\Models\Venue $venue)
+    public function mount(\App\Models\Venue $venue): void
     {
         $this->venue_form->setVenue($venue);
     }
@@ -23,14 +23,14 @@ class Venue extends Component
         return view('livewire.admin.venue');
     }
 
-    public function updated($name, $value)
+    public function updated($name, $value): void
     {
         if ($name == 'venue_form.user_id') {
             $this->venue_form->show_name = ! $value;
         }
     }
 
-    public function save()
+    public function save(): void
     {
         $this->venue_form->update();
         $this->dispatch('venue-updated');

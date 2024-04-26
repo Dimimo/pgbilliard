@@ -16,7 +16,7 @@ class Schedule extends Component
 
     public Collection $dates;
 
-    public function mount(Team $team)
+    public function mount(Team $team): void
     {
         $this->team = $team;
         $this->dates = $this->getDates();

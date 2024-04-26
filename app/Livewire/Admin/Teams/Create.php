@@ -44,7 +44,7 @@ class Create extends Component
         'teams.*.venue_id.required' => 'A team needs a name, min 2, max '.Constants::USERCHARS,
     ];
 
-    public function mount(Season $season)
+    public function mount(Season $season): void
     {
         $this->season = $season;
         $this->fill([
@@ -64,7 +64,7 @@ class Create extends Component
         return view('livewire.admin.teams.create');
     }
 
-    public function submit()
+    public function submit(): void
     {
         $validated = $this->validate();
         foreach ($validated['teams'] as $values) {
@@ -76,7 +76,7 @@ class Create extends Component
         $this->redirect('/admin/calendar/create/'.$this->season->id, navigate: true);
     }
 
-    public function updating($name, $value)
+    public function updating($name, $value): void
     {
         if ($name === 'team_id') {
             if ($value !== 0) {
@@ -106,7 +106,7 @@ class Create extends Component
         }
     }
 
-    public function removeTeam($key)
+    public function removeTeam($key): void
     {
         $team = Team::find($this->teams[$key]->id);
         $team->players()->first()?->delete();

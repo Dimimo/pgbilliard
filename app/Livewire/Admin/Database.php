@@ -26,7 +26,7 @@ class Database extends Component
 
     public ?string $messages = null;
 
-    public function mount()
+    public function mount(): void
     {
         $this->seasons = $this->getSeasons();
     }
@@ -46,7 +46,7 @@ class Database extends Component
         return $seasons;
     }
 
-    public function getDates($cycle)
+    public function getDates($cycle): void
     {
         $this->messages = "Follow the output of the conversion, we will transfer season $cycle ...\n";
         $this->messages .= "Click 'Copy the season $cycle' to start\n\n";
@@ -54,12 +54,12 @@ class Database extends Component
         $this->converted = Season::whereCycle($cycle)->count() == 1;
     }
 
-    private function _getDates($cycle)
+    private function _getDates($cycle): void
     {
         $this->dates = DB::connection('parrot')->table('pool_dates')->where('cycle', $cycle)->orderBy('date')->get();
     }
 
-    public function convertToNewDB($cycle)
+    public function convertToNewDB($cycle): void
     {
         // whe should start with the players by filling up the users database
         $this->_convertPlayersToUsers();
@@ -76,14 +76,14 @@ class Database extends Component
         $this->seasons = $this->getSeasons();
     }
 
-    private function _createNewSeason($cycle)
+    private function _createNewSeason($cycle): Season
     {
         $this->messages .= "The new season $cycle is created\n\n";
 
         return Season::create(['cycle' => $cycle]);
     }
 
-    private function _createVenues()
+    private function _createVenues(): void
     {
         if (! Venue::count()) {
             $this->messages .= "The venues are not create yet, creating ... '\n";
@@ -97,7 +97,7 @@ class Database extends Component
         }
     }
 
-    private function _convertTeams(Season $season)
+    private function _convertTeams(Season $season): void
     {
         $this->messages .= "Then we transfer the 'teams' table for season $season->cycle:\n\n";
         $teams = DB::connection('parrot')->table('pool_teams')->where('cycle', $season->cycle)->get();
@@ -115,7 +115,7 @@ class Database extends Component
         $this->messages .= "\n{$teams->count()} 'teams' converted\n\n\n";
     }
 
-    private function _convertPlayersToUsers()
+    private function _convertPlayersToUsers(): void
     {
         if (User::count() === 1) {
             $this->messages .= "First we copy the 'players' to the 'users' table:\n\n";
@@ -143,7 +143,7 @@ class Database extends Component
 
     }
 
-    private function _convertPlayers(Season $season)
+    private function _convertPlayers(Season $season): void
     {
         $this->messages .= "And finally we transfer the 'players' table:\n\n";
         $players = DB::connection('parrot')->table('pool_players')->where('cycle', $season->cycle)->get();
@@ -162,7 +162,7 @@ class Database extends Component
         $this->dispatch('update_messages', message: $this->messages);
     }
 
-    private function _convertDates(Season $season)
+    private function _convertDates(Season $season): void
     {
         $this->messages .= "Now we transfer the 'dates' table:\n\n";
         $this->_getDates($season->cycle);
@@ -182,7 +182,7 @@ class Database extends Component
         $this->messages .= "\n{$this->dates->count()} 'dates' copied\n\n\n";
     }
 
-    private function _convertEvents(stdClass $date)
+    private function _convertEvents(stdClass $date): void
     {
         $events = DB::connection('parrot')->table('pool_events')->where('pool_date_id', $date->id)->get();
         foreach ($events as $event) {

@@ -51,7 +51,7 @@ class NewGame extends Component
         'event.remark' => 'The remark can\'t be more than 500 chars',
     ];
 
-    public function mount(Date $date, Event $event)
+    public function mount(Date $date, Event $event): void
     {
         $this->date = $date;
         $this->event = $event;
@@ -65,7 +65,7 @@ class NewGame extends Component
         return view('pool::livewire.new-game');
     }
 
-    public function updated($name, $value)
+    public function updated($name, $value): void
     {
         if ($name === 'event.team1') {
             $team = Team::with('venue')->find($value);
@@ -77,7 +77,7 @@ class NewGame extends Component
         }
     }
 
-    public function store()
+    public function store(): void
     {
         $this->validate();
         $this->event->exists ? $this->event->update() : $this->event->save();

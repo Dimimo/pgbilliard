@@ -23,7 +23,7 @@ class TeamForm extends Form
     #[Rule(['nullable', 'text'])]
     public ?string $remark;
 
-    public function setTeam(Team $team)
+    public function setTeam(Team $team): void
     {
         $this->team = $team;
         $this->name = $team->name;
@@ -32,13 +32,13 @@ class TeamForm extends Form
         $this->remark = $this->team->remark;
     }
 
-    public function store()
+    public function store(): void
     {
         $this->validate();
         Team::create($this->only(['name', 'venue_id', 'season_id', 'remark']));
     }
 
-    public function update()
+    public function update(): void
     {
         $this->validate();
         $this->team->update($this->all());

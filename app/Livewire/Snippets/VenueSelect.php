@@ -11,7 +11,7 @@ class VenueSelect extends Component
 {
     public Collection $venues;
 
-    public function mount()
+    public function mount(): void
     {
         $this->venues = Venue::orderBy('name')->get();
     }
