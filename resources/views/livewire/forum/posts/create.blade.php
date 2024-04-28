@@ -3,7 +3,7 @@
 
     <div class="border border-green-500 border-2 bg-green-100/25 p-6">
         <form wire:submit="create">
-            {{ $this->form }}
+            (form)
 
             <x-primary-button class="my-5">Submit</x-primary-button>
             <x-spinner target="create"/>
@@ -12,7 +12,4 @@
             </x-action-message>
         </form>
     </div>
-
-    <x-filament-actions::modals/>
-
 </div>
