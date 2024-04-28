@@ -1,0 +1,16 @@
+<svg id='Unlock_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+    <rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+    <g transform="matrix(0.42 0 0 0.42 12 12)" >
+        <g style="" >
+            <g transform="matrix(1 0 0 1 -0.34 -12.36)" >
+                <path style="stroke: rgb(0,0,1); stroke-width: 3; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;" transform=" translate(-23.66, -11.64)" d="M 18.2916 21.0419 L 18.7063 13.9914 C 18.8712 11.1885 21.1922 9 23.9999 9 C 26.8076 9 29.1287 11.1885 29.2935 13.9914 C 29.3278 14.5742 29.8076 15.0308 30.3913 15.038 C 32.0316 15.0582 33.5397 15.0856 34.9199 15.1176 C 36.0812 15.1445 37.0133 14.161 36.9169 13.0035 C 36.3986 6.78395 31.1994 2 24.9583 2 L 23.0415 2 C 16.8005 2 11.6013 6.78395 11.083 13.0035 L 10.3936 21.2765" stroke-linecap="round" />
+            </g>
+            <g transform="matrix(1 0 0 1 0 9)" >
+                <path style="stroke: rgb(0,0,1); stroke-width: 3; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;" transform=" translate(-24, -33)" d="M 5.30519 40.3385 C 5.53684 42.8198 7.54192 44.5824 10.0309 44.7059 C 12.9658 44.8515 17.5422 45 24 45 C 30.4578 45 35.0342 44.8515 37.9691 44.7059 C 40.4581 44.5824 42.4632 42.8198 42.6948 40.3385 C 42.8626 38.5417 43 36.1181 43 33 C 43 29.8819 42.8626 27.4583 42.6948 25.6615 C 42.4632 23.1802 40.4581 21.4176 37.9691 21.2941 C 35.0342 21.1485 30.4578 21 24 21 C 17.5422 21 12.9658 21.1485 10.0309 21.2941 C 7.54192 21.4176 5.53684 23.1802 5.30519 25.6615 C 5.13744 27.4583 5 29.8819 5 33 C 5 36.1181 5.13744 38.5417 5.30519 40.3385 Z" stroke-linecap="round" />
+            </g>
+            <g transform="matrix(1 0 0 1 0 9)" >
+                <path style="stroke: rgb(0,0,1); stroke-width: 3; stroke-dasharray: none; stroke-linecap: round; stroke-dashoffset: 0; stroke-linejoin: round; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;" transform=" translate(-24, -33)" d="M 26.482 34.137 C 27.4068 33.4044 28 32.2715 28 31 C 28 28.7909 26.2091 27 24 27 C 21.7909 27 20 28.7909 20 31 C 20 32.2715 20.5932 33.4044 21.518 34.137 L 20.8809 36.8676 C 20.6605 37.8119 21.1676 38.7496 22.1284 38.8805 C 22.6344 38.9495 23.2582 39 24 39 C 24.7418 39 25.3656 38.9495 25.8716 38.8805 C 26.8324 38.7496 27.3395 37.8119 27.1191 36.8676 L 26.482 34.137 Z" stroke-linecap="round" />
+            </g>
+        </g>
+    </g>
+</svg>
