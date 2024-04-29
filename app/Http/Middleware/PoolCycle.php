@@ -21,11 +21,16 @@ class PoolCycle
      */
     public function handle(Request $request, Closure $next): mixed
     {
-        if (! $request->session()->exists('cycle') || empty($request->session()->get('cycle'))) {
+        //what if there are no seasons, if the DB is empty?
+        if (DB::connection('mysql')->table('seasons')->count() === 0) {
+            return $next($request);
+        }
+        //if there are seasons but the most session value is empty, choose the most recent one
+        if ( ! $request->session()->exists('cycle') || empty($request->session()->get('cycle')) || $request->session()->get('cycle') === '0000/00')
+        {
             //when no cycle is in the session, put the most recent date cycle as a starting point
             $recent_season = DB::connection('mysql')->table('seasons')->orderBy('cycle', 'desc')->first();
-            /** @var Date $recent_season */
-            $season = $recent_season ? $recent_season->cycle : '0000/00';
+            $season = $recent_season ? $recent_season['cycle'] : '0000/00';
             $request->session()->put('cycle', $season);
         }
 
