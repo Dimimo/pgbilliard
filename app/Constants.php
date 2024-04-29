@@ -16,6 +16,8 @@ class Constants
 
     public const FORUM_BODY = 1200;
 
+    public const COMMENT_BODY = 250;
+
     public const DATEFORMAT_START = 'Y-m-d 12:00:00';
 
     public const DATEFORMAT_END = 'Y-m-d 12:00:00';
