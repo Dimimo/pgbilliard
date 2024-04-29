@@ -19,8 +19,8 @@ class PostSeeder extends Seeder
             Post::factory()
                 ->count(3)
                 ->for($user)
-                ->for(Tag::query()->inRandomOrder()->first())
-//                ->has(Tag::factory()->count(2))
+//                ->for(Tag::query()->inRandomOrder()->first(), 'tags')
+//                ->has(Tag::factory()->count(2), 'tags')
                 ->has(Visit::factory()->count(1))
                 ->has(Comment::factory()->for(User::query()->inRandomOrder()->first())->count(2))
                 ->create();
