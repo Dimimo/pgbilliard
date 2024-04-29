@@ -9,7 +9,6 @@
     <meta name="copyright" content="&copy; &reg; {{ date("Y") }} Puerto Galera Pool League">
     <meta name="description" content="Puerto Galera Pool League">
 
-    @filamentStyles
     @vite('resources/css/app.css')
 
     <link rel="stylesheet" href="{{ secure_asset('webfonts/roboto/roboto.css') }}">
@@ -79,10 +78,7 @@
     </div>
 </div>
 
-@livewire('notifications')
-
 {{-- Begin script --}}
-@filamentScripts
 @vite('resources/js/app.js')
 
 @stack('js')
