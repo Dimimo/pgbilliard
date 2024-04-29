@@ -1,6 +1,5 @@
 <div>
-    <x-title title="Forum Posts" />
+    <x-title title="Forum Posts"/>
 
-    (table)
-
+    <x-forum.posts-table :posts="$posts" />
 </div>
