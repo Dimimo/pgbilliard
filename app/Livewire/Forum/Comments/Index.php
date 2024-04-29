@@ -11,7 +11,7 @@ class Index extends Component
 {
     public Collection $comments;
 
-    public function mount(Post $post)
+    public function mount(Post $post): void
     {
         $this->comments = $post->comments()->select(['body', 'user_id', 'created_at'])->orderByDesc('created_at')->get();
     }
