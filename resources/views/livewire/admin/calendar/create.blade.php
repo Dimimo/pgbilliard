@@ -22,11 +22,11 @@
             <div class="flex flex-wrap p-2">
                 <div class="w-full lg:w-2/3 pr-4 pl-4">
                     <form wire:submit="save">
-                        <div class="border border-indigo-400 border-2 rounded-md p-2 mb-4">
+                        <div class="border-indigo-400 border-2 rounded-md p-2 mb-4">
                             <x-calendar.playing-date :dates="$dates" />
                         </div>
 
-                        <div class="flex justify-between w-full border border-green-500 border-2 rounded-md p-2 mb-4">
+                        <div class="flex justify-between w-full border-green-500 border-2 rounded-md p-2 mb-4">
                             <x-calendar.team-choice teamNr="team1" :teams="$teams">
                                 Home Team
                             </x-calendar.team-choice>
@@ -35,13 +35,13 @@
                             </x-calendar.team-choice>
                         </div>
 
-                        <div class="border border-green-500 border-2 rounded-md p-2 mb-4">
+                        <div class="border-green-500 border-2 rounded-md p-2 mb-4">
                             <x-calendar.venue-choice :venues="$venues">
                                 Venue <span class="text-gray-700">(autofilled with Home Team)</span>
                             </x-calendar.venue-choice>
                         </div>
 
-                        {{--<div class="flex justify-between w-full border border-blue-600 border-2 rounded-md p-2 mb-4">
+                        {{--<div class="flex justify-between w-full border-blue-600 border-2 rounded-md p-2 mb-4">
                             <x-calendar.team-score scoreNr="score1">
                                 The score of Team 1 <span class="text-gray-700">(optional)</span>
                             </x-calendar.team-score>
