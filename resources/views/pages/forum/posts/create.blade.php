@@ -1,3 +1,8 @@
+<?php
+use function Laravel\Folio\name;
+name('forum.posts.create');
+
+?>
 <x-layout>
     @volt()
     <section>

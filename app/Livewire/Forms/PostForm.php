@@ -4,7 +4,6 @@ namespace App\Livewire\Forms;
 
 use App\Constants;
 use App\Models\Forum\Post;
-use App\Models\Forum\Visit;
 use Auth;
 use Illuminate\Support\Str;
 use Livewire\Form;
@@ -55,10 +54,7 @@ class PostForm extends Form
     public function store(): void
     {
         $values = $this->validate();
-        $values['slug'] = Str::slug($values['title']);
-        $values['user_id'] = Auth::id();
-        $post = Post::create($values);
-        Visit::insert(['user_id' => Auth::id(), 'post_id' => $post->id]);
+        $this->post = Post::create(array_merge($values, ['slug' => Str::slug($values['title']), 'user_id' => Auth::id()]));
     }
 
     public function update(): void

@@ -16,9 +16,21 @@ name('forum.post.edit');
             subtitle="Update your post"
         />
 
-        <x-forum.back-to-posts/>
+        @can('update', $post)
 
-        <livewire:forum.posts.create :post="$post"/>
+            @if($post->exists())
+                <x-forum.back-to-post :post="$post"/>
+            @endif
+
+            <x-forum.back-to-posts/>
+            <livewire:forum.posts.create :post="$post"/>
+
+        @else
+
+            <x-forum.back-to-posts/>
+            <div class="text-red-700 text-xl">You don't have access to this page</div>
+
+        @endcan
 
     </section>
     @endvolt

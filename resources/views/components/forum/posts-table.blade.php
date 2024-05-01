@@ -19,13 +19,13 @@
             <tr class="hover:bg-blue-50" wire:key="{{ $post->id }}">
                 <td class="px-6 py-3 text-sm">
                     @if ($post->visits->count() === 1)
-                        <img class="mx-auto inline-block" src="{{ secure_asset('svg/envelop-open.svg') }}" alt="Post is read" width="22" height="22">
+                        <img class="inline-block" src="{{ secure_asset('svg/envelop-open.svg') }}" alt="Post is read" width="22" height="22">
                     @else
-                        <img class="mx-auto inline-block" src="{{ secure_asset('svg/envelop-closed.svg') }}" alt="New post" width="22" height="22">
+                        <img class="inline-block" src="{{ secure_asset('svg/envelop-closed.svg') }}" alt="New post" width="22" height="22">
                     @endif
                 </td>
                 <td class="pl-6 py-3 @if($post->is_sticky)font-bold @endif">
-                    <a class="block" href="/forum/show/{{ $post->id }}" wire:navigate>
+                    <a class="block" href="/forum/posts/show/{{ $post->id }}" wire:navigate>
                         {{ $post->title }}
                     </a>
                 </td>
@@ -33,7 +33,7 @@
                     {{ $post->user->name }}
                 </td>
                 <td class="px-6 py-3 text-sm">
-                    {{ $post->updated_at->format('d-m-y H:i') }}
+                    {{ $post->updated_at->diffForHumans(['parts' => 2, 'join' => true, 'short' => true]) }}
                 </td>
                 <td class="px-6 py-3 text-sm">
                     @if($post->comments_count > 0)

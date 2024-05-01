@@ -15,7 +15,9 @@ class Show extends Component
     public function mount(Post $post): void
     {
         $this->post = $post;
-        Auth::check() ?? Visit::updateOrCreate(['post_id' => $post->id, 'user_id' => Auth::id()]);
+        if (Auth::check()) {
+            Visit::updateOrCreate(['post_id' => $post->id, 'user_id' => Auth::id()], ['updated_at' => now()]);
+        }
     }
 
     public function render(): View
