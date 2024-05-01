@@ -1,7 +1,7 @@
 <x-layout>
     @volt
     <div>
-        <livewire:teams />
+        <livewire:teams/>
     </div>
     @endvolt
 </x-layout>

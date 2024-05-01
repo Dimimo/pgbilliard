@@ -1,7 +1,7 @@
 <x-layout>
     @volt
     <div>
-        <livewire:score />
+        <livewire:score/>
     </div>
     @endvolt
 </x-layout>

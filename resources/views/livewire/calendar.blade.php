@@ -11,9 +11,9 @@
                             class="relative grid grid-flow-row auto-rows-max gap-y-2 w-auto py-3 px-6 bg-gray-200 text-gray-900 rounded border border-b-1 border-gray-300 {{ $date->regular ? 'bg-green-500' : 'bg-teal-500' }}">
                             <div class="text-center">
                                 @if($hasAccess || $date->checkIfGuestHasWritableAccess())
-                                <a href="/dates/show/{{ $date->id }}" class="text-white text-lg" title="click for details">
-                                    {{ $date->date->format('jS \o\f M Y') }}
-                                </a>
+                                    <a href="/dates/show/{{ $date->id }}" class="text-white text-lg" title="click for details">
+                                        {{ $date->date->format('jS \o\f M Y') }}
+                                    </a>
                                 @else
                                     <div class="text-white text-lg">{{ $date->date->format('jS \o\f M Y') }}</div>
                                 @endif

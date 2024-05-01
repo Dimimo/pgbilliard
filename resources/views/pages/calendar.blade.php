@@ -1,12 +1,13 @@
 <?php
-//use function Livewire\Volt\uses;
 
-//uses([\App\Livewire\WithHasAccess::class])
+use function Laravel\Folio\name;
+
+name('calendar');
 ?>
 <x-layout>
     @volt
     <div>
-        <livewire:calendar />
+        <livewire:calendar/>
     </div>
     @endvolt
 </x-layout>

@@ -7,17 +7,14 @@ state(['password' => '']);
 
 rules(['password' => ['required', 'string', 'current_password']]);
 
-$deleteUser = function () {
+$deleteUser = function ()
+{
     $this->validate();
-
-    tap(auth()->user(), fn () => auth()->logout())->delete();
-
+    tap(auth()->user(), fn() => auth()->logout())->delete();
     session()->invalidate();
     session()->regenerateToken();
-
     $this->redirect('/', navigate: true);
 };
-
 ?>
 
 <section class="space-y-6">
@@ -48,7 +45,7 @@ $deleteUser = function () {
             </p>
 
             <div class="mt-6">
-                <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
+                <x-input-label for="password" value="{{ __('Password') }}" class="sr-only"/>
 
                 <x-text-input
                     wire:model="password"
@@ -59,7 +56,7 @@ $deleteUser = function () {
                     placeholder="{{ __('Password') }}"
                 />
 
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <x-input-error :messages="$errors->get('password')" class="mt-2"/>
             </div>
 
             <div class="mt-6 flex justify-end">

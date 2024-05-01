@@ -1,35 +1,29 @@
 <?php
 
 use App\Providers\RouteServiceProvider;
-
 use function Livewire\Volt\layout;
 
 layout('layouts.guest');
 
-$sendVerification = function () {
-    if (auth()->user()->hasVerifiedEmail()) {
-        $this->redirect(
-            session('url.intended', RouteServiceProvider::HOME),
-            navigate: true
-        );
+$sendVerification = function ()
+{
+    if (auth()->user()->hasVerifiedEmail())
+    {
+        $this->redirect(session('url.intended', RouteServiceProvider::HOME), navigate: true);
 
         return;
     }
-
     auth()->user()->sendEmailVerificationNotification();
-
     session()->flash('status', 'verification-link-sent');
 };
 
-$logout = function () {
+$logout = function ()
+{
     auth()->guard('web')->logout();
-
     session()->invalidate();
     session()->regenerateToken();
-
     $this->redirect('/', navigate: true);
 };
-
 ?>
 
 <div>
@@ -48,7 +42,8 @@ $logout = function () {
             {{ __('Resend Verification Email') }}
         </x-primary-button>
 
-        <button wire:click="logout" type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <button wire:click="logout" type="submit"
+                class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             {{ __('Log Out') }}
         </button>
     </div>

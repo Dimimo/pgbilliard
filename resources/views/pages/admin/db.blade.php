@@ -1,7 +1,7 @@
 <x-layout>
     @volt()
     <div>
-        <livewire:admin.database />
+        <livewire:admin.database/>
     </div>
     @endvolt
 </x-layout>

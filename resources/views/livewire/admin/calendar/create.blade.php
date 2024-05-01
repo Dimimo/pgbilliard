@@ -9,7 +9,7 @@
 @endif
 <div>
     <div class="border border-green-500 bg-green-100 p-4 m-2">
-        <x-calendar.explanation :dates="$dates" :new="$new" />
+        <x-calendar.explanation :dates="$dates" :new="$new"/>
     </div>
     <div class="border border-gray-500 mx-2 my-4">
         <div class="relative flex flex-col">
@@ -23,7 +23,7 @@
                 <div class="w-full lg:w-2/3 pr-4 pl-4">
                     <form wire:submit="save">
                         <div class="border-indigo-400 border-2 rounded-md p-2 mb-4">
-                            <x-calendar.playing-date :dates="$dates" />
+                            <x-calendar.playing-date :dates="$dates"/>
                         </div>
 
                         <div class="flex justify-between w-full border-green-500 border-2 rounded-md p-2 mb-4">
@@ -77,7 +77,7 @@
                     </form>
                 </div>
                 <div class="w-full lg:w-1/3 px-4">
-                    <x-calendar.events-list :events="$events" :dates="$dates" :last_date="$last_date" />
+                    <x-calendar.events-list :events="$events" :dates="$dates" :last_date="$last_date"/>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 <div class="overflow-x-auto">
-    <x-title title="Competition Results" subtitle="Season {{ $cycle }}" />
+    <x-title title="Competition Results" subtitle="Season {{ $cycle }}"/>
     <table class="min-w-full mb-4 table-collapse bg-transparent">
         <thead class="whitespace-nowrap">
         <tr>

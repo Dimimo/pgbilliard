@@ -4,7 +4,6 @@ use function Livewire\Volt\state;
 use function Laravel\Folio\name;
 
 state('post');
-
 name('forum.post.show');
 ?>
 <x-layout>

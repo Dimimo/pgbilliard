@@ -12,11 +12,11 @@
     @endforelse
 
     @if(!request()->is('teams/show/*'))
-            <a class="flex justify-end px-4 pt-4" href="/teams/show/{{  $team->id }}" wire:navigate>
-                <div class="text-blue-700">
-                    Team details
-                </div>
-            </a>
+        <a class="flex justify-end px-4 pt-4" href="/teams/show/{{  $team->id }}" wire:navigate>
+            <div class="text-blue-700">
+                Team details
+            </div>
+        </a>
     @endif
 
     @can ('update', $team)

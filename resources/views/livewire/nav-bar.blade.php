@@ -1,12 +1,12 @@
 <div>
     @if (Route::has('login'))
-        <livewire:welcome.navigation />
+        <livewire:welcome.navigation/>
     @endif
     <div class="flex flex-wrap mb-4">
         <div class="w-full align-center">
             <img src="{{ secure_asset('images/pg-pool-league.png') }}" width="100%" alt="Pool League logo">
 
-            <livewire:cycle-select />
+            <livewire:cycle-select/>
 
             <div class="flex flex-wrap py-2">
                 <x-top-nav-link href="/" svg="ordered-list">

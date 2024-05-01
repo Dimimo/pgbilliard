@@ -15,7 +15,7 @@ state(['date' => fn() => $date]);
             subtitle="Season {{ $cycle }}"
         />
         @if($hasAccess || $date->checkIfGuestHasWritableAccess())
-            <livewire:date.update :date="$date" />
+            <livewire:date.update :date="$date"/>
         @else
             <div class="text-red-700 text-xl">You have currently no access to this page, please text Richard if you need a score updated.</div>
         @endif

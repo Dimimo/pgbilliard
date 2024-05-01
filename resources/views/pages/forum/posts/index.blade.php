@@ -1,8 +1,8 @@
 <?php
 
 use function Laravel\Folio\name;
-name('forum.posts.index');
 
+name('forum.posts.index');
 ?>
 <x-layout>
     @volt()
