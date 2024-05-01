@@ -39,6 +39,7 @@ class Visit extends Model
     protected $fillable = [
         'user_id',
         'post_id',
+        'updated_at',
     ];
 
     public function user(): BelongsTo
