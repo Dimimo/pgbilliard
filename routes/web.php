@@ -1,6 +1,5 @@
 <?php
 
-use Dimimo\PoolForum\PoolForumFacade as PoolForum;
 use Illuminate\Support\Facades\Route;
 
 /*

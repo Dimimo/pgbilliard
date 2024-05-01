@@ -14,7 +14,7 @@ class PostSeeder extends Seeder
     public function run(): void
     {
         Tag::factory()->count(10)->create();
-        for ($i=1 ; $i <= 20; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
             $user = User::query()->inRandomOrder()->first();
             Post::factory()
                 ->count(3)

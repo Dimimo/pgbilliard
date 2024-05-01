@@ -12,8 +12,7 @@ class CommentPolicy
 
     public function before(User $user): ?bool
     {
-        if ($user->isAdmin())
-        {
+        if ($user->isAdmin()) {
             return true;
         }
 

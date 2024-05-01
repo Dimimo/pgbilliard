@@ -26,8 +26,7 @@ class PoolCycle
             return $next($request);
         }
         //if there are seasons but the most session value is empty, choose the most recent one
-        if ( ! $request->session()->exists('cycle') || empty($request->session()->get('cycle')) || $request->session()->get('cycle') === '0000/00')
-        {
+        if (! $request->session()->exists('cycle') || empty($request->session()->get('cycle')) || $request->session()->get('cycle') === '0000/00') {
             //when no cycle is in the session, put the most recent date cycle as a starting point
             $recent_season = DB::connection('mysql')->table('seasons')->orderBy('cycle', 'desc')->first();
             $season = $recent_season ? $recent_season['cycle'] : '0000/00';

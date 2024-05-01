@@ -11,8 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create(config('pool-forum.table_names.tags'), function (Blueprint $table)
-        {
+        Schema::create(config('pool-forum.table_names.tags'), function (Blueprint $table) {
             $table->id();
             $table->string('name', 20)->index();
             $table->string('slug', 20)->index();
