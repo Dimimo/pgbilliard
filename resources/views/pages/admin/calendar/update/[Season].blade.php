@@ -1,8 +1,10 @@
 <?php
 
+use function Laravel\Folio\name;
 use function Livewire\Volt\state;
 
-state(['season' => fn() => $season]);
+name('admin.calendar.update');
+state('season');
 ?>
 <x-layout>
     @volt

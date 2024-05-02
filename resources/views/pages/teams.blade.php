@@ -1,17 +1,11 @@
 <?php
 
-use App\Models\User;
-use function Livewire\Volt\
-{computed, state};
-use Livewire\Volt\Component;
+use function Laravel\Folio\name;
 
-new class extends Component {
-    public function mount()
-    {
-        //
-    }
-}
+name('teams');
 ?>
+
+
 <x-layout>
     @volt
     <div>

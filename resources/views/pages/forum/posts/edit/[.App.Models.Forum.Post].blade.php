@@ -5,7 +5,7 @@ use function Laravel\Folio\name;
 
 state('post');
 
-name('forum.post.edit');
+name('forum.posts.edit');
 ?>
 <x-layout>
     @volt()

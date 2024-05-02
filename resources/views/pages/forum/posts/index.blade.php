@@ -4,6 +4,7 @@ use function Laravel\Folio\name;
 
 name('forum.posts.index');
 ?>
+
 <x-layout>
     @volt()
     <section>

@@ -12,7 +12,7 @@
     @endforelse
 
     @if(!request()->is('teams/show/*'))
-        <a class="flex justify-end px-4 pt-4" href="/teams/show/{{  $team->id }}" wire:navigate>
+        <a href="{{ route('teams.show', ['team' => $team]) }}" class="flex justify-end px-4 pt-4" wire:navigate>
             <div class="text-blue-700">
                 Team details
             </div>
@@ -20,7 +20,7 @@
     @endif
 
     @can ('update', $team)
-        <a class="flex justify-end px-4" href="/teams/edit/{{  $team->id }}" wire:navigate>
+        <a href="{{ route('teams.edit', ['team' => $team]) }}" class="flex justify-end px-4" wire:navigate>
             <div class="mr-2">
                 <img src="{{ secure_asset('svg/pen-square.svg') }}" alt="" width="24" height="24">
             </div>

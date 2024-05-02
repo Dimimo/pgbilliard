@@ -1,3 +1,10 @@
+<?php
+
+use function Laravel\Folio\name;
+
+name('admin.overview');
+?>
+
 <x-layout>
     @volt
     <section>

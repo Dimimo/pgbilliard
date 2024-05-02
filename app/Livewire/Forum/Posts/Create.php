@@ -27,7 +27,7 @@ class Create extends Component
         $this->post_form->store();
         $this->dispatch('post-saved');
         session()->flash('status', 'Your post is successfully created.');
-        $this->redirect('/forum/posts/show/'.$this->post_form->post->id, navigate: true);
+        $this->redirect(route('forum.posts.show', ['post' => $this->post_form->post]), navigate: true);
     }
 
     public function update(): void
@@ -36,7 +36,7 @@ class Create extends Component
         $this->post_form->update();
         $this->dispatch('post-updated');
         session()->flash('status', 'Your post is successfully updated.');
-        $this->redirect('/forum/posts/show/'.$this->post_form->post->id, navigate: true);
+        $this->redirect(route('forum.posts.show', ['post' => $this->post_form->post]), navigate: true);
     }
 
     public function delete(): void
@@ -45,6 +45,6 @@ class Create extends Component
         $this->post_form->delete();
         $this->dispatch('post-deleted');
         session()->flash('status', 'The post is successfully deleted.');
-        $this->redirect('/forum/posts', navigate: true);
+        $this->redirect(route('forum.posts.index'), navigate: true);
     }
 }

@@ -41,7 +41,7 @@
             </div>
         </form>
         @can ('update', $venue)
-            <a class="flex justify-end p-4" href="/venues/edit/{{  $team_form->team->venue->id }}" wire:navigate>
+            <a href="{{ route('venues.edit', ['venue' => $team_form->team->venue]) }}" class="flex justify-end p-4" wire:navigate>
                 <div class="mr-2">
                     <img src="{{ secure_asset('svg/pen-square.svg') }}" alt="" width="24" height="24">
                 </div>

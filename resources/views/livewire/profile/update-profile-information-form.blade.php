@@ -13,7 +13,7 @@ state([
 
 $updateProfileInformation = function ()
 {
-    $user = auth()->user();
+    $user      = auth()->user();
     $validated = $this->validate([
                                      'name'  => ['required', 'string', 'min:2', 'max:255', Rule::unique(User::class)->ignore($user->id)],
                                      'email' => ['required', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],

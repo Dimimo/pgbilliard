@@ -1,3 +1,10 @@
+<?php
+
+use function Laravel\Folio\name;
+
+name('scoresheet');
+?>
+
 <x-layout>
     @volt
     <div>

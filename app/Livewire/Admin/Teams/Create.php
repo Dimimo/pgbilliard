@@ -73,7 +73,7 @@ class Create extends Component
         $this->dispatch('teams-created');
         session('alert', count($validated).' teams created. Time to create the Calendar!');
 
-        $this->redirect('/admin/calendar/create/'.$this->season->id, navigate: true);
+        $this->redirect(route('admin.calendar.create', ['season' => $this->season]), navigate: true);
     }
 
     public function updating($name, $value): void

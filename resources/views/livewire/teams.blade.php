@@ -19,7 +19,7 @@
                     <div class="flex justify-start">
                         @can ('update', $team)
                             <div class="mr-2">
-                                <a href="/teams/edit/{{ $team->id }}" wire:navigate>
+                                <a href="{{ route('teams.edit', ['team' => $team]) }}" wire:navigate>
                                     <img class="mx-auto" src="{{ secure_asset('svg/pen-square.svg') }}" alt="Edit this team" width="24" height="24">
                                 </a>
                             </div>
@@ -32,7 +32,7 @@
                             @endif
                         @endcan
                         <div class="font-semibold">
-                            <a href="/teams/show/{{ $team->id }}" wire:navigate>
+                            <a href="{{ route('teams.show', ['team' => $team]) }}" wire:navigate>
                                 {{ $team->name }}
                             </a>
                         </div>
@@ -42,13 +42,13 @@
                     <div class="flex justify-start">
                         <div class="mr-2">
                             @can ('update', $team->venue)
-                                <a href="/venues/edit/{{ $team->venue->id }}" wire:navigate>
+                                <a href="{{ route('venues.edit', ['venue' => $team->venue]) }}" wire:navigate>
                                     <img class="mx-auto" src="{{ secure_asset('svg/pen-square.svg') }}" alt="Edit this team" width="24" height="24">
                                 </a>
                             @endcan
                         </div>
                         <div>
-                            <a href="/venues/show/{{ $team->venue->id }}" wire:navigate>
+                            <a href="{{ route('venues.show', ['venue' => $team->venue]) }}" wire:navigate>
                                 {{ $team->venue->name }}
                             </a>
                         </div>
@@ -59,7 +59,7 @@
                     <div class="flex justify-start">
                         <div class="mr-2">
                             @can ('update', $team)
-                                <a href="/teams/edit/{{ $team->id }}" wire:navigate>
+                                <a href="{{ route('teams.edit', ['team' => $team]) }}" wire:navigate>
                                     <img class="mx-auto" src="{{ secure_asset('svg/pen-square.svg') }}" alt="Edit this team" width="24" height="24">
                                 </a>
                             @endcan

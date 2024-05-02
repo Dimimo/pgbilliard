@@ -35,6 +35,6 @@ class Venue extends Component
         $this->venue_form->update();
         $this->dispatch('venue-updated');
         session()->flash('status', "The venue {$this->venue_form->name} is successfully updated.");
-        $this->redirect('/teams', navigate: true);
+        $this->redirect(route('teams.index'), navigate: true);
     }
 }

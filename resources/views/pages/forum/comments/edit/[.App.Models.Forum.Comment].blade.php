@@ -5,7 +5,7 @@ use function Laravel\Folio\name;
 
 state('comment');
 
-name('forum.comment.edit');
+name('forum.comments.edit');
 ?>
 
 <x-layout>

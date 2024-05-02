@@ -45,12 +45,12 @@
                         id="team_{{ $score->get('team')->id }}"
                         wire:click.self="setMyTeam({{ $score->get('team')->id }})"
                     >
-                        <a href="/teams/show/{{ $score->get('team')->id }}" class="text-gray-900" wire:navigate>
+                        <a href="{{ route('teams.show', ['team' => $score->get('team')]) }}" class="text-gray-900" wire:navigate>
                             {{ $score->get('team')->name }}
                         </a>
                     </td>
                     <td class="p-2 bg-amber-200 text-gray-900" title="Last played Team (week {{ $week }})">
-                        <a href="/teams/show/{{ $score->get('played')->id }}" class="text-gray-900" wire:navigate>
+                        <a href="{{ route('teams.show', ['team' => $score->get('played')]) }}" class="text-gray-900" wire:navigate>
                             @if ($score->get('max_games') === $score->get('games_played'))
                                 {{ $score->get('played')->name }}
                             @else

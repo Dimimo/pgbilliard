@@ -9,13 +9,13 @@
             <livewire:cycle-select/>
 
             <div class="flex flex-wrap py-2">
-                <x-top-nav-link href="/" svg="ordered-list">
+                <x-top-nav-link href="{{ route('scoresheet') }}" svg="ordered-list">
                     Results
                 </x-top-nav-link>
-                <x-top-nav-link href="/calendar" svg="calendar-date">
+                <x-top-nav-link href="{{ route('calendar') }}" svg="calendar-date">
                     Calendar
                 </x-top-nav-link>
-                <x-top-nav-link href="/teams" svg="team">
+                <x-top-nav-link href="{{ route('teams') }}" svg="team">
                     Teams
                 </x-top-nav-link>
             </div>

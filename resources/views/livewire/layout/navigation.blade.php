@@ -16,34 +16,34 @@ $logout = function ()
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="/" wire:navigate>
+                    <a href="{{ route('scoresheet') }}" wire:navigate>
                         <x-application-logo class="block h-9 w-auto"/>
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
+                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="/" wire:navigate>
+                    <x-nav-link href="{{ route('scoresheet') }}" wire:navigate>
                         Results
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="/calendar" wire:navigate>
+                    <x-nav-link href="{{ route('calendar') }}" wire:navigate>
                         Calendar
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="/teams" wire:navigate>
+                    <x-nav-link href="{{ route('teams') }}" wire:navigate>
                         Teams
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="/forum/posts" wire:navigate>
+                    <x-nav-link href="{{ route('forum.posts.index') }}" wire:navigate>
                         Forum
                     </x-nav-link>
                 </div>
@@ -105,22 +105,22 @@ $logout = function ()
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-nav-link href="/" wire:navigate>
+            <x-nav-link href="{{ route('scoresheet') }}" wire:navigate>
                 Results
             </x-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-nav-link href="/calendar" wire:navigate>
+            <x-nav-link href="{{ route('calendar') }}" wire:navigate>
                 Calendar
             </x-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-nav-link href="/teams" wire:navigate>
+            <x-nav-link href="{{ route('teams') }}" wire:navigate>
                 Teams
             </x-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-nav-link href="/forum/posts" wire:navigate>
+            <x-nav-link href="{{ route('forum.posts.index') }}" wire:navigate>
                 Forum
             </x-nav-link>
         </div>

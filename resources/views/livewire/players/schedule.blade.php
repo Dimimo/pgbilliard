@@ -16,12 +16,13 @@
                         <td class="p-2">
                             <div class="flex justify-start">
                                 <div class="mr-2">
+                                    {{-- todo: add the pdf file --}}
                                     <a href="#" title="download this personalized day schedule" wire:navigate>
                                         <img src="{{ secure_asset('svg/file-pdf.svg') }}" alt="" width="16" height="16">
                                     </a>
                                 </div>
                                 <div>
-                                    <a href="/dates/{{ $date->id }}" wire:navigate>
+                                    <a href="{{ route('dates.show', ['date' => $date]) }}" wire:navigate>
                                         {{ $event->date->date->format('jS \o\f M Y') }}
                                     </a>
                                 </div>
@@ -31,7 +32,7 @@
                             <strong>{{ @$team->name }}</strong>
                         </td>
                         <td class="p-2">
-                            <a href="/teams/show/{{ $event->team_2->id }}" wire:navigate>
+                            <a href="{{ route('teams.show', ['team' => $event->team_2]) }}" wire:navigate>
                                 {{ $event->team_2->name }}
                             </a>
                         </td>
@@ -52,19 +53,20 @@
                         <td class="p-2">
                             <div class="flex justify-start">
                                 <div class="mr-2">
+                                    {{-- todo: add the pdf file --}}
                                     <a href="#" title="download this personalized day schedule" wire:navigate>
                                         <img src="{{ secure_asset('svg/file-pdf.svg') }}" alt="" width="16" height="16">
                                     </a>
                                 </div>
                                 <div>
-                                    <a href="/dates/{{ $date->id }}" wire:navigate>
+                                    <a href="{{ route('dates.show', ['date' => $date]) }}" wire:navigate>
                                         {{ $event->date->date->format('jS \o\f M Y') }}
                                     </a>
                                 </div>
                             </div>
                         </td>
                         <td class="p-2">
-                            <a href="/teams/show/{{ $event->team_1->id }}" wire:navigate>
+                            <a href="{{ route('teams.show', ['team' => $event->team_1]) }}" wire:navigate>
                                 {{ $event->team_1->name }}
                             </a>
                         </td>

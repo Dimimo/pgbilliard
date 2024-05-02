@@ -1,14 +1,15 @@
 <?php
 
 use App\Livewire\WithCurrentCycle;
-use App\Taps\Cycle;
-use function Livewire\Volt\computed;
+use function Laravel\Folio\name;
 use function Livewire\Volt\state;
 use function Livewire\Volt\uses;
 
 uses([WithCurrentCycle::class]);
-state(['venue' => fn() => $venue]);
+state('venue');
+name('venues.show');
 ?>
+
 <x-layout>
     @volt
     <section>

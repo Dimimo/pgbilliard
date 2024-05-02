@@ -35,6 +35,6 @@ class Create extends Component
     {
         $this->venue_form->create();
         session()->flash('status', "The venue {$this->venue_form->venue->name} has been created");
-        $this->redirect('/venues/show/'.$this->venue_form->venue->id, navigate: true);
+        $this->redirect(route('venues.show', ['venue' => $this->venue_form->venue]), navigate: true);
     }
 }

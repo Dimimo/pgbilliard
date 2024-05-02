@@ -1,9 +1,12 @@
 <?php
 
+use function Laravel\Folio\name;
 use function Livewire\Volt\state;
 
-state(['team' => fn() => $team]);
+state('team');
+name('teams.show');
 ?>
+
 <x-layout>
     @volt
     <section>

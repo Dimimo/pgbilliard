@@ -25,7 +25,7 @@
                     @endif
                 </td>
                 <td class="pl-6 py-3 @if($post->is_sticky)font-bold @endif">
-                    <a class="block" href="/forum/posts/show/{{ $post->id }}" wire:navigate>
+                    <a class="block" href="{{ route('forum.posts.show', ['post' => $post]) }}" wire:navigate>
                         {{ $post->title }}
                     </a>
                 </td>
@@ -61,7 +61,7 @@
                 @endif
                 <td class="px-6 py-3">
                     @can('update', $post)
-                        <a class="px-1" href="/forum/posts/edit/{{ $post->id }}" wire:navigate>
+                        <a class="px-1" href="{{ route('forum.posts.edit', ['post' => $post]) }}" wire:navigate>
                             <x-forum.button-edit/>
                         </a>
                     @endcan

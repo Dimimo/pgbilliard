@@ -11,7 +11,7 @@
                             class="relative grid grid-flow-row auto-rows-max gap-y-2 w-auto py-3 px-6 bg-gray-200 text-gray-900 rounded border border-b-1 border-gray-300 {{ $date->regular ? 'bg-green-500' : 'bg-teal-500' }}">
                             <div class="text-center">
                                 @if($hasAccess || $date->checkIfGuestHasWritableAccess())
-                                    <a href="/dates/show/{{ $date->id }}" class="text-white text-lg" title="click for details">
+                                    <a href="{{ route('dates.show', ['date' => $date]) }}" class="text-white text-lg" title="click for details" wire:navigate>
                                         {{ $date->date->format('jS \o\f M Y') }}
                                     </a>
                                 @else
@@ -45,7 +45,7 @@
                                                 wire:click.self="setMyTeam({{ $event->team_1->id }})"
                                             >
                                                 <div class="text-gray-900 text-left {{ $my_team === $event->team_1->id ? 'font-semibold' : '' }}">
-                                                    <a href="/teams/show/{{ $event->team_1->id }}">
+                                                    <a href="{{ route('teams.show', ['team' => $event->team_1]) }}" wire:navigate>
                                                         {{ $event->team_1->name }}
                                                     </a>
                                                 </div>
@@ -71,7 +71,7 @@
                                                     <div></div>
                                                 @endif
                                                 <div class="text-gray-900 text-right {{ $my_team === $event->team_2->id ? 'font-semibold' : '' }}">
-                                                    <a href="/teams/show/{{ $event->team_2->id }}">
+                                                    <a href="{{ route('teams.show', ['team' => $event->team_2]) }}" wire:navigate>
                                                         {{ $event->team_2->name }}
                                                     </a>
                                                 </div>
@@ -94,10 +94,11 @@
                         @else
                             <div class="border-b-2 border-x-2 border-green-500 bg-green-100/25 p-2">
                                 @can ('create', $date)
-                                    There are no games yet, <a href="/dates/show/{{ $date->id }}">please create
-                                        some</a> or <a href="admin/dates/list/edit">delete the date if this is an error</a>.
+                                    There are no games yet, <a href="{{ route('dates.show', ['date' => $date]) }}" wire:navigate>please create
+                                        some</a> or <a href="{{ route('admin.calendar.update', ['season' => $date->season]) }}" wire:navigate>delete the date if
+                                        this is an error</a>.
                                 @else
-                                    There are no games yet. This is a placeholder. The teams will appear when the calendar is created.
+                                    There are no games yet. The teams will appear when the games are known.
                                 @endcan
                             </div>
                         @endif

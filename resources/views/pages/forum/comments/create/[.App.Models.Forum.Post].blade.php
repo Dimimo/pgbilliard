@@ -1,11 +1,12 @@
 <?php
 
-use function Livewire\Volt\state;
+use App\Models\Forum\Comment;
 use function Laravel\Folio\name;
+use function Livewire\Volt\state;
 
 state('post');
 
-name('forum.comment.create');
+name('forum.comments.create');
 ?>
 
 <x-layout>
@@ -19,7 +20,7 @@ name('forum.comment.create');
         <x-forum.back-to-post :post="$post"/>
         <x-forum.back-to-posts/>
 
-        @can('create', \App\Models\Forum\Comment::class)
+        @can('create', Comment::class)
 
             <livewire:forum.comments.create :comment="new \App\Models\Forum\Comment(['post_id' => $post->id])" :post="$post"/>
 

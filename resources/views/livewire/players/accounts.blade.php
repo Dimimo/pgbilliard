@@ -20,14 +20,18 @@
         <p class="my-3">
             <strong>User names have to be unique!</strong> For that reason alone, you should claim your account if are you in the list.
             There can only be one Richard or one Ann. If you are twice in the list because of misspelling, <strong>claim one</strong> and
-            <a class="border border-white font-semibold text-blue-700 hover:bg-blue-100 hover:border hover:border-blue-700"
-               href="mailto:admin@puertopool.com?subject=[PuertoPool] Double account names">send me an email</a>
+            <a
+                href="mailto:admin@puertopool.com?subject=[PuertoPool] Double account names"
+                class="border border-white font-semibold text-blue-700 hover:bg-blue-100 hover:border hover:border-blue-700"
+            >send me an email</a>
             so I can fix it directly in the database.
         </p>
         <p class="my-3">
             If you are not in the list, simply
-            <a class="border border-white font-semibold text-blue-700 hover:bg-blue-100 hover:border hover:border-blue-700"
-               href="{{ route('register') }}" wire:navigate>create a new account</a>.
+            <a
+                href="{{ route('register') }}"
+                class="border border-white font-semibold text-blue-700 hover:bg-blue-100 hover:border hover:border-blue-700"
+                wire:navigate>create a new account</a>.
         </p>
         <p class="my-3">
             If you are listed, <strong>claim the account</strong>. <strong>Change your email address</strong>
@@ -62,8 +66,8 @@
                 <td class="p-2">{{ $user->email }}</td>
                 <td class="p-2">
                     <a
+                        href="{{ route('players.claim', ['player' => $user]) }}"
                         class="border border-white font-semibold text-blue-700 hover:bg-blue-100 hover:border hover:border-blue-700"
-                        href="/players/claim/{{ $user->id }}"
                     >
                         Claim...
                     </a>

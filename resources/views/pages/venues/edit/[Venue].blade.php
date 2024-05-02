@@ -1,9 +1,12 @@
 <?php
 
+use function Laravel\Folio\name;
 use function Livewire\Volt\state;
 
-state(['venue' => fn() => $venue]);
+state('venue');
+name('venues.edit');
 ?>
+
 <x-layout>
     @volt
     <section>

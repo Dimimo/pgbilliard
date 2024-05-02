@@ -50,6 +50,6 @@ class Index extends Component
         $post->visits()->delete();
         $post->delete();
         session()->flash('status', 'Post successfully deleted.');
-        $this->redirect('/forum/posts', navigate: true);
+        $this->redirect(route('forum.posts.index'), navigate: true);
     }
 }

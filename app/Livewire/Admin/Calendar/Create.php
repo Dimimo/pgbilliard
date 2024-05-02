@@ -119,11 +119,11 @@ class Create extends Component
         // make sure the first playing date games are set to 0-0
         $date_id = $this->dates->first()->id;
         Event::whereDateId($date_id)->update(['score1' => 0, 'score2' => 0]);
-        $this->redirect('/calendar', navigate: true);
+        $this->redirect(route('calendar'), navigate: true);
     }
 
     public function continueToCalendar(): void
     {
-        $this->redirect('/calendar', navigate: true);
+        $this->redirect(route('calendar'), navigate: true);
     }
 }

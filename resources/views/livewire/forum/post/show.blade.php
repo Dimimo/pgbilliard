@@ -11,7 +11,7 @@
         <div class="p-4 text-lg">{!! nl2br($post->body) !!}</div>
         @can('update', $post)
             <div class="bottom-0 px-1 text-right">
-                <a href="/forum/posts/edit/{{ $post->id }}" wire:navigate>
+                <a href="{{ route('forum.posts.edit', ['post' => $post]) }}" wire:navigate>
                     <x-forum.button-edit/>
                 </a>
             </div>

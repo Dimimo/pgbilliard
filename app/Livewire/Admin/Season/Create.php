@@ -52,7 +52,7 @@ class Create extends Component
         session('number_of_teams', $this->number_of_teams);
         session('has_bye', $this->has_bye);
 
-        $this->redirect('/admin/teams/create/'.$season->id, navigate: true);
+        $this->redirect(route('admin.teams.create', ['season' => $season]), navigate: true);
     }
 
     public function updating($name, $value): void

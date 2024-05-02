@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Carbon; @endphp
 <div>
     <div class="border border-green-500 bg-green-100 p-4 m-2">
         <ul class="px-4 list-disc">
@@ -6,7 +7,7 @@
                 If a new venue is introduced, please
                 <a
                     class="border border-transparent font-semibold text-blue-700 hover:bg-blue-100 hover:border hover:border-blue-700"
-                    href="/admin/venues/create"
+                    href="{{ route('admin.venues.create') }}"
                     wire:navigate
                 >
                     create the venue first
@@ -40,7 +41,7 @@
                     <img class="inline-block cursor-pointer" src="{{ secure_asset('svg/plus-box-fill.svg') }}" alt="" title="Add one month" width="24"
                          height="24">
                 </a>
-                @if(\Illuminate\Support\Carbon::createFromFormat('Y/m', $cycle)->subMonth() > \Illuminate\Support\Carbon::now())
+                @if(Carbon::createFromFormat('Y/m', $cycle)->subMonth() > Carbon::now())
                     <a wire:click="subMonth">
                         <img
                             class="inline-block cursor-pointer"
@@ -107,7 +108,7 @@
                     <img class="inline-block cursor-pointer" src="{{ secure_asset('svg/plus-box-fill.svg') }}" alt="" title="Add one week" width="24"
                          height="24">
                 </a>
-                @if(\Illuminate\Support\Carbon::createFromFormat('Y-m-d', $starting_date)->subWeek() > \Illuminate\Support\Carbon::now())
+                @if(Carbon::createFromFormat('Y-m-d', $starting_date)->subWeek() > Carbon::now())
                     <a wire:click="subWeek">
                         <img class="inline-block cursor-pointer" src="{{ secure_asset('svg/minus-box-fill.svg') }}" alt="" title="Distract one week" width="24"
                              height="24">

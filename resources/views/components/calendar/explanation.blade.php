@@ -44,7 +44,13 @@
 <div class="text-2xl">Delete a date</div>
 <div class="my-2">
     You can delete a date if there are no games on that date. If the date is somehow wrong, you
-    will have to delete the games first before the
+    will have to delete the games <img
+        class="inline-block"
+        src="{{ secure_asset('svg/minus-box-fill.svg') }}"
+        alt="Remove"
+        width="16"
+        height="16"
+    > first before the
     <img class="inline-block" src="{{ secure_asset('svg/delete-item.svg') }}" alt="" width="16" height="16">
     symbol appears.
 </div>
@@ -54,7 +60,7 @@
     <div class="mt-3 text-2xl">Conclude to the Overview</div>
     <div class="my-2">
         The results (scores) can be added later on the
-        <x-nav-link :active="true" href="/calendar" class="text-lg" wire:navigate>Calendar</x-nav-link>
+        <x-nav-link :active="true" href="{{ route('calendar') }}" class="text-lg" wire:navigate>Calendar</x-nav-link>
         .
         The <strong>first</strong> playing date will produce a score of 0-0 automatically. The overview
         needs <i>some</i> data to work with.
@@ -66,7 +72,7 @@
     <div class="my-2">
         When you are done modifying the curren Season, just click the bottom link, it will bring you back to
         the
-        <x-nav-link :active="true" href="/calendar" class="text-lg" wire:navigate>Calendar</x-nav-link>
+        <x-nav-link :active="true" href="{{ route('calendar') }}" class="text-lg" wire:navigate>Calendar</x-nav-link>
         .
     </div>
 

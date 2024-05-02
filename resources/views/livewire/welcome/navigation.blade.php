@@ -1,10 +1,10 @@
 <div class="p-1 text-right z-10">
     @auth
-        <a href="{{ url('/dashboard') }}"
+        <a href="{{ route('dashboard') }}"
            class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
            wire:navigate>Dashboard</a>
         @if(Auth::user()->isAdmin())
-            <a href="{{ url('/admin') }}"
+            <a href="{{ route('admin.index') }}"
                class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" wire:navigate>Administration</a>
         @endif
     @else
@@ -15,10 +15,11 @@
             <a href="{{ route('register') }}"
                class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" wire:navigate>Register</a>
         @endif
-        <a href="/players/accounts"
+        <a href="{{ route('players.account') }}"
            class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" wire:navigate>Claim
             existing account</a>
     @endauth
-    <a href="/forum/posts" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+    <a href="{{ route('forum.posts.index') }}"
+       class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
        wire:navigate>Forum</a>
 </div>

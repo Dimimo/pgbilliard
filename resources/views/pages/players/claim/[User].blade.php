@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use function Livewire\Volt\state;
 
-state(['user' => fn() => $user]);
+state('user');
 ?>
+
 <x-layout>
     @volt
     @php Auth::login($user) @endphp

@@ -1,5 +1,6 @@
+@php use App\Models\Forum\Comment; @endphp
 <div class="my-4">
-    @can('create', \App\Models\Forum\Comment::class)
+    @can('create', Comment::class)
         <x-forum.write-a-comment :showComment="$showComment"/>
 
         @if($showComment)
@@ -19,7 +20,7 @@
                 @can('update', $comment)
                     <div class="flex justify-end">
                         <div>
-                            <a href="/forum/comments/edit/{{ $comment->id }}" wire:navigate>
+                            <a href="{{ route('forum.comments.edit', ['comment' => $comment]) }}" wire:navigate>
                                 <x-forum.button-edit/>
                             </a>
                         </div>

@@ -1,10 +1,14 @@
 <?php
 
+use App\Livewire\WithCurrentCycle;
+use App\Livewire\WithHasAccess;
+use function Laravel\Folio\name;
 use function Livewire\Volt\state;
 use function Livewire\Volt\uses;
 
-uses([\App\Livewire\WithHasAccess::class, \App\Livewire\WithCurrentCycle::class]);
-state(['date' => fn() => $date]);
+uses([WithHasAccess::class, WithCurrentCycle::class]);
+state('date');
+name('dates.show');
 ?>
 
 <x-layout>
@@ -17,7 +21,7 @@ state(['date' => fn() => $date]);
         @if($hasAccess || $date->checkIfGuestHasWritableAccess())
             <livewire:date.update :date="$date"/>
         @else
-            <div class="text-red-700 text-xl">You have currently no access to this page, please text Richard if you need a score updated.</div>
+            <div class="text-red-700 text-xl">You have currently no access to this page, please contact an administrator if you need a score updated.</div>
         @endif
     </section>
 

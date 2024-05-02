@@ -44,6 +44,6 @@ class Create extends Component
         $this->authorize('update', $this->comment_form->comment);
         $this->comment_form->update();
         $this->dispatch('comment-updated');
-        $this->redirect('/forum/posts/show/'.$this->comment_form->comment->post->id, navigate: true);
+        $this->redirect(route('forum.posts.show', ['post' => $this->comment_form->comment->post]), navigate: true);
     }
 }
