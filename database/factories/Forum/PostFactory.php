@@ -20,11 +20,11 @@ class PostFactory extends Factory
             'title' => $word,
             'slug' => Str::slug($word),
             'body' => $this->faker->realText(),
+            'user_id' => User::factory(),
             'is_locked' => $this->faker->boolean(),
             'is_sticky' => $this->faker->boolean(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-            'user_id' => User::factory(),
         ];
     }
 }

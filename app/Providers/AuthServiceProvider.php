@@ -3,11 +3,15 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Chat\ChatMessage;
+use App\Models\Chat\ChatRoom;
 use App\Models\Date;
 use App\Models\Event;
 use App\Models\Player;
 use App\Models\Season;
 use App\Models\Team;
+use App\Policies\ChatMessagePolicy;
+use App\Policies\ChatRoomPolicy;
 use App\Policies\DatePolicy;
 use App\Policies\EventPolicy;
 use App\Policies\PlayerPolicy;
@@ -28,6 +32,8 @@ class AuthServiceProvider extends ServiceProvider
         Player::class => PlayerPolicy::class,
         Season::class => SeasonPolicy::class,
         Team::class => TeamPolicy::class,
+        ChatMessage::class => ChatMessagePolicy::class,
+        ChatRoom::class => ChatRoomPolicy::class,
     ];
 
     /**
