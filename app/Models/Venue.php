@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Database\Factories\VenueFactory;
 use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Venue
@@ -22,32 +25,31 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $remark
  * @property string|null $lat
  * @property string|null $lng
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Event> $events
- * @property-read int|null $events_count
- * @property-read \App\Models\User|null $owner
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $teams
- * @property-read int|null $teams_count
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection<int, Event> $events
+ * @property-read int|null               $events_count
+ * @property-read mixed                  $get_contact_name
+ * @property-read mixed                  $get_contact_nr
+ * @property-read User|null              $owner
+ * @property-read Collection<int, Team>  $teams
+ * @property-read int|null               $teams_count
  *
- * @method static \Database\Factories\VenueFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Venue newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Venue newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Venue query()
- * @method static \Illuminate\Database\Eloquent\Builder|Venue whereAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Venue whereContactName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Venue whereContactNr($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Venue whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Venue whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Venue whereLat($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Venue whereLng($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Venue whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Venue whereRemark($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Venue whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Venue whereUserId($value)
- *
- * @noinspection PhpFullyQualifiedNameUsageInspection
- * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+ * @method static VenueFactory factory($count = null, $state = [])
+ * @method static Builder|Venue newModelQuery()
+ * @method static Builder|Venue newQuery()
+ * @method static Builder|Venue query()
+ * @method static Builder|Venue whereAddress($value)
+ * @method static Builder|Venue whereContactName($value)
+ * @method static Builder|Venue whereContactNr($value)
+ * @method static Builder|Venue whereCreatedAt($value)
+ * @method static Builder|Venue whereId($value)
+ * @method static Builder|Venue whereLat($value)
+ * @method static Builder|Venue whereLng($value)
+ * @method static Builder|Venue whereName($value)
+ * @method static Builder|Venue whereRemark($value)
+ * @method static Builder|Venue whereUpdatedAt($value)
+ * @method static Builder|Venue whereUserId($value)
  *
  * @mixin Eloquent
  */
@@ -98,20 +100,6 @@ class Venue extends Model
      */
     protected $hidden = [];
 
-    protected function getContactName(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->owner ? ($this->owner->name ?: $this->contact_name) : $this->contact_name,
-        );
-    }
-
-    protected function getContactNr(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->owner ? ($this->owner->contact_nr ?: $this->contact_nr) : $this->contact_nr,
-        );
-    }
-
     protected static function newFactory(): VenueFactory
     {
         return VenueFactory::new();
@@ -145,5 +133,15 @@ class Venue extends Model
     public function events(): HasMany
     {
         return $this->hasMany(Event::class, 'venue_id', 'id');
+    }
+
+    protected function getContactName(): Attribute
+    {
+        return Attribute::make(get: fn () => $this->owner ? ($this->owner->name ?: $this->contact_name) : $this->contact_name);
+    }
+
+    protected function getContactNr(): Attribute
+    {
+        return Attribute::make(get: fn () => $this->owner ? ($this->owner->contact_nr ?: $this->contact_nr) : $this->contact_nr);
     }
 }

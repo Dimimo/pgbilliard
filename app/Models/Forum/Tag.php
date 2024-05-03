@@ -2,6 +2,7 @@
 
 namespace App\Models\Forum;
 
+use Database\Factories\Forum\TagFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -21,6 +22,7 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, Post> $posts
  * @property-read int|null              $posts_count
  *
+ * @method static TagFactory factory($count = null, $state = [])
  * @method static Builder|Tag newModelQuery()
  * @method static Builder|Tag newQuery()
  * @method static Builder|Tag query()

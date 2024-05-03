@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Database\Factories\PlayerFactory;
 use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Player
@@ -15,31 +17,25 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int|null $user_id
  * @property int|null $team_id
- * @property string $name
- * @property string|null $gender
  * @property bool $captain
- * @property string|null $contact_nr
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Team|null $team
- * @property-read \App\Models\User|null $user
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read mixed     $contact_nr
+ * @property-read mixed     $gender
+ * @property-read mixed     $name
+ * @property-read Team|null $team
+ * @property-read User|null $user
  *
- * @method static \Database\Factories\PlayerFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Player newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Player newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Player query()
- * @method static \Illuminate\Database\Eloquent\Builder|Player whereCaptain($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Player whereContactNr($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Player whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Player whereGender($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Player whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Player whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Player whereTeamId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Player whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Player whereUserId($value)
- *
- * @noinspection PhpFullyQualifiedNameUsageInspection
- * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
+ * @method static PlayerFactory factory($count = null, $state = [])
+ * @method static Builder|Player newModelQuery()
+ * @method static Builder|Player newQuery()
+ * @method static Builder|Player query()
+ * @method static Builder|Player whereCaptain($value)
+ * @method static Builder|Player whereCreatedAt($value)
+ * @method static Builder|Player whereId($value)
+ * @method static Builder|Player whereTeamId($value)
+ * @method static Builder|Player whereUpdatedAt($value)
+ * @method static Builder|Player whereUserId($value)
  *
  * @mixin Eloquent
  */
@@ -73,27 +69,6 @@ class Player extends Model
         'team_id',
         'captain',
     ];
-
-    protected function name(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->user()->find($this->user_id)->name,
-        );
-    }
-
-    protected function contactNr(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->user()->find($this->user_id)->contact_nr,
-        );
-    }
-
-    protected function gender(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->user()->find($this->user_id)->gender,
-        );
-    }
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -130,6 +105,11 @@ class Player extends Model
         return $this->belongsTo(Team::class, 'team_id', 'id');
     }
 
+    protected function name(): Attribute
+    {
+        return Attribute::make(get: fn () => $this->user()->find($this->user_id)->name);
+    }
+
     /**
      * A player belongs to a user (only needed if captain and life scores are introduced)
      *
@@ -138,5 +118,15 @@ class Player extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(config('auth.providers.users.model'), 'user_id', 'id');
+    }
+
+    protected function contactNr(): Attribute
+    {
+        return Attribute::make(get: fn () => $this->user()->find($this->user_id)->contact_nr);
+    }
+
+    protected function gender(): Attribute
+    {
+        return Attribute::make(get: fn () => $this->user()->find($this->user_id)->gender);
     }
 }

@@ -2,23 +2,22 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\Models\Episode
  *
- * @method static \Illuminate\Database\Eloquent\Builder|Episode newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Episode newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Episode query()
+ * @method static Builder|Episode newModelQuery()
+ * @method static Builder|Episode newQuery()
+ * @method static Builder|Episode query()
  *
- * @noinspection PhpFullyQualifiedNameUsageInspection
- *
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class Episode extends Model
 {
     //    public $timestamps = false;
-
     protected $casts = [
         'released_at' => 'datetime',
     ];

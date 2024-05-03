@@ -2,38 +2,34 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Season
  *
  * @property int $id
  * @property string $cycle
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Date> $date
- * @property-read int|null $date_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $team
- * @property-read int|null $team_count
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection<int, Date> $dates
+ * @property-read int|null              $dates_count
+ * @property-read Collection<int, Team> $teams
+ * @property-read int|null              $teams_count
  *
- * @method static \Illuminate\Database\Eloquent\Builder|Season newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Season newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Season query()
- * @method static \Illuminate\Database\Eloquent\Builder|Season whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Season whereCycle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Season whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Season whereUpdatedAt($value)
+ * @method static Builder|Season newModelQuery()
+ * @method static Builder|Season newQuery()
+ * @method static Builder|Season query()
+ * @method static Builder|Season whereCreatedAt($value)
+ * @method static Builder|Season whereCycle($value)
+ * @method static Builder|Season whereId($value)
+ * @method static Builder|Season whereUpdatedAt($value)
  *
- * @noinspection PhpFullyQualifiedNameUsageInspection
- * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
- *
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Date> $dates
- * @property-read int|null $dates_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $teams
- * @property-read int|null $teams_count
- *
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class Season extends Model
 {

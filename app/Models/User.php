@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Chat\ChatMessage;
+use App\Models\Chat\ChatRoom;
 use App\Models\Forum\Comment;
 use App\Models\Forum\Post;
 use App\Models\Forum\Visit;
@@ -10,6 +12,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -37,19 +40,23 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read Admin|null                                                $admin
  * @property-read Collection<int, Admin>                                    $assignees
  * @property-read int|null                                                  $assignees_count
+ * @property-read Collection<int, ChatMessage>                              $chatMessages
+ * @property-read int|null                                                  $chat_messages_count
+ * @property-read Collection<int, ChatRoom>                                 $chatRooms
+ * @property-read int|null                                                  $chat_rooms_count
  * @property-read Collection<int, Comment>                                  $comments
  * @property-read int|null                                                  $comments_count
- * @property-read Collection<int, Post>                                     $posts
- * @property-read int|null                                                  $posts_count
- * @property-read Collection<int, Visit>                                    $visits
- * @property-read int|null                                                  $visits_count
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null                                                  $notifications_count
  * @property-read Collection<int, Player>                                   $players
  * @property-read int|null                                                  $players_count
+ * @property-read Collection<int, Post>                                     $posts
+ * @property-read int|null                                                  $posts_count
  * @property-read Collection<int, PersonalAccessToken>                      $tokens
  * @property-read int|null                                                  $tokens_count
  * @property-read Venue|null                                                $venue
+ * @property-read Collection<int, Visit>                                    $visits
+ * @property-read int|null                                                  $visits_count
  *
  * @method static UserFactory factory($count = null, $state = [])
  * @method static Builder|User newModelQuery()
@@ -164,5 +171,15 @@ class User extends Authenticatable
     public function visits(): HasMany
     {
         return $this->hasMany(Visit::class, 'user_id', 'id');
+    }
+
+    public function chatMessages(): HasMany
+    {
+        return $this->hasMany(ChatMessage::class);
+    }
+
+    public function chatRooms(): BelongsToMany
+    {
+        return $this->belongsToMany(ChatRoom::class);
     }
 }

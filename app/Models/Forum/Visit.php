@@ -3,6 +3,7 @@
 namespace App\Models\Forum;
 
 use App\Models\User;
+use Database\Factories\Forum\VisitFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,12 +22,13 @@ use Illuminate\Support\Carbon;
  * @property-read Post   $post
  * @property-read User   $user
  *
+ * @method static VisitFactory factory($count = null, $state = [])
  * @method static Builder|Visit newModelQuery()
  * @method static Builder|Visit newQuery()
  * @method static Builder|Visit query()
  * @method static Builder|Visit whereCreatedAt($value)
- * @method static Builder|Visit wherePostId($value)
  * @method static Builder|Visit whereId($value)
+ * @method static Builder|Visit wherePostId($value)
  * @method static Builder|Visit whereUpdatedAt($value)
  * @method static Builder|Visit whereUserId($value)
  *

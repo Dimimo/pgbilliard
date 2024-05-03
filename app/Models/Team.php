@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Database\Factories\TeamFactory;
 use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Team
@@ -17,33 +20,29 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $venue_id
  * @property int $season_id
  * @property string|null $remark
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Player> $players
- * @property-read int|null $players_count
- * @property-read \App\Models\Season $season
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Event> $team_1
- * @property-read int|null $team_1_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Event> $team_2
- * @property-read int|null $team_2_count
- * @property-read \App\Models\Venue $venue
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read mixed                   $user_id
+ * @property-read Collection<int, Player> $players
+ * @property-read int|null                $players_count
+ * @property-read Season                  $season
+ * @property-read Collection<int, Event>  $team_1
+ * @property-read int|null                $team_1_count
+ * @property-read Collection<int, Event>  $team_2
+ * @property-read int|null                $team_2_count
+ * @property-read Venue                   $venue
  *
- * @method static \Database\Factories\TeamFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Team newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Team newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Team query()
- * @method static \Illuminate\Database\Eloquent\Builder|Team whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Team whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Team whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Team whereRemark($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Team whereSeasonId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Team whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Team whereVenueId($value)
- *
- * @noinspection PhpFullyQualifiedNameUsageInspection
- * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
- *
- * @property-read mixed $user_id
+ * @method static TeamFactory factory($count = null, $state = [])
+ * @method static Builder|Team newModelQuery()
+ * @method static Builder|Team newQuery()
+ * @method static Builder|Team query()
+ * @method static Builder|Team whereCreatedAt($value)
+ * @method static Builder|Team whereId($value)
+ * @method static Builder|Team whereName($value)
+ * @method static Builder|Team whereRemark($value)
+ * @method static Builder|Team whereSeasonId($value)
+ * @method static Builder|Team whereUpdatedAt($value)
+ * @method static Builder|Team whereVenueId($value)
  *
  * @mixin Eloquent
  */
@@ -89,6 +88,11 @@ class Team extends Model
 
     protected $with = [];
 
+    protected static function newFactory(): TeamFactory
+    {
+        return TeamFactory::new();
+    }
+
     /**
      * Calculates the percentages of a given score table of a team
      * The results are to be found in CycleController@
@@ -96,6 +100,11 @@ class Team extends Model
     public function percentage(array $result): float
     {
         return round(((($result['won'] / $result['max_games']) * 100) + (($result['for'] / (($result['max_games']) * 15)) * 100)) / 2);
+    }
+
+    public function getUserIdAttribute()
+    {
+        return $this->captain()?->user_id;
     }
 
     /**
@@ -106,47 +115,6 @@ class Team extends Model
         return $this->players()->where('captain', '1')->get()->first();
     }
 
-    public function getUserIdAttribute()
-    {
-        return $this->captain()?->user_id;
-    }
-
-    public function hasGames(): bool
-    {
-        return $this->team_1()->count() || $this->team_2()->count();
-    }
-
-    protected static function newFactory(): TeamFactory
-    {
-        return TeamFactory::new();
-    }
-
-    /**************************************
-     *
-     * The eloquent relationships
-     *
-     **************************************/
-
-    /**
-     * A team belongs to a season
-     *
-     * @return BelongsTo<Season, Team>
-     */
-    public function season(): BelongsTo
-    {
-        return $this->belongsTo(Season::class);
-    }
-
-    /**
-     * A team belongs to a venue
-     *
-     * @return BelongsTo<Venue, Team>
-     */
-    public function venue(): BelongsTo
-    {
-        return $this->belongsTo(Venue::class, 'venue_id');
-    }
-
     /**
      * A team has many players
      *
@@ -155,6 +123,16 @@ class Team extends Model
     public function players(): HasMany
     {
         return $this->hasMany(Player::class);
+    }
+
+    /**************************************
+     *
+     * The eloquent relationships
+     *
+     **************************************/
+    public function hasGames(): bool
+    {
+        return $this->team_1()->count() || $this->team_2()->count();
     }
 
     /**
@@ -175,5 +153,25 @@ class Team extends Model
     public function team_2(): HasMany
     {
         return $this->hasMany(Event::class, 'team2', 'id');
+    }
+
+    /**
+     * A team belongs to a season
+     *
+     * @return BelongsTo<Season, Team>
+     */
+    public function season(): BelongsTo
+    {
+        return $this->belongsTo(Season::class);
+    }
+
+    /**
+     * A team belongs to a venue
+     *
+     * @return BelongsTo<Venue, Team>
+     */
+    public function venue(): BelongsTo
+    {
+        return $this->belongsTo(Venue::class, 'venue_id');
     }
 }

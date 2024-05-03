@@ -3,6 +3,7 @@
 namespace App\Models\Forum;
 
 use App\Models\User;
+use Database\Factories\Forum\PostFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -25,14 +26,15 @@ use Illuminate\Support\Carbon;
  * @property bool $is_sticky
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection<int, Comment>    $comments
- * @property-read int|null                    $comments_count
- * @property-read Collection<int, Tag>        $tags
- * @property-read int|null                    $tags_count
- * @property-read User                        $user
- * @property-read Collection<int, Visit> $visits
- * @property-read int|null                    $visits_count
+ * @property-read Collection<int, Comment> $comments
+ * @property-read int|null                 $comments_count
+ * @property-read Collection<int, Tag>     $tags
+ * @property-read int|null                 $tags_count
+ * @property-read User                     $user
+ * @property-read Collection<int, Visit>   $visits
+ * @property-read int|null                 $visits_count
  *
+ * @method static PostFactory factory($count = null, $state = [])
  * @method static Builder|Post newModelQuery()
  * @method static Builder|Post newQuery()
  * @method static Builder|Post query()

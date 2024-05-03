@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Database\Factories\EventFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Event
@@ -18,32 +21,29 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int|null $score1
  * @property int|null $score2
  * @property string|null $remark
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Date $date
- * @property-read \App\Models\Team|null $team_1
- * @property-read \App\Models\Team|null $team_2
- * @property-read \App\Models\Venue $venue
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Date      $date
+ * @property-read Team|null $team_1
+ * @property-read Team|null $team_2
+ * @property-read Venue     $venue
  *
- * @method static \Database\Factories\EventFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Event newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Event newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Event query()
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereDateId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereRemark($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereScore1($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereScore2($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereTeam1($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereTeam2($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Event whereVenueId($value)
+ * @method static EventFactory factory($count = null, $state = [])
+ * @method static Builder|Event newModelQuery()
+ * @method static Builder|Event newQuery()
+ * @method static Builder|Event query()
+ * @method static Builder|Event whereCreatedAt($value)
+ * @method static Builder|Event whereDateId($value)
+ * @method static Builder|Event whereId($value)
+ * @method static Builder|Event whereRemark($value)
+ * @method static Builder|Event whereScore1($value)
+ * @method static Builder|Event whereScore2($value)
+ * @method static Builder|Event whereTeam1($value)
+ * @method static Builder|Event whereTeam2($value)
+ * @method static Builder|Event whereUpdatedAt($value)
+ * @method static Builder|Event whereVenueId($value)
  *
- * @noinspection PhpFullyQualifiedNameUsageInspection
- * @noinspection PhpUnnecessaryFullyQualifiedNameInspection
- *
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class Event extends Model
 {
@@ -98,8 +98,7 @@ class Event extends Model
 
     public function playerBelongsToEvent(User $user): bool
     {
-        return $this->team_1->players()->whereUserId($user->id)->count()
-                || $this->team_2->players()->whereUserId($user->id)->count();
+        return $this->team_1->players()->whereUserId($user->id)->count() || $this->team_2->players()->whereUserId($user->id)->count();
     }
 
     /**
