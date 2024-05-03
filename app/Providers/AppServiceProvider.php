@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        //Carbon macro for the timezone. For example $user->updated_at->appTimezone();
+        //and even $user->updated_at->appTimezone()->format('d/m/y H:m');
+        Carbon::macro('appTimezone', function () {
+            return $this->tz(config('app.app_timezone'));
+        });
     }
 }
