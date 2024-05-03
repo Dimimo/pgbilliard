@@ -52,7 +52,7 @@
         height="16"
     > first before the
     <img class="inline-block" src="{{ secure_asset('svg/delete-item.svg') }}" alt="" width="16" height="16">
-    symbol appears.
+    symbol appears. Games with scores can not be deleted.
 </div>
 
 @if($new === true)
