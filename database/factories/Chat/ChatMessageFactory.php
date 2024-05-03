@@ -5,7 +5,6 @@ namespace Database\Factories\Chat;
 use App\Models\Chat\ChatMessage;
 use App\Models\Chat\ChatRoom;
 use App\Models\User;
-use Exception;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -13,17 +12,25 @@ class ChatMessageFactory extends Factory
 {
     protected $model = ChatMessage::class;
 
-    /**
-     * @throws Exception
-     */
     public function definition(): array
     {
+        $user_ids = User::whereKeyNot(1)
+            ->whereNotNull('last_game')
+            ->get()
+            ->pluck('id')
+            ->toArray();
+
+        $chat_room_ids = ChatRoom::inRandomOrder('id')
+            ->get()
+            ->pluck('id')
+            ->toArray();
+
         return [
+            'message' => $this->faker->words(rand(2, 8), true),
+            'user_id' => $this->faker->randomElement($user_ids),
+            'chat_room_id' => $this->faker->randomElement($chat_room_ids),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-            'message' => $this->faker->words(random_int(2, User::whereNotNull('last_game')->count())),
-            'user_id' => User::whereKeyNot(1)->whereNotNull('last_game')->inRandomOrder('id')->first()->pluck('id'),
-            'chat_room_id' => ChatRoom::inRandomOrder('id')->first()->pluck('id'),
         ];
     }
 }

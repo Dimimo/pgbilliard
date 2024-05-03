@@ -13,12 +13,28 @@ class ChatRoomFactory extends Factory
 
     public function definition(): array
     {
+        $user_ids = User::whereKeyNot(1)
+            ->whereNotNull('last_game')
+            ->inRandomOrder('id')
+            ->get(['id'])
+            ->pluck('id')
+            ->toArray();
+
         return [
-            'name' => $this->faker->name(),
-            'user_id' => User::whereKeyNot(1)->whereNotNull('last_game')->inRandomOrder('id')->first()->pluck('id'),
+            'name' => $this->faker->words(rand(1, 4), true),
+            'user_id' => $this->faker->randomElement($user_ids),
             'private' => $this->faker->boolean(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
+    }
+
+    public function configure(): ChatRoomFactory
+    {
+        return $this->afterCreating(function (ChatRoom $room) {
+            $user_ids = User::query()->inRandomOrder()->get(['id'])->take(3)->pluck('id')->toArray();
+            $room->users()->sync($user_ids, ['created_at' => now(), 'updated_at' => now()]);
+            unset($user_ids);
+        });
     }
 }

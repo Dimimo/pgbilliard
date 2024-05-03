@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use App\Models\User;
-use Hash;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -14,7 +13,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Administrator',
             'email' => 'admin@puertopool.com',
-            'password' => Hash::make("_cCS5dv+'g$}Y8K"),
+            'password' => '$2y$10$3PrkiCismQjySj/MVd36S.h03pUkx6KjK54fscusuveSeQKyuUEp2',
             'contact_nr' => '0919 206 4825',
             'last_game' => now(),
         ]);
