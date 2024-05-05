@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('room_user', function (Blueprint $table) {
-            $table->unsignedBigInteger('room_id')->index();
+        Schema::create('chat_room_user', function (Blueprint $table) {
+            $table->unsignedBigInteger('chat_room_id')->index();
             $table->unsignedBigInteger('user_id')->index();
             $table->timestamps();
         });
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('room_user');
+        Schema::dropIfExists('chat_room_user');
     }
 };

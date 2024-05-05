@@ -7,6 +7,9 @@
             <a href="{{ route('admin.index') }}"
                class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" wire:navigate>Administration</a>
         @endif
+        <a href="{{ route('chat.index') }}"
+           class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
+           wire:navigate>Chat</a>
     @else
         <a href="{{ route('login') }}"
            class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" wire:navigate>Log in</a>
