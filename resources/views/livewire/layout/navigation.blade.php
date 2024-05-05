@@ -11,7 +11,7 @@ $logout = function ()
 
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -22,28 +22,28 @@ $logout = function ()
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-4 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-4 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link href="{{ route('scoresheet') }}" wire:navigate>
-                        Results
+                        Scoresheet
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-4 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link href="{{ route('calendar') }}" wire:navigate>
                         Calendar
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('teams') }}" wire:navigate>
-                        Teams
+                <div class="hidden space-x-4 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link href="{{ route('chat.index') }}" :active="request()->routeIs('chat.index')" wire:navigate>
+                        Chat
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('forum.posts.index') }}" wire:navigate>
+                <div class="hidden space-x-4 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link href="{{ route('forum.posts.index') }}" :active="request()->routeIs('forum.posts.index')" wire:navigate>
                         Forum
                     </x-nav-link>
                 </div>
@@ -106,7 +106,7 @@ $logout = function ()
         </div>
         <div class="pt-2 pb-3 space-y-1">
             <x-nav-link href="{{ route('scoresheet') }}" wire:navigate>
-                Results
+                Scoresheet
             </x-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
@@ -115,12 +115,12 @@ $logout = function ()
             </x-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-nav-link href="{{ route('teams') }}" wire:navigate>
-                Teams
+            <x-nav-link href="{{ route('chat.index') }}" :active="request()->routeIs('chat.index')" wire:navigate>
+                Chat
             </x-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-nav-link href="{{ route('forum.posts.index') }}" wire:navigate>
+            <x-nav-link href="{{ route('forum.posts.index') }}" :active="request()->routeIs('forum.posts.index')" wire:navigate>
                 Forum
             </x-nav-link>
         </div>
