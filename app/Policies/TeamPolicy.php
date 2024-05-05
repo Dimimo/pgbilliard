@@ -20,7 +20,7 @@ class TeamPolicy
         return true;
     }
 
-    public function create(User $user, Team $team): bool
+    public function create(User $user): bool
     {
         return $user->isAdmin();
     }

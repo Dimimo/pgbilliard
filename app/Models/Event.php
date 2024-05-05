@@ -101,6 +101,11 @@ class Event extends Model
         return $this->team_1->players()->whereUserId($user->id)->count() || $this->team_2->players()->whereUserId($user->id)->count();
     }
 
+    public function hasScore(): bool
+    {
+        return ! is_null($this->score1) && ! is_null($this->score2) && ($this->score1 != 0 && $this->score2 != 0);
+    }
+
     /**
      * An event belongs to a date
      *

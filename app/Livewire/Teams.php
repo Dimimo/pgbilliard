@@ -12,8 +12,6 @@ class Teams extends Component
 {
     use WithCurrentCycle;
 
-    public Team $team;
-
     public Collection $teams;
 
     public function mount(): void
@@ -26,12 +24,20 @@ class Teams extends Component
         return view('livewire.teams');
     }
 
-    /*public function showTeamNameEdit($id)
-    {
-        dd($id);
-    }*/
     private function getTeams(): Collection
     {
         return Team::tap(new Cycle())->where('name', '<>', 'BYE')->orderBy('name')->get();
+    }
+
+    public function deleteTeam($id): void
+    {
+        $team = Team::find($id);
+        $this->authorize('delete', $team);
+        if ($team->hasGames()) {
+            return;
+        }
+        $team->players()->delete();
+        $team->delete();
+        $this->teams = $this->getTeams();
     }
 }

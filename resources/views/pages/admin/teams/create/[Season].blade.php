@@ -11,7 +11,6 @@ state('season');
 <x-layout>
     @volt
     <section>
-        <x-title title="Create the {{ session('number_of_teams') }} Teams for Season {{ $season->cycle }}"/>
         @can('create', Team::class)
             <livewire:admin.teams.create :season="$season"/>
         @else

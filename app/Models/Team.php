@@ -115,14 +115,9 @@ class Team extends Model
         return $this->players()->where('captain', '1')->get()->first();
     }
 
-    /**
-     * A team has many players
-     *
-     * @return HasMany<Player>
-     */
-    public function players(): HasMany
+    public function hasGames(): bool
     {
-        return $this->hasMany(Player::class);
+        return $this->team_1()->count() || $this->team_2()->count();
     }
 
     /**************************************
@@ -130,9 +125,10 @@ class Team extends Model
      * The eloquent relationships
      *
      **************************************/
-    public function hasGames(): bool
+
+    public function players(): HasMany
     {
-        return $this->team_1()->count() || $this->team_2()->count();
+        return $this->hasMany(Player::class);
     }
 
     /**

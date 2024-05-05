@@ -1,6 +1,6 @@
 <section>
     <div class="text-center border-2 border-green-500 rounded-md p-4 my-4">
-        <form wire:submit="team_save">
+        <form wire:submit="create">
             <div class="grid justify-items-center gap-4">
                 <div>
                     <label for="team_form.name" class="text-lg mr-2">

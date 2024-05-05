@@ -26,8 +26,9 @@ class Edit extends Component
         return view('livewire.team.edit');
     }
 
-    public function team_save(): void
+    public function create(): void
     {
+        $this->authorize('update', $this->team_form->team);
         $this->team_form->update();
         $this->dispatch('team-updated');
     }

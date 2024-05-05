@@ -180,6 +180,6 @@ class User extends Authenticatable
 
     public function chatRooms(): BelongsToMany
     {
-        return $this->belongsToMany(ChatRoom::class, 'room_user', 'room_id', 'user_id');
+        return $this->belongsToMany(ChatRoom::class)->withTimestamps();
     }
 }
