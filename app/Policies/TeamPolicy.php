@@ -41,6 +41,10 @@ class TeamPolicy
             return true;
         }
 
+        if ($team->players()->whereUserId($user->id)->count() === 0) {
+            return false;
+        }
+
         return $team->players()->whereUserId($user->id)->first()->isCaptain($team);
     }
 }
