@@ -41,23 +41,19 @@
                             </x-calendar.venue-choice>
                         </div>
 
-                        {{--<div class="flex justify-between w-full border-blue-600 border-2 rounded-md p-2 mb-4">
-                            <x-calendar.team-score scoreNr="score1">
-                                The score of Team 1 <span class="text-gray-700">(optional)</span>
-                            </x-calendar.team-score>
-
-                            <x-calendar.team-score scoreNr="score2">
-                                The score of Team 2 <span class="text-gray-700">(optional)</span>
-                            </x-calendar.team-score>
-                        </div>--}}
-
                         <div class="block">
-                            <x-primary-button>Create this game</x-primary-button>
+                            <x-primary-button wire:loading.attr="disabled">Create this game</x-primary-button>
 
-                            <x-spinner target="save"/>
+                            <x-spinner target="save, event.team1, event.team2, event.venue_id"/>
                             <x-action-message class=" inline-block mx-3 text-2xl p-2" on="event-created">
                                 Game saved!
                             </x-action-message>
+
+                            <div class="mt-8">
+                                <x-secondary-button class="bg-blue-300 hover:bg-blue-100" wire:click="createNewTeam">
+                                    If a new team joins the season, you may create it here
+                                </x-secondary-button>
+                            </div>
 
                             @if($new === true)
                                 <div class="mt-8">
@@ -68,19 +64,25 @@
                             @else
                                 <div class="mt-8">
                                     <x-secondary-button wire:click="continueToCalendar">
-                                        Continue to the Calendar overview
+                                        When done, you may continue to the Calendar overview
                                     </x-secondary-button>
                                 </div>
                             @endif
-
                         </div>
                     </form>
                 </div>
                 <div class="w-full lg:w-1/3 px-4">
-                    <x-calendar.events-list :events="$events" :dates="$dates" :last_date="$last_date"/>
+                    <x-spinner target="event.date_id"/>
+                    <div wire:target="event.date_id" wire:loading.remove>
+                        <x-calendar.events-list
+                            :events="$events"
+                            :dates="$dates"
+                            :last_date="$last_date"
+
+                        />
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>

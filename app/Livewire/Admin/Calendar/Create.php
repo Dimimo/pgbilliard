@@ -52,9 +52,6 @@ class Create extends Component
             $this->dateForm->setDate($this->last_date);
             $this->events = $this->last_date->events;
             $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
-        } elseif ($name === 'event.team1') {
-            $team = Team::find($value);
-            $this->event->venue_id = $team?->venue_id;
         } elseif ($name === 'dateForm.regular') {
             $this->dateForm->regular = $value ? 1 : 0;
             $this->dateForm->update();
@@ -63,6 +60,16 @@ class Create extends Component
             $this->dateForm->title = $value;
             $this->dateForm->update();
             $this->last_date->refresh();
+        } elseif ($name === 'event.team1') {
+            $team = Team::find($value);
+            $this->event->venue_id = $team?->venue_id;
+            $this->event->validate();
+        } elseif ($name === 'event.team2') {
+            $this->event->validate();
+        } elseif ($name === 'event.venue_id') {
+            $venue = Venue::find($value);
+            $this->event->venue_id = $venue?->id;
+            $this->event->validate();
         }
     }
 
@@ -91,7 +98,9 @@ class Create extends Component
 
     public function removeEvent($event_id): void
     {
-        Event::find($event_id)->delete();
+        $event = Event::find($event_id);
+        $this->authorize('delete', $event);
+        $event->delete();
         $this->last_date->refresh();
         $this->events = $this->last_date->events;
     }
@@ -99,6 +108,7 @@ class Create extends Component
     public function removeDate($date_id): void
     {
         $this->last_date = Date::find($date_id);
+        $this->authorize('delete', $this->last_date);
         if ($this->last_date->events()->count() == 0) {
             $this->last_date->delete();
             $this->getFirstEvent();
@@ -125,5 +135,10 @@ class Create extends Component
     public function continueToCalendar(): void
     {
         $this->redirect(route('calendar'), navigate: true);
+    }
+
+    public function createNewTeam(): void
+    {
+        $this->redirect(route('admin.teams.create', ['season' => $this->season]));
     }
 }

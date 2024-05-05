@@ -9,7 +9,8 @@
             <option value="{{ $date->id }}" wire:key="{{ $date->id }}">{{ $date->date->format('Y-m-d') }}</option>
         @endforeach
     </select>
-    <div class="flex items-center">
+
+    <div class="flex items-center" wire:target="dateForm.regular, dateForm.title" wire:loading.remove>
         <input
             id="regular"
             name="regular"
@@ -21,6 +22,8 @@
             Special date?
         </label>
     </div>
+
+    <x-spinner target="dateForm.regular, dateForm.title"/>
 
     <label>
         <input

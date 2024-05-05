@@ -1,3 +1,5 @@
+@props(['new', 'dates'])
+
 @if($new === true)
 
     <div class="text-2xl">How does it work?</div>
@@ -33,7 +35,8 @@
 
 <div class="mt-3 text-2xl">Add a new date</div>
 <div class="my-2">
-    When done with the current selected date, click on <span class="text-green-700">Add next week</span>.
+    When done with the current selected date, click on
+    <img class="mx-auto inline-block" src="{{ secure_asset('svg/plus-box-fill.svg') }}" alt="" width="16" height="16"> <span class="text-green-700">Add next week</span>.
     It will create the next date and select it to create the games corresponding to the selected new date.
 </div>
 <div class="my-2">
@@ -70,8 +73,7 @@
 
     <div class="mt-3 text-2xl">Continue to the Calendar</div>
     <div class="my-2">
-        When you are done modifying the curren Season, just click the bottom link, it will bring you back to
-        the
+        When you are done modifying the curren Season, just click the bottom link, it will bring you back to the
         <x-nav-link :active="true" href="{{ route('calendar') }}" class="text-lg" wire:navigate>Calendar</x-nav-link>
         .
     </div>
