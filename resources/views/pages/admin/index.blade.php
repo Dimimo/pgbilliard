@@ -32,6 +32,7 @@ uses([WithCurrentCycle::class]);
                 href="{{ route('admin.overview') }}"
                 class="flex justify-center mx-auto text-xl"
                 :active="false"
+                wire:navigate
             >
                 Overview of all Administrators
             </x-nav-link>
