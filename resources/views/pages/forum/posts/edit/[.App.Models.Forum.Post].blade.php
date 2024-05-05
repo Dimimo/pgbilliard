@@ -7,7 +7,7 @@ state('post');
 
 name('forum.posts.edit');
 ?>
-<x-layout>
+<x-app-layout>
     @volt()
     <section>
         <x-title
@@ -34,4 +34,4 @@ name('forum.posts.edit');
 
     </section>
     @endvolt
-</x-layout>
+</x-app-layout>

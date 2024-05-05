@@ -8,7 +8,7 @@ state('comment');
 name('forum.comments.edit');
 ?>
 
-<x-layout>
+<x-app-layout>
     @volt
     <section>
         <x-title
@@ -28,4 +28,4 @@ name('forum.comments.edit');
 
         @endvolt
     </section>
-</x-layout>
+</x-app-layout>

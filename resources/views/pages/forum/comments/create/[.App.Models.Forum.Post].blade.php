@@ -9,7 +9,7 @@ state('post');
 name('forum.comments.create');
 ?>
 
-<x-layout>
+<x-app-layout>
     @volt
     <section>
         <x-title
@@ -30,6 +30,6 @@ name('forum.comments.create');
 
         @endvolt
     </section>
-</x-layout>
+</x-app-layout>
 
 
