@@ -3,7 +3,7 @@
 </label>
 <select
     class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-500 rounded"
-    id="venue_id" wire:model="event.venue_id">
+    id="venue_id" wire:model.change="event.venue_id">
     <option value=""> -- select a Venue --</option>
     @foreach($venues as $venue)
 
