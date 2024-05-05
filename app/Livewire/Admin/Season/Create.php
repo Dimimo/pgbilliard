@@ -47,11 +47,9 @@ class Create extends Component
             'date' => Carbon::createFromFormat('Y-m-d', $this->starting_date),
         ]);
         $this->dispatch('season-created');
-
-        session('alert', "Season $season->cycle is created. Time to create the teams!");
-        session('number_of_teams', $this->number_of_teams);
-        session('has_bye', $this->has_bye);
-
+        session(['alert' => "Season $season->cycle is created. Time to create the teams!"]);
+        session(['number_of_teams' => $this->number_of_teams]);
+        session(['has_bye' => $this->has_bye]);
         $this->redirect(route('admin.teams.create', ['season' => $season]), navigate: true);
     }
 
@@ -90,10 +88,11 @@ class Create extends Component
 
     private function getValidation(): array
     {
-        return ['cycle' => [
-            'date_format:Y/m',
-            'unique:seasons,cycle',
-        ],
+        return [
+            'cycle' => [
+                'date_format:Y/m',
+                'unique:seasons,cycle',
+            ],
         ];
     }
 

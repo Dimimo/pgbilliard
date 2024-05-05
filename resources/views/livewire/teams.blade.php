@@ -27,7 +27,15 @@
                         @can('delete', $team)
                             @if($team->hasGames() === false)
                                 <div class="mr-4">
-                                    <img class="mx-auto" src="{{ secure_asset('svg/delete-item.svg') }}" alt="Delete this team" width="20" height="20">
+                                    <button
+                                        class=""
+                                        wire:click="deleteTeam({{ $team->id }})"
+                                        wire:loading.remove="deleteTeam"
+                                        wire:confirm="Are you sure you want to delete this team as part of season {{ $season->cycle }}? This teams has no games, it is safe to delete."
+                                    >
+                                        <img class="mx-auto" src="{{ secure_asset('svg/delete-item.svg') }}" alt="Delete this team" width="20" height="20">
+                                    </button>
+                                    <x-spinner target="deleteTeam"/>
                                 </div>
                             @endif
                         @endcan
