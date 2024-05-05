@@ -29,7 +29,7 @@ class PoolCycle
         if (! $request->session()->exists('cycle') || empty($request->session()->get('cycle')) || $request->session()->get('cycle') === '0000/00') {
             //when no cycle is in the session, put the most recent date cycle as a starting point
             $recent_season = DB::table('seasons')->orderBy('cycle', 'desc')->first();
-            $season = $recent_season ? $recent_season['cycle'] : '0000/00';
+            $season = $recent_season ? $recent_season->get('cycle') : '0000/00';
             $request->session()->put('cycle', $season);
         }
 
