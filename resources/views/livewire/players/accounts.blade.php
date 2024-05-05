@@ -1,7 +1,9 @@
 <section>
     <x-title title="Claim an open user account"/>
     <div class="border border-gray-500 p-4 mb-5 text-justify">
-        <div class="text-2xl">What is this page about?</div>
+        <div class="text-2xl">
+            What is this page about? <span class="text-indigo-700">Please read if you don't have a login (account) yet!</span>
+        </div>
         <p class="my-3">
             Because the database is rebuild from scratch, <strong>all players</strong> are linked to a <strong>user</strong>
             in the <i>users</i> table. To accomplish this, I had to link players to a <strong>temporarily</strong> user account
@@ -46,6 +48,10 @@
             That's it!
         </p>
         <p>Yours, Dimitri</p>
+        <p class="mt-6 italic p-2 bg-blue-100 text-center mx-auto">
+            <strong>By the way</strong>: you need a login to participate in the <a href="{{ route('forum.posts.index') }}" wire:navigate>Forum</a>
+            and the <a href="{{ route('chat.index') }}" wire:navigate>Chat</a>!!
+        </p>
     </div>
 
 
@@ -66,10 +72,10 @@
                 <td class="p-2">{{ $user->email }}</td>
                 <td class="p-2">
                     <a
-                        href="{{ route('players.claim', ['player' => $user]) }}"
+                        href="{{ route('players.accounts.claim', ['user' => $user]) }}"
                         class="border border-white font-semibold text-blue-700 hover:bg-blue-100 hover:border hover:border-blue-700"
                     >
-                        Claim...
+                        Claim
                     </a>
                 </td>
                 <td class="p-2">{{ $user->last_game->format('d-m-Y') }}</td>

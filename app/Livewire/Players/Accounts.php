@@ -25,13 +25,6 @@ class Accounts extends Component
     {
         return User::where('email', 'like', "%\@puertopool\.com")
             ->whereNotIn('id', [1]) //get rid of the administrator
-//                ->with(['players'])
-            /*->with([
-                       'players' => function (HasMany $q)
-                       {
-                           return $q->orderByDesc('id')->get();
-                       },
-                   ])*/
             ->orderBy('name')
             ->get(['id', 'name', 'email', 'last_game']);
     }

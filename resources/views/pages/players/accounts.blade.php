@@ -2,11 +2,11 @@
 
 use function Laravel\Folio\name;
 
-name('players.account');
+name('players.accounts');
 ?>
 
-<x-layout>
+<x-app-layout>
     @volt
     <livewire:players.accounts/>
     @endvolt
-</x-layout>
+</x-app-layout>

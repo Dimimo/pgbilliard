@@ -1,12 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use function Laravel\Folio\name;
 use function Livewire\Volt\state;
+
+name('players.accounts.claim');
 
 state('user');
 ?>
 
-<x-layout>
+<x-app-layout>
     @volt
     @php Auth::login($user) @endphp
     <section>
@@ -42,4 +45,4 @@ state('user');
     </section>
 
     @endvolt
-</x-layout>
+</x-app-layout>
