@@ -15,8 +15,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased">
-<div class="min-h-screen bg-gray-100">
-    <livewire:layout.navigation/>
+<div class="min-h-screen mx-auto sm:px-4 bg-gray-100">
+    @auth
+        <livewire:layout.navigation/>
+    @else
+        <livewire:welcome.navigation/>
+    @endauth
+
 
     <!-- Page Heading -->
     @if (isset($header))
@@ -28,7 +33,7 @@
     @endif
 
     <!-- Page Content -->
-    <main>
+    <main class="container">
         {{ $slot }}
     </main>
 </div>
