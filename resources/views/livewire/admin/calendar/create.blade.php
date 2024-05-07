@@ -20,7 +20,7 @@
             </div>
 
             <div class="flex flex-wrap p-2">
-                <div class="w-full lg:w-2/3 pr-4 pl-4">
+                <div class="w-full lg:w-2/3 px-4">
                     <form wire:submit="save">
                         <div class="border-indigo-400 border-2 rounded-md p-2 mb-4">
                             <x-calendar.playing-date :dates="$dates"/>
