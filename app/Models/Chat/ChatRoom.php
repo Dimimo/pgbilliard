@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
@@ -19,11 +20,12 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property string $name
  * @property int $user_id
- * @property int $private
+ * @property bool $private
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Collection<int, ChatMessage> $messages
  * @property-read int|null                     $messages_count
+ * @property-read User|null                    $owner
  * @property-read Collection<int, User>        $users
  * @property-read int|null                     $users_count
  *
@@ -67,6 +69,11 @@ class ChatRoom extends Model
     protected static function newFactory(): ChatRoomFactory
     {
         return ChatRoomFactory::new();
+    }
+
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function users(): BelongsToMany
