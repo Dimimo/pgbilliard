@@ -4,14 +4,14 @@ namespace App\Livewire\Forms;
 
 use App\Constants;
 use App\Models\User;
-use Livewire\Attributes\Rule;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class UserForm extends Form
 {
     public User $user;
 
-    #[Rule([
+    #[Validate([
         'sometimes',
         'alpha_dash',
         'min:2',
@@ -25,7 +25,7 @@ class UserForm extends Form
     ])]
     public $name = '';
 
-    #[Rule([
+    #[Validate([
         'required',
         'email',
         'max:254',
@@ -37,19 +37,19 @@ class UserForm extends Form
     ])]
     public $email = '';
 
-    #[Rule(['nullable', 'max:'.Constants::PHONECHARS])]
+    #[Validate(['nullable', 'max:'.Constants::PHONECHARS])]
     public ?string $contact_nr;
 
-    #[Rule(['nullable', 'string'])]
+    #[Validate(['nullable', 'string'])]
     public ?string $gender;
 
-    #[Rule(['nullable', 'date'])]
+    #[Validate(['nullable', 'date'])]
     public $email_verified_at;
 
-    #[Rule(['nullable', 'date'])]
+    #[Validate(['nullable', 'date'])]
     public $last_game;
 
-    #[Rule(['sometimes'])]
+    #[Validate(['sometimes'])]
     public $password;
 
     public function setUser(User $user): void
