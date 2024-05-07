@@ -11,10 +11,30 @@ class UserForm extends Form
 {
     public User $user;
 
-    #[Rule(['sometimes', 'alpha_dash', 'min:2', 'max:'.Constants::USERCHARS, 'unique:'.User::class.',name'])]
+    #[Rule([
+        'sometimes',
+        'alpha_dash',
+        'min:2',
+        'max:'.Constants::USERCHARS,
+        'unique:'.User::class.',name',
+    ], message: [
+        'alpha_dash' => 'A name needs to be alpha-numeric, dashes (-) and underscores (_) allowed',
+        'min' => 'A name needs at least 2 characters',
+        'max' => 'A name can not be longer than '.Constants::USERCHARS.' characters',
+        'unique' => 'This name already exists',
+    ])]
     public $name = '';
 
-    #[Rule(['required', 'email', 'max:254', 'unique:'.User::class.',email'])]
+    #[Rule([
+        'required',
+        'email',
+        'max:254',
+        'unique:'.User::class.',email',
+    ], message: [
+        'required' => 'A valid email address is required',
+        'email' => 'A valid email address is required',
+        'unique' => 'The email has to be unique',
+    ])]
     public $email = '';
 
     #[Rule(['nullable', 'max:'.Constants::PHONECHARS])]
@@ -31,17 +51,6 @@ class UserForm extends Form
 
     #[Rule(['sometimes'])]
     public $password;
-
-    public $messages = [
-        //        'name.required' => 'A name is required',
-        'name.unique' => 'This name already exists',
-        'name.alpha_dash' => 'A name needs to be alpha-numeric, dashes (-) and underscores (_) allowed',
-        'name.min' => 'A name needs at least 2 characters',
-        'name.max' => 'A name can not be longer than '.Constants::USERCHARS.' characters',
-        'email.required' => 'A valid email address is required',
-        'email.email' => 'A valid email address is required',
-        'email.unique' => 'The email has to be unique',
-    ];
 
     public function setUser(User $user): void
     {
