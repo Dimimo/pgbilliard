@@ -6,41 +6,28 @@ use App\Constants;
 use App\Models\Forum\Post;
 use Auth;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class PostForm extends Form
 {
     public Post $post;
 
+    #[Validate('required', message: 'A title is required')]
+    #[Validate('min:2', message: 'A title must have a minimum of 2 characters')]
+    #[Validate('max:'.Constants::FORUM_TITLE, message: 'A title can not have more than '.Constants::FORUM_TITLE.' characters')]
     public string $title;
 
+    #[Validate('required', message: 'A message is required')]
+    #[Validate('min:2', message: 'A message must have a minimum of 2 chars')]
+    #[Validate('max:'.Constants::FORUM_BODY, message: 'A message can\'t have more than '.Constants::FORUM_TITLE.' chars')]
     public string $body;
 
+    #[Validate('nullable|boolean')]
     public bool $is_locked = false;
 
+    #[Validate('nullable|boolean')]
     public bool $is_sticky = false;
-
-    public function rules(): array
-    {
-        return [
-            'title' => 'required|min:2|max:'.Constants::FORUM_TITLE,
-            'body' => 'required|min:2|max:'.Constants::FORUM_BODY,
-            'is_locked' => 'nullable|boolean',
-            'is_sticky' => 'nullable|boolean',
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'title.required' => 'A title is required',
-            'title.min' => 'A title must have a minimum of 2 chars',
-            'title.max' => 'A title can not have more than '.Constants::FORUM_TITLE.' chars',
-            'body.required' => 'A message is required',
-            'body.min' => 'A message must have a minimum of 2 chars',
-            'body.max' => 'A message can not have more than '.Constants::FORUM_TITLE.' chars',
-        ];
-    }
 
     public function setPost(Post $post): void
     {
