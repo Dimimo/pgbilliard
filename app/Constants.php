@@ -18,6 +18,8 @@ class Constants
 
     public const COMMENT_BODY = 250;
 
+    public const DATE_TITLE = 20;
+
     public const DATEFORMAT_START = 'Y-m-d 12:00:00';
 
     public const DATEFORMAT_END = 'Y-m-d 12:00:00';
