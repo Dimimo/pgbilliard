@@ -13,14 +13,26 @@ class PostForm extends Form
 {
     public Post $post;
 
-    #[Validate('required', message: 'A title is required')]
-    #[Validate('min:2', message: 'A title must have a minimum of 2 characters')]
-    #[Validate('max:'.Constants::FORUM_TITLE, message: 'A title can not have more than '.Constants::FORUM_TITLE.' characters')]
+    #[Validate([
+        'required',
+        'min:2',
+        'max:'.Constants::FORUM_TITLE,
+    ], message: [
+        'required' => 'A title is required',
+        'min' => 'A title must have a minimum of 2 chars',
+        'max' => 'A title can\'t have more than '.Constants::FORUM_TITLE.' chars',
+    ])]
     public string $title;
 
-    #[Validate('required', message: 'A message is required')]
-    #[Validate('min:2', message: 'A message must have a minimum of 2 chars')]
-    #[Validate('max:'.Constants::FORUM_BODY, message: 'A message can\'t have more than '.Constants::FORUM_TITLE.' chars')]
+    #[Validate([
+        'required',
+        'min:2',
+        'max:'.Constants::FORUM_BODY,
+    ], message: [
+        'required' => 'A message is required',
+        'min' => 'A message must have a minimum of 2 chars',
+        'max' => 'A message can\'t have more than '.Constants::FORUM_BODY.' chars',
+    ])]
     public string $body;
 
     #[Validate('nullable|boolean')]

@@ -6,7 +6,7 @@ use App\Models\Player;
 use App\Models\Team;
 use App\Models\User;
 use Auth;
-use Illuminate\Validation\Rule as ValidationRule;
+use Illuminate\Validation\Rule;
 use Livewire\Form;
 
 class PlayerForm extends Form
@@ -23,7 +23,7 @@ class PlayerForm extends Form
     {
         return [
             'captain' => 'bool',
-            'user_id' => ValidationRule::unique(User::class)->ignore(Auth::user()),
+            'user_id' => Rule::unique(User::class)->ignore(Auth::user()),
             'team_id' => [
                 'required',
                 'exists:'.Team::class,

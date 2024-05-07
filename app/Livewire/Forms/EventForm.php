@@ -22,14 +22,24 @@ class EventForm extends Form
     #[Validate('integer', message: 'Choose the visiting team')]
     public ?int $team2;
 
-    #[Validate('nullable')]
-    #[Validate('integer', message: 'The score is not numeric')]
-    #[Validate('between:0,15', message: 'The score is not between 0 and 15')]
+    #[Validate([
+        'nullable',
+        'integer',
+        'between:0, 15',
+    ], message: [
+        'integer' => 'The score is not numeric',
+        'between:0,15' => 'The score is not between 0 and 15',
+    ])]
     public ?int $score1;
 
-    #[Validate('nullable')]
-    #[Validate('integer', message: 'The score is not numeric')]
-    #[Validate('between:0,15', message: 'The score is not between 0 and 15')]
+    #[Validate([
+        'nullable',
+        'integer',
+        'between:0, 15',
+    ], message: [
+        'integer' => 'The score is not numeric',
+        'between:0,15' => 'The score is not between 0 and 15',
+    ])]
     public ?int $score2;
 
     #[Validate('nullable|max:100')]

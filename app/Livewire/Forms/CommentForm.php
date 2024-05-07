@@ -5,30 +5,29 @@ namespace App\Livewire\Forms;
 use App\Constants;
 use App\Models\Forum\Comment;
 use Auth;
-use Livewire\Attributes\Rule;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class CommentForm extends Form
 {
     public Comment $comment;
 
-    #[Rule(['required', 'min:2', 'max:'.Constants::COMMENT_BODY])]
+    #[Validate([
+        'required',
+        'min:1',
+        'max:'.Constants::COMMENT_BODY,
+    ], message: [
+        'required' => 'You can not leave an empty comment',
+        'min' => 'A comment needs to be at least 1 character long',
+        'max' => 'A comment can not have more than '.Constants::COMMENT_BODY.' characters',
+    ])]
     public string $body;
 
-    #[Rule(['required', 'integer', 'exists:App\Models\Forum\Post,id'])]
+    #[Validate(['required', 'integer', 'exists:App\Models\Forum\Post,id'])]
     public int $post_id;
 
-    #[Rule(['required', 'integer', 'exists:App\Models\User,id'])]
+    #[Validate(['required', 'integer', 'exists:App\Models\User,id'])]
     public int $user_id;
-
-    public function messages(): array
-    {
-        return [
-            'body.required' => 'You can not leave an empty comment',
-            'body.min' => 'A comment needs to be at least 2 characters long',
-            'body.max' => 'A comment can not have more than '.Constants::COMMENT_BODY.' characters',
-        ];
-    }
 
     public function setComment(Comment $comment): void
     {

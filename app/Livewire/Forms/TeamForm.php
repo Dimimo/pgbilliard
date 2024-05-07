@@ -4,23 +4,42 @@ namespace App\Livewire\Forms;
 
 use App\Constants;
 use App\Models\Team;
-use Livewire\Attributes\Rule;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class TeamForm extends Form
 {
     public ?Team $team;
 
-    #[Rule(['required', 'min:2', 'max:'.Constants::TEAMCHARS])]
+    #[Validate([
+        'required',
+        'min:2',
+        'max:'.Constants::TEAMCHARS,
+    ], message: [
+        'min' => 'A team name must have at least 2 characters',
+        'max' => 'A team name can\'t be longer than '.Constants::TEAMCHARS.' characters',
+    ])]
     public string $name;
 
-    #[Rule(['required', 'exists:App\Models\Venue,id'])]
+    #[Validate([
+        'required',
+        'exists:App\Models\Venue,id',
+    ], message: [
+        'required' => 'A team must have a venue (bar)',
+        'exists' => 'The selected venue does not exist',
+    ])]
     public int $venue_id;
 
-    #[Rule(['required', 'exists:App\Models\Season,id'])]
+    #[Validate([
+        'required',
+        'exists:App\Models\Season,id',
+    ], message: [
+        'required' => 'Please select a Season',
+        'exists' => 'The selected Season does not exist',
+    ])]
     public int $season_id;
 
-    #[Rule(['nullable', 'text'])]
+    #[Validate(['nullable', 'text'])]
     public ?string $remark;
 
     public function setTeam(Team $team): void

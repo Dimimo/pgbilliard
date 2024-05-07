@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Constants;
 use App\Models\Date;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\Validate;
@@ -17,9 +18,14 @@ class DateForm extends Form
     #[Validate(['required', 'boolean'])]
     public bool $regular = false;
 
-    #[Validate('nullable')]
-    #[Validate('string', message: 'Only string values allowed')]
-    #[Validate('max:20', message: 'Max 20 chars')]
+    #[Validate([
+        'nullable',
+        'string',
+        'max:20',
+    ], message: [
+        'string' => 'Only string values allowed',
+        'max' => 'Max '.Constants::DATE_TITLE.' chars',
+    ])]
     public ?string $title;
 
     #[Validate(['nullable', 'max:100'])]

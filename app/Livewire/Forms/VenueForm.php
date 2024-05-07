@@ -5,7 +5,7 @@ namespace App\Livewire\Forms;
 use App\Constants;
 use App\Models\User;
 use App\Models\Venue;
-use Illuminate\Validation\Rule as ValidationRule;
+use Illuminate\Validation\Rule;
 use Livewire\Form;
 
 class VenueForm extends Form
@@ -37,7 +37,7 @@ class VenueForm extends Form
                 'required',
                 'min:2',
                 'max:'.Constants::VENUECHARS,
-                ValidationRule::unique(Venue::class)->ignore($this->venue),
+                Rule::unique(Venue::class)->ignore($this->venue),
             ],
             'user_id' => [
                 'nullable',
