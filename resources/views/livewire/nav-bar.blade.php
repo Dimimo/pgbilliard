@@ -4,7 +4,7 @@
     @endif
     <div class="flex flex-wrap mb-4">
         <div class="w-full align-center">
-            <img src="{{ secure_asset('images/pg-pool-league.png') }}" width="100%" alt="Pool League logo">
+            <img src="{{ secure_asset('images/title-small.png') }}" width="100%" alt="Pool League logo">
 
             <livewire:cycle-select/>
 
