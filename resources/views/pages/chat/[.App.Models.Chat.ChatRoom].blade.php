@@ -15,9 +15,7 @@ state('chatRoom');
             subtitle="{{ $chatRoom->name }}"
         />
 
-        @if($chatRoom->private === 0)
-            <livewire:chat.room :chatRoom="$chatRoom"/>
-        @elseif($chatRoom->users()->find(Auth::id()))
+        @can('view', $chatRoom)
             <livewire:chat.room :chatRoom="$chatRoom"/>
         @else
             <x-chat.no-access/>
@@ -28,8 +26,8 @@ state('chatRoom');
                     by <strong>{{ $chatRoom->owner->name }}</strong>.
                 </div>
             @endif
+        @endcan
 
-        @endif
     </section>
 
     @endvolt
