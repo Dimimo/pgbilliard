@@ -21,16 +21,16 @@ class ChatRoomPolicy
 
     public function viewAny(): bool
     {
-        return false;
+        return true;
     }
 
     public function view(User $user, ChatRoom $chatRoom): bool
     {
-        if ($chatRoom->private === 0) {
+        if ($chatRoom->private === false) {
             return true;
         }
 
-        return $chatRoom->users->contains($user);
+        return $user->id === $chatRoom->user_id || $chatRoom->users()->whereId($user->id)->count() === 1;
     }
 
     public function create(User $user): bool
