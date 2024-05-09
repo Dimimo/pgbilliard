@@ -18,6 +18,10 @@ class Constants
 
     public const COMMENT_BODY = 250;
 
+    public const CHATROOM_TITLE = 32;
+
+    public const CHATROOM_MESSAGE = 150;
+
     public const DATE_TITLE = 20;
 
     public const DATEFORMAT_START = 'Y-m-d 12:00:00';
