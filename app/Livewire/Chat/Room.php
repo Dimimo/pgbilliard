@@ -8,8 +8,6 @@ use Livewire\Component;
 
 class Room extends Component
 {
-    use WithChatUsers;
-
     public ChatRoom $room;
 
     public function mount(ChatRoom $chatRoom): void
