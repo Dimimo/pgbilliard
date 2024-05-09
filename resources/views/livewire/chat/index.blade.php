@@ -24,6 +24,9 @@
                     @empty
                         <div>No chat rooms available</div>
                     @endforelse
+                    <div class="my-4 text-xl text-blue-700 hover:text-[#007bff]">
+                        <a href="{{ route('chat.room.create') }}" wire:navigate>Create a chat room</a>
+                    </div>
                 </div>
             </div>
 
