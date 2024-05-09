@@ -11,14 +11,14 @@
                       clip-rule="evenodd" data-original="#000000"/>
             </svg>
         </button>
+        <div class="mb-2">
+            <input
+                placeholder="Search for..."
+                class="px-4 py-2.5 w-full rounded text-gray-500 text-sm font-semibold border-none outline-blue-600 bg-gray-50"
+                wire:model.live.debounce="search"
+            />
+        </div>
         <ul class='absolute shadow-lg bg-white py-2 px-2 z-[1000] min-w-full w-max rounded max-h-96 overflow-auto'>
-            <li class="mb-2">
-                <input
-                    placeholder="Text input"
-                    class="px-4 py-2.5 w-full rounded text-gray-500 text-sm font-semibold border-none outline-blue-600 bg-gray-50"
-                    wire:model.live.debounce="search"
-                />
-            </li>
             <x-chat.user-search-item :room="$room" :users="$list_users"/>
         </ul>
     </div>
