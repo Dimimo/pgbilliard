@@ -2,10 +2,10 @@
     <h2 class="text-xl font-semibold m-4 mt-4 pl-4">Managed by {{ $room->owner->name }}</h2>
     <h3 class="m-4">Participating Players</h3>
     @forelse($room->users->sortBy('name') as $user)
-        <div class="flex justify-between p-1 cursor-pointer" wire:key="{{ $user->id }}">
+        <div class="flex justify-between p-1" wire:key="{{ $user->id }}">
             <div>{{ $user->name }}</div>
             @can('update', $room)
-                <div class="inline-block align-middle px-2">
+                <div class="inline-block align-middle px-2 cursor-pointer">
                     <img
                         src="{{ secure_asset('svg/user-delete.svg') }}"
                         alt=""
