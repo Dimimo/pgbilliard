@@ -37,11 +37,11 @@ class ChatMessagePolicy
     public function create(User $user, ChatRoom $chatRoom): bool
     {
         // this is a bit special. A chatroom can be public, then true, if private, only on invitation
-        if ($chatRoom->private === 0) {
+        if ($chatRoom->private === false) {
             return true;
         }
 
-        return $chatRoom->users->contains($user);
+        return $chatRoom->users()->whereId($user->id)->count() === 1;
     }
 
     public function update(User $user, ChatMessage $chatMessage): bool
