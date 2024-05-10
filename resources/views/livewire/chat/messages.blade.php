@@ -21,8 +21,8 @@
             </div>
             <small class="block ml-2">
                 Character left: <span x-text="$wire.new_chat ? 150 - $wire.new_chat.length : 150"></span>
+                <x-input-error class="mt-2 ml-2" :messages="$errors->get('new_chat')"/>
             </small>
-            <x-input-error class="block mt-2 ml-2" :messages="$errors->get('new_chat')"/>
         </form>
     </div>
 </div>
