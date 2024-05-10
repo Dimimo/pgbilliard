@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('message');
             $table->unsignedBigInteger('user_id')->index();
-            $table->unsignedBigInteger('chat_room_id')->nullable()->index();
+            $table->unsignedBigInteger('chat_room_id')->index();
             $table->timestamps();
         });
     }
