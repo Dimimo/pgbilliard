@@ -8,11 +8,14 @@ use App\Models\Chat\ChatRoom;
 use Auth;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Messages extends Component
 {
+    public $showNewOrderNotification = false;
+
     public ChatRoom $room;
 
     public Collection $chats;
@@ -38,6 +41,14 @@ class Messages extends Component
         return view('livewire.chat.messages');
     }
 
+    #[On('echo:public-room,MessagePosted')]
+    public function newMessage($event): void
+    {
+        dd($event);
+        $this->showNewOrderNotification = true;
+        $message = ChatMessage::find($event->message->id);
+    }
+
     public function postMessage(): void
     {
         $this->authorize('create', ChatRoom::class);
@@ -45,12 +56,11 @@ class Messages extends Component
         $data = [
             'message' => $this->new_chat,
             'user_id' => Auth::id(),
-            'chat_room_id' => $this->room->id
+            'chat_room_id' => $this->room->id,
         ];
         $message = ChatMessage::create($data);
         $this->chats->add($message);
-        if (!$this->room->users->contains(Auth::user()))
-        {
+        if (! $this->room->users->contains(Auth::user())) {
             $this->room->users()->attach($message->user_id);
         }
         $this->dispatch('userSelected')->to(Invited::class);

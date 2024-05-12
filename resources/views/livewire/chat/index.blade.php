@@ -31,7 +31,7 @@
             </div>
 
             <div class="w-full lg:w-2/3 px-4">
-                <x-chat.messages :messages="$chatRoom->messages"/>
+                <livewire:chat.messages :messages="$chatRoom->messages"/>
             </div>
         </div>
     </div>
