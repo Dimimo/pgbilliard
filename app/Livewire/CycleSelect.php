@@ -15,7 +15,7 @@ class CycleSelect extends Component
     public function mount(): void
     {
         $this->cycles = $this->getCycles();
-        $this->cycle = session('cycle');
+        $this->cycle = session('cycle', '0000/00');
     }
 
     public function render(): View
