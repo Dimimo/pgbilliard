@@ -11,6 +11,6 @@ final readonly class Cycle
     {
         $season = Season::whereCycle(session('cycle'))->first();
 
-        return $builder->where('season_id', $season->id);
+        return $builder->where('season_id', $season?->id);
     }
 }
