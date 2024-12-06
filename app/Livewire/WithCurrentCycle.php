@@ -21,7 +21,10 @@ trait WithCurrentCycle
         if (! session()->exists('cycle') || is_null(session('cycle'))) {
             //when no cycle is in the session, put the most recent date cycle as a starting point
             $current_season = Season::orderByDesc('cycle')->first();
-            session()->put('cycle', $current_season->cycle);
+            if ($current_season)
+            {
+                session()->put('cycle', $current_season->cycle);
+            }
         }
 
         return session('cycle');
