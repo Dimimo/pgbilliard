@@ -23,7 +23,7 @@
             <strong>User names have to be unique!</strong> For that reason alone, you should claim your account if are you in the list.
             There can only be one Richard or one Ann. If you are twice in the list because of misspelling, <strong>claim one</strong> and
             <a
-                href="mailto:admin@puertopool.com?subject=[PuertoPool] Double account names"
+                href="mailto:admin@pgbilliard.com?subject=[PG Billiard] Double account names"
                 class="border border-white font-semibold text-blue-700 hover:bg-blue-100 hover:border hover:border-blue-700"
             >send me an email</a>
             so I can fix it directly in the database.

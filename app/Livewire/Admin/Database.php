@@ -13,6 +13,7 @@ use DB;
 use Hash;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use stdClass;
 
@@ -130,7 +131,7 @@ class Database extends Component
                 $this->messages .= "  User $player->name ... ";
                 User::create([
                     'name' => $player->name,
-                    'email' => strtolower($player->name).'@puertopool.com',
+                    'email' => Str::lower(Str::snake($player->name)).'@pgbilliard.com',
                     'password' => Hash::make('secret'),
                     'contact_nr' => $player->contact_nr,
                     'last_game' => $player->updated_at,

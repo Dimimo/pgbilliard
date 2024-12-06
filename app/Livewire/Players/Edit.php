@@ -49,7 +49,10 @@ class Edit extends Component
     {
         $this->validateOnly('user_form.name');
         $this->user_form->name = Str::title($value);
-        $this->user_form->email = Str::lower(Str::snake($value, '-')).'@puertopool.com';
+        if (Str::match('/pgbilliard/', $value))
+        {
+            $this->user_form->email = Str::lower(Str::snake($value, '-')).'@pgbilliard.com';
+        }
     }
 
     private function getPlayers(): void
@@ -101,7 +104,7 @@ class Edit extends Component
         $name = $this->getPropertyValue('user_form.name');
         $user = new User([
             'name' => $name,
-            'email' => Str::of($name)->slug().'@puertopool.com',
+            'email' => Str::lower(Str::snake($name)).'@pgbilliard.com',
             'password' => Hash::make('secret'),
             'contact_nr' => $this->getPropertyValue('user_form.contact_nr'),
             'last_game' => now(),
