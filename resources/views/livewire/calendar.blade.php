@@ -79,7 +79,7 @@
                                         </td>
                                     </tr>
 
-                                    @if ($event->team_1->venue->id != $event->venue->id)
+                                    @if ($event->team_1->venue_id != $event->venue_id)
 
                                         <tr>
                                             <td colspan="2" class="text-red-600 text-center font-medium">

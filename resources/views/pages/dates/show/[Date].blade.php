@@ -18,11 +18,33 @@ name('dates.show');
             title="Update the scores of the {{ $date->date->format('jS \o\f M Y') }}"
             subtitle="Season {{ $cycle }}"
         />
-        @if($hasAccess || $date->checkIfGuestHasWritableAccess())
-            <livewire:date.update :date="$date"/>
-        @else
-            <div class="text-red-700 text-xl">You have currently no access to this page, please contact an administrator if you need a score updated.</div>
-        @endif
+        <div class="grid justify-items-center">
+            <table class="mb-4 min-w-full border-2 border-gray-900 bg-transparent table-collapse md:min-w-0">
+                <thead class="whitespace-nowrap border-2 border-gray-900 bg-gray-300">
+                <tr class="py-2">
+                    <th class="p-2 text-left">Home</th>
+                    <th class="p-2 text-left">Visitors</th>
+                    <th class="p-2 text-center" colspan="2">
+                        <div class="flex items-center">
+                            <div class="inline-block">Scores</div>
+                            <div class="-mb-1 inline-block">
+                                <x-spinner/>
+                            </div>
+                            <div class="ml-2 inline-block">
+                                <x-action-message class="font-semibold text-green-700" on="scores-updated">
+                                    Updated!
+                                </x-action-message>
+                            </div>
+                        </div>
+                    </th>
+                    <th class="p-2 text-left">Venue</th>
+                </tr>
+                </thead>
+                @foreach ($date->events as $event)
+                    <livewire:date.update :event="$event" :key="$event->id"/>
+                @endforeach
+            </table>
+        </div>
     </section>
 
     @endvolt
