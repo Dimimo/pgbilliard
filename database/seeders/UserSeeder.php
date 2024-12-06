@@ -12,8 +12,8 @@ class UserSeeder extends Seeder
     {
         User::create([
             'name' => 'Administrator',
-            'email' => 'admin@puertopool.com',
-            'password' => '$2y$10$3PrkiCismQjySj/MVd36S.h03pUkx6KjK54fscusuveSeQKyuUEp2',
+            'email' => 'admin@pgbilliard.com',
+            'password' => '$2y$10$lxt/N648rafTnMBuf5gs6O/wsngTxLCCzouKeku0xt8zUgOdyvE2i',
             'contact_nr' => '0919 206 4825',
             'last_game' => now(),
         ]);

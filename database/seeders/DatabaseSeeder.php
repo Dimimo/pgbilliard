@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
         if (User::count() === 0) {
             $this->call([UserSeeder::class]);
         }
-        if (Post::count() === 0) {
+        /*if (Post::count() === 0) {
             $this->call([PostSeeder::class]);
-        }
+        }*/
         if (ChatMessage::count() === 0) {
             $this->call([ChatSeeder::class]);
         }
