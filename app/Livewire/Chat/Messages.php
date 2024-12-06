@@ -44,7 +44,6 @@ class Messages extends Component
     #[On('echo:public-room,MessagePosted')]
     public function newMessage($event): void
     {
-        dd($event);
         $this->showNewOrderNotification = true;
         $message = ChatMessage::find($event->message->id);
     }
