@@ -3,7 +3,7 @@
 namespace App\Livewire\Admin\Teams;
 
 use App\Constants;
-use App\Livewire\WithUsersSelect;
+use App\Livewire\WithTeamOrdering;
 use App\Models\Player;
 use App\Models\Season;
 use App\Models\Team;
@@ -15,25 +15,18 @@ use Livewire\Component;
 
 class Create extends Component
 {
-    use WithUsersSelect;
+    use WithTeamOrdering;
 
     public Season $season;
 
-    public Collection $dropdown_teams;
-
     public Collection $teams;
-
-    public Collection $venues;
-
-    public ?int $team_id = null;
-
-    public int $number_of_teams;
 
     public bool $has_bye;
 
     public int $i = 1;
 
     protected $rules = [
+        'teams' => 'array',
         'teams.*.id' => 'required',
         'teams.*.name' => 'required|min:2|max:'.Constants::USERCHARS,
         'teams.*.venue_id' => 'required',
@@ -49,16 +42,7 @@ class Create extends Component
     {
         $this->season = $season;
         $this->has_bye = false;
-        $this->fill([
-            'teams' => Team::whereSeasonId($this->season->id)->orderBy('name')->get()->each(function (Team $team) {
-                if (strtoupper($team->name) === 'BYE') {
-                    $this->has_bye = true;
-                }
-
-                return $team->append('user_id');
-            }),
-        ]);
-        $this->venues = Venue::orderBy('name')->get();
+        $this->getTeams();
         $this->dropdown_teams = $this->getDropdownTeams();
         $this->number_of_teams = session('number_of_teams', $this->teams->count() > 0 ? $this->teams->count() : 6);
         // if the admin loads this page the first time, no teams yet exists, so, if a BYE is requested, create it if it doesn't exist yet
@@ -66,6 +50,7 @@ class Create extends Component
             $this->addBye();
         }
         $this->i = $this->teams->count() + 1;
+        session(['team_counter' => $this->i]);
     }
 
     public function render(): View
@@ -86,6 +71,7 @@ class Create extends Component
 
     public function updating($name, $value): void
     {
+        \Debugbar::debug('updating in Create -> '.$name.' '.$value);
         $this->authorize('create', Team::class);
         if ($name === 'team_id') {
             if ($value !== 0) {
@@ -115,12 +101,22 @@ class Create extends Component
             $this->teams[$exp[1]]->players()->where('captain', 1)->delete();
             Player::create(['user_id' => $value, 'team_id' => $this->teams[$exp[1]]->id, 'captain' => 1]);
         }
-
     }
 
-    public function removeTeam($key): void
+    private function getTeams(): void
     {
-        $team = Team::find($this->teams[$key]->id);
+        $this->fill([
+            'teams' => Team::where('season_id', $this->season->id)->orderBy('name')->get()->each(function (Team $team) {
+                if (strtoupper($team->name) === 'BYE') {
+                    $this->has_bye = true;
+                }
+            }),
+        ]);
+    }
+
+    public function removeTeam($id): void
+    {
+        $team = Team::find($id);
         $this->authorize('delete', $team);
         if (strtoupper($team->name) === 'BYE') {
             $this->has_bye = false;
@@ -128,11 +124,12 @@ class Create extends Component
         }
         $team->players()->delete();
         $team->delete();
-        $this->teams->pull($key);
+        $this->teams->pull($team->id);
         $this->changeNumberOfTeams(false);
         //update the dropdown and add 1 to the $i
         $this->dropdown_teams = $this->getDropdownTeams();
         $this->i--;
+        session(['team_counter' => $this->i]);
     }
 
     public function addBye(): void
@@ -147,29 +144,5 @@ class Create extends Component
             'season_id' => $this->season->id,
         ]);
         $this->pushAndSortTeams($new_team);
-    }
-
-    private function getDropdownTeams(): Collection
-    {
-        $season_ids = Season::orderByDesc('cycle')->skip(1)->take(2)->pluck('id')->toArray();
-        $new_team_names = Team::whereSeasonId($this->season->id)->pluck('name')->toArray();
-
-        return Team::whereIn('season_id', $season_ids)->whereNotIn('name', $new_team_names)->orderBy('name')->orderByDesc('season_id')->get()->unique('name');
-    }
-
-    private function pushAndSortTeams(Team $new_team): void
-    {
-        $this->teams->push($new_team);
-        $this->teams = $this->teams->sortBy('name', SORT_NATURAL);
-        //update the dropdown and add 1 to the $i
-        $this->dropdown_teams = $this->getDropdownTeams();
-        $this->i++;
-        $this->changeNumberOfTeams();
-    }
-
-    private function changeNumberOfTeams(bool $add = true): void
-    {
-        $this->number_of_teams = $add ? $this->number_of_teams + 1 : $this->number_of_teams - 1;
-        session(['number_of_teams' => $this->number_of_teams]);
     }
 }

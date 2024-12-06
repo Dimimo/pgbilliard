@@ -50,7 +50,7 @@ class Create extends Component
         session(['alert' => "Season $season->cycle is created. Time to create the teams!"]);
         session(['number_of_teams' => $this->number_of_teams]);
         session(['has_bye' => $this->has_bye]);
-        $this->redirect(route('admin.teams.create', ['season' => $season]), navigate: true);
+        $this->redirect(route('admin.season.update', ['season' => $season]), navigate: true);
     }
 
     public function updating($name, $value): void

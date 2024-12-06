@@ -49,7 +49,7 @@ uses([WithCurrentCycle::class]);
                 </div>
                 <div class="flex justify-center">
                     <x-nav-link
-                        href="{{ route('admin.teams.create', ['season' => $season]) }}"
+                        href="{{ route('admin.season.update', ['season' => $season]) }}"
                         class="text-center mx-auto text-xl"
                         :active="false"
                         wire:navigate

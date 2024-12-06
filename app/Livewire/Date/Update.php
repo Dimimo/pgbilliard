@@ -2,27 +2,40 @@
 
 namespace App\Livewire\Date;
 
-use App\Livewire\Forms\EventForm;
-use App\Models\Date;
 use App\Models\Event;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Update extends Component
 {
-    public Date $date;
+    public Event $event;
 
-    public EventForm $eventForm;
+    #[Validate]
+    public ?int $score1 = null;
 
-    protected $rules = [
-        'date.events.*.id' => 'integer',
-        'date.events.*.score1' => 'between:0,15',
-        'date.events.*.score2' => 'between:0,15',
-    ];
+    #[Validate]
+    public ?int $score2 = null;
 
-    public function mount(Date $date): void
+    public function rules(): array
     {
-        $this->date = $date;
+        return [
+            'score1' => ['nullable', 'integer', 'between:0,15'],
+            'score2' => ['nullable', 'integer', 'between:0,15'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'score1.between' => 'The score must be between 0 and 15',
+            'score2.between' => 'The score must be between 0 and 15',
+        ];
+    }
+
+    public function mount(): void
+    {
+        $this->updateScores();
     }
 
     public function render(): View
@@ -30,54 +43,29 @@ class Update extends Component
         return view('livewire.date.update');
     }
 
-    public function updated(): void
+    public function updated($field, $value): void
     {
-        $this->all()['date']->events->each(function (Event $event) {
-            $this->eventForm->setEvent($event);
-            $this->eventForm->update();
-            $this->date->refresh();
-        });
+        $this->validateOnly($field);
+        $this->event->update([$field => $value]);
+        $this->updateScores();
         $this->dispatch('scores-updated');
     }
 
-    //Todo: make sure it's not over 15 or less than 0
-    public function addOneGameScore1($event_id): void
+    public function change(string $field, string $action = 'increment'): void
     {
-        $this->incrementScore($event_id, 'score1');
-    }
-
-    public function minusOneGameScore1($event_id): void
-    {
-        $this->decrementScore($event_id, 'score1');
-    }
-
-    public function addOneGameScore2($event_id): void
-    {
-        $this->incrementScore($event_id, 'score2');
-    }
-
-    public function minusOneGameScore2($event_id): void
-    {
-        $this->decrementScore($event_id, 'score2');
-    }
-
-    private function incrementScore($event_id, $field): void
-    {
-        $event = Event::whereId($event_id)->first();
-        $event->increment($field);
-        $this->eventForm->setEvent($event);
-        $this->eventForm->update();
-        $this->date->refresh();
+        $action === 'increment' ? $this->$field += 1 : $this->$field -= 1;
+        $this->validate();
+        $this->event->$action($field);
+        $this->updateScores();
         $this->dispatch('scores-updated');
     }
 
-    private function decrementScore($event_id, $field): void
+    private function updateScores(): void
     {
-        $event = Event::whereId($event_id)->first();
-        $event->decrement($field);
-        $this->eventForm->setEvent($event);
-        $this->eventForm->update();
-        $this->date->refresh();
-        $this->dispatch('scores-updated');
+        $this->score1 = $this->event->score1;
+        $this->score2 = $this->event->score2;
+        if ($this->score1 + $this->score2 > 15) {
+            $this->addError('score1', 'More than 15 games? Please correct this...');
+        }
     }
 }

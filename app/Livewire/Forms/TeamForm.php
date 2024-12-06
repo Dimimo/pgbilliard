@@ -42,13 +42,21 @@ class TeamForm extends Form
     #[Validate(['nullable', 'text'])]
     public ?string $remark;
 
+    #[Validate(['nullable', 'exists:App\Models\User'])]
+    public ?int $id;
+
     public function setTeam(Team $team): void
     {
         $this->team = $team;
-        $this->name = $team->name;
+        $this->name = $this->team->name;
         $this->venue_id = $this->team->venue_id;
         $this->season_id = $this->team->season_id;
         $this->remark = $this->team->remark;
+        // The id selects the first captain in the team
+        $this->id = $this->team->players()
+            ->where('captain', true)
+            ->first()
+            ?->user_id;
     }
 
     public function store(): void
