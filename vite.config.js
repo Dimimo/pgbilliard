@@ -13,6 +13,7 @@ export default defineConfig({
                 'app/Livewire/**',
                 'storage/framework/views/**',
             ],
+            detectTls: 'PuertoPool.test',
         }),
     ],
 });
