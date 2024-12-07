@@ -11,7 +11,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased">
-<div class="min-h-screen mx-auto sm:px-4">
+<div class="container min-h-screen mx-auto sm:px-4">
     @auth
         <livewire:layout.navigation/>
     @else
@@ -29,7 +29,7 @@
     @endif
 
     <!-- Page Content -->
-    <main class="container">
+    <main>
         {{ $slot }}
     </main>
 </div>
