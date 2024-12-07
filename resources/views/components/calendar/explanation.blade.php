@@ -4,7 +4,7 @@
 
     <div class="text-2xl">How does it work?</div>
     <div class="my-2">
-        When you created this new Season, a starting date and day of week, the first date has
+        When you created a new Season with a starting date and day of the week, the first date has
         been created ({{ $dates->first()->date->format('Y-m-d') }}). Your starting point. Here
         you can fill in the games.
     </div>
@@ -12,9 +12,9 @@
     <div class="text-2xl">Create a game</div>
     <div class="my-2">
         Just make sure you are working on the correct date. The blue title and the 'Playing date'
-        dropdown list shows you. On the right you will see an overview of the whole calendar you
+        dropdown list shows you. On the right you will see an overview of the calendar you
         are creating. Only the <strong>teams</strong> are needed. The <strong>venue</strong> is
-        automatically selected.
+        automatically selected. The location can be changed, if necessary.
     </div>
 
 @else
@@ -29,7 +29,7 @@
 
 <div class="text-2xl">Delete a game</div>
 <div class="my-2">
-    If you made a mistake, don't worry. Games on a selected date can be deleted and recreated.
+    If you made a mistake, don't worry. Games can be deleted and recreated.
     Games that already happened can not be deleted. Not even by Dimitri. It is the past.
 </div>
 
@@ -37,16 +37,15 @@
 <div class="my-2">
     When done with the current selected date, click on
     <img class="mx-auto inline-block" src="{{ secure_asset('svg/plus-box-fill.svg') }}" alt="" width="16" height="16"> <span class="text-green-700">Add next week</span>.
-    It will create the next date and select it to create the games corresponding to the selected new date.
+    Simple enough.
 </div>
 <div class="my-2">
-    <strong><u>Hint</u>:</strong> If you want a week skipped (holidays for example), create 2 new date, delete the holiday date
-    later.
+    <strong><u>Hint</u>:</strong> If you want to skip a week (holidays for example), create 2 new dates and delete the holiday later.
 </div>
 
 <div class="text-2xl">Delete a date</div>
 <div class="my-2">
-    You can delete a date if there are no games on that date. If the date is somehow wrong, you
+    You can delete a date if there it has no games. If the date is somehow wrong, you
     will have to delete the games <img
         class="inline-block"
         src="{{ secure_asset('svg/minus-box-fill.svg') }}"
@@ -55,7 +54,7 @@
         height="16"
     > first before the
     <img class="inline-block" src="{{ secure_asset('svg/delete-item.svg') }}" alt="" width="16" height="16">
-    symbol appears. Games with scores can not be deleted.
+    symbol appears. <span class="font-bold">Past games can not be deleted.</span> Past dates yes, if they have no games.
 </div>
 
 @if($new === true)

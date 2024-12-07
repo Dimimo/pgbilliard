@@ -11,6 +11,7 @@ use App\Models\Venue;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Create extends Component
@@ -21,22 +22,30 @@ class Create extends Component
 
     public Collection $teams;
 
+    public ?int $team_select = null;
+
     public bool $has_bye;
 
     public int $i = 1;
 
-    protected $rules = [
-        'teams' => 'array',
-        'teams.*.id' => 'required',
-        'teams.*.name' => 'required|min:2|max:'.Constants::USERCHARS,
-        'teams.*.venue_id' => 'required',
-        'teams.*.user_id' => 'nullable',
-    ];
+    public function rules(): array
+    {
+        return [
+            'teams' => 'array',
+            'teams.*.id' => 'required',
+            'teams.*.name' => 'required|min:2|max:'.Constants::USERCHARS,
+            'teams.*.venue_id' => 'required',
+            'teams.*.user_id' => 'nullable',
+        ];
+    }
 
-    protected $messages = [
-        'teams.*.name.required' => 'A team needs a name, min 2, max '.Constants::USERCHARS,
-        'teams.*.venue_id.required' => 'A team needs a name, min 2, max '.Constants::USERCHARS,
-    ];
+    public function messages(): array
+    {
+        return [
+            'teams.*.name.required' => 'A team needs a name, min 2, max '.Constants::USERCHARS,
+            'teams.*.venue_id.required' => 'A team needs a name, min 2, max '.Constants::USERCHARS,
+        ];
+    }
 
     public function mount(Season $season): void
     {
@@ -64,43 +73,36 @@ class Create extends Component
         foreach ($validated['teams'] as $values) {
             Team::find($values['id'])->update($values);
         }
-        $this->dispatch('teams-created');
-        session('alert', count($validated).' teams created. Time to create the Calendar!');
+        session(['success' => count($validated).' teams created. Time to create the Calendar!']);
         $this->redirect(route('admin.calendar.create', ['season' => $this->season]), navigate: true);
     }
 
-    public function updating($name, $value): void
+    public function updatedTeamSelect(?int $team_id): void
     {
-        \Debugbar::debug('updating in Create -> '.$name.' '.$value);
-        $this->authorize('create', Team::class);
-        if ($name === 'team_id') {
-            if ($value !== 0) {
-                $old_team = Team::find($value);
-                // create and push the new team
-                $new_team = Team::create([
-                    'name' => $old_team->name,
-                    'venue_id' => $old_team->venue_id,
-                    'season_id' => $this->season->id,
-                ]);
-                // create the new captain
-                $new_team->append('user_id');
-                Player::create(['user_id' => $old_team->captain()->user_id, 'team_id' => $new_team->id, 'captain' => 1]);
-            } else {
-                $new_team = Team::create([
-                    'name' => 'A new team '.$this->i,
-                    'venue_id' => Venue::whereName('BYE')->first()->id,
-                    'season_id' => $this->season->id,
-                ]);
-                $new_team->append('user_id');
-            }
-            $this->pushAndSortTeams($new_team);
-        } elseif (Str::contains($name, 'user_id')) {
-            // updates or adds a new captain, has to be manual as user_id is not a part of the teams table
-            $exp = explode('.', $name);
-            $this->teams[$exp[1]]->user_id = $value;
-            $this->teams[$exp[1]]->players()->where('captain', 1)->delete();
-            Player::create(['user_id' => $value, 'team_id' => $this->teams[$exp[1]]->id, 'captain' => 1]);
+        // if a team exists, copy it and add it to the new season
+        $old_team = Team::find($team_id);
+        if ($old_team) {
+            $this->dropdown_teams = $this->dropdown_teams->filter(fn ($item) => $item->id !== $old_team->id);
+            $new_team = Team::create([
+                'name' => $old_team->name,
+                'venue_id' => $old_team->venue_id,
+                'season_id' => $this->season->id,
+            ]);
+            // create the new captain
+            Player::create(['user_id' => $old_team->captain()?->user_id, 'team_id' => $new_team->id, 'captain' => 1]);
+        } else { // a new team is selected, create one with a generic name and BYE as the team
+            $new_team = Team::whereName('BYE')->first()->venue->teams()->create([
+                'name' => 'A new team '.++$this->i,
+                'season_id' => $this->season->id,
+            ]);
         }
+
+        $new_team->append('user_id');
+        $this->teams->push($new_team);
+        $this->teams->sortBy('name', SORT_NATURAL);
+        $this->i++;
+        $this->reset('team_select');
+        $this->dispatch('teams-created');
     }
 
     private function getTeams(): void
@@ -114,18 +116,19 @@ class Create extends Component
         ]);
     }
 
-    public function removeTeam($id): void
+    #[On('remove-team')]
+    public function removeTeam($team_id): void
     {
-        $team = Team::find($id);
+        $team = Team::find($team_id);
         $this->authorize('delete', $team);
-        if (strtoupper($team->name) === 'BYE') {
+        if (Str::upper($team->name) === 'BYE') {
             $this->has_bye = false;
             session(['has_bye' => false]);
+            $this->changeNumberOfTeams(false);
         }
         $team->players()->delete();
         $team->delete();
-        $this->teams->pull($team->id);
-        $this->changeNumberOfTeams(false);
+        $this->getTeams();
         //update the dropdown and add 1 to the $i
         $this->dropdown_teams = $this->getDropdownTeams();
         $this->i--;

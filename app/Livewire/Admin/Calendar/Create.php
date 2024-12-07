@@ -34,7 +34,7 @@ class Create extends Component
     public function mount(Season $season): void
     {
         $this->season = $season;
-        $this->getFirstEvent();
+        $this->getLastEvent();
         $this->teams = Team::whereSeasonId($season->id)->orderBy('name')->get();
         $venue_ids = Team::whereSeasonId($season->id)->get()->unique('venue_id')->pluck('venue_id')->toArray();
         $this->venues = Venue::whereIn('id', $venue_ids)->where('name', '<>', 'BYE')->orderBy('name')->get();
@@ -48,10 +48,7 @@ class Create extends Component
     public function updating($name, $value): void
     {
         if ($name === 'event.date_id' && $value) {
-            $this->last_date = Date::find($value);
-            $this->dateForm->setDate($this->last_date);
-            $this->events = $this->last_date->events;
-            $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
+            $this->setSelectedDate($value);
         } elseif ($name === 'dateForm.regular') {
             $this->dateForm->regular = $value ? 1 : 0;
             $this->dateForm->update();
@@ -73,11 +70,25 @@ class Create extends Component
         }
     }
 
+    public function selectedDate($date_id): void
+    {
+        $this->setSelectedDate($date_id);
+    }
+
+    private function setSelectedDate($date_id): void
+    {
+        $this->last_date = Date::find($date_id);
+        $this->dateForm->setDate($this->last_date);
+        $this->events = $this->last_date->events;
+        $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
+    }
+
     public function save(): void
     {
         $this->event->store();
         $this->dispatch('event-created');
         $this->last_date->refresh();
+        $this->dates = Date::whereSeasonId($this->season->id)->with('events')->orderBy('date')->get();
         $this->events = $this->last_date->events;
         $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
     }
@@ -88,9 +99,9 @@ class Create extends Component
         $this->last_date = $this->dates->last();
         // add a week and save it, refresh dates and events
         $next_week = $this->last_date->date->addWeek();
-        $this->last_date = Date::create(['season_id' => $this->season->id, 'date' => $next_week, 'regular' => 0]);
+        $this->last_date = Date::create(['season_id' => $this->season->id, 'date' => $next_week, 'regular' => false]);
         $this->dateForm->setDate($this->last_date);
-        $this->dates = Date::whereSeasonId($this->season->id)->orderBy('date')->get();
+        $this->dates = Date::whereSeasonId($this->season->id)->with('events')->orderBy('date')->get();
         $this->events = $this->last_date->events;
         // prepare the field for the next game
         $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
@@ -111,13 +122,16 @@ class Create extends Component
         $this->authorize('delete', $this->last_date);
         if ($this->last_date->events()->count() == 0) {
             $this->last_date->delete();
-            $this->getFirstEvent();
+            $this->getLastEvent();
         }
     }
 
-    private function getFirstEvent(): void
+    private function getLastEvent(): void
     {
-        $this->dates = Date::whereSeasonId($this->season->id)->orderBy('date')->get();
+        $this->dates = Date::whereSeasonId($this->season->id)
+            ->with('events')
+            ->orderBy('date')
+            ->get();
         $this->last_date = $this->dates->last();
         $this->dateForm->setDate($this->last_date);
         $this->events = $this->last_date->events;
