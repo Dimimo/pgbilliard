@@ -1,3 +1,4 @@
+@props(['dates', 'last_day'])
 <label for="date_id">Playing date</label>
 <div class="flex items-center justify-between">
     <select
@@ -5,12 +6,17 @@
         id="date_id" wire:model.change="event.date_id">
         <option value=""> -- select date --</option>
         @foreach($dates as $date)
-
-            <option value="{{ $date->id }}" wire:key="{{ $date->id }}">{{ $date->date->format('Y-m-d') }}</option>
+            <option
+                value="{{ $date->id }}"
+                wire:key="{{ $date->id }}"
+                @selected($last_day->id === $date->id)
+            >
+                {{ $date->date->format('Y-m-d') }}
+            </option>
         @endforeach
     </select>
 
-    <div class="flex items-center" wire:target="dateForm.regular, dateForm.title" wire:loading.remove>
+    <div class="flex items-center" wire:target="dateForm.regular, dateForm.title, selectedDate" wire:loading.remove>
         <input
             id="regular"
             name="regular"
@@ -23,14 +29,23 @@
         </label>
     </div>
 
-    <x-spinner target="dateForm.regular, dateForm.title"/>
+    <x-spinner target="dateForm.regular, dateForm.title, selectedDate"/>
 
     <label>
         <input
             name="title"
             type="text"
-            class="bg-gray-100 w-auto text-sm px-2 rounded-md outline-blue-500"
-            placeholder="Title?"
+            @class([
+                'w-auto',
+                'text-sm',
+                'px-2',
+                'rounded-lg',
+                'outline-blue-500',
+                'bg-gray-100' => !$last_day->regular,
+                'bg-green-100' => $last_day->regular
+
+]           )
+            placeholder="{{ $last_day->regular ? 'Finals? Semi\'s? Other?' : '' }}"
             wire:model.live.debounce.500ms="dateForm.title"
         />
     </label>

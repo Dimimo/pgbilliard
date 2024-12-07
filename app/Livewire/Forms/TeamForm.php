@@ -28,7 +28,7 @@ class TeamForm extends Form
         'required' => 'A team must have a venue (bar)',
         'exists' => 'The selected venue does not exist',
     ])]
-    public int $venue_id;
+    public ?int $venue_id;
 
     #[Validate([
         'required',
@@ -42,8 +42,8 @@ class TeamForm extends Form
     #[Validate(['nullable', 'text'])]
     public ?string $remark;
 
-    #[Validate(['nullable', 'exists:App\Models\User'])]
-    public ?int $id;
+    #[Validate(['nullable', 'exists:App\Models\User,id'])]
+    public ?int $captain_id;
 
     public function setTeam(Team $team): void
     {
@@ -53,7 +53,7 @@ class TeamForm extends Form
         $this->season_id = $this->team->season_id;
         $this->remark = $this->team->remark;
         // The id selects the first captain in the team
-        $this->id = $this->team->players()
+        $this->captain_id = $this->team->players()
             ->where('captain', true)
             ->first()
             ?->user_id;
