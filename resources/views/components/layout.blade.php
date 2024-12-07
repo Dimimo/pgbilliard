@@ -82,15 +82,6 @@
 @vite('resources/js/app.js')
 
 @stack('js')
-
-<script>
-    if (typeof cycle_list === 'undefined') {
-        const cycle_list = document.getElementById('cycle_list');
-        cycle_list.addEventListener('change', (e) => {
-            document.location.href = e.target.value;
-        });
-    }
-</script>
 {{-- End script --}}
 
 </body>

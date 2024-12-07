@@ -1,21 +1,22 @@
 <div>
-    <div class="row mr-1 mt-n5 mb-4">
+    <div class="mr-1 mt-n5 mb-4">
         <div class="col-auto ml-auto">
-            <label for="cycle_list"></label>
-            <select class="form-control mt-n4" id="cycle_list" title="Change the season">
-                @if($cycles)
-                    @foreach ($cycles as $c)
-                        <option value="/seasons/{{ $c }}"
-                                @if ($c == $cycle) selected @endif>{{ $c }}</option>
-                    @endforeach
-                    @if ($c > $cycle)
-                        <option value="/seasons/{{ $c }}" selected>{{ $cycle }}</option>
+            <label>
+                <select class="mt-n4" title="Change the season" wire:model.live="cycle">
+                    <option value="">-- select --</option>
+                    @if($cycles)
+                        @foreach ($cycles as $c)
+                            <option value="{{ $c->id }}" @selected($c->cycle === $cycle)>{{ $c->cycle }}</option>
+                        @endforeach
+                        @if ($c->cycle > $cycle)
+                            <option value="{{ $c->id }}" selected>{{ $c->cycle }}</option>
+                        @endif
+                        <option value="all">All Seasons</option>
+                    @else
+                        <option>No seasons are available in the new database</option>
                     @endif
-                    <option value="/seasons/0000/00">All Seasons</option>
-                @else
-                    <option>No seasons are available in the new database</option>
-                @endif
-            </select>
+                </select>
+            </label>
         </div>
     </div>
 </div>
