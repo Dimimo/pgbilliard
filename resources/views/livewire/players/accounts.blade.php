@@ -21,7 +21,7 @@
         </p>
         <p class="my-3">
             <strong>User names have to be unique!</strong> For that reason alone, you should claim your account if are you in the list.
-            There can only be one Richard or one Ann. If you are twice in the list because of misspelling, <strong>claim one</strong> and
+            There can only be one Richard or one Rhea. If you are twice in the list because of misspelling, <strong>claim one</strong> and
             <a
                 href="mailto:admin@pgbilliard.com?subject=[PG Billiard] Double account names"
                 class="border border-white font-semibold text-blue-700 hover:bg-blue-100 hover:border hover:border-blue-700"
