@@ -6,7 +6,6 @@ use Database\Factories\TeamFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -48,8 +47,6 @@ use Illuminate\Support\Carbon;
  */
 class Team extends Model
 {
-    use HasFactory;
-
     /**
      * The database table used by the model.
      *
@@ -87,11 +84,6 @@ class Team extends Model
     protected $hidden = [];
 
     protected $with = [];
-
-    protected static function newFactory(): TeamFactory
-    {
-        return TeamFactory::new();
-    }
 
     /**
      * Calculates the percentages of a given score table of a team

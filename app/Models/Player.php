@@ -6,7 +6,6 @@ use Database\Factories\PlayerFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -20,9 +19,10 @@ use Illuminate\Support\Carbon;
  * @property bool $captain
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read mixed     $contact_nr
- * @property-read mixed     $gender
- * @property-read mixed     $name
+ * @property-read string $contact_nr
+ * @property-read string $email
+ * @property-read string $gender
+ * @property-read string $name
  * @property-read Team|null $team
  * @property-read User|null $user
  *
@@ -41,8 +41,6 @@ use Illuminate\Support\Carbon;
  */
 class Player extends Model
 {
-    use HasFactory;
-
     /**
      * The database table used by the model.
      *
@@ -81,11 +79,6 @@ class Player extends Model
 
     protected $appends = ['name', 'contact_nr'];
 
-    protected static function newFactory(): PlayerFactory
-    {
-        return PlayerFactory::new();
-    }
-
     public function isCaptain(Team $team): bool
     {
         if (! $this->captain) {
@@ -93,6 +86,26 @@ class Player extends Model
         }
 
         return $this->team->id === $team->id;
+    }
+
+    protected function name(): Attribute
+    {
+        return Attribute::make(get: fn () => $this->user->name);
+    }
+
+    protected function phone(): Attribute
+    {
+        return Attribute::make(get: fn () => $this->user->contact_nr);
+    }
+
+    protected function gender(): Attribute
+    {
+        return Attribute::make(get: fn () => $this->user->gender);
+    }
+
+    protected function email(): Attribute
+    {
+        return Attribute::make(get: fn () => $this->user()->email);
     }
 
     /**
@@ -105,11 +118,6 @@ class Player extends Model
         return $this->belongsTo(Team::class, 'team_id', 'id');
     }
 
-    protected function name(): Attribute
-    {
-        return Attribute::make(get: fn () => $this->user()->find($this->user_id)->name);
-    }
-
     /**
      * A player belongs to a user (only needed if captain and life scores are introduced)
      *
@@ -118,15 +126,5 @@ class Player extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(config('auth.providers.users.model'), 'user_id', 'id');
-    }
-
-    protected function contactNr(): Attribute
-    {
-        return Attribute::make(get: fn () => $this->user()->find($this->user_id)->contact_nr);
-    }
-
-    protected function gender(): Attribute
-    {
-        return Attribute::make(get: fn () => $this->user()->find($this->user_id)->gender);
     }
 }
