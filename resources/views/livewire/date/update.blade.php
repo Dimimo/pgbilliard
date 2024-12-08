@@ -93,7 +93,18 @@
             'p-4' => !$errors->any(),
             'text-center',
         ])>
-        {{ $event->venue->name }}
+        @if ($score1 + $score2 === 15 && $confirmed === false)
+            <button
+                type="button"
+                title="Confirm the final score"
+                class="rounded-lg bg-blue-100 p-2 outline outline-blue-600 hover:bg-green-100 hover:outline-green-600"
+                wire:click="consolidate()"
+            >
+                confirm
+            </button>
+        @else
+            {{ $event->venue->name }}
+        @endif
     </td>
 </tr>
 @if($errors->any())
