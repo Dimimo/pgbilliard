@@ -5,7 +5,6 @@ namespace App\Models;
 use Database\Factories\EventFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
@@ -20,6 +19,7 @@ use Illuminate\Support\Carbon;
  * @property int $team2
  * @property int|null $score1
  * @property int|null $score2
+ * @property boolean $confirmed
  * @property string|null $remark
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -32,6 +32,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Event newModelQuery()
  * @method static Builder|Event newQuery()
  * @method static Builder|Event query()
+ * @method static Builder|Event whereConfirmed($value)
  * @method static Builder|Event whereCreatedAt($value)
  * @method static Builder|Event whereDateId($value)
  * @method static Builder|Event whereId($value)
@@ -47,8 +48,6 @@ use Illuminate\Support\Carbon;
  */
 class Event extends Model
 {
-    use HasFactory;
-
     /**
      * The database table used by the model.
      *
@@ -66,6 +65,7 @@ class Event extends Model
         'team2' => 'integer',
         'score1' => 'integer',
         'score2' => 'integer',
+        'confirmed' => 'bool',
     ];
 
     /**
@@ -81,6 +81,7 @@ class Event extends Model
         'team2',
         'score1',
         'score2',
+        'confirmed',
         'remark',
     ];
 
@@ -90,11 +91,6 @@ class Event extends Model
      * @var array
      */
     protected $with = ['team_1', 'team_2'];
-
-    protected static function newFactory(): EventFactory
-    {
-        return EventFactory::new();
-    }
 
     public function playerBelongsToEvent(User $user): bool
     {
