@@ -30,7 +30,7 @@ class TeamPolicy
         return $this->returnAdminOrCaptain($user, $team);
     }
 
-    public function delete(User $user, Team $team): bool
+    public function delete(User $user): bool
     {
         return $user->isAdmin();
     }
@@ -45,6 +45,6 @@ class TeamPolicy
             return false;
         }
 
-        return $team->players()->whereUserId($user->id)->first()->isCaptain($team);
+        return $team->players()->where('user_id', $user->id)->first()->player->isCaptain($team);
     }
 }
