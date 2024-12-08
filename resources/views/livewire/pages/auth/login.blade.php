@@ -43,6 +43,8 @@ $login = function ()
     }
     RateLimiter::clear($throttleKey);
     session()->regenerate();
+    session(['last_login' => auth()->user()->updated_at]);
+    auth()->user()->touch('updated_at');
     $this->redirect(session('url.intended', RouteServiceProvider::HOME), navigate: true);
 };
 ?>
