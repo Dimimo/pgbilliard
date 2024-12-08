@@ -26,5 +26,5 @@ class Constants
 
     public const DATEFORMAT_START = 'Y-m-d 12:00:00';
 
-    public const DATEFORMAT_END = 'Y-m-d 12:00:00';
+    public const DATEFORMAT_END = 'Y-m-d 18:00:00';
 }
