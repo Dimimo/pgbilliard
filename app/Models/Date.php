@@ -7,7 +7,6 @@ use Database\Factories\DateFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -25,8 +24,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Collection<int, Event> $events
- * @property-read int|null               $events_count
- * @property-read Season                 $season
+ * @property-read int|null $events_count
+ * @property-read Season $season
  *
  * @method static DateFactory factory($count = null, $state = [])
  * @method static Builder|Date newModelQuery()
@@ -45,8 +44,6 @@ use Illuminate\Support\Carbon;
  */
 class Date extends Model
 {
-    use HasFactory;
-
     /**
      * The database table used by the model.
      *
@@ -86,11 +83,6 @@ class Date extends Model
 
     protected $with = ['events'];
 
-    protected static function newFactory(): DateFactory
-    {
-        return DateFactory::new();
-    }
-
     /**
      * Check if a guest has write access to a pool day overview, this access is only valid from 12pm to 17pm
      */
@@ -101,6 +93,33 @@ class Date extends Model
         $end = $this->date->format(Constants::DATEFORMAT_END);
 
         return $now->between($begin, $end);
+    }
+
+    /**
+     * get all the players (user models) who participated in the daily events
+     * and include the admins as well
+     * make it unique for not sending double mails
+     */
+    public function players()
+    {
+        return
+            $this->events
+                ->map(
+                    fn ($event) => $event
+                        ->team_1
+                        ->players
+                        ->map(fn ($player) => $player->user))
+                ->merge(
+                    $this->events->map(
+                        fn ($event) => $event
+                            ->team_2
+                            ->players
+                            ->map(fn ($player) => $player->user)
+                            ->merge(Admin::with('user')->get()->map(fn ($admin) => $admin->user))
+                    )
+                )
+                ->flatten()
+                ->unique();
     }
 
     /**

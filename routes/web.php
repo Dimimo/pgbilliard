@@ -23,4 +23,9 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
+Route::get('mailable/date/{date}', function ($date) {
+    $date = \App\Models\Date::find($date);
+    return new \App\Mail\DayScoresConfirmed($date);
+});
+
 require __DIR__.'/auth.php';

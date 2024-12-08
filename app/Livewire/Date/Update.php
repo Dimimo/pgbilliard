@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Date;
 
+use App\Mail\DayScoresConfirmed;
 use App\Models\Event;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Validate;
@@ -16,6 +17,8 @@ class Update extends Component
 
     #[Validate]
     public ?int $score2 = null;
+
+    public bool $confirmed = false;
 
     public function rules(): array
     {
@@ -60,6 +63,24 @@ class Update extends Component
         $this->dispatch('scores-updated');
     }
 
+    public function consolidate(): void
+    {
+        $this->event->update(['confirmed' => true]);
+        $this->dispatch('scores-updated');
+
+        // here we check if all events are confirmed, if so, email all participating players, only in production!
+        if ($this->event->date->events->every(fn ($value) => $value->confirmed === true)) {
+            if (app()->environment() === 'production') {
+                $teams = $this->event->date->players();
+                foreach ($teams as $players) {
+                    foreach ($players as $user) {
+                        \Mail::to($user)->queue(new DayScoresConfirmed($this->event->date));
+                    }
+                }
+            }
+        }
+    }
+
     private function updateScores(): void
     {
         $this->score1 = $this->event->score1;
@@ -67,5 +88,6 @@ class Update extends Component
         if ($this->score1 + $this->score2 > 15) {
             $this->addError('score1', 'More than 15 games? Please correct this...');
         }
+        $this->confirmed = $this->event->confirmed;
     }
 }
