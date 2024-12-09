@@ -77,7 +77,7 @@ class Player extends Model
 
     protected $with = ['team'];
 
-    protected $appends = ['name', 'contact_nr'];
+    protected $appends = ['name', 'phone'];
 
     public function isCaptain(Team $team): bool
     {

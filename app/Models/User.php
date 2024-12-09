@@ -78,7 +78,9 @@ use Laravel\Sanctum\PersonalAccessToken;
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -181,5 +183,10 @@ class User extends Authenticatable
     public function chatRooms(): BelongsToMany
     {
         return $this->belongsToMany(ChatRoom::class)->withTimestamps();
+    }
+
+    public function formats(): hasMany
+    {
+        return $this->hasMany(Format::class);
     }
 }
