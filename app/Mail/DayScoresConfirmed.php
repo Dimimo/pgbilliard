@@ -22,7 +22,7 @@ class DayScoresConfirmed extends Mailable implements ShouldQueue
         public Date $date,
         public $subject = ''
     ) {
-        $this->subject = 'Day scores of '.$this->date->date->format('d-m-Y');
+        $this->subject = 'Day scores of '.$this->date->date->format('jS \o\f M Y');
     }
 
     /**
