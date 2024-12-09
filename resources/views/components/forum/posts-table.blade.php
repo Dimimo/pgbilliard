@@ -7,11 +7,10 @@
             <th class="px-6 py-3 text-left text-sm font-semibold text-white">Started by</th>
             <th class="px-6 py-3 text-left text-sm font-semibold text-white">Last update</th>
             <th></th>
-            @if(!Auth::check() && Auth::user()->isAdmin())
+            @if(Auth::check() && Auth::user()->isAdmin())
                 <th class="px-6 py-3 text-left text-sm font-semibold text-white">Sticky?</th>
-            @else
-                <th class="px-6 py-3 text-left text-sm font-semibold text-white">Locked?</th>
             @endif
+            <th class="px-6 py-3 text-left text-sm font-semibold text-white">Locked?</th>
             <th class="px-6 py-3 text-left text-sm font-semibold text-white">Actions</th>
         </tr>
         </thead>
@@ -49,7 +48,7 @@
                         <x-svg.comments-solid color="fill-black" size="5"/> {{ $post->comments_count }}
                     @endif
                 </td>
-                @if(!Auth::check() && Auth::user()->isAdmin())
+                @if(Auth::check() && Auth::user()->isAdmin())
                     <td>
                         <label class="flex justify-center">
                             <input type="checkbox" @if($post->is_sticky) checked @endif wire:click="toggle_sticky({{ $post->id }})"/>
