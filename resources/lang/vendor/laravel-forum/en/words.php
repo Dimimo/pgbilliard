@@ -35,7 +35,7 @@ return [
     'cancel' => 'Cancel',
     'update' => 'Update',
     'approve' => 'Approve',
-    'dissaprove' => 'Disprove',
+    'disprove' => 'Disprove',
     'hide' => 'Hide',
     'approved' => 'Approved',
     'hidden' => 'Hidden',
