@@ -14,8 +14,8 @@ var vite_config_default = defineConfig({
         "storage/framework/views/**"
       ]
     })
-  ]
-  // server: detectServerConfig(host),
+  ],
+  server: detectServerConfig(host),
 });
 export {
   vite_config_default as default
