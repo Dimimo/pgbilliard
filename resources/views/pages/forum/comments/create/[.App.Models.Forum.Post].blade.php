@@ -6,7 +6,7 @@ use function Livewire\Volt\state;
 
 state('post');
 
-name('forum.comments.create');
+name('forum.comments.update');
 ?>
 
 <x-app-layout>
@@ -20,7 +20,7 @@ name('forum.comments.create');
         <x-forum.back-to-post :post="$post"/>
         <x-forum.back-to-posts/>
 
-        @can('create', Comment::class)
+        @can('update', Comment::class)
 
             <livewire:forum.comments.create :comment="new \App\Models\Forum\Comment(['post_id' => $post->id])" :post="$post"/>
 
