@@ -22,6 +22,6 @@ class UserSeeder extends Seeder
             'assigned_by' => 1,
             'super_admin' => 1,
         ]);
-        // User::factory()->count(10)->create();
+        // User::factory()->count(10)->update();
     }
 }
