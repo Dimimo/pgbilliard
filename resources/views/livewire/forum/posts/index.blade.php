@@ -1,7 +1,9 @@
 <div>
     <x-title title="Forum Posts"/>
 
-    <x-forum.write-a-post/>
+    @auth()
+        <x-forum.write-a-post/>
+    @endauth
 
     <x-forum.posts-table :posts="$posts"/>
 </div>

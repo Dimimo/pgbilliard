@@ -1,3 +1,4 @@
+@props(['posts'])
 <div id="top-posts" class="overflow-x-auto">
     <table class="min-w-full bg-white">
         <thead class="whitespace-nowrap bg-gray-800">
@@ -7,11 +8,13 @@
             <th class="px-6 py-3 text-left text-sm font-semibold text-white">Started by</th>
             <th class="px-6 py-3 text-left text-sm font-semibold text-white">Last update</th>
             <th></th>
-            @if(Auth::check() && Auth::user()->isAdmin())
+            @if(auth()->check() && auth()->user()->isAdmin())
                 <th class="px-6 py-3 text-left text-sm font-semibold text-white">Sticky?</th>
             @endif
             <th class="px-6 py-3 text-left text-sm font-semibold text-white">Locked?</th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-white">Actions</th>
+            @auth()
+                <th class="px-6 py-3 text-left text-sm font-semibold text-white">Actions</th>
+            @endauth
         </tr>
         </thead>
         <tbody class="whitespace-nowrap">
@@ -48,7 +51,7 @@
                         <x-svg.comments-solid color="fill-black" size="5"/> {{ $post->comments_count }}
                     @endif
                 </td>
-                @if(Auth::check() && Auth::user()->isAdmin())
+                @if(auth()->check() && auth()->user()->isAdmin())
                     <td>
                         <label class="flex justify-center">
                             <input type="checkbox" @if($post->is_sticky) checked @endif wire:click="toggle_sticky({{ $post->id }})"/>
@@ -68,22 +71,24 @@
                         @endif
                     </td>
                 @endif
-                <td class="px-6 py-3">
-                    @can('update', $post)
-                        <a class="px-1" href="{{ route('forum.posts.edit', ['post' => $post]) }}" wire:navigate>
-                            <x-forum.button-edit/>
-                        </a>
-                    @endcan
-                    @can('delete', $post)
-                        <div
-                            class="inline-block cursor-pointer px-1"
-                            wire:click="delete({{ $post->id }})"
-                            wire:confirm="Are you sure you want to delete the post?"
-                        >
-                            <x-forum.button-delete/>
-                        </div>
-                    @endcan
-                </td>
+                @auth()
+                    <td class="px-6 py-3">
+                        @can('update', $post)
+                            <a class="px-1" href="{{ route('forum.posts.edit', ['post' => $post]) }}" wire:navigate>
+                                <x-forum.button-edit/>
+                            </a>
+                        @endcan
+                        @can('delete', $post)
+                            <div
+                                class="inline-block cursor-pointer px-1"
+                                wire:click="delete({{ $post->id }})"
+                                wire:confirm="Are you sure you want to delete the post?"
+                            >
+                                <x-forum.button-delete/>
+                            </div>
+                        @endcan
+                    </td>
+                @endauth
             </tr>
         @endforeach
         </tbody>
