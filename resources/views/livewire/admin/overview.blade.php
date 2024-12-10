@@ -1,11 +1,11 @@
 <div>
-    <table class="table-auto min-w-full bg-white mb-5">
+    <table class="mb-5 min-w-full table-auto bg-white">
         <thead class="whitespace-nowrap">
         <tr>
-            <th class="p-2 text-left bg-gray-200 text-gray-900">Name</th>
-            <th class="p-2 text-left bg-gray-200 text-gray-900">Assigned by</th>
-            <th class="p-2 text-left bg-gray-200 text-gray-900">Since</th>
-            <th class="p-2 bg-gray-200"></th>
+            <th class="bg-gray-200 p-2 text-left text-gray-900">Name</th>
+            <th class="bg-gray-200 p-2 text-left text-gray-900">Assigned by</th>
+            <th class="bg-gray-200 p-2 text-left text-gray-900">Since</th>
+            <th class="bg-gray-200 p-2"></th>
         </tr>
         </thead>
         <tbody>
@@ -38,19 +38,19 @@
         </tbody>
     </table>
 
-    <div class="w-full flex justify-end mb-4 h-2">
+    <div class="mb-4 flex h-8 w-full justify-center">
         <x-spinner/>
-        <x-action-message class="mx-3" on="admin-removed">
+        <x-action-message class="mx-3 text-red-700" on="admin-removed">
             Removed!
         </x-action-message>
-        <x-action-message class="mx-3" on="admin-added">
+        <x-action-message class="mx-3 text-green-700" on="admin-added">
             Added!
         </x-action-message>
     </div>
 
     <x-sub-title title="Add another admin">
         <div class="grid grid-cols-2">
-            <div class="text-right p-2 text-xl">Select a user</div>
+            <div class="p-2 text-right text-xl">Select a user</div>
             <div class="p-2">
                 <label for="user_id"></label>
                 <select id="user_id" wire:model.change="user_id">
@@ -61,19 +61,21 @@
                 </select>
             </div>
         </div>
-        <div class="border border-green-500 bg-green-100 m-2 p-4 text-green-700">
-            <p class="p-1">
+        <div class="m-2 flex flex-col space-y-2 rounded-lg border border-green-500 bg-green-100 p-4 text-green-700">
+            <p>
                 <u>It goes without saying</u>: <strong>please be careful</strong> who you choose to become an administrator.
-                They'll have the same powers as you!
-            </p>
-            <p class="p-1">
+                They have the same powers as you!
                 To remove an admin, simply click
-                <img class="inline-block align-text-top mt-1" src="{{ secure_asset('svg/user-delete.svg') }}" alt="" width="14" height="14">
+                <img class="mt-1 inline-block align-text-top" src="{{ secure_asset('svg/user-delete.svg') }}" alt="" width="14" height="14">
             </p>
-            <p class="p-1">
-                <u>Fun fact</u>: you can accidentally remove yourself... and you can't undo it! It gives you a warning though. Don't worry.
+            <p>
+                No emails are send <u>to the affected user</u> about the admin state. Making a mistake goes quiet 🤫, although, an email
+                is sent to the shared Admin inbox to advice all admins. If you make a mistake, simply delete them from the inbox.
             </p>
-            <p class="p-1">
+            <p>
+                <u class="font-bold">Fun fact</u>: you can accidentally remove yourself... and you can't undo it! It gives you a warning though. Don't worry.
+            </p>
+            <p>
                 For practical reasons, you can't remove the Administrator (user id 1).
                 Because, at least one person <strong>needs</strong> to be an admin...
             </p>
