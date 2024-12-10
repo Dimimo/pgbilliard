@@ -27,8 +27,8 @@ class EventForm extends Form
         'integer',
         'between:0, 15',
     ], message: [
-        'integer' => 'The score is not numeric',
-        'between:0,15' => 'The score is not between 0 and 15',
+        'score1.integer' => 'The score is not numeric',
+        'score1.between' => 'The score is not between 0 and 15',
     ])]
     public ?int $score1;
 
@@ -37,8 +37,8 @@ class EventForm extends Form
         'integer',
         'between:0, 15',
     ], message: [
-        'integer' => 'The score is not numeric',
-        'between:0,15' => 'The score is not between 0 and 15',
+        'score2.integer' => 'The score is not numeric',
+        'score2.between' => 'The score is not between 0 and 15',
     ])]
     public ?int $score2;
 

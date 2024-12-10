@@ -23,8 +23,8 @@ class DateForm extends Form
         'string',
         'max:20',
     ], message: [
-        'string' => 'Only string values allowed',
-        'max' => 'Max '.Constants::DATE_TITLE.' chars',
+        'title.string' => 'Only string values allowed',
+        'title.max' => 'Max '.Constants::DATE_TITLE.' chars',
     ])]
     public ?string $title;
 

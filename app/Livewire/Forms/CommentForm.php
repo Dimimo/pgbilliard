@@ -17,16 +17,16 @@ class CommentForm extends Form
         'min:1',
         'max:'.Constants::COMMENT_BODY,
     ], message: [
-        'required' => 'You can not leave an empty comment',
-        'min' => 'A comment needs to be at least 1 character long',
-        'max' => 'A comment can not have more than '.Constants::COMMENT_BODY.' characters',
+        'body.required' => 'You can not leave an empty comment',
+        'body.min' => 'A comment needs to be at least 1 character long',
+        'body.max' => 'A comment can not have more than '.Constants::COMMENT_BODY.' characters',
     ])]
     public string $body;
 
-    #[Validate(['required', 'integer', 'exists:App\Models\Forum\Post,id'])]
+    #[Validate(['required', 'integer', 'exists:posts,id'])]
     public int $post_id;
 
-    #[Validate(['required', 'integer', 'exists:App\Models\User,id'])]
+    #[Validate(['required', 'integer', 'exists:users,id'])]
     public int $user_id;
 
     public function setComment(Comment $comment): void

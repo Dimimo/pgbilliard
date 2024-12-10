@@ -16,8 +16,8 @@ class TeamForm extends Form
         'min:2',
         'max:'.Constants::TEAMCHARS,
     ], message: [
-        'min' => 'A team name must have at least 2 characters',
-        'max' => 'A team name can\'t be longer than '.Constants::TEAMCHARS.' characters',
+        'name.min' => 'A team name must have at least 2 characters',
+        'name.max' => 'A team name can\'t be longer than '.Constants::TEAMCHARS.' characters',
     ])]
     public string $name;
 
@@ -25,8 +25,8 @@ class TeamForm extends Form
         'required',
         'exists:App\Models\Venue,id',
     ], message: [
-        'required' => 'A team must have a venue (bar)',
-        'exists' => 'The selected venue does not exist',
+        'venue_id.required' => 'A team must have a venue (bar)',
+        'venue_id.exists' => 'The selected venue does not exist',
     ])]
     public ?int $venue_id;
 
@@ -34,8 +34,8 @@ class TeamForm extends Form
         'required',
         'exists:App\Models\Season,id',
     ], message: [
-        'required' => 'Please select a Season',
-        'exists' => 'The selected Season does not exist',
+        'season_id.required' => 'Please select a Season',
+        'season_id.exists' => 'The selected Season does not exist',
     ])]
     public int $season_id;
 

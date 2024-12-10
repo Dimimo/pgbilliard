@@ -11,23 +11,14 @@ use Livewire\Form;
 class VenueForm extends Form
 {
     public Venue $venue;
-
     public bool $show_name;
-
     public string $name;
-
     public ?int $user_id;
-
     public ?string $address;
-
     public ?string $contact_name;
-
     public ?string $contact_nr;
-
     public ?string $remark;
-
     public ?float $lat;
-
     public ?float $lng;
 
     public function rules(): array

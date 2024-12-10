@@ -18,10 +18,10 @@ class UserForm extends Form
         'max:'.Constants::USERCHARS,
         'unique:'.User::class.',name',
     ], message: [
-        'alpha_dash' => 'A name needs to be alpha-numeric, dashes (-) and underscores (_) allowed',
-        'min' => 'A name needs at least 2 characters',
-        'max' => 'A name can not be longer than '.Constants::USERCHARS.' characters',
-        'unique' => 'This name already exists',
+        'name.alpha_dash' => 'A name needs to be alpha-numeric, dashes (-) and underscores (_) allowed',
+        'name.min' => 'A name needs at least 2 characters',
+        'name.max' => 'A name can not be longer than '.Constants::USERCHARS.' characters',
+        'name.unique' => 'This name already exists',
     ])]
     public $name = '';
 
@@ -31,9 +31,9 @@ class UserForm extends Form
         'max:254',
         'unique:'.User::class.',email',
     ], message: [
-        'required' => 'A valid email address is required',
-        'email' => 'A valid email address is required',
-        'unique' => 'The email has to be unique',
+        'email.required' => 'A valid email address is required',
+        'email.email' => 'A valid email address is required',
+        'email.unique' => 'The email has to be unique',
     ])]
     public $email = '';
 

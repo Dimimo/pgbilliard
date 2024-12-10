@@ -18,9 +18,9 @@ class PostForm extends Form
         'min:2',
         'max:'.Constants::FORUM_TITLE,
     ], message: [
-        'required' => 'A title is required',
-        'min' => 'A title must have a minimum of 2 chars',
-        'max' => 'A title can\'t have more than '.Constants::FORUM_TITLE.' chars',
+        'title.required' => 'A title is required',
+        'title.min' => 'A title must have a minimum of 2 chars',
+        'title.max' => 'A title can\'t have more than '.Constants::FORUM_TITLE.' chars',
     ])]
     public string $title;
 
@@ -29,16 +29,16 @@ class PostForm extends Form
         'min:2',
         'max:'.Constants::FORUM_BODY,
     ], message: [
-        'required' => 'A message is required',
-        'min' => 'A message must have a minimum of 2 chars',
-        'max' => 'A message can\'t have more than '.Constants::FORUM_BODY.' chars',
+        'message.required' => 'A message is required',
+        'message.min' => 'A message must have a minimum of 2 chars',
+        'message.max' => 'A message can\'t have more than '.Constants::FORUM_BODY.' chars',
     ])]
     public string $body;
 
-    #[Validate('nullable|boolean')]
+    #[Validate('boolean')]
     public bool $is_locked = false;
 
-    #[Validate('nullable|boolean')]
+    #[Validate('boolean')]
     public bool $is_sticky = false;
 
     public function setPost(Post $post): void

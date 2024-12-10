@@ -3,7 +3,6 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Player;
-use App\Models\Team;
 use App\Models\User;
 use Auth;
 use Illuminate\Validation\Rule;
@@ -12,11 +11,8 @@ use Livewire\Form;
 class PlayerForm extends Form
 {
     public Player $player;
-
     public bool $captain = false;
-
     public ?int $user_id;
-
     public ?int $team_id;
 
     public function rules(): array
@@ -26,7 +22,7 @@ class PlayerForm extends Form
             'user_id' => Rule::unique(User::class)->ignore(Auth::user()),
             'team_id' => [
                 'required',
-                'exists:'.Team::class,
+                'exists:teams,id',
             ],
         ];
     }
