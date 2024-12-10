@@ -9,7 +9,7 @@ state('post');
 name('forum.comments.update');
 ?>
 
-<x-app-layout>
+<x-layout>
     @volt
     <section>
         <x-title
@@ -30,6 +30,6 @@ name('forum.comments.update');
 
         @endvolt
     </section>
-</x-app-layout>
+</x-layout>
 
 

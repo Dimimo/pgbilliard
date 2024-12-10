@@ -7,7 +7,7 @@ name('chat.room.create');
 state('chatRoom');
 ?>
 
-<x-app-layout>
+<x-layout>
     @volt
     <section>
         <x-title title="Create a chat room"/>
@@ -20,5 +20,5 @@ state('chatRoom');
     </section>
 
     @endvolt
-</x-app-layout>
+</x-layout>
 

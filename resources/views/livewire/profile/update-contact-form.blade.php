@@ -38,18 +38,18 @@ $updateContactNr = function ()
 
     <form wire:submit="updateContactNr" class="mt-6 space-y-6">
         <div>
-            <x-input-label for="contact_nr"/>
-            <x-text-input wire:model="contact_nr" id="contact_nr" name="contact_nr" type="text" class="mt-1 block w-full" required autofocus
+            <x-forms.input-label for="contact_nr"/>
+            <x-forms.text-input wire:model="contact_nr" id="contact_nr" name="contact_nr" type="text" class="mt-1 block w-full" required autofocus
                           autocomplete="contact_nr"/>
-            <x-input-error class="mt-2" :messages="$errors->get('contact_nr')"/>
+            <x-forms.input-error class="mt-2" :messages="$errors->get('contact_nr')"/>
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+            <x-forms.primary-button>{{ __('Save') }}</x-forms.primary-button>
 
-            <x-action-message class="mr-3" on="contact-updated">
+            <x-forms.action-message class="mr-3" on="contact-updated">
                 {{ __('Saved.') }}
-            </x-action-message>
+            </x-forms.action-message>
         </div>
     </form>
 </section>

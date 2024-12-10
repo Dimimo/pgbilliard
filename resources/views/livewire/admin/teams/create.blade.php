@@ -9,26 +9,26 @@
             <div class="mb-4 flex flex-row items-center bg-blue-100 p-4 text-lg text-blue-900 space-x-2 text-uppercase">
                 <div>{{ $i-1 }} of the {{ $number_of_teams }} teams are chosen</div>
                 <div class="text-sm text-gray-500">({{ $has_bye ? 'has a BYE' : 'has no BYE' }})</div>
-                <x-action-message class="mx-3 text-green-700" on="teams-updated">
+                <x-forms.action-message class="mx-3 text-green-700" on="teams-updated">
                     Saved!
-                </x-action-message>
+                </x-forms.action-message>
             </div>
             @foreach($teams as $team)
                 <livewire:admin.teams.update :team="$team" :key="$team->id"/>
             @endforeach
             <div class="flex justify-between">
                 <div class="mt-5 flex w-2/3 justify-start p-4">
-                    <x-primary-button wire:click="submit">Update and continue to the Calendar</x-primary-button>
-                    <x-spinner target="submit"/>
-                    <x-action-message class="mx-3" on="teams-created">
+                    <x-forms.primary-button wire:click="submit">Update and continue to the Calendar</x-forms.primary-button>
+                    <x-forms.spinner target="submit"/>
+                    <x-forms.action-message class="mx-3" on="teams-created">
                         Saved!
-                    </x-action-message>
+                    </x-forms.action-message>
                 </div>
                 @if(!$has_bye)
                     <div class="mt-5 w-1/3 items-center p-4">
-                        <x-primary-button wire:click="addBye">
+                        <x-forms.primary-button wire:click="addBye">
                             Or add a BYE
-                        </x-primary-button>
+                        </x-forms.primary-button>
                     </div>
                 @endif
             </div>

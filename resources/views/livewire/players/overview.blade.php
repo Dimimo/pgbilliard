@@ -2,7 +2,7 @@
     @forelse ($players as $player)
         <div class="flex justify-center" wire:key="{{ $player->id }}">
             <div class="p-2">
-                <x-captain :player="$player"/>
+                <x-team.captain :player="$player"/>
             </div>
             <div class="p-2 text-xl">{{ $player->name }}</div>
             <div class="p-2 text-xl">{{ $player->contact_nr }}</div>

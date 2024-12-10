@@ -39,16 +39,16 @@
     </table>
 
     <div class="mb-4 flex h-8 w-full justify-center">
-        <x-spinner/>
-        <x-action-message class="mx-3 text-red-700" on="admin-removed">
+        <x-forms.spinner/>
+        <x-forms.action-message class="mx-3 text-red-700" on="admin-removed">
             Removed!
-        </x-action-message>
-        <x-action-message class="mx-3 text-green-700" on="admin-added">
+        </x-forms.action-message>
+        <x-forms.action-message class="mx-3 text-green-700" on="admin-added">
             Added!
-        </x-action-message>
+        </x-forms.action-message>
     </div>
 
-    <x-sub-title title="Add another admin">
+    <x-forms.sub-title title="Add another admin">
         <div class="grid grid-cols-2">
             <div class="p-2 text-right text-xl">Select a user</div>
             <div class="p-2">
@@ -80,5 +80,5 @@
                 Because, at least one person <strong>needs</strong> to be an admin...
             </p>
         </div>
-    </x-sub-title>
+    </x-forms.sub-title>
 </div>

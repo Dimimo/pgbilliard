@@ -5,7 +5,7 @@ use function Livewire\Volt\layout;
 use function Livewire\Volt\rules;
 use function Livewire\Volt\state;
 
-layout('layouts.guest');
+layout('components.layout');
 
 state(['email' => '']);
 
@@ -29,26 +29,27 @@ $sendPasswordResetLink = function ()
 };
 ?>
 
-<div>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
+<div class="mx-96">
 
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')"/>
 
-    <form wire:submit="sendPasswordResetLink">
+    <form wire:submit="sendPasswordResetLink" class="flex flex-col items-center">
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')"/>
-            <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autofocus/>
-            <x-input-error :messages="$errors->get('email')" class="mt-2"/>
+            <x-forms.input-label for="email" :value="__('Email')"/>
+            <x-forms.text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autofocus/>
+            <x-forms.input-error :messages="$errors->get('email')" class="mt-2"/>
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
+            <x-forms.primary-button>
                 {{ __('Email Password Reset Link') }}
-            </x-primary-button>
+            </x-forms.primary-button>
         </div>
     </form>
+
+    <div class="my-8 text-sm text-gray-600">
+        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+    </div>
 </div>

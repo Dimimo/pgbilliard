@@ -15,13 +15,13 @@
     <div class="h-1/6 mb-0 p-2 md:p-4 w-full bg-emerald-100 border border-emerald-700">
         <form wire:submit="postMessage">
             <div class="flex">
-                <x-input-label class="inline-flex grow-0" for="new_chat"/>
-                <x-text-input type="text" class="grow mx-2" id="new_chat" name="new_chat" autofocus wire:model="new_chat"/>
-                <x-secondary-button type="submit">Send</x-secondary-button>
+                <x-forms.input-label class="inline-flex grow-0" for="new_chat"/>
+                <x-forms.text-input type="text" class="grow mx-2" id="new_chat" name="new_chat" autofocus wire:model="new_chat"/>
+                <x-forms.secondary-button type="submit">Send</x-forms.secondary-button>
             </div>
             <small class="block ml-2">
                 Character left: <span x-text="$wire.new_chat ? 150 - $wire.new_chat.length : 150"></span>
-                <x-input-error class="mt-2 ml-2" :messages="$errors->get('new_chat')"/>
+                <x-forms.input-error class="mt-2 ml-2" :messages="$errors->get('new_chat')"/>
             </small>
         </form>
     </div>

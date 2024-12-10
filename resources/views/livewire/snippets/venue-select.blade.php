@@ -10,5 +10,5 @@
             @endif
         @endforeach
     </select>
-    <x-spinner target="venue_id"/>
+    <x-forms.spinner target="venue_id"/>
 </div>

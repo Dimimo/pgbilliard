@@ -1,10 +1,10 @@
 <div>
-    <x-sub-title title="The players">
+    <x-forms.sub-title title="The players">
         <div class="mt-4">
             @forelse($players as $player)
                 <div class="flex flex-row p-1" wire:key="{{ $player->id }}">
                     <div class="basis-1/12 ml-4">
-                        <x-captain :player="$player"
+                        <x-team.captain :player="$player"
                                    wire:click="toggleCaptain({{ $player->id }})"
                                    class=" cursor-pointer"
                                    :title="$player->captain ? 'Toggle to make a regular player' : 'Toggle to make a captain'"
@@ -54,9 +54,9 @@
             </div>
         </div>
 
-    </x-sub-title>
+    </x-forms.sub-title>
 
-    <x-sub-title title="Add a player to the team">
+    <x-forms.sub-title title="Add a player to the team">
         <div class="flex justify-center items-center">
             <div class="p-2 mt-1 text-xl">
                 <label for="user_id">Select a player from the users table</label>
@@ -70,9 +70,9 @@
                 </select>
             </div>
             <div class="w-32">
-                <x-action-message class="mx-3" on="users-list-updated" class="text-xl">
+                <x-forms.action-message class="mx-3" on="users-list-updated" class="text-xl">
                     {{ count(array_diff($users, $occupied_players)) }} users
-                </x-action-message>
+                </x-forms.action-message>
             </div>
         </div>
 
@@ -105,7 +105,7 @@
                 <div class="flex items-center p-2">
                     <label class="mr-2" for="user_form.name">Name</label>
                     <input id="user_form.name" type="text" wire:model.live.debounce.500ms="user_form.name">
-                    <span class="flex-none w-10"><x-spinner target="user_form.name"/></span>
+                    <span class="flex-none w-10"><x-forms.spinner target="user_form.name"/></span>
                 </div>
                 <div class="pb-2">
                     @error('user_form.name') <span class="text-red-700">{{ $message }}</span> @enderror
@@ -134,7 +134,7 @@
                     </div>
                 </div>
                 <div class="p-2">
-                    <x-primary-button>Create</x-primary-button>
+                    <x-forms.primary-button>Create</x-forms.primary-button>
                 </div>
                 @if ($errors->any())
                     <div class="p-2 text-red-700">
@@ -145,11 +145,11 @@
                         </ul>
                     </div>
                 @endif
-                <x-spinner target="addUser"/>
-                <x-action-message class="p-2" on="user-created" class="text-xl">
+                <x-forms.spinner target="addUser"/>
+                <x-forms.action-message class="p-2" on="user-created" class="text-xl">
                     User created!
-                </x-action-message>
+                </x-forms.action-message>
             </div>
         </form>
-    </x-sub-title>
+    </x-forms.sub-title>
 </div>

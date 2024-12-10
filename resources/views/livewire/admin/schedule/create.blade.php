@@ -39,9 +39,9 @@
             <form wire:submit="save">
                 <label for="name" class="text-lg">Name of the Schedule: </label>
                 <input id="name" type="text" wire:model.live="name">
-                <x-primary-button>
+                <x-forms.primary-button>
                     Create
-                </x-primary-button>
+                </x-forms.primary-button>
                 @error('name')
                 <div class="text-red-700">{{ $message }}</div>
                 @enderror

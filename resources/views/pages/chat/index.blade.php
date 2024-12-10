@@ -6,7 +6,7 @@ use function Laravel\Folio\name;
 name('chat.index');
 ?>
 
-<x-app-layout>
+<x-layout>
     @volt
     <section>
         <x-title
@@ -20,4 +20,4 @@ name('chat.index');
         @endcan
     </section>
     @endvolt
-</x-app-layout>
+</x-layout>

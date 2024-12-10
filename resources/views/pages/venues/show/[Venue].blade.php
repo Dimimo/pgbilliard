@@ -20,9 +20,9 @@ name('venues.show');
         <livewire:venue :venue="$venue" :title="$venue->name"/>
 
         @foreach($venue->teams->where('season_id', $season->id)->sortBy('name') as $team)
-            <x-sub-title title="Team {{ $team->name }}">
+            <x-forms.sub-title title="Team {{ $team->name }}">
                 <livewire:players.overview :team="$team"/>
-            </x-sub-title>
+            </x-forms.sub-title>
         @endforeach
     </section>
     @endvolt

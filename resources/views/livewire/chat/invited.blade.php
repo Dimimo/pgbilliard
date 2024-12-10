@@ -17,7 +17,7 @@
                     >
                 </div>
                 <div wire:loading wire:target="toggleUser({{ $user->id }})">
-                    <x-spinner/>
+                    <x-forms.spinner/>
                 </div>
             @endcan
         </div>

@@ -2,7 +2,8 @@
 
 <div class="flex justify-center my-4">
     <input
-        {!! $attributes->merge(['id' => $for, 'type' => 'checkbox', 'class' => 'hidden peer']) !!}
+        id="{{ $for }}"
+        {!! $attributes->merge(['type' => 'checkbox', 'class' => 'hidden peer']) !!}
         {{ $checked ? 'checked' : '' }}
         wire:model="{{ $for }}"
     />

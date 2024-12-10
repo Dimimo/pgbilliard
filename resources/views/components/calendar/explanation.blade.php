@@ -62,7 +62,7 @@
     <div class="mt-3 text-2xl">Conclude to the Overview</div>
     <div class="my-2">
         The results (scores) can be added later on the
-        <x-nav-link :active="true" href="{{ route('calendar') }}" class="text-lg" wire:navigate>Calendar</x-nav-link>
+        <x-forms.nav-link :active="true" href="{{ route('calendar') }}" class="text-lg" wire:navigate>Calendar</x-forms.nav-link>
         .
         The <strong>first</strong> playing date will produce a score of 0-0 automatically. The overview
         needs <i>some</i> data to work with.
@@ -73,7 +73,7 @@
     <div class="mt-3 text-2xl">Continue to the Calendar</div>
     <div class="my-2">
         When you are done modifying the curren Season, just click the bottom link, it will bring you back to the
-        <x-nav-link :active="true" href="{{ route('calendar') }}" class="text-lg" wire:navigate>Calendar</x-nav-link>
+        <x-forms.nav-link :active="true" href="{{ route('calendar') }}" class="text-lg" wire:navigate>Calendar</x-forms.nav-link>
         .
     </div>
 

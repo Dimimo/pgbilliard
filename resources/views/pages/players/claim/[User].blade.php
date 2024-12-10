@@ -9,7 +9,7 @@ name('players.accounts.claim');
 state('user');
 ?>
 
-<x-app-layout>
+<x-layout>
     @volt
     @php Auth::login($user) @endphp
     <section>
@@ -45,4 +45,4 @@ state('user');
     </section>
 
     @endvolt
-</x-app-layout>
+</x-layout>

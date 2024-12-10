@@ -8,30 +8,30 @@
 
         <form wire:submit="{{ $comment_form->comment->id ? "update" : "create" }}">
             <div class="grid justify-items-center mt-2">
-                <x-input-label for="comment_form.body">
+                <x-forms.input-label for="comment_form.body">
                     Your comment
-                </x-input-label>
+                </x-forms.input-label>
                 <div>
                     @error('comment_form.body') <span class="text-red-700">{{ $message }}</span> @enderror
                 </div>
-                <x-text-area id="comment_form.body" class="w-full md:w-3/4" cols="30" rows="5" wire:model="comment_form.body"/>
+                <x-forms.text-area id="comment_form.body" class="w-full md:w-3/4" cols="30" rows="5" wire:model="comment_form.body"/>
 
                 <div class="grid grid-cols-4 gap-2 my-4">
                     <div class="text-right col-start-2">
-                        <x-primary-button>
+                        <x-forms.primary-button>
                             {{ $comment_form->comment->id ? "Update comment" : "Create comment" }}
-                        </x-primary-button>
+                        </x-forms.primary-button>
                     </div>
-                    <x-spinner target="create, update, delete"/>
-                    <x-action-message class="inline-block mx-3" on="comment-saved">
+                    <x-forms.spinner target="create, update, delete"/>
+                    <x-forms.action-message class="inline-block mx-3" on="comment-saved">
                         Saved!
-                    </x-action-message>
-                    <x-action-message class="inline-block mx-3" on="comment-updated">
+                    </x-forms.action-message>
+                    <x-forms.action-message class="inline-block mx-3" on="comment-updated">
                         Updated!
-                    </x-action-message>
-                    <x-action-message class="inline-block mx-3" on="comment-deleted">
+                    </x-forms.action-message>
+                    <x-forms.action-message class="inline-block mx-3" on="comment-deleted">
                         Deleted!
-                    </x-action-message>
+                    </x-forms.action-message>
                 </div>
             </div>
         </form>

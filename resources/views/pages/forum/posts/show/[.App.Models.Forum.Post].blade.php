@@ -6,10 +6,10 @@ use function Laravel\Folio\name;
 state('post');
 name('forum.posts.show');
 ?>
-<x-app-layout>
+<x-layout>
     @volt
     <section>
         <livewire:forum.show :post="$post"/>
     </section>
     @endvolt
-</x-app-layout>
+</x-layout>

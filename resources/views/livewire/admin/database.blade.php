@@ -29,7 +29,7 @@
     </div>
 
     <div id="seasons" class="border-2 border-gray-300 bg-gray-50">
-        <x-sub-title title='Seasons <span class="text-sm text-gray-700">(puertoparrot database)</span>'>
+        <x-forms.sub-title title='Seasons <span class="text-sm text-gray-700">(puertoparrot database)</span>'>
             <div class="grid grid-cols-8">
                 @foreach($seasons as $season)
                     @if ($season->done)
@@ -50,7 +50,7 @@
                     @endif
                 @endforeach
             </div>
-        </x-sub-title>
+        </x-forms.sub-title>
 
     </div>
 

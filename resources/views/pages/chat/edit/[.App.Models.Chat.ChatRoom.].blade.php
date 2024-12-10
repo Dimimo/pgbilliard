@@ -7,7 +7,7 @@ name('chat.room.edit');
 state('chatRoom');
 ?>
 
-<x-app-layout>
+<x-layout>
     @volt
     <section>
         <x-title
@@ -21,4 +21,4 @@ state('chatRoom');
     <div class="text-xl text-red-700">You don't own this chat room</div>
 @endcan
     </section>
-</x-app-layout>
+</x-layout>

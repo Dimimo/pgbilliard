@@ -1,12 +1,17 @@
-<div class="border-2 border-gray-300 bg-gray-50 text-center p-4 my-12">
-    <div class="text-4xl">Disclaimer</div>
-    <p>
-        This website is mainly for statistics. The data you see should be correct.<br>
-        <strong>For detailed information and announcements, <a href="https://www.facebook.com/groups/pgpoolleague" target="_blank">
-                please visit our FaceBook group</a></strong>.<br/>
-        The <i>'Puerto Galera Pool League'</i> Facebook group is the <u>highest authority</u> on any issue, results, ideas and decisions.
-    </p>
-    <h5>
+<div class="my-12 bg-indigo-50 border-t border-t-gray-500 p-2 text-center">
+    <div class="mb-4 text-2xl">&copy; {{ now()->format('Y') }} PG Billiard</div>
+    <div class="mb-4">Designed for the Puerto Galera Billiard League</div>
+    <div class="text-xs">
+        This is an open source project build on Laravel, Livewire, Reverb and Tailwind
+    </div>
+    <a
+        href="https://github.com/Dimimo/puertopool"
+        target="_blank"
+        class="text-xs text-blue-600 hover:bg-blue-50 hover:underline"
+    >
+        The source code can be found on GitHub
+    </a>
+    {{--<h5>
         A copy of the daily scoresheet (pdf) <a href="#">can be downloaded here</a>
-    </h5>
+    </h5>--}}
 </div>

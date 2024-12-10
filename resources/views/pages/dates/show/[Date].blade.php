@@ -28,12 +28,12 @@ name('dates.show');
                         <div class="flex items-center">
                             <div class="inline-block">Scores</div>
                             <div class="-mb-1 inline-block">
-                                <x-spinner/>
+                                <x-forms.spinner/>
                             </div>
                             <div class="ml-2 inline-block">
-                                <x-action-message class="font-semibold text-green-700" on="scores-updated">
+                                <x-forms.action-message class="font-semibold text-green-700" on="scores-updated">
                                     Updated!
-                                </x-action-message>
+                                </x-forms.action-message>
                             </div>
                         </div>
                     </th>

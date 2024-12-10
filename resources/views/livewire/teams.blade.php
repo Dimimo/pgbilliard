@@ -35,7 +35,7 @@
                                     >
                                         <img class="mx-auto" src="{{ secure_asset('svg/delete-item.svg') }}" alt="Delete this team" width="20" height="20">
                                     </button>
-                                    <x-spinner target="deleteTeam"/>
+                                    <x-forms.spinner target="deleteTeam"/>
                                 </div>
                             @endif
                         @endcan

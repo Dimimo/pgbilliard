@@ -7,7 +7,7 @@ name('chat.room');
 state('chatRoom');
 ?>
 
-<x-app-layout>
+<x-layout>
     @volt
     <section>
         <x-title
@@ -31,5 +31,5 @@ state('chatRoom');
     </section>
 
     @endvolt
-</x-app-layout>
+</x-layout>
 

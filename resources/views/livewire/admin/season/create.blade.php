@@ -33,10 +33,10 @@
     <form wire:submit="save">
         <div class="block grid grid-cols-2 gap-4">
             <div class="p-2 mt-1 text-right text-xl">
-                <x-input-label value="Season"/>
+                <x-forms.input-label value="Season"/>
             </div>
             <div class="p-2">
-                <x-text-input id="cycle" wire:model.live.debounce.500ms="cycle"/>
+                <x-forms.text-input id="cycle" wire:model.live.debounce.500ms="cycle"/>
                 <a wire:click="addMonth">
                     <img class="inline-block cursor-pointer" src="{{ secure_asset('svg/plus-box-fill.svg') }}" alt="" title="Add one month" width="24"
                          height="24">
@@ -103,7 +103,7 @@
                 </label>
             </div>
             <div class="p-2">
-                <x-text-input type="date" id="starting_date" wire:model.live="starting_date"/>
+                <x-forms.text-input type="date" id="starting_date" wire:model.live="starting_date"/>
                 <a wire:click="addWeek">
                     <img class="inline-block cursor-pointer" src="{{ secure_asset('svg/plus-box-fill.svg') }}" alt="" title="Add one week" width="24"
                          height="24">
@@ -118,11 +118,11 @@
 
             <div class="p-2 mt-1 text-right">
                 <div class="flex items-center gap-4">
-                    <x-primary-button>Create</x-primary-button>
-                    <x-spinner target="save"/>
-                    <x-action-message class="mx-3" on="season-created">
+                    <x-forms.primary-button>Create</x-forms.primary-button>
+                    <x-forms.spinner target="save"/>
+                    <x-forms.action-message class="mx-3" on="season-created">
                         Saved!
-                    </x-action-message>
+                    </x-forms.action-message>
                 </div>
             </div>
         </div>

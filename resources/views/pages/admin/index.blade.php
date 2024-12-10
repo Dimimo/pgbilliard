@@ -13,49 +13,49 @@ uses([WithCurrentCycle::class]);
     <section>
         <x-title title="The Administration menu"/>
         <div class="flex flex-col">
-            <x-nav-link
+            <x-forms.nav-link
                 href="{{ route('admin.venues.create') }}"
                 class="flex justify-center mx-auto text-xl" :active="false"
                 wire:navigate
             >
                 Create a new Venue
-            </x-nav-link>
-            <x-nav-link
+            </x-forms.nav-link>
+            <x-forms.nav-link
                 href="{{ route('admin.seasons.create') }}"
                 class="flex justify-center mx-auto text-xl"
                 :active="false"
                 wire:navigate
             >
                 Create a new Season
-            </x-nav-link>
-            <x-nav-link
+            </x-forms.nav-link>
+            <x-forms.nav-link
                 href="{{ route('admin.overview') }}"
                 class="flex justify-center mx-auto text-xl"
                 :active="false"
                 wire:navigate
             >
                 Overview of all Administrators
-            </x-nav-link>
+            </x-forms.nav-link>
             <div class="m-2 p-2 w-auto border-blue-600 border-2 rounded-xl">
                 <div class="flex justify-center">
-                    <x-nav-link
+                    <x-forms.nav-link
                         href="{{ route('admin.calendar.update', ['season' => $season]) }}"
                         class="text-center mx-auto text-xl"
                         :active="false"
                         wire:navigate
                     >
                         Update the current Calendar ({{ $cycle }})
-                    </x-nav-link>
+                    </x-forms.nav-link>
                 </div>
                 <div class="flex justify-center">
-                    <x-nav-link
+                    <x-forms.nav-link
                         href="{{ route('admin.season.update', ['season' => $season]) }}"
                         class="text-center mx-auto text-xl"
                         :active="false"
                         wire:navigate
                     >
                         Update or create teams, their venue and captain, add or remove a BYE ({{ $cycle }})
-                    </x-nav-link>
+                    </x-forms.nav-link>
                 </div>
             </div>
         </div>

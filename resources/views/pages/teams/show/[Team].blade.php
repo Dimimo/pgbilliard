@@ -13,13 +13,13 @@ name('teams.show');
         <x-title title="Details of <strong>{{ $team->name }}</strong>"/>
         <livewire:venue :venue="$team->venue"/>
 
-        <x-sub-title title="Players">
+        <x-forms.sub-title title="Players">
             <livewire:players.overview :team="$team"/>
-        </x-sub-title>
+        </x-forms.sub-title>
 
-        <x-sub-title title="The playing schedule of {{ $team->name }}">
+        <x-forms.sub-title title="The playing schedule of {{ $team->name }}">
             <livewire:players.schedule :team="$team"/>
-        </x-sub-title>
+        </x-forms.sub-title>
     </section>
     @endvolt
 </x-layout>

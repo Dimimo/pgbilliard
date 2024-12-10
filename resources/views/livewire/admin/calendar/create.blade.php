@@ -42,37 +42,37 @@
                         </div>
 
                         <div class="block">
-                            <x-primary-button wire:loading.attr="disabled">Create this game</x-primary-button>
+                            <x-forms.primary-button wire:loading.attr="disabled">Create this game</x-forms.primary-button>
 
-                            <x-spinner target="save, event.team1, event.team2, event.venue_id"/>
-                            <x-action-message class="mx-3 inline-block p-2 text-2xl text-green-700" on="event-created">
+                            <x-forms.spinner target="save, event.team1, event.team2, event.venue_id"/>
+                            <x-forms.action-message class="mx-3 inline-block p-2 text-2xl text-green-700" on="event-created">
                                 Game saved!
-                            </x-action-message>
+                            </x-forms.action-message>
 
                             <div class="mt-8">
-                                <x-secondary-button class="bg-blue-300 hover:bg-blue-100" wire:click="createNewTeam">
+                                <x-forms.secondary-button class="bg-blue-300 hover:bg-blue-100" wire:click="createNewTeam">
                                     If a new team joins the season, you may create it here
-                                </x-secondary-button>
+                                </x-forms.secondary-button>
                             </div>
 
                             @if($new === true)
                                 <div class="mt-8">
-                                    <x-secondary-button wire:click="concludeSeason">
+                                    <x-forms.secondary-button wire:click="concludeSeason">
                                         The new Season is created, so let's have a look at the calendar
-                                    </x-secondary-button>
+                                    </x-forms.secondary-button>
                                 </div>
                             @else
                                 <div class="mt-8">
-                                    <x-secondary-button wire:click="continueToCalendar">
+                                    <x-forms.secondary-button wire:click="continueToCalendar">
                                         When done, you may continue to the Calendar overview
-                                    </x-secondary-button>
+                                    </x-forms.secondary-button>
                                 </div>
                             @endif
                         </div>
                     </form>
                 </div>
                 <div class="w-full px-4 lg:w-1/3">
-                    <x-spinner target="event.date_id"/>
+                    <x-forms.spinner target="event.date_id"/>
                     <div wire:target="event.date_id" wire:loading.remove>
                         <x-calendar.events-list
                             :events="$events"

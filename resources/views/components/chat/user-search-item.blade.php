@@ -10,7 +10,7 @@
                 wire:change="toggleUser({{ $user->id }})"
             />
             <div wire:loading wire:target="toggleUser({{ $user->id }})">
-                <x-spinner/>
+                <x-forms.spinner/>
             </div>
             <label
                 for="user[{{ $user->id }}]"

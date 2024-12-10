@@ -9,7 +9,7 @@ use function Livewire\Volt\layout;
 use function Livewire\Volt\rules;
 use function Livewire\Volt\state;
 
-layout('layouts.guest');
+layout('components.layout');
 
 state(['email' => '', 'password' => '', 'remember' => false]);
 
@@ -49,28 +49,28 @@ $login = function ()
 };
 ?>
 
-<div>
+<div class="mx-auto">
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')"/>
 
-    <form wire:submit="login">
+    <form wire:submit="login" class="flex flex-col items-center">
         <!-- Email Address -->
         <div>
-            <x-input-label for="email" :value="__('Email')"/>
-            <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autofocus autocomplete="username"/>
-            <x-input-error :messages="$errors->get('email')" class="mt-2"/>
+            <x-forms.input-label for="email" :value="__('Email')"/>
+            <x-forms.text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autofocus autocomplete="username"/>
+            <x-forms.input-error :messages="$errors->get('email')" class="mt-2"/>
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')"/>
+            <x-forms.input-label for="password" :value="__('Password')"/>
 
-            <x-text-input wire:model="password" id="password" class="block mt-1 w-full"
+            <x-forms.text-input wire:model="password" id="password" class="block mt-1 w-full"
                           type="password"
                           name="password"
                           required autocomplete="current-password"/>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2"/>
+            <x-forms.input-error :messages="$errors->get('password')" class="mt-2"/>
         </div>
 
         <!-- Remember Me -->
@@ -93,9 +93,9 @@ $login = function ()
                 </a>
             @endif
 
-            <x-primary-button class="ml-3">
+            <x-forms.primary-button class="ml-3">
                 {{ __('Log in') }}
-            </x-primary-button>
+            </x-forms.primary-button>
         </div>
     </form>
 </div>

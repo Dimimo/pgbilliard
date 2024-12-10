@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes">
-    <meta name="author" content="Dimitri Mostrey (www.puertoparrot.com)">
+    <meta name="author" content="Dimitri Mostrey (www.pgbilliard.com)">
     <meta name="copyright" content="&copy; &reg; {{ date("Y") }} Puerto Galera Pool League">
     <meta name="description" content="Puerto Galera Pool League">
 
@@ -14,25 +14,6 @@
     <link rel="stylesheet" href="{{ secure_asset('webfonts/roboto/roboto.css') }}">
 
     @stack('css')
-
-    {{--<link rel="apple-touch-icon" sizes="57x57" href="{{ Storage::disk('static')->url('apple-icon-57x57.png') }}">
-    <link rel="apple-touch-icon" sizes="60x60" href="{{ Storage::disk('static')->url('apple-icon-60x60.png') }}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{{ Storage::disk('static')->url('apple-icon-72x72.png') }}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ Storage::disk('static')->url('apple-icon-76x76.png') }}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{{ Storage::disk('static')->url('apple-icon-114x114.png') }}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{{ Storage::disk('static')->url('apple-icon-120x120.png') }}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{{ Storage::disk('static')->url('apple-icon-144x144.png') }}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{{ Storage::disk('static')->url('apple-icon-152x152.png') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ Storage::disk('static')->url('apple-icon-180x180.png') }}">
-    <link rel="icon" type="image/png" sizes="192x192"
-          href="{{ Storage::disk('static')->url('android-icon-192x192.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ Storage::disk('static')->url('favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="96x96" href="{{ Storage::disk('static')->url('favicon-96x96.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ Storage::disk('static')->url('favicon-16x16.png') }}">
-    <link rel="manifest" href="{{ asset('manifest.json') }}">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">--}}
 
     <link rel="apple-touch-icon" sizes="57x57" href="{{ secure_asset('apple-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ secure_asset('apple-icon-60x60.png') }}">
@@ -59,11 +40,11 @@
 
 </head>
 
-<body>
+<body class="font-sans antialiased">
 
 <div class="container mx-auto sm:px-4">
     <div class="block">
-        <livewire:nav-bar/>
+        <livewire:layout.navigation/>
     </div>
     @if(session('status'))
         <div class="block border-2 border-emerald-700 bg-emerald-100 text-gray-900 p-5 mb-5 text-xl text-center">
@@ -73,9 +54,10 @@
     <div class="block">
         {{ $slot }}
     </div>
-    <div class="block">
-        <livewire:footer/>
-    </div>
+</div>
+
+<div class="block">
+    <livewire:footer/>
 </div>
 
 {{-- Begin script --}}

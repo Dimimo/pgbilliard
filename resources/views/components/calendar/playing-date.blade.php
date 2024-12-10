@@ -29,7 +29,7 @@
         </label>
     </div>
 
-    <x-spinner target="dateForm.regular, dateForm.title, selectedDate"/>
+    <x-forms.spinner target="dateForm.regular, dateForm.title, selectedDate"/>
 
     <label>
         <input

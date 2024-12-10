@@ -29,14 +29,14 @@
 
                 <div class="grid grid-cols-4 gap-4">
                     <div class="text-right col-start-2">
-                        <x-primary-button class="">
+                        <x-forms.primary-button class="">
                             Save
-                        </x-primary-button>
+                        </x-forms.primary-button>
                     </div>
-                    <x-spinner target="team_save"/>
-                    <x-action-message class="mx-3" on="team-updated">
+                    <x-forms.spinner target="team_save"/>
+                    <x-forms.action-message class="mx-3" on="team-updated">
                         Saved!
-                    </x-action-message>
+                    </x-forms.action-message>
                 </div>
             </div>
         </form>

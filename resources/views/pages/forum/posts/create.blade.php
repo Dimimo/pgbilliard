@@ -6,7 +6,7 @@ use function Laravel\Folio\name;
 name('forum.posts.create');
 ?>
 
-<x-app-layout>
+<x-layout>
     @volt()
     <section>
         <x-title title="Create a new Forum Post"/>
@@ -19,4 +19,4 @@ name('forum.posts.create');
 
     </section>
     @endvolt
-</x-app-layout>
+</x-layout>

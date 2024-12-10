@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Players;
 
+use App\Livewire\WithCurrentCycle;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
@@ -9,6 +10,8 @@ use Livewire\Component;
 
 class Accounts extends Component
 {
+    use WithCurrentCycle;
+
     public Collection $users;
 
     public function mount(): void
