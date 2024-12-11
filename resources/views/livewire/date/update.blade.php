@@ -72,7 +72,7 @@
                     >
                 </div>
                 <div>
-                    <x-forms.text-input size="2" maxlength="2" wire:model.debounce.1000ms="score2"/>
+                    <x-forms.text-input size="2" maxlength="2" wire:model.live.debounce.1000ms="score2"/>
                 </div>
                 <div class="ml-2">
                     <img
