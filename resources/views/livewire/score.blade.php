@@ -1,5 +1,14 @@
 <div class="overflow-x-auto">
-    <x-title title="Competition Results" subtitle="Season {{ $cycle }}"/>
+    <x-title title="Competition Results" subtitle="">
+        <x-slot:subtitle>
+            <div>Season {{ $cycle }}</div>
+            @if(($hasAccess || $date->checkIfGuestHasWritableAccess()))
+                <div class="text-indigo-700 text-lg">
+                    <a href="{{ route('calendar') }}" class="hover:underline" wire:navigate>Live update!</a>
+                </div>
+            @endif
+        </x-slot:subtitle>
+    </x-title>
     <table class="min-w-full mb-4 table-collapse bg-transparent">
         <thead class="whitespace-nowrap">
         <tr>

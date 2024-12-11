@@ -10,7 +10,11 @@ use Livewire\Component;
 
 class Score extends Component
 {
-    use CalendarTrait, ResultsTrait, WithCurrentCycle, WithSetMyTeam;
+    use CalendarTrait;
+    use ResultsTrait;
+    use WithCurrentCycle;
+    use WithSetMyTeam;
+    use WithHasAccess;
 
     public array $scores;
 
