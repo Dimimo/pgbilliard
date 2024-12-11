@@ -5,6 +5,7 @@ namespace App\Livewire\Date;
 use App\Mail\DayScoresConfirmed;
 use App\Models\Event;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -77,7 +78,11 @@ class Update extends Component
                 $teams = $this->event->date->players();
                 foreach ($teams as $players) {
                     foreach ($players as $user) {
-                        \Mail::to($user)->queue(new DayScoresConfirmed($this->event->date));
+                        // avoid players that haven't been claimed yet
+                        if (!Str::contains($user->email, '@pgbilliard.com'))
+                        {
+                            \Mail::to($user)->queue(new DayScoresConfirmed($this->event->date));
+                        }
                     }
                 }
             }
