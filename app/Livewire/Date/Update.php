@@ -58,6 +58,9 @@ class Update extends Component
     {
         $action === 'increment' ? $this->$field += 1 : $this->$field -= 1;
         $this->validate();
+        if (is_null($this->event->$field)) {
+            $this->event->update([$field => 0]);
+        }
         $this->event->$action($field);
         $this->updateScores();
         $this->dispatch('scores-updated');
