@@ -13,7 +13,8 @@ use Illuminate\Queue\SerializesModels;
 
 class DayScoresConfirmed extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * Create a new message instance.
@@ -31,7 +32,7 @@ class DayScoresConfirmed extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            replyTo: [new Address('info@pgbilliard.com', 'PG Billiard')],
+            replyTo: [new Address(config('mail.reply_to.address'), config('mail.reply_to.name'))],
             subject: 'Day Scores Confirmed'
         );
     }
