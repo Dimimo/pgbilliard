@@ -5,7 +5,7 @@
             @if(($hasAccess || $date->checkOpenWindowAccess()))
                 <div class="text-indigo-700 text-lg">
                     <a
-                        href="{{ route('calendar') }}"
+                        href="{{ route('dates.show', ['date' => $date]) }}"
                         class="hover:underline"
                         wire:navigate
                     >
