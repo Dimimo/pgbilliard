@@ -30,9 +30,6 @@
                             @if ($date->title)
                                 <div class="text-center text-xl font-medium {{ $date->regular ? 'text-violet-900' : 'text-gray-900' }}">{{ $date->title }}</div>
                             @endif
-                            @if ($date->checkOpenWindowAccess())
-                                <div class="text-center text-xl text-orange-800" title="click to edit your score">Live scores!</div>
-                            @endif
                         </div>
 
                         @if ($date->events && $date->events()->count() > 0)

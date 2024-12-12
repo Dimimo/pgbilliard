@@ -86,9 +86,9 @@ class Date extends Model
     /**
      * Check if a guest has write access to a pool day overview, this access is only valid from 12pm to 17pm
      */
-    public function checkIfGuestHasWritableAccess(): bool
+    public function checkOpenWindowAccess(): bool
     {
-        $now = Carbon::now();
+        $now = Carbon::now('Asia/Manila');
         $begin = $this->date->format(Constants::DATEFORMAT_START);
         $end = $this->date->format(Constants::DATEFORMAT_END);
 
