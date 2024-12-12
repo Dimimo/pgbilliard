@@ -1,22 +1,23 @@
-<div>
-    <div class="mr-1 mt-n5 mb-4">
-        <div class="col-auto ml-auto">
-            <label>
-                <select class="mt-n4" title="Change the season" wire:model.live="cycle">
-                    <option value="">-- select --</option>
-                    @if($cycles)
-                        @foreach ($cycles as $c)
-                            <option value="{{ $c->id }}" @selected($c->cycle === $cycle)>{{ $c->cycle }}</option>
-                        @endforeach
-                        @if ($c->cycle > $cycle)
-                            <option value="{{ $c->id }}" selected>{{ $c->cycle }}</option>
-                        @endif
-                        <option value="all">All Seasons</option>
-                    @else
-                        <option>No seasons are available in the new database</option>
-                    @endif
-                </select>
-            </label>
-        </div>
-    </div>
+<div class="mt-8 flex flex-row flex-nowrap justify-end">
+    <div class="mr-4 mt-1">Select another Season</div>
+    <label>
+        <select
+            class="block appearance-none w-auto py-1 pl-4 pr-8 mr-4 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-500 rounded"
+            title="Change the season"
+            wire:model.live="cycle"
+        >
+            <option value="">-- select --</option>
+            @if($cycles)
+                @foreach ($cycles as $c)
+                    <option value="{{ $c->id }}" @selected($c->cycle === $cycle)>{{ $c->cycle }}</option>
+                @endforeach
+                @if ($c->cycle > $cycle)
+                    <option value="{{ $c->id }}" selected>{{ $c->cycle }}</option>
+                @endif
+                <option value="all">All Seasons</option>
+            @else
+                <option>No seasons are available in the new database</option>
+            @endif
+        </select>
+    </label>
 </div>

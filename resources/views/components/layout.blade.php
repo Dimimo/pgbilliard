@@ -33,7 +33,6 @@
     <meta name="theme-color" content="#ffffff">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="ui" content="{{ encrypt(Auth::id()) }}">
     <meta name="robots" content="noindex,nofollow">
 
     <title>Puerto Galera Pool League</title>
@@ -46,14 +45,18 @@
     <div class="block">
         <livewire:layout.navigation/>
     </div>
+
     @if(session('status'))
-        <div class="block border-2 border-emerald-700 bg-emerald-100 text-gray-900 p-5 mb-5 text-xl text-center">
+        <div class="mb-5 block border-2 border-emerald-700 bg-emerald-100 p-5 text-center text-xl text-gray-900">
             {!! session('status') !!}
         </div>
     @endif
+
     <div class="block">
         {{ $slot }}
     </div>
+
+    <livewire:cycle-select/>
 </div>
 
 <div class="block">
