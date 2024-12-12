@@ -34,10 +34,10 @@
             <th class="p-2 bg-red-200 text-gray-900 hidden sm:table-cell">
                 <img class="mx-auto" src="{{ secure_asset('svg/minus-box-fill.svg') }}" alt="Against" width="24" height="24">
             </th>
-            <th class="p-2 bg-purple-300 text-gray-900">
+            <th class="p-2 bg-purple-300 text-gray-900 hidden md:table-cell">
                 <img class="mx-auto" src="{{ secure_asset('svg/percentage.svg') }}" alt="Percentage">
             </th>
-            <th class="p-2 bg-indigo-300 text-gray-900">
+            <th class="p-2 bg-indigo-300 text-gray-900 hidden md:table-cell">
                 <img class="mx-auto" src="{{ secure_asset('svg/wine-glasses.svg') }}" alt="Number of games participated">
             </th>
         </tr>
@@ -104,10 +104,10 @@
                     <td class="text-center p-2 bg-red-100 text-gray-900 hidden sm:table-cell" title="Total games lost">
                         {{ $score->get('against') }}
                     </td>
-                    <td class="text-center p-2 bg-purple-100 text-gray-900" title="Percentage">
+                    <td class="text-center p-2 bg-purple-100 text-gray-900 hidden md:table-cell" title="Percentage">
                         {{ $score->get('percentage') }}%
                     </td>
-                    <td class="text-center p-2 bg-indigo-100 text-gray-900" title="{{ $score->get('games_played') }} games participated">
+                    <td class="text-center p-2 bg-indigo-100 text-gray-900 hidden md:table-cell" title="{{ $score->get('games_played') }} games participated">
                         {{ $score->get('games_played') }}
                     </td>
                 </tr>
