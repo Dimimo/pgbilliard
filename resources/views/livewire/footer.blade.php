@@ -1,4 +1,4 @@
-<div class="my-12 bg-indigo-50 border-t border-t-gray-500 p-2 text-center">
+<div class="mt-12 bg-indigo-50 border-t border-t-gray-500 p-2 text-center">
     <div class="mb-4 text-2xl">&copy; {{ now()->format('Y') }} PG Billiard</div>
     <div class="mb-4">Designed for the Puerto Galera Billiard League</div>
     <div class="text-xs">
