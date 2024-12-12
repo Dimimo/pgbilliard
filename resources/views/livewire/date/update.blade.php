@@ -1,24 +1,24 @@
 <tbody class="whitespace-nowrap">
 <tr @class(['bg-red-50' => $errors->any()])>
     <td @class([
-            'px-4 pt-2' => $errors->any(),
-            'p-4' => !$errors->any(),
+            'px-2 pt-4 sm:px-4' => $errors->any(),
+            'px-2 py-4 sm:p-4' => !$errors->any(),
             'text-left',
             'font-bold text-green-700' => $score1 > 7
         ])>
         {{ $event->team_1->name }}
     </td>
     <td @class([
-            'px-4 pt-2' => $errors->any(),
-            'p-4' => !$errors->any(),
+            'px-2 pt-4 sm:px-4' => $errors->any(),
+            'px-2 py-4 sm:p-4' => !$errors->any(),
             'text-left',
             'font-bold text-green-700' => $score2 > 7
         ])>
         {{ $event->team_2->name }}
     </td>
     <td @class([
-            'px-4 pt-2' => $errors->any(),
-            'p-4' => !$errors->any(),
+            'px-2 pt-4 sm:px-4' => $errors->any(),
+            'px-2 py-4 sm:p-4' => !$errors->any(),
             'text-center',
         ])>
         @can('update', $event)
@@ -35,7 +35,7 @@
                     >
                 </div>
                 <div>
-                    <x-forms.text-input size="2" maxlength="2" wire:model.live.debounce.1000ms="score1"/>
+                    <x-forms.text-input size="2" maxlength="2" class="w-12" wire:model.live.debounce.1000ms="score1"/>
                 </div>
                 <div class="ml-2">
                     <img
@@ -54,8 +54,8 @@
         @endcan
     </td>
     <td @class([
-            'px-4 pt-2' => $errors->any(),
-            'p-4' => !$errors->any(),
+            'px-2 pt-4 sm:px-4' => $errors->any(),
+            'px-2 py-4 sm:p-4' => !$errors->any(),
             'text-center',
         ])>
         @can('update', $event)
@@ -72,7 +72,7 @@
                     >
                 </div>
                 <div>
-                    <x-forms.text-input size="2" maxlength="2" wire:model.live.debounce.1000ms="score2"/>
+                    <x-forms.text-input size="2" maxlength="2" class="w-12" wire:model.live.debounce.1000ms="score2"/>
                 </div>
                 <div class="ml-2">
                     <img
@@ -89,8 +89,8 @@
         @endcan
     </td>
     <td @class([
-            'px-4 pt-2' => $errors->any(),
-            'p-4' => !$errors->any(),
+            'px-2 pt-4 sm:px-4' => $errors->any(),
+            'px-2 py-4 sm:p-4' => !$errors->any(),
             'text-center',
         ])>
         @can('update', $event)
