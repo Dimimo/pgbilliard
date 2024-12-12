@@ -32,7 +32,6 @@ class DayScoresConfirmed extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            replyTo: [new Address(config('mail.reply_to.address'), config('mail.reply_to.name'))],
             subject: 'Day Scores Confirmed'
         );
     }
