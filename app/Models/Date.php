@@ -108,7 +108,8 @@ class Date extends Model
                     fn ($event) => $event
                         ->team_1
                         ->players
-                        ->map(fn ($player) => $player->user))
+                        ->map(fn ($player) => $player->user)
+                )
                 ->merge(
                     $this->events->map(
                         fn ($event) => $event

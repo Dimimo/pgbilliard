@@ -79,8 +79,7 @@ class Update extends Component
                 foreach ($teams as $players) {
                     foreach ($players as $user) {
                         // avoid players that haven't been claimed yet
-                        if (!Str::contains($user->email, '@pgbilliard.com'))
-                        {
+                        if (!Str::contains($user->email, '@pgbilliard.com')) {
                             \Mail::to($user)->queue(new DayScoresConfirmed($this->event->date));
                         }
                     }

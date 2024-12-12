@@ -9,7 +9,10 @@ use Livewire\Component;
 
 class Calendar extends Component
 {
-    use CalendarTrait, WithCurrentCycle, WithHasAccess, WithSetMyTeam;
+    use CalendarTrait;
+    use WithCurrentCycle;
+    use WithHasAccess;
+    use WithSetMyTeam;
 
     public Collection $dates;
 

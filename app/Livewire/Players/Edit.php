@@ -49,8 +49,7 @@ class Edit extends Component
     {
         $this->validateOnly('user_form.name');
         $this->user_form->name = Str::title($value);
-        if (Str::match('/pgbilliard/', $value))
-        {
+        if (Str::match('/pgbilliard/', $value)) {
             $this->user_form->email = Str::lower(Str::snake($value, '-')).'@pgbilliard.com';
         }
     }

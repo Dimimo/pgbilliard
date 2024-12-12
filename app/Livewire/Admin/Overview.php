@@ -11,7 +11,8 @@ use Livewire\Component;
 
 class Overview extends Component
 {
-    use WithAdmins, WithUsersSelect;
+    use WithAdmins;
+    use WithUsersSelect;
 
     public ?int $user_id = null;
 
