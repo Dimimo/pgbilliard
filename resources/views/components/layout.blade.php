@@ -69,5 +69,6 @@
 @stack('js')
 {{-- End script --}}
 
+@livewire('wire-elements-modal')
 </body>
 </html>
