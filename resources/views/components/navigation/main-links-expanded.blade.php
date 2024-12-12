@@ -1,4 +1,4 @@
-<div class="flex sm:space-x-6">
+<div class="mb-1 flex sm:space-x-4 md:space-x-8">
     <!-- Logo -->
     <div class="hidden shrink-0 items-center md:flex">
         <a href="{{ route('scoresheet') }}" wire:navigate>
