@@ -41,10 +41,10 @@ class TeamPolicy
             return true;
         }
 
-        if ($team->venue->owner->id === $user->id) {
+        if ($team->venue->owner?->id === $user->id) {
             return true;
         }
 
-        return $team->players()->where('user_id', $user->id)->first()->captain;
+        return $team->players()->where('user_id', $user->id)->first()?->captain === true;
     }
 }

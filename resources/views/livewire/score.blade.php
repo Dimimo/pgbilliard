@@ -2,9 +2,15 @@
     <x-title title="Competition Results" subtitle="">
         <x-slot:subtitle>
             <div>Season {{ $cycle }}</div>
-            @if(($hasAccess || $date->checkIfGuestHasWritableAccess()))
+            @if(($hasAccess || $date->checkOpenWindowAccess()))
                 <div class="text-indigo-700 text-lg">
-                    <a href="{{ route('calendar') }}" class="hover:underline" wire:navigate>Live update!</a>
+                    <a
+                        href="{{ route('calendar') }}"
+                        class="hover:underline"
+                        wire:navigate
+                    >
+                        Live update!
+                    </a>
                 </div>
             @endif
         </x-slot:subtitle>
@@ -50,7 +56,11 @@
                         <strong>{{ $i++ }}</strong>
                     </td>
                     <td
-                        class="p-2 @if($my_team === $score->get('team')->id) bg-green-300 @else bg-blue-100 @endif"
+                        @class([
+                            'p-2',
+                            'bg-green-300' => $my_team === $score->get('team')->id,
+                            'bg-blue-100' => $my_team !== $score->get('team')->id
+                        ])µ
                         id="team_{{ $score->get('team')->id }}"
                         wire:click.self="setMyTeam({{ $score->get('team')->id }})"
                     >
@@ -67,7 +77,13 @@
                             @endif
                         </a>
                     </td>
-                    <td class="text-center p-2 bg-amber-100 @if(!is_null($score_id) && $score_id == $score->get('id')) text-lg text-blue-700 bg-blue-100 @endif">
+                    <td @class([
+                            'text-center',
+                            'p-2',
+                            'bg-amber-100' => !is_null($score_id) && $score_id != $score->get('id'),
+                            'text-lg text-blue-700 bg-blue-100' => !is_null($score_id) && $score_id == $score->get('id')
+                        ])
+                    >
                         @if ($score->get('last_result') === 'not in')
                             <span class="text-orange-600"><i>not in</i></span>
                         @elseif ($score->get('last_result') === 'BYE')

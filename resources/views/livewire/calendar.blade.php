@@ -10,7 +10,7 @@
                         <div
                             class="relative grid grid-flow-row auto-rows-max gap-y-2 w-auto py-3 px-6 bg-gray-200 text-gray-900 rounded border border-b-1 border-gray-300 {{ $date->regular ? 'bg-green-500' : 'bg-teal-500' }}">
                             <div class="text-center">
-                                @if($hasAccess || $date->checkIfGuestHasWritableAccess())
+                                @if($hasAccess || $date->checkOpenWindowAccess())
                                     <a
                                         href="{{ route('dates.show', ['date' => $date]) }}"
                                         class="text-white text-lg hover:text-yellow-100 hover:underline" title="click for details"
@@ -30,7 +30,7 @@
                             @if ($date->title)
                                 <div class="text-center text-xl font-medium {{ $date->regular ? 'text-violet-900' : 'text-gray-900' }}">{{ $date->title }}</div>
                             @endif
-                            @if ($date->checkIfGuestHasWritableAccess())
+                            @if ($date->checkOpenWindowAccess())
                                 <div class="text-center text-xl text-orange-800" title="click to edit your score">Live scores!</div>
                             @endif
                         </div>
