@@ -56,7 +56,10 @@
         {{ $slot }}
     </div>
 
-    <livewire:cycle-select/>
+    @if(request()->routeIs(['index', 'scoresheet', 'calendar']))
+        <livewire:cycle-select/>
+    @endif
+
 </div>
 
 <div class="block">
