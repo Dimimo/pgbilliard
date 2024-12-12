@@ -88,9 +88,9 @@ class Date extends Model
      */
     public function checkOpenWindowAccess(): bool
     {
-        $now = Carbon::now('Asia/Manila');
-        $begin = $this->date->format(Constants::DATEFORMAT_START);
-        $end = $this->date->format(Constants::DATEFORMAT_END);
+        $now = Carbon::now()->appTimezone();
+        $begin = $this->date->appTimezone()->setHour(Constants::DATEFORMAT_START);
+        $end = $this->date->appTimezone()->setHour(Constants::DATEFORMAT_END);
 
         return $now->between($begin, $end);
     }

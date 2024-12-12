@@ -24,7 +24,7 @@ class Constants
 
     public const DATE_TITLE = 20;
 
-    public const DATEFORMAT_START = 'Y-m-d 12:00:00';
+    public const DATEFORMAT_START = 12;
 
-    public const DATEFORMAT_END = 'Y-m-d 18:00:00';
+    public const DATEFORMAT_END = 20;
 }
