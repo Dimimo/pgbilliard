@@ -50,7 +50,7 @@
         <p>Yours, Dimitri</p>
         <p class="mt-6 italic p-2 bg-blue-100 text-center mx-auto">
             <strong>By the way</strong>: you need a login to participate in the <a href="{{ route('forum.posts.index') }}" wire:navigate>Forum</a>
-            and the <a href="{{ route('chat.index') }}" wire:navigate>Chat</a>!!
+            and the Chat!!
         </p>
     </div>
 
