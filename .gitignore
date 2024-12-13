@@ -4,6 +4,7 @@
 /public/storage
 /storage/*.key
 /vendor
+cacert.pem
 .env
 .env.backup
 .env.production
