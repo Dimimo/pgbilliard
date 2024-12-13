@@ -5,7 +5,7 @@
         This is an open source project build on Laravel, Livewire, Reverb and Tailwind
     </div>
     <a
-        href="https://github.com/Dimimo/puertopool"
+        href="https://github.com/Dimimo/pgbilliard"
         target="_blank"
         class="text-xs text-blue-600 hover:bg-blue-50 hover:underline"
     >
