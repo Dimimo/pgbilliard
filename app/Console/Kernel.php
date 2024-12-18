@@ -12,7 +12,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('day-scores')->timezone('Asia/Manila')->dailyAt('12:00');
+
+        if (! str_contains(shell_exec('ps xf'), 'php artisan queue:work')) {
+            //https://www.tecmint.com/run-linux-command-process-in-background-detach-process/
+            $schedule->command('queue:work --queue=high,default --tries=2')->runInBackground();
+        }
     }
 
     /**
