@@ -28,4 +28,9 @@ Route::get('mailable/date/{date}', function ($date) {
     return new \App\Mail\DayScoresConfirmed($date);
 });
 
+Route::get('mailable/account-claimed/{user}', function ($user) {
+    $user = \App\Models\User::find($user);
+    return new \App\Mail\AccountClaimed($user, "The email has been changed");
+});
+
 require __DIR__.'/auth.php';
