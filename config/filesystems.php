@@ -56,6 +56,11 @@ return [
             'throw' => false,
         ],
 
+        'logs' => [
+            'driver' => 'local',
+            'root' => base_path('storage/logs'),
+        ],
+
     ],
 
     /*

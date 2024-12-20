@@ -46,5 +46,9 @@
         <x-forms.dropdown-link :href="route('admin.overview')" wire:navigate>
             {{ __('List of admins') }}
         </x-forms.dropdown-link>
+
+        <x-forms.dropdown-link :href="route('admin.logs')" wire:navigate>
+            {{ __('Score changes log file') }}
+        </x-forms.dropdown-link>
     </x-slot>
 </x-forms.dropdown>
