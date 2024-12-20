@@ -23,37 +23,13 @@
         ])>
         @can('update', $event)
             @if($confirmed === false)
-                <div class="my-2 flex flex-row items-center">
-                    <div class="mr-2">
-                        <img
-                            class="cursor-pointer"
-                            src="{{ secure_asset('svg/minus-box-fill.svg') }}"
-                            alt=""
-                            title="Minus one game"
-                            width="35"
-                            height="35"
-                            wire:click="change('score1', 'decrement')"
-                        >
-                    </div>
-                    <div>
-                        <x-forms.text-input size="2" maxlength="2" class="w-12" wire:model.live.debounce.1000ms="score1"/>
-                    </div>
-                    <div class="ml-2">
-                        <img
-                            class="cursor-pointer"
-                            src="{{ secure_asset('svg/plus-box-fill.svg') }}"
-                            alt=""
-                            title="Add one game"
-                            width="35"
-                            height="35"
-                            wire:click="change('score1')"
-                        >
-                    </div>
-                </div>
+
+                <x-date.change-score model="score1" :score1="$score1" :score2="$score2"/>
+
             @else
-                <span @class(['text-xl', 'font-bold text-green-700' => $score1 > 7])>
+                <span @class(['text-base' =>  $score1 <= 7, 'text-lg font-bold text-green-700' => $score1 > 7])>
                     {{ $score1 }}
-                </span> - <span @class(['text-xl', 'font-bold text-green-700' => $score2 > 7])>
+                </span> - <span @class(['text-base' =>  $score2 <= 7, 'text-lg font-bold text-green-700' => $score2 > 7])>
                     {{ $score2 }}
                 </span>
             @endif
@@ -68,33 +44,9 @@
         ])>
         @can('update', $event)
             @if($confirmed === false)
-                <div class="my-2 flex flex-row items-center">
-                    <div class="mr-2">
-                        <img
-                            class="cursor-pointer"
-                            src="{{ secure_asset('svg/minus-box-fill.svg') }}"
-                            alt=""
-                            title="Minus one game"
-                            width="35"
-                            height="35"
-                            wire:click="change('score2', 'decrement')"
-                        >
-                    </div>
-                    <div>
-                        <x-forms.text-input size="2" maxlength="2" class="w-12" wire:model.live.debounce.1000ms="score2"/>
-                    </div>
-                    <div class="ml-2">
-                        <img
-                            class="cursor-pointer"
-                            src="{{ secure_asset('svg/plus-box-fill.svg') }}"
-                            alt=""
-                            title="Add one game"
-                            width="35"
-                            height="35"
-                            wire:click="change('score2')"
-                        >
-                    </div>
-                </div>
+
+                <x-date.change-score model="score2" :score1="$score1" :score2="$score2"/>
+
             @endif
         @endcan
     </td>

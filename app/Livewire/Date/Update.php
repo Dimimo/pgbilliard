@@ -106,7 +106,7 @@ class Update extends Component
     {
         $message = "["
             . $this->event->date->date->appTimezone()->format("d/m/Y")
-            . " {$this->event->team_1->name} - {$this->event->team_2->name}] "
+            . " {$this->event->team_1->name} - {$this->event->team_2->name}  ($this->score1 - $this->score2)] "
             . auth()->user()->name
             . " changed $field to "
             . $this->$field;
