@@ -1,7 +1,7 @@
 @props(['events', 'dates', 'last_date'])
 
 <div class="block text-lg text-blue-900 ml-4">
-    Working on {{ $last_date->date->format('Y-m-d') }}
+    Working on {{ $last_date->date->appTimezone()->format('Y-m-d') }}
     @if($last_date->title)
         <div class="inline-block text-teal-700 ml-4">{{ $last_date->title }}</div>
     @endif
@@ -11,7 +11,7 @@
     @forelse($events as $event)
 
         <div class="inline-block" wire:key="event-{{ $event->id }}">
-            @if ($event->date->date->isAfter(now()))
+            @if ($event->date->date->isAfter(now()->appTimezone()))
                 <img
                     class="inline-block cursor-pointer mr-2"
                     src="{{ secure_asset('svg/minus-box-fill.svg') }}"
