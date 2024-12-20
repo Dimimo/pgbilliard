@@ -34,6 +34,9 @@ name('dates.show');
                                 <x-forms.action-message class="font-semibold text-green-700" on="scores-updated">
                                     Updated!
                                 </x-forms.action-message>
+                                <x-forms.action-message class="font-bold text-green-700" on="score-confirmed">
+                                    Your score is confirmed!
+                                </x-forms.action-message>
                             </div>
                         </div>
                     </th>

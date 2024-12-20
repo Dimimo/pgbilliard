@@ -40,5 +40,17 @@ class PoolSetDayScores implements ShouldQueue
                 }
             }
         }
+        $this->buildLogChannel()->info("The day scores has been set to 0-0");
+        date_default_timezone_set(config('app.timezone'));
+    }
+
+    private function buildLogChannel(): \Psr\Log\LoggerInterface
+    {
+        date_default_timezone_set(config('app.app_timezone'));
+
+        return \Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/scores.log'),
+        ]);
     }
 }

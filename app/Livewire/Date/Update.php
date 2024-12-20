@@ -53,6 +53,7 @@ class Update extends Component
         $this->event->update([$field => $value]);
         $this->updateScores();
         $this->dispatch('scores-updated');
+        $this->logChanges($field);
     }
 
     public function change(string $field, string $action = 'increment'): void
@@ -65,12 +66,15 @@ class Update extends Component
         $this->event->$action($field);
         $this->updateScores();
         $this->dispatch('scores-updated');
+        $this->logChanges($field);
     }
 
     public function consolidate(): void
     {
         $this->event->update(['confirmed' => true]);
-        $this->dispatch('scores-updated');
+        $this->confirmed = true;
+        $this->dispatch('score-confirmed');
+        $this->logConsolidate();
 
         // here we check if all events are confirmed, if so, email all participating players, only in production!
         if ($this->event->date->events->every(fn ($value) => $value->confirmed === true)) {
@@ -96,5 +100,40 @@ class Update extends Component
             $this->addError('score1', 'More than 15 games? Please correct this...');
         }
         $this->confirmed = $this->event->confirmed;
+    }
+
+    private function logChanges(string $field): void
+    {
+        $message = "["
+            . $this->event->date->date->appTimezone()->format("d/m/Y")
+            . " {$this->event->team_1->name} - {$this->event->team_2->name}] "
+            . auth()->user()->name
+            . " changed $field to "
+            . $this->$field;
+
+        $this->buildLogChannel()->info($message);
+        date_default_timezone_set(config('app.timezone'));
+    }
+
+    private function logConsolidate(): void
+    {
+        $message = "["
+            . $this->event->date->date->appTimezone()->format("d/m/Y")
+            . " {$this->event->team_1->name} - {$this->event->team_2->name}] "
+            . auth()->user()->name
+            . " confirmed the game, end score is $this->score1 - $this->score2";
+
+        $this->buildLogChannel()->info($message);
+        date_default_timezone_set(config('app.timezone'));
+    }
+
+    private function buildLogChannel(): \Psr\Log\LoggerInterface
+    {
+        date_default_timezone_set(config('app.app_timezone'));
+
+        return \Log::build([
+            'driver' => 'single',
+            'path' => storage_path('logs/scores.log'),
+        ]);
     }
 }
