@@ -23,6 +23,7 @@ $updateProfileInformation = function ()
     {
         $user->email_verified_at = null;
         \App\Jobs\AccountHasBeenClaimed::dispatch($user);
+        \App\Jobs\EmailHasBeenChanged::dispatch($user);
     }
     $user->save();
     $this->dispatch('profile-updated', name: $user->name);

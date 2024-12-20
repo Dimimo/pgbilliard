@@ -33,4 +33,9 @@ Route::get('mailable/account-claimed/{user}', function ($user) {
     return new \App\Mail\AccountClaimed($user, "The email has been changed");
 });
 
+Route::get('mailable/email-changed/{user}', function ($user) {
+    $user = \App\Models\User::find($user);
+    return new \App\Mail\EmailChanged();
+});
+
 require __DIR__.'/auth.php';
