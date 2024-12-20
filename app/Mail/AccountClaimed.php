@@ -41,9 +41,11 @@ class AccountClaimed extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            view: 'mail.account-claimed',
+            markdown: 'mail.account-claimed',
         );
     }
+
+    public $markdown = 'vendor.mail.html.layout';
 
     /**
      * Get the attachments for the message.
