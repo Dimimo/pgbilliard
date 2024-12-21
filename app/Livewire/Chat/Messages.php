@@ -3,9 +3,9 @@
 namespace App\Livewire\Chat;
 
 use App\Constants;
+use App\Events\MessagePosted;
 use App\Models\Chat\ChatMessage;
 use App\Models\Chat\ChatRoom;
-use Auth;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
@@ -41,29 +41,41 @@ class Messages extends Component
         return view('livewire.chat.messages');
     }
 
-    #[On('echo:public-room,MessagePosted')]
-    public function newMessage($event): void
+    #[On('echo:chat-room,message-posted')]
+    public function MessagePosted($room, $message): void
     {
         $this->showNewOrderNotification = true;
-        $message = ChatMessage::find($event->message->id);
+        $message = ChatMessage::find($message);
+        if ($message->room->id === $room->id) {
+            dd($message);
+        }
     }
 
     public function postMessage(): void
     {
-        $this->authorize('create', ChatRoom::class);
-        $this->validate();
+        $this->authorize('create', $this->room);
+        $validated = $this->validate();
         $data = [
-            'message' => $this->new_chat,
-            'user_id' => Auth::id(),
+            'message' => $validated['new_chat'],
+            //'user_id' => Auth::id(),
             'chat_room_id' => $this->room->id,
         ];
-        $message = ChatMessage::create($data);
+        $message = auth()->user()->chatMessages()->create($data);
         $this->chats->add($message);
-        if (! $this->room->users->contains(Auth::user())) {
-            $this->room->users()->attach($message->user_id);
+        if (! $this->room->users->contains(auth()->user())) {
+            $this->room
+                ->users()
+                ->get(['id', 'name'])
+                ->push(
+                    $message
+                    ->user()
+                    ->get(['id', 'name'])
+                    ->first()
+                );
         }
         $this->dispatch('userSelected')->to(Invited::class);
-        $this->dispatch('new-message');
-        $this->new_chat = null;
+        broadcast(new MessagePosted($message));
+        //MessagePosted::dispatch($message);
+        $this->reset('new_chat');
     }
 }

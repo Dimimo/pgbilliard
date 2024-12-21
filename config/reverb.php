@@ -33,7 +33,10 @@ return [
             'port' => env('REVERB_SERVER_PORT', 8080),
             'hostname' => env('REVERB_HOST'),
             'options' => [
-                'tls' => [],
+                'tls' => [
+                    // 'local_cert' => "C:\\Users\\dmost\\.config\\herd\\config\\php\\cacert.pem",
+                    // 'local_cert' => "C:\\Users\\dmost\\.config\\herd\\config\\valet\\Certificates\\pgpool.test.crt"
+                ],
             ],
             'max_request_size' => env('REVERB_MAX_REQUEST_SIZE', 10_000),
             'scaling' => [
@@ -71,13 +74,16 @@ return [
 
         'apps' => [
             [
+                'id' => env('REVERB_APP_ID'),
                 'key' => env('REVERB_APP_KEY'),
                 'secret' => env('REVERB_APP_SECRET'),
                 'app_id' => env('REVERB_APP_ID'),
                 'options' => [
-                    /*'tls' => [
-                        'local_cert' => './localhost.pem'
-                    ],*/
+                    'tls' => [
+                        //'local_cert' => "/cacert.pem",
+                        //'local_cert' => "C:\\Users\\dmost\\.config\\herd\\config\\php\\cacert.pem",
+                        //'local_cert' => "C:\\Users\\dmost\\.config\\herd\\config\\valet\\Certificates\\pgbilliard.test.crt"
+                    ],
                     'host' => env('REVERB_HOST'),
                     'port' => env('REVERB_PORT', 443),
                     'scheme' => env('REVERB_SCHEME', 'https'),

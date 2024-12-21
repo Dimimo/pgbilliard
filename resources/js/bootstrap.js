@@ -5,25 +5,25 @@
  */
 
 import axios from "axios";
-import Echo from "@ably/laravel-echo";
-import * as Ably from "ably";
+// import Echo from "laravel-echo";
+// import * as Ably from "ably";
 
 window.axios = axios;
-window.Ably = Ably;
-window.Echo = new Echo({
-    broadcaster: 'ably',
-    authEndpoint: '/broadcasting/auth'
-});
+// window.Ably = Ably;
+// window.Echo = new Echo({
+//     broadcaster: 'ably',
+//     authEndpoint: '/broadcasting/auth'
+// });
 
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 /* Ably */
-window.Echo.connector.ably.connection.on((stateChange) => {
-    console.log("LOGGER:: Connection event :: ", stateChange);
-    if (stateChange.current === 'disconnected' && stateChange.reason?.code === 40142) { // key/token status expired
-        console.log("LOGGER:: Connection token expired https://help.ably.io/error/40142");
-    }
-});
+// window.Echo.connector.ably.connection.on((stateChange) => {
+//     console.log("LOGGER:: Connection event :: ", stateChange);
+//     if (stateChange.current === 'disconnected' && stateChange.reason?.code === 40142) { // key/token status expired
+//         console.log("LOGGER:: Connection token expired https://help.ably.io/error/40142");
+//     }
+// });
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -31,21 +31,20 @@ window.Echo.connector.ably.connection.on((stateChange) => {
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from 'laravel-echo';
+import Echo from 'laravel-echo';
+import Pusher from 'pusher-js';
+window.Pusher = Pusher;
 
-// import Pusher from 'pusher-js';
-// window.Pusher = Pusher;
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: import.meta.env.VITE_PUSHER_APP_KEY,
-//     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'mt1',
-//     wsHost: import.meta.env.VITE_PUSHER_HOST ? import.meta.env.VITE_PUSHER_HOST : `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
-//     wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
-//     wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
-//     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
-//     enabledTransports: ['ws', 'wss'],
-// });
+window.Echo = new Echo({
+    broadcaster: 'reverb',
+    key: import.meta.env.VITE_REVERB_APP_KEY,
+    // cluster: import.meta.env.VITE_REVERB_APP_CLUSTER ?? 'mt1',
+    wsHost: import.meta.env.VITE_REVERB_HOST ? import.meta.env.VITE_REVERB_HOST : `ws-${import.meta.env.VITE_REVERB_APP_CLUSTER}.pusher.com`,
+    wsPort: import.meta.env.VITE_REVERB_PORT ?? 80,
+    wssPort: import.meta.env.VITE_REVERB_PORT ?? 443,
+    forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
+    enabledTransports: ['ws', 'wss'],
+});
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -53,4 +52,4 @@ window.Echo.connector.ably.connection.on((stateChange) => {
  * allow your team to quickly build robust real-time web applications.
  */
 
-// import "./echo";
+import "./echo";

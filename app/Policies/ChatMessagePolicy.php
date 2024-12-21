@@ -27,7 +27,7 @@ class ChatMessagePolicy
 
     public function view(User $user, ChatMessage $chatMessage): bool
     {
-        if ($chatMessage->room->private === 0) {
+        if ($chatMessage->room->private === false) {
             return true;
         }
 
@@ -41,7 +41,7 @@ class ChatMessagePolicy
             return true;
         }
 
-        return $chatRoom->users()->whereId($user->id)->count() === 1;
+        return $chatRoom->users->contains($user);
     }
 
     public function update(User $user, ChatMessage $chatMessage): bool
@@ -51,10 +51,6 @@ class ChatMessagePolicy
 
     public function delete(User $user, ChatMessage $chatMessage): bool
     {
-        if ($user->id === $chatMessage->room->user_id) {
-            return true;
-        }
-
         return $user->id === $chatMessage->user_id;
     }
 }

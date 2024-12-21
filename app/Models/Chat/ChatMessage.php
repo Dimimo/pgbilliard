@@ -65,6 +65,8 @@ class ChatMessage extends Model
      */
     protected $hidden = [];
 
+    protected $with = ['room'];
+
     protected static function newFactory(): ChatMessageFactory
     {
         return ChatMessageFactory::new();
@@ -77,6 +79,6 @@ class ChatMessage extends Model
 
     public function room(): BelongsTo
     {
-        return $this->belongsTo(ChatRoom::class);
+        return $this->belongsTo(ChatRoom::class, 'chat_room_id', 'id');
     }
 }

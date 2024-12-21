@@ -1,9 +1,9 @@
 // vite.config.js
-import { defineConfig } from "file:///D:/Websites/PuertoPool/node_modules/vite/dist/node/index.js";
-import laravel from "file:///D:/Websites/PuertoPool/node_modules/laravel-vite-plugin/dist/index.js";
-var host = "puertopool.test";
+import { defineConfig } from "file:///D:/Websites/pgbilliard/node_modules/vite/dist/node/index.js";
+import laravel from "file:///D:/Websites/pgbilliard/node_modules/laravel-vite-plugin/dist/index.js";
+var host = "pgbilliard.test";
 var cert_key = `.config/herd/config/valet/Certificates/${host}.key`;
-var cert_crt = `.config/here/config/valet/Certificates/${host}.crt`;
+var cert_crt = `.config/herd/config/valet/Certificates/${host}.crt`;
 var vite_config_default = defineConfig({
   plugins: [
     laravel({
