@@ -31,7 +31,7 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
  * allows your team to easily build robust real-time web applications.
  */
 
-import Echo from 'laravel-echo';
+/*import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 window.Pusher = Pusher;
 
@@ -44,7 +44,7 @@ window.Echo = new Echo({
     wssPort: import.meta.env.VITE_REVERB_PORT ?? 443,
     forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
     enabledTransports: ['ws', 'wss'],
-});
+});*/
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -52,4 +52,4 @@ window.Echo = new Echo({
  * allow your team to quickly build robust real-time web applications.
  */
 
-import "./echo";
+// import "./echo";
