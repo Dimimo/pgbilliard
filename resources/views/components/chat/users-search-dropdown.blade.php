@@ -12,11 +12,13 @@
             </svg>
         </button>
         <div class="mb-2">
-            <input
-                placeholder="Search for..."
-                class="px-4 py-2.5 w-full rounded text-gray-500 text-sm font-semibold border-none outline-blue-600 bg-gray-50"
-                wire:model.live.debounce="search"
-            />
+            <label>
+                <input
+                    placeholder="Search for..."
+                    class="px-4 py-2.5 w-full rounded text-gray-500 text-sm font-semibold border-none outline-blue-600 bg-gray-50"
+                    wire:model.live.debounce="search"
+                />
+            </label>
         </div>
         <ul class='absolute shadow-lg bg-white py-2 px-2 z-[1000] min-w-full w-max rounded max-h-96 overflow-auto'>
             <x-chat.user-search-item :room="$room" :users="$list_users"/>

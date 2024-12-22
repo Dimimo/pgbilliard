@@ -14,7 +14,7 @@ class AllRooms extends Component
     public function mount(): void
     {
         $this->public_rooms = ChatRoom::wherePrivate(false)
-            ->whereKeyNot(1)
+            //->whereKeyNot(1)
             ->with(['users' => fn ($q) => $q->select(['id', 'name'])])
             ->orderBy('name')
             ->get();
