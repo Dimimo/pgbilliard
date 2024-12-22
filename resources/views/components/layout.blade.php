@@ -44,7 +44,7 @@
     <livewire:layout.navigation/>
 </div>
 
-<div class="container mx-auto flex-grow sm:px-4 md:px-12 lg:px-24">
+<div class="container mx-auto flex-grow sm:px-4 md:px-8 lg:px-20">
 
     @if(session('status'))
         <div class="mb-5 block border-2 border-emerald-700 bg-emerald-100 p-5 text-center text-xl text-gray-900">
