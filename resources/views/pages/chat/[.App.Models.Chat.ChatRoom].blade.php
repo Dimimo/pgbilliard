@@ -15,6 +15,8 @@ state('chatRoom');
             subtitle="{{ $chatRoom->name }}"
         />
 
+        <x-chat.warning/>
+
         @can('view', $chatRoom)
             <livewire:chat.room :chatRoom="$chatRoom"/>
         @else

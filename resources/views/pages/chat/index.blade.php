@@ -9,10 +9,17 @@ name('chat.index');
 <x-layout>
     @volt
     <section>
-        <x-title
-            title="General Chat"
-            subtitle="For everybody, managed by administrators"
-        />
+        <x-title>
+            <x-slot:title>
+                General Chat
+            </x-slot:title>
+            <x-slot:subtitle>
+                For everybody, managed by administrators
+            </x-slot:subtitle>
+        </x-title>
+
+        <x-chat.warning/>
+
         @can('create', App\Models\Chat\ChatRoom::class)
             <livewire:chat.index/>
         @else
