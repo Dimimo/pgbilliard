@@ -40,11 +40,11 @@
 </head>
 
 <body class="flex min-h-screen flex-col font-sans antialiased">
+<div class="block">
+    <livewire:layout.navigation/>
+</div>
 
-<div class="container mx-auto flex-grow sm:px-4">
-    <div class="block">
-        <livewire:layout.navigation/>
-    </div>
+<div class="container mx-auto flex-grow sm:px-4 md:px-12 lg:px-24">
 
     @if(session('status'))
         <div class="mb-5 block border-2 border-emerald-700 bg-emerald-100 p-5 text-center text-xl text-gray-900">
