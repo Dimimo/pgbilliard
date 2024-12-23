@@ -11,15 +11,7 @@
     <td @class([
             'px-2 pt-4 sm:px-4' => $errors->any(),
             'px-2 py-4 sm:p-4' => !$errors->any(),
-            'text-left',
-            'font-bold text-green-700' => $score2 > 7
-        ])>
-        {{ $event->team_2->name }}
-    </td>
-    <td @class([
-            'px-2 pt-4 sm:px-4' => $errors->any(),
-            'px-2 py-4 sm:p-4' => !$errors->any(),
-            'text-center',
+            'text-center'
         ])>
         @can('update', $event)
             @if($confirmed === false)
@@ -53,6 +45,14 @@
     <td @class([
             'px-2 pt-4 sm:px-4' => $errors->any(),
             'px-2 py-4 sm:p-4' => !$errors->any(),
+            'text-left',
+            'font-bold text-green-700' => $score2 > 7
+        ])>
+        {{ $event->team_2->name }}
+    </td>
+    <td @class([
+            'px-2 pt-4 sm:px-4' => $errors->any(),
+            'px-2 py-4 sm:p-4' => !$errors->any(),
             'text-center',
         ])>
         @can('update', $event)
@@ -66,10 +66,14 @@
                     confirm
                 </button>
             @else
-                {{ $event->venue->name }}
+                <x-forms.spinner/>
+                <x-forms.action-message class="font-semibold text-green-700" on="scores-updated-{{ $event->id }}">
+                    Updated
+                </x-forms.action-message>
+                <x-forms.action-message class="font-bold text-green-700" on="score-confirmed-{{ $event->id }}">
+                    Confirmed
+                </x-forms.action-message>
             @endif
-        @else
-            {{ $event->venue->name }}
         @endcan
     </td>
 </tr>
