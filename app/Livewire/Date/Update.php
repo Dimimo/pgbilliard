@@ -3,6 +3,7 @@
 namespace App\Livewire\Date;
 
 use App\Mail\DayScoresConfirmed;
+use App\Mail\DayScoresToAdmin;
 use App\Models\Event;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
@@ -79,15 +80,20 @@ class Update extends Component
         // here we check if all events are confirmed, if so, email all participating players, only in production!
         if ($this->event->date->events->every(fn ($value) => $value->confirmed === true)) {
             if (app()->environment() === 'production') {
-                $teams = $this->event->date->players();
-                foreach ($teams as $players) {
-                    foreach ($players as $user) {
-                        // avoid players that haven't been claimed yet
-                        if (!Str::contains($user->email, '@pgbilliard.com')) {
-                            \Mail::to($user)->queue(new DayScoresConfirmed($this->event->date));
-                        }
+                $send_to = [];
+                $players = $this->event->date->players();
+                foreach ($players as $user) {
+                    // avoid players that haven't been claimed yet
+                    if (!Str::contains($user->email, '@pgbilliard.com')) {
+                        \Mail::to($user)->queue(new DayScoresConfirmed($this->event->date));
+                        $send_to = \Arr::add($send_to, $user->id, $user->name);
                     }
                 }
+                \Mail::to(config('mail.admin_to'))->queue(new DayScoresToAdmin($this->event->date, \Arr::sort($send_to)));
+                $message = "All day scores confirmed, " . count($send_to) . " emails have been sent";
+                $this->buildLogChannel()->info($message);
+                date_default_timezone_set(config('app.timezone'));
+
             }
         }
     }
