@@ -22,7 +22,7 @@ class DayScoresConfirmed extends Mailable implements ShouldQueue
         public Date $date,
         public $subject = ''
     ) {
-        $this->subject = 'Day scores of '.$this->date->date->format('jS \o\f M Y');
+        $this->subject = 'Day scores of the '.$this->date->date->format('jS \o\f M Y');
     }
 
     /**
@@ -31,7 +31,7 @@ class DayScoresConfirmed extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Day Scores Confirmed'
+            subject: $this->subject
         );
     }
 
@@ -43,15 +43,5 @@ class DayScoresConfirmed extends Mailable implements ShouldQueue
         return new Content(
             markdown: 'mail.scores.day-score',
         );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
     }
 }
