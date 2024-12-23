@@ -1,5 +1,5 @@
 <x-mail::message>
-# This day score results have been sent to:
+# These day score results have been sent to:
 @foreach($mail_to as $name)
 - {{ $name }}
 
