@@ -89,7 +89,7 @@ class Update extends Component
                         $send_to = \Arr::add($send_to, $user->id, $user->name);
                     }
                 }
-                \Mail::to(config('mail.admin_to'))->queue(new DayScoresToAdmin($this->event->date, \Arr::sort($send_to)));
+                \Mail::queue(new DayScoresToAdmin($this->event->date, \Arr::sort($send_to)));
                 $message = "All day scores confirmed, " . count($send_to) . " emails have been sent";
                 $this->buildLogChannel()->info($message);
                 date_default_timezone_set(config('app.timezone'));

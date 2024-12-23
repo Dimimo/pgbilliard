@@ -6,6 +6,7 @@ use App\Models\Date;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -36,6 +37,9 @@ class DayScoresToAdmin extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
+            to: [
+                new Address(config('mail.admin_to.address'), config('mail.admin_to.name'))
+            ],
             subject: $this->subject,
         );
     }
