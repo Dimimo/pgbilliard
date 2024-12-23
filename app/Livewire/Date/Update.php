@@ -90,7 +90,11 @@ class Update extends Component
                     }
                 }
                 \Mail::queue(new DayScoresToAdmin($this->event->date, \Arr::sort($send_to)));
-                $message = "All day scores confirmed, " . count($send_to) . " emails have been sent";
+                $message = "["
+                    . $this->event->date->date->appTimezone()->format("d/m/Y")
+                    ."] All day scores confirmed, "
+                    . count($send_to)
+                    . " emails have been sent";
                 $this->buildLogChannel()->info($message);
                 date_default_timezone_set(config('app.timezone'));
 
