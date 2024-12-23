@@ -23,24 +23,24 @@ name('dates.show');
                 <thead class="whitespace-nowrap border-2 border-gray-900 bg-gray-300">
                 <tr class="py-2">
                     <th class="p-2 text-left">Home</th>
-                    <th class="p-2 text-left">Visitors</th>
                     <th class="p-2 text-center" colspan="2">
-                        <div class="flex items-center">
+                        <div class="flex justify-center items-center">
                             <div class="inline-block">Scores</div>
                             <div class="-mb-1 inline-block">
                                 <x-forms.spinner/>
                             </div>
                             <div class="ml-2 inline-block">
                                 <x-forms.action-message class="font-semibold text-green-700" on="scores-updated">
-                                    Updated!
+                                    Updated
                                 </x-forms.action-message>
                                 <x-forms.action-message class="font-bold text-green-700" on="score-confirmed">
-                                    Your score is confirmed!
+                                    Confirmed
                                 </x-forms.action-message>
                             </div>
                         </div>
                     </th>
-                    <th class="p-2 text-left">Venue</th>
+                    <th class="p-2 text-left">Visitors</th>
+                    <th class="p-2 text-left w-28"></th>
                 </tr>
                 </thead>
                 @foreach ($date->events as $event)

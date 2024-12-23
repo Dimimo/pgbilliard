@@ -53,7 +53,7 @@ class Update extends Component
         $this->validateOnly($field);
         $this->event->update([$field => $value]);
         $this->updateScores();
-        $this->dispatch('scores-updated');
+        $this->dispatch('scores-updated-'.$this->event->id);
         $this->logChanges($field);
     }
 
@@ -66,7 +66,7 @@ class Update extends Component
         }
         $this->event->$action($field);
         $this->updateScores();
-        $this->dispatch('scores-updated');
+        $this->dispatch('scores-updated-'.$this->event->id);
         $this->logChanges($field);
     }
 
@@ -74,7 +74,7 @@ class Update extends Component
     {
         $this->event->update(['confirmed' => true]);
         $this->confirmed = true;
-        $this->dispatch('score-confirmed');
+        $this->dispatch('score-confirmed-'.$this->event->id);
         $this->logConsolidate();
 
         // here we check if all events are confirmed, if so, email all participating players, only in production!
