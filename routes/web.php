@@ -28,6 +28,12 @@ Route::get('mailable/date/{date}', function ($date) {
     return new \App\Mail\DayScoresConfirmed($date);
 });
 
+Route::get('mailable/date/{date}/admin', function ($date) {
+    $date = \App\Models\Date::find($date);
+    $send_to = ['Joe Doe', 'Jane Doe'];
+    return new \App\Mail\DayScoresToAdmin($date, \Arr::sort($send_to));
+});
+
 Route::get('mailable/account-claimed/{user}', function ($user) {
     $user = \App\Models\User::find($user);
     return new \App\Mail\AccountClaimed($user, "The email has been changed");
