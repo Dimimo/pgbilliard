@@ -8,8 +8,10 @@ name('admin.overview');
 <x-layout>
     @volt
     <section>
-        <x-title title="Overview of all assigned administrators"/>
-        <livewire:admin.overview/>
+        @if (auth()->user()?->isAdmin())
+            <x-title title="Overview of all assigned administrators"/>
+            <livewire:admin.overview/>
+        @endif
     </section>
     @endvolt
 </x-layout>
