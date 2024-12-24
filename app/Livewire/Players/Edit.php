@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Players;
 
+use App\Jobs\CaptainCreatedNewUser;
 use App\Livewire\Forms\PlayerForm;
 use App\Livewire\Forms\UserForm;
 use App\Livewire\WithUsersSelect;
@@ -20,16 +21,11 @@ class Edit extends Component
     use WithUsersSelect;
 
     public PlayerForm $player_form;
-
     public UserForm $user_form;
-
     public Team $team;
-
     public Collection $players;
-
-    public array $occupied_players;
-
-    public ?int $user_id;
+    public array $occupied_players = [];
+    public ?int $user_id = null;
 
     public function mount(Team $team): void
     {
@@ -49,9 +45,12 @@ class Edit extends Component
     {
         $this->validateOnly('user_form.name');
         $this->user_form->name = Str::title($value);
-        if (Str::match('/pgbilliard/', $value)) {
-            $this->user_form->email = Str::lower(Str::snake($value, '-')).'@pgbilliard.com';
-        }
+        $this->user_form->email = Str::lower(Str::snake($value, '-')).'@pgbilliard.com';
+    }
+
+    public function updatedUserFormEmail(): void
+    {
+        $this->validateOnly('user_form.email');
     }
 
     private function getPlayers(): void
@@ -95,11 +94,12 @@ class Edit extends Component
         $this->getPlayersActiveInCurrentSeason();
         $this->getPlayers();
         $this->setPlayerForm();
-        $this->user_id = null;
+        $this->reset('user_id');
     }
 
     public function addUser(): void
     {
+        $this->validate();
         $name = $this->getPropertyValue('user_form.name');
         $user = new User([
             'name' => $name,
@@ -110,6 +110,8 @@ class Edit extends Component
         ]);
         $this->setUserForm($user);
 
+        // for an added user, 2 records are saved, a new user and a new player
+        // email the creator of this user as a reminder he has done so
         $user = $this->user_form->store();
         $this->setPlayerForm($user->id);
         $this->player_form->player->save();
@@ -117,6 +119,7 @@ class Edit extends Component
         $this->getPlayers();
         $this->setUserForm(new User());
         $this->dispatch('user-created');
+        CaptainCreatedNewUser::dispatch($user);
     }
 
     public function removePlayer($player_id): void
