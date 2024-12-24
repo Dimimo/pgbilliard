@@ -1,8 +1,8 @@
 <div>
-    <x-title title="Create the {{ $number_of_teams }} Teams for Season {{ $season->cycle }}"/>
+    <x-title title="Season Structure" subtitle="Create the {{ $number_of_teams }} Teams for Season {{ $season->cycle }}"/>
 
     <div class="m-2 border border-green-500 bg-green-100 p-4">
-        <x-team.explanation :i="$i"/>
+        <x-admin.help.explanation/>
     </div>
     @if($teams->count() > 0)
         <div class="m-2 border border-gray-500 p-0">
@@ -39,7 +39,11 @@
             <label for="team_select">
                 Select team {{ $i++ }}
             </label>
-            <select name="team_select" id="team_select" wire:model.change="team_select">
+            <select
+                name="team_select"
+                id="team_select"
+                wire:model.change="team_select"
+            >
                 <option value=""> --- select ---</option>
                 @foreach($dropdown_teams as $item)
                     @if(Str::upper($item->name) !== 'BYE')
