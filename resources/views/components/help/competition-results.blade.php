@@ -58,7 +58,7 @@
     <table class="table-auto border-separate">
         <thead>
         <tr>
-            <th class="h-12 w-12 border border-indigo-400 bg-indigo-50 px-2">
+            <th class="h-12 w-12 border border-indigo-400 bg-indigo-50 px-2 text-center">
                 <x-svg.circle-question-regular color="fill-gray-600" size="5"/>
             </th>
             <th class="h-12 w-auto border border-indigo-400 bg-indigo-50 px-2 text-left">Explanation</th>
