@@ -28,7 +28,8 @@
                                 @endif
                             </div>
                             @if ($date->title)
-                                <div class="text-center text-xl font-medium {{ $date->regular ? 'text-violet-900' : 'text-gray-900' }}">{{ $date->title }}</div>
+                                <div
+                                    class="text-center text-xl font-medium {{ $date->regular ? 'text-violet-900' : 'text-gray-900' }}">{{ $date->title }}</div>
                             @endif
                         </div>
 
@@ -45,18 +46,24 @@
                                 @foreach ($date->events as $event)
 
                                     <tr wire:key="event_{{ $event->id }}">
-                                        <td>
+                                        <td @class(['bg-green-50' => $my_team === $event->team_1->id, 'font-semibold' => $event->score1 > 7])>
                                             <div
                                                 class="flex justify-between p-1"
                                                 wire:click.self="setMyTeam({{ $event->team_1->id }})"
                                             >
-                                                <div class="text-gray-900 text-left {{ $my_team === $event->team_1->id ? 'font-semibold' : '' }}">
+                                                <div class="text-gray-900 text-left">
                                                     <a href="{{ route('teams.show', ['team' => $event->team_1]) }}" wire:navigate>
                                                         {{ $event->team_1->name }}
                                                     </a>
                                                 </div>
                                                 @if($event->score1 !== null &&  $event->team_2->name !== 'BYE')
-                                                    <div class="mr-1 {{ $event->score1 > 7 ? 'text-green-700 font-semibold' : 'text-red-700' }}">
+                                                    <div
+                                                        @class([
+                                                            'mr-1',
+                                                            'text-green-700' => $event->score1 > 7,
+                                                            'text-red-700' => $event->score1 < 8,
+                                                        ])
+                                                    >
                                                         {{ $event->score1 }}
                                                     </div>
                                                 @else
@@ -64,19 +71,25 @@
                                                 @endif
                                             </div>
                                         </td>
-                                        <td>
+                                        <td @class(['bg-green-50' => $my_team === $event->team_2->id, 'font-semibold' => $event->score2 > 7])>
                                             <div
-                                                class="flex justify-between"
+                                                class="flex justify-between p-1"
                                                 wire:click.prevent="setMyTeam({{ $event->team_2->id }})"
                                             >
                                                 @if($event->score2 !== null &&  $event->team_2->name !== 'BYE')
-                                                    <div class="ml-1 {{ $event->score2 > 7 ? 'text-green-700 font-semibold' : 'text-red-700' }}">
+                                                    <div
+                                                        @class([
+                                                            'ml-1',
+                                                            'text-green-700' => $event->score2 > 7,
+                                                            'text-red-700' => $event->score2 < 8,
+                                                        ])
+                                                    >
                                                         {{ $event->score2 }}
                                                     </div>
                                                 @else
                                                     <div></div>
                                                 @endif
-                                                <div class="text-gray-900 text-right {{ $my_team === $event->team_2->id ? 'font-semibold' : '' }}">
+                                                <div class="text-gray-900 text-right">
                                                     <a href="{{ route('teams.show', ['team' => $event->team_2]) }}" wire:navigate>
                                                         {{ $event->team_2->name }}
                                                     </a>
@@ -101,7 +114,8 @@
                             <div class="border-b-2 border-x-2 border-green-500 bg-green-100/25 p-2">
                                 @can ('create', $date)
                                     There are no games yet, <a href="{{ route('dates.show', ['date' => $date]) }}" wire:navigate>please create
-                                        some</a> or <a href="{{ route('admin.calendar.update', ['season' => $date->season]) }}" wire:navigate>delete the date if
+                                        some</a> or <a href="{{ route('admin.calendar.update', ['season' => $date->season]) }}" wire:navigate>delete
+                                        the date if
                                         this is an error</a>.
                                 @else
                                     There are no games yet. The teams will appear when the games are known.
