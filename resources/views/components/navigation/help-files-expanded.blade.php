@@ -15,8 +15,12 @@
         </x-forms.dropdown-link>
 
         @if(auth()->user()->isAdmin())
+            <hr class="my-2 border-b border-b-indigo-700 w-fill">
+
+            <div class="ml-12 text-sm text-blue-800">Admin only</div>
+
             <x-forms.dropdown-link :href="route('admin.help.overview')" wire:navigate>
-                {{ __('The Scoresheet page') }}
+                {{ __('General overview') }}
             </x-forms.dropdown-link>
         @endif
 
