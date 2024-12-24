@@ -11,7 +11,7 @@ name('help.results');
         <x-title>
             <x-slot:title>The help pages</x-slot:title>
             <x-slot:subtitle>
-                <x-svg.circle-question-solid color="fill-green-600" size="7"/>
+                <x-svg.circle-info-solid color="fill-green-600" size="6"/>
                 Scoresheet (Competition results)
             </x-slot:subtitle>
         </x-title>
