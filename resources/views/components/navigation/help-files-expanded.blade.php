@@ -28,6 +28,9 @@
             <x-forms.dropdown-link :href="route('admin.help.overview')" wire:navigate>
                 {{ __('General overview') }}
             </x-forms.dropdown-link>
+            <x-forms.dropdown-link :href="route('admin.help.schedule')" wire:navigate>
+                {{ __('Day Schedule blueprint') }}
+            </x-forms.dropdown-link>
         @endif
 
     </x-slot>

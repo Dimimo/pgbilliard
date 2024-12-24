@@ -2,7 +2,7 @@
     <article class="my-4 flex flex-col rounded-lg border border-gray-700 bg-green-100 p-4 space-y-2">
         <p>
             A day schedule it the <span class="font-bold">blueprint</span> for the daily billiard schedule. I noticed some people like
-            the 'old' schedule and some the 'new'. They will be able to chose.
+            the 'old' schedule and some the 'new'. They will be able to choose.
         </p>
         <p>
             Whatever schedule the captains choose, they can still move around the players as they agree upon. Again: these proposed

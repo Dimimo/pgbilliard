@@ -39,12 +39,12 @@
 
         <hr class="my-2 w-fill border-b border-b-indigo-700">
 
-        <x-forms.dropdown-link :href="route('admin.calendar.update', ['season' => $season])" wire:navigate>
-            {{ __('Update the Calendar') }}
-        </x-forms.dropdown-link>
-
         <x-forms.dropdown-link :href="route('admin.season.update', ['season' => $season])" wire:navigate>
             {{ __('Update Season structure') }}
+        </x-forms.dropdown-link>
+
+        <x-forms.dropdown-link :href="route('admin.calendar.update', ['season' => $season])" wire:navigate>
+            {{ __('Update the Calendar') }}
         </x-forms.dropdown-link>
 
         <hr class="my-2 w-fill border-b border-b-indigo-700">
