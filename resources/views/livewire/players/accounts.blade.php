@@ -38,7 +38,7 @@
         <p class="my-3">
             If you are listed, <strong>claim the account</strong>. <strong>Change your email address</strong>
             <span class="text-red-700">(this is important, so you can reset your password and receive notifications!)</span>
-            and <strong>change your password</strong>. The current password is '<strong>secret</strong>' for all bogus accounts.
+            and <strong>change your password</strong>.
         </p>
         <p class="my-3">
             This page is temporarily and <strong>will disappear in the near future</strong>. <u>Please be thoughtful!</u>

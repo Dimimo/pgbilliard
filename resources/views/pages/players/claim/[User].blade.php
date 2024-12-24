@@ -24,7 +24,7 @@ state('user');
                 a reset link can be sent to your provided credentials.
             </p>
             <p class="my-3">
-                <u>Reminder:</u> the current password is '<strong>secret</strong>' and should already be filled in automatically.
+                <u>Reminder:</u> the current password should be entered automatically.
             </p>
         </div>
         <div class="py-12">

@@ -120,7 +120,7 @@
                     @error('user_form.email') <span class="text-red-700">{{ $message }}</span> @enderror
                 </div>
                 <div class="text-sm italic text-gray-500">
-                    If you don't have the person's email, it is auto generated, the password is '<strong>secret</strong>'
+                    If you don't have the person's email, it is auto generated.
                 </div>
                 <div class="p-2">
                     <div class="flex items-center py-2">
