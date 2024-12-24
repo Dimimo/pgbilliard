@@ -11,7 +11,7 @@
     </x-slot>
     <x-slot name="content">
         <x-forms.dropdown-link :href="route('help.results')" wire:navigate>
-            {{ __('The Scoresheet page') }}
+            {{ __('Scoresheet explained') }}
         </x-forms.dropdown-link>
 
         @if(auth()->user()?->isAdmin())
