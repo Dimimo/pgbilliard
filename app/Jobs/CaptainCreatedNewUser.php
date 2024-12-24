@@ -6,6 +6,7 @@ use App\Mail\RemindCaptainOfNewUser;
 use App\Models\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Str;
 
 class CaptainCreatedNewUser implements ShouldQueue
 {
@@ -26,5 +27,8 @@ class CaptainCreatedNewUser implements ShouldQueue
     public function handle(): void
     {
         \Mail::to(auth()->user())->queue(new RemindCaptainOfNewUser($this->user));
+        if (!Str::contains($this->user->email, '@pgbilliard.com')) {
+            \Mail::to($this->user)->queue(new RemindCaptainOfNewUser($this->user));
+        }
     }
 }
