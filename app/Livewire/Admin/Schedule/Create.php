@@ -71,6 +71,9 @@ class Create extends Component
         if ($this->request_format_update === true) {
             $this->request_format_update = false;
             $this->dispatch('format-updated');
+        } else {
+            // redirect (reloads) to this page in case a new input was created
+            $this->redirect(route('admin.schedule.update', ['format' => $this->format->id]), navigate: true);
         }
     }
 }
