@@ -31,6 +31,9 @@
             <x-forms.dropdown-link :href="route('admin.help.structure')" wire:navigate>
                 {{ __('Season Structure') }}
             </x-forms.dropdown-link>
+            <x-forms.dropdown-link :href="route('admin.help.calendar')" wire:navigate>
+                {{ __('Calendar Creation') }}
+            </x-forms.dropdown-link>
             <x-forms.dropdown-link :href="route('admin.help.schedule')" wire:navigate>
                 {{ __('Day Schedule blueprint') }}
             </x-forms.dropdown-link>

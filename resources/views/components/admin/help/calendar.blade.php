@@ -45,7 +45,7 @@
 
 <div class="text-2xl">Delete a date</div>
 <div class="my-2">
-    You can delete a date if there it has no games. If the date is somehow wrong, you
+    You can delete a date if their it has no games. If the date is somehow wrong, you
     will have to delete the games <img
         class="inline-block"
         src="{{ secure_asset('svg/minus-box-fill.svg') }}"
