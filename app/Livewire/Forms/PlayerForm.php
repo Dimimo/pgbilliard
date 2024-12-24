@@ -19,7 +19,7 @@ class PlayerForm extends Form
     {
         return [
             'captain' => 'bool',
-            'user_id' => Rule::unique(User::class)->ignore(Auth::user()),
+            'user_id' => Rule::unique(User::class, 'id')->ignore(Auth::user()),
             'team_id' => [
                 'required',
                 'exists:teams,id',
