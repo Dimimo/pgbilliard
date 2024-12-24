@@ -31,7 +31,7 @@
         </ul>
     </div>
     <form wire:submit="save">
-        <div class="block grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-4">
             <div class="p-2 mt-1 text-right text-xl">
                 <x-forms.input-label value="Season"/>
             </div>
