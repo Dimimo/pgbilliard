@@ -19,6 +19,12 @@
         </button>
     </x-slot>
     <x-slot name="content">
+        <x-forms.dropdown-link :href="route('admin.index')" wire:navigate>
+            {{ __('Overview and Help') }}
+        </x-forms.dropdown-link>
+
+        <hr class="my-2 w-fill border-b border-b-indigo-700">
+
         <x-forms.dropdown-link :href="route('admin.venues.create')" wire:navigate>
             {{ __('Create a new Venue') }}
         </x-forms.dropdown-link>

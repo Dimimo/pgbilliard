@@ -14,6 +14,11 @@
             {{ __('The Scoresheet page') }}
         </x-forms.dropdown-link>
 
+        @if(auth()->user()->isAdmin())
+            <x-forms.dropdown-link :href="route('admin.help.overview')" wire:navigate>
+                {{ __('The Scoresheet page') }}
+            </x-forms.dropdown-link>
+        @endif
 
     </x-slot>
 </x-forms.dropdown>
