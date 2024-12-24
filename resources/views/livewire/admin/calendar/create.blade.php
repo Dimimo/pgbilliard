@@ -9,7 +9,7 @@
 @endif
 <div>
     <div class="m-2 border border-green-500 bg-green-100 p-4">
-        <x-calendar.explanation :dates="$dates" :new="$new"/>
+        <x-admin.help.calendar :dates="$dates" :new="$new"/>
     </div>
     <div class="mx-2 my-4 rounded-lg border border-blue-600">
         <div class="relative flex flex-col">
