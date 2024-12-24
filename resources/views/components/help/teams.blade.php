@@ -24,14 +24,16 @@
     </div>
     <div class="font-bold">For Captains</div>
     <div class="mb-4">
-        Captains can add who is playing in the team. I made it as simple as possible. Just read the instructions on the page
-        if you have any questions. A mistake is very easily undone by the way. Except... if you unset yourself as a captain...
-        Removing team players give a warning and ask if you want to proceed. Anyway, it's easy to (re)add a player.
+        Captains (and Bar owners) can add who is playing in the team. I made it as simple as possible. Just read the
+        instructions on the page if you have any questions. A mistake is very easily undone by the way. Except...
+        if you unset yourself as a captain... Well, you get a warning before doing so.
+        Removing a team player gives a warning as well. Anyway, it's easy to add or remove players.
     </div>
     <div class="mb-4">
         <span class="font-bold">Players that are already in another team can not be selected.</span>
-        If the player is new or not in the database, simply add a new player. Names have
-        to be unique. But don't worry, a warning is given if the name is already in use.
+        If the player is new and not in the database, simply add a new player. Names have
+        to be unique. Don't worry, a warning is given if the name is already in use. After creating a new user,
+        you will receive an email with the data your new team member needs in order to log in and change their credentials.
     </div>
     <div class="mb-6">
         That's about it. Cheerio and <span class="font-bold">Have Fun!</span>
