@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int $id
  * @property string $name
+ * @property string $details
  * @property int $user_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -20,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Format newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Format query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Format whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Format whereDetails($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Format whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Format whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Format whereUpdatedAt($value)
@@ -36,6 +38,7 @@ class Format extends Model
      */
     protected $fillable = [
         'name',
+        'details',
     ];
 
     public function checkGameNumbers(int $player, bool $home): int
