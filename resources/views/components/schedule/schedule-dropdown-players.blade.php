@@ -18,7 +18,7 @@
                     <option
                         x-on:click="$wire.player({{ $p }}, {{ $position }}, {{ $home }})"
                     >
-                        {{ $home === true ? 'Home' : 'Visit' }} {{ $p }}
+                        {{ $home ? 'Home' : 'Visit' }} {{ $p }}
                     </option>
                 @endfor
             </select>
@@ -38,7 +38,7 @@
                         @selected($item->player === $p)
                         x-on:click="$wire.player({{ $p }}, {{ $position }}, {{ $home }})"
                     >
-                        {{ $home === true ? 'Home' : 'Visit' }} {{ $p }}
+                        {{ $home ? 'Home' : 'Visit' }} {{ $p }}
                     </option>
                 @endfor
             </select>
