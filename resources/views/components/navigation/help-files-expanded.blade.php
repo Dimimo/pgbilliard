@@ -13,6 +13,9 @@
         <x-forms.dropdown-link :href="route('help.results')" wire:navigate>
             {{ __('Scoresheet explained') }}
         </x-forms.dropdown-link>
+        <x-forms.dropdown-link :href="route('help.calendar')" wire:navigate>
+            {{ __('The Calendar') }}
+        </x-forms.dropdown-link>
 
         @if(auth()->user()?->isAdmin())
             <hr class="my-2 border-b border-b-indigo-700 w-fill">
