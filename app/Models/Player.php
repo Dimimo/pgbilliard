@@ -90,22 +90,22 @@ class Player extends Model
 
     protected function name(): Attribute
     {
-        return Attribute::make(get: fn () => $this->user->name);
+        return Attribute::make(get: fn () => $this->user?->name);
     }
 
     protected function phone(): Attribute
     {
-        return Attribute::make(get: fn () => $this->user->contact_nr);
+        return Attribute::make(get: fn () => $this->user?->contact_nr);
     }
 
     protected function gender(): Attribute
     {
-        return Attribute::make(get: fn () => $this->user->gender);
+        return Attribute::make(get: fn () => $this->user?->gender);
     }
 
     protected function email(): Attribute
     {
-        return Attribute::make(get: fn () => $this->user()->email);
+        return Attribute::make(get: fn () => $this->user?->email);
     }
 
     /**
