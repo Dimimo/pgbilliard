@@ -28,7 +28,7 @@
         3/ Ormeco <br>
         4/ <a
             class="text-blue-800 hover:text-blue-600 hover:underline"
-            href="{{ route('teams') }}"
+            href="{{ route('teams.index') }}"
             wire:navigate
         >
             you don't appear as a player in your team
