@@ -21,9 +21,9 @@ trait WithSetMyTeam
             : session()->put('my_team', $this->my_team = $id);
     }
 
-    private function setMyTeamBasedOnUser()
+    private function setMyTeamBasedOnUser(): ?int
     {
         $date = $this->date ?? $this->dates->first();
-        return $date->getTeam(auth()->user());
+        return $date->getTeam(auth()->user())?->id;
     }
 }
