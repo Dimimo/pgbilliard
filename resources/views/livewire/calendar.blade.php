@@ -6,27 +6,30 @@
 
                 @foreach ($dates as $date)
 
-                    <div class="w-full md:w-1/2 lg:w-1/3 px-4" wire:key="date_{{ $date->id }}">
+                    <div class="w-full px-4 md:w-1/2 lg:w-1/3" wire:key="date_{{ $date->id }}">
                         <div
-                            class="relative grid grid-flow-row auto-rows-max gap-y-2 w-auto py-3 px-6 bg-gray-200 text-gray-900 rounded border border-b-1 border-gray-300 {{ $date->regular ? 'bg-green-500' : 'bg-teal-500' }}">
-                            <div class="text-center">
-                                @if($hasAccess || $date->checkOpenWindowAccess())
-                                    <a
-                                        href="{{ route('dates.show', ['date' => $date]) }}"
-                                        class="text-white text-lg hover:text-yellow-100 hover:underline" title="click for details"
-                                        wire:navigate
-                                    >
-                                        {{ $date->date->format('jS \o\f M Y') }}
-                                    </a>
-                                    @if ($date->date->format('ymd') === now()->format('ymd'))
-                                        <div class="text-yellow-100 text-lg">
-                                            <a href="{{ route('dates.show', ['date' => $date]) }}" class="hover:underline">Live update!</a>
-                                        </div>
-                                    @endif
-                                @else
-                                    <div class="text-white text-lg">{{ $date->date->format('jS \o\f M Y') }}</div>
+                            class="relative grid grid-flow-row justify-items-center auto-rows-max gap-y-2 w-auto py-3 px-6 bg-gray-200 text-gray-900 rounded border border-b-1 border-gray-300 {{ $date->regular ? 'bg-green-500' : 'bg-teal-500' }}">
+                            @if($hasAccess || $date->checkOpenWindowAccess())
+                                <a
+                                    href="{{ route('dates.show', ['date' => $date]) }}"
+                                    class="text-lg !text-white after:!bg-yellow-100 link" title="click for details"
+                                    wire:navigate
+                                >
+                                    {{ $date->date->format('jS \o\f M Y') }}
+                                </a>
+                                @if ($date->date->format('ymd') === now()->format('ymd'))
+                                    <div class="text-lg text-yellow-100">
+                                        <a
+                                            href="{{ route('dates.show', ['date' => $date]) }}"
+                                            class="animate-pulse"
+                                        >
+                                            Live update!
+                                        </a>
+                                    </div>
                                 @endif
-                            </div>
+                            @else
+                                <div class="text-lg text-white">{{ $date->date->format('jS \o\f M Y') }}</div>
+                            @endif
                             @if ($date->title)
                                 <div
                                     class="text-center text-xl font-medium {{ $date->regular ? 'text-violet-900' : 'text-gray-900' }}">{{ $date->title }}</div>
@@ -35,7 +38,7 @@
 
                         @if ($date->events && $date->events()->count() > 0)
 
-                            <table class="w-full mb-4">
+                            <table class="mb-4 w-full">
                                 <thead class="whitespace-nowrap">
                                 <tr class="bg-gray-100">
                                     <th class="p-2 text-left text-red-700">Home Team</th>
@@ -51,8 +54,12 @@
                                                 class="flex justify-between p-1"
                                                 wire:click.self="setMyTeam({{ $event->team_1->id }})"
                                             >
-                                                <div class="text-gray-900 text-left">
-                                                    <a href="{{ route('teams.show', ['team' => $event->team_1]) }}" wire:navigate>
+                                                <div class="text-left text-gray-900">
+                                                    <a
+                                                        href="{{ route('teams.show', ['team' => $event->team_1]) }}"
+                                                        class="link"
+                                                        wire:navigate
+                                                    >
                                                         {{ $event->team_1->name }}
                                                     </a>
                                                 </div>
@@ -89,8 +96,12 @@
                                                 @else
                                                     <div></div>
                                                 @endif
-                                                <div class="text-gray-900 text-right">
-                                                    <a href="{{ route('teams.show', ['team' => $event->team_2]) }}" wire:navigate>
+                                                <div class="text-right text-gray-900">
+                                                    <a
+                                                        href="{{ route('teams.show', ['team' => $event->team_2]) }}"
+                                                        class="link"
+                                                        wire:navigate
+                                                    >
                                                         {{ $event->team_2->name }}
                                                     </a>
                                                 </div>
@@ -101,7 +112,7 @@
                                     @if ($event->team_1->venue_id != $event->venue_id)
 
                                         <tr>
-                                            <td colspan="2" class="text-red-600 text-center font-medium">
+                                            <td colspan="2" class="text-center font-medium text-red-600">
                                                 Game @ {{ $event->venue->name }}
                                             </td>
                                         </tr>
@@ -111,12 +122,20 @@
                                 </tbody>
                             </table>
                         @else
-                            <div class="border-b-2 border-x-2 border-green-500 bg-green-100/25 p-2">
+                            <div class="border-x-2 border-b-2 border-green-500 bg-green-100/25 p-2">
                                 @can ('create', $date)
-                                    There are no games yet, <a href="{{ route('dates.show', ['date' => $date]) }}" wire:navigate>please create
-                                        some</a> or <a href="{{ route('admin.calendar.update', ['season' => $date->season]) }}" wire:navigate>delete
-                                        the date if
-                                        this is an error</a>.
+                                    There are no games yet, <a
+                                        href="{{ route('dates.show', ['date' => $date]) }}"
+                                        class="link"
+                                        wire:navigate
+                                    >please create
+                                        some
+                                    </a> or <a
+                                        href="{{ route('admin.calendar.update', ['season' => $date->season]) }}"
+                                        class="link"
+                                        wire:navigate
+                                    >
+                                        delete the date if this is an error</a>.
                                 @else
                                     There are no games yet. The teams will appear when the games are known.
                                 @endcan
