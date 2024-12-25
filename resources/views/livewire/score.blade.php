@@ -6,7 +6,7 @@
                 <div class="mt-4 flex justify-center text-lg text-indigo-700">
                     <a
                         href="{{ route('dates.show', ['date' => $date]) }}"
-                        class="link"
+                        class="animate-pulse link"
                         wire:navigate
                     >
                         Live update!
