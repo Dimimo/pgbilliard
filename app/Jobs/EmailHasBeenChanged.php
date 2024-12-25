@@ -4,10 +4,9 @@ namespace App\Jobs;
 
 use App\Mail\EmailChanged;
 use App\Models\User;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
-class EmailHasBeenChanged implements ShouldQueue
+class EmailHasBeenChanged
 {
     use Queueable;
 

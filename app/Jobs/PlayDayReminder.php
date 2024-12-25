@@ -4,11 +4,10 @@ namespace App\Jobs;
 
 use App\Mail\PlayDayEmailReminder;
 use App\Models\Date;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Str;
 
-class PlayDayReminder implements ShouldQueue
+class PlayDayReminder
 {
     use Queueable;
 
