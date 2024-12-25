@@ -31,9 +31,15 @@
                     @endforeach
                 </select>
                 <div class="text-sm text-gray-700 italic">
-                    The choice of an owner (from the 'users' table) is preferred and has priority.<br>
-                    The owner can change the details of the venue they are responsible for.<br>
-                    In other words: they have access to this form.
+                    @if (!auth()->user()->isAdmin())
+                        The choice of an owner (from the 'users' table) is preferred and has priority.<br>
+                        The owner can change the details of the venue they are responsible for.<br>
+                        In other words: they have access to this form.
+                    @else
+                        Warning: if you change the Owner, you will have no more access to this form! There is not much to
+                        it, except the short address description. Latitude and Longitude are foreseen for Google Maps. Not
+                        implemented so far. Maybe one day...
+                    @endif
                 </div>
             </div>
             @if ($venue_form->show_name)
