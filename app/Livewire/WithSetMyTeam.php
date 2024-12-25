@@ -24,25 +24,6 @@ trait WithSetMyTeam
     private function setMyTeamBasedOnUser()
     {
         $date = $this->date ?? $this->dates->first();
-        return $date->events
-            ->map(
-                fn ($event) => $event
-                    ->team_1
-                    ->players
-                    ->filter(fn ($player) => $player->user_id == auth()->id())
-            )
-            ->merge(
-                $date->events->map(
-                    fn ($event) => $event
-                        ->team_2
-                        ->players
-                        ->filter(fn ($player) => $player->user_id == auth()->id())
-                )
-            )
-            ->filter(fn ($q) => $q->count())
-            ->first()
-            ?->first()
-            ?->team
-            ->id;
+        return $date->getTeam(auth()->user());
     }
 }

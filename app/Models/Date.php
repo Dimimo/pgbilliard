@@ -125,27 +125,23 @@ class Date extends Model
 
     /**
      * get the team for a logged-in user based on the set day
-     * if the user is not logged in, null is returned
+     * just make sure the user exists
      */
-    public function getTeam()
+    public function getTeam(User $user)
     {
-        if (!auth()->check()) {
-            return null;
-        }
-
         return $this->events
         ->map(
             fn ($event) => $event
                 ->team_1
                 ->players
-                ->filter(fn ($player) => $player->user_id == auth()->id())
+                ->filter(fn ($player) => $player->user_id == $user->id)
         )
         ->merge(
             $this->events->map(
                 fn ($event) => $event
                     ->team_2
                     ->players
-                    ->filter(fn ($player) => $player->user_id == auth()->id())
+                    ->filter(fn ($player) => $player->user_id == $user->id)
             )
         )
         ->filter(fn ($q) => $q->count())
