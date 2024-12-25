@@ -50,8 +50,14 @@
                 </div>
                 @break
             @else
+                @php
+                    if ($score->get('last_result')->isNotEmpty()) {
+                        $score1 = $score->get('last_result')->get('score1');
+                        $score2 = $score->get('last_result')->get('score2');
+                    }
+                @endphp
 
-                <tr wire:key="{{ $score->get('id') }}">
+                <tr class="h-8" wire:key="{{ $score->get('id') }}">
                     <td class="bg-gray-200 p-2 text-center text-gray-900" title="Your current position">
                         <strong>{{ $i++ }}</strong>
                     </td>
@@ -89,7 +95,21 @@
                         @elseif ($score->get('last_result') === 'BYE')
                             <span class="text-gray-600">BYE</span>
                         @else
-                            <span class="text-gray-900">{{ $score->get('last_result') }}</span>
+                            <div class="flex items-center justify-center space-x-2">
+                                <div @class([
+                                        'text-green-700 text-lg font-semibold' => $score1 > 7,
+                                    ])>
+                                    {{ $score1 }}
+                                </div>
+                                <div>
+                                    <x-svg.minus-solid color="fill-gray-600" size="3" padding=""/>
+                                </div>
+                                <div @class([
+                                        'text-green-700 text-lg font-semibold' => $score2 > 7,
+                                    ])>
+                                    {{ $score2 }}
+                                </div>
+                            </div>
                         @endif
                     </td>
                     <td class="hidden bg-green-200 p-2 text-center text-gray-900 sm:table-cell" title="Daily games won">

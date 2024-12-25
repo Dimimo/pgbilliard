@@ -54,7 +54,8 @@ trait ResultsTrait
                         if ($event->score1 == 0 && $event->score2 == 0) {
                             $result->put('last_result', 'not in');
                         } else {
-                            $result->put('last_result', "$event->score1/$event->score2");
+                            // $result->put('last_result', "$event->score1/$event->score2");
+                            $result->put('last_result', collect(['score1' => $event->score1, 'score2' => $event->score2]));
                         }
                         if ($event->score1 > 7) {
                             $result->put('won', $result->get('won') + 1);
@@ -72,7 +73,8 @@ trait ResultsTrait
                         if ($event->score1 == 0 && $event->score2 == 0) {
                             $result->put('last_result', 'not in');
                         } else {
-                            $result->put('last_result', "$event->score2/$event->score1");
+                            //$result->put('last_result', "$event->score2/$event->score1");
+                            $result->put('last_result', collect(['score2' => $event->score1, 'score1' => $event->score2]));
                         }
                         if ($event->score2 > 7) {
                             $result->put('won', $result->get('won') + 1);
@@ -185,7 +187,7 @@ trait ResultsTrait
         $collection->put('for', 0);
         $collection->put('against', 0);
         $collection->put('games_played', 0);
-        $collection->put('last_result', '');
+        $collection->put('last_result', collect());
         $collection->put('last_game_won', false);
         $collection->put('percentage', 0);
         $collection->put('rank', 0);
