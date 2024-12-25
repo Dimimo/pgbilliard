@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\PlayDayReminder;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,6 +14,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('day-scores')->timezone('Asia/Manila')->dailyAt('12:00');
+        $schedule->job(new PlayDayReminder())->timezone('Asia/Manila')->dailyAt('12:00');
 
         if (! str_contains(shell_exec('ps xf'), 'php artisan queue:work')) {
             //https://www.tecmint.com/run-linux-command-process-in-background-detach-process/

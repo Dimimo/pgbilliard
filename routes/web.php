@@ -48,4 +48,11 @@ Route::get('mailable/captain-reminder/{user}', function ($user) {
     return new \App\Mail\RemindCaptainOfNewUser($user);
 });
 
+// try with /mailable/game-reminder/300/240
+Route::get('mailable/game-reminder/{date}/{team}', function ($date, $team) {
+    $date = \App\Models\Date::find($date);
+    $team = \App\Models\Team::find($team);
+    return new \App\Mail\PlayDayEmailReminder($date, $team);
+});
+
 require __DIR__.'/auth.php';
