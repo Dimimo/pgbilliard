@@ -2,11 +2,11 @@
     <x-title title="Competition Results" subtitle="">
         <x-slot:subtitle>
             <div>Season {{ $cycle }}</div>
-            @if(($hasAccess || $date->checkOpenWindowAccess()))
-                <div class="text-lg text-indigo-700">
+            @if($date->checkOpenWindowAccess())
+                <div class="mt-4 flex justify-center text-lg text-indigo-700">
                     <a
                         href="{{ route('dates.show', ['date' => $date]) }}"
-                        class="hover:underline"
+                        class="link"
                         wire:navigate
                     >
                         Live update!
@@ -64,12 +64,12 @@
                         id="team_{{ $score->get('team')->id }}"
                         wire:click.self="setMyTeam({{ $score->get('team')->id }})"
                     >
-                        <a href="{{ route('teams.show', ['team' => $score->get('team')]) }}" class="text-gray-900" wire:navigate>
+                        <a href="{{ route('teams.show', ['team' => $score->get('team')]) }}" class="link" wire:navigate>
                             {{ $score->get('team')->name }}
                         </a>
                     </td>
                     <td class="bg-amber-200 p-2 text-gray-900" title="Last played Team (week {{ $week }})">
-                        <a href="{{ route('teams.show', ['team' => $score->get('played')]) }}" class="text-gray-900" wire:navigate>
+                        <a href="{{ route('teams.show', ['team' => $score->get('played')]) }}" class="link" wire:navigate>
                             @if ($score->get('max_games') === $score->get('games_played'))
                                 {{ $score->get('played')->name }}
                             @else
