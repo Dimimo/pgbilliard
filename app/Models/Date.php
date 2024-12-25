@@ -124,6 +124,37 @@ class Date extends Model
     }
 
     /**
+     * get the team for a logged-in user based on the set day
+     * if the user is not logged in, null is returned
+     */
+    public function getTeam()
+    {
+        if (!auth()->check()) {
+            return null;
+        }
+
+        return $this->events
+        ->map(
+            fn ($event) => $event
+                ->team_1
+                ->players
+                ->filter(fn ($player) => $player->user_id == auth()->id())
+        )
+        ->merge(
+            $this->events->map(
+                fn ($event) => $event
+                    ->team_2
+                    ->players
+                    ->filter(fn ($player) => $player->user_id == auth()->id())
+            )
+        )
+        ->filter(fn ($q) => $q->count())
+        ->first()
+        ?->first()
+        ?->team;
+    }
+
+    /**
      * A date belongs to a season
      *
      * @return BelongsTo<Season, Team>
