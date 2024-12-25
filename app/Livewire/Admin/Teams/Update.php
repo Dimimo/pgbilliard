@@ -43,7 +43,7 @@ class Update extends Component
             $this->form->team->update(['venue_id' => $value]);
         } elseif ($name === 'form.captain_id') {
             // selecting a new captain is different, first delete the existing captain, then add the new one
-            $this->form->team->players()->whereCaptain(true)->first()?->delete();
+            $this->form->team->players()->whereCaptain(true)->delete();
             $this->form->team->players()->create(['user_id' => $value, 'captain' => true]);
         }
         $this->dispatch('teams-updated');
