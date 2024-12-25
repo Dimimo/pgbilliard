@@ -1,5 +1,5 @@
-<div>
-    <table class="table-auto w-full md:w-auto">
+<div class="flex justify-center">
+    <table class="border-separate border-spacing-2">
         <thead class="whitespace-nowrap">
         <tr class="bg-gray-100">
             <th class="p-2 text-left text-gray-900 font-semibold">Date</th>
@@ -15,12 +15,12 @@
                     <tr>
                         <td class="p-2">
                             <div class="flex justify-start">
-                                <div class="mr-2">
-                                    {{-- todo: add the pdf file --}}
+                                {{-- todo: add the pdf file --}}
+                                {{--<div class="mr-2">
                                     <a href="#" title="download this personalized day schedule" wire:navigate>
                                         <img src="{{ secure_asset('svg/file-pdf.svg') }}" alt="" width="16" height="16">
                                     </a>
-                                </div>
+                                </div>--}}
                                 <div>
                                     <a href="{{ route('dates.show', ['date' => $date]) }}" wire:navigate>
                                         {{ $event->date->date->format('jS \o\f M Y') }}
@@ -39,8 +39,8 @@
                         <td class="p-2 text-center">
                             @if($event->team_2->name === 'BYE')
                                 <span class="green">BYE</span>
-                            @elseif ($event->score1 !== null)
-                                <strong class="{{ $event->score1 > 7 ? 'green' : 'red' }}">{{ $event->score1 }}</strong>/{{ $event->score2 }}
+                            @elseif (!is_null($event->score1))
+                                <strong class="{{ $event->score1 > 7 ? 'text-green-700 font-bold' : 'text-red-700' }}">{{ $event->score1 }}</strong>/{{ $event->score2 }}
                             @elseif($event->score1 === 0 && $event->score2 === 0)
                                 <span class="red">Not in</span>
                             @else
@@ -52,12 +52,12 @@
                     <tr>
                         <td class="p-2">
                             <div class="flex justify-start">
-                                <div class="mr-2">
-                                    {{-- todo: add the pdf file --}}
+                                {{-- todo: add the pdf file --}}
+                                {{--<div class="mr-2">
                                     <a href="#" title="download this personalized day schedule" wire:navigate>
                                         <img src="{{ secure_asset('svg/file-pdf.svg') }}" alt="" width="16" height="16">
                                     </a>
-                                </div>
+                                </div>--}}
                                 <div>
                                     <a href="{{ route('dates.show', ['date' => $date]) }}" wire:navigate>
                                         {{ $event->date->date->format('jS \o\f M Y') }}
@@ -76,8 +76,8 @@
                         <td class="text-center">
                             @if($event->team_2->name === 'BYE')
                                 <span class="green">BYE</span>
-                            @elseif ($event->score2 !== null)
-                                {{ $event->score1 }}/<strong class="{{ $event->score2 > 7 ? 'green' : 'red' }}">{{ $event->score2 }}</strong>
+                            @elseif (!is_null($event->score2))
+                                {{ $event->score1 }}/<strong class="{{ $event->score2 > 7 ? 'text-green-700 font-bold' : 'text-red-700' }}">{{ $event->score2 }}</strong>
                             @elseif($event->score1 === 0 && $event->score2 === 0)
                                 <span class="red">Not in</span>
                             @else
