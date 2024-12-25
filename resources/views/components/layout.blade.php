@@ -63,7 +63,7 @@
         {{ $slot }}
     </div>
 
-    @if(request()->routeIs(['index', 'scoresheet', 'calendar']))
+    @if(request()->routeIs(['index', 'scoresheet', 'calendar', 'teams.index']))
         <livewire:cycle-select/>
     @endif
 

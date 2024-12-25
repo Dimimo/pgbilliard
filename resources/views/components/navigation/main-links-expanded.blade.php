@@ -16,7 +16,7 @@
         </x-forms.nav-link>
     </div>
     <div class="hidden space-x-4 sm:-my-px sm:ml-4 sm:flex">
-        <x-forms.nav-link href="{{ route('teams') }}" :active="request()->routeIs('teams.*')" wire:navigate>
+        <x-forms.nav-link href="{{ route('teams.index') }}" :active="request()->routeIs('teams.index')" wire:navigate>
             Teams
         </x-forms.nav-link>
     </div>

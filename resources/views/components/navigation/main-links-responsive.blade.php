@@ -11,7 +11,7 @@
     </x-forms.responsive-nav-link>
 </div>
 <div class="pt-2 pb-3 space-y-1">
-    <x-forms.responsive-nav-link href="{{ route('teams') }}" :active="request()->routeIs(['teams', 'teams.*'])" wire:navigate>
+    <x-forms.responsive-nav-link href="{{ route('teams.index') }}" :active="request()->routeIs(['teams', 'teams.*'])" wire:navigate>
         <x-svg.users-solid color="fill-gray-600" size="5" padding="mr-4"/>
         Teams
     </x-forms.responsive-nav-link>
