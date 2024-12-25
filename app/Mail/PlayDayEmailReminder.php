@@ -49,7 +49,7 @@ class PlayDayEmailReminder extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            markdown: 'play-day-reminder',
+            markdown: 'mail.play-day-reminder',
         );
     }
 }
