@@ -8,7 +8,7 @@
             title="Minus one game"
             width="35"
             height="35"
-            wire:click="change('score1', 'decrement')"
+            wire:click="change('{{ $model }}', 'decrement')"
         >
     </div>
     <div>
