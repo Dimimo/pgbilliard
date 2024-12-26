@@ -2,7 +2,7 @@
     <x-title title="Competition Results" subtitle="">
         <x-slot:subtitle>
             <div>Season {{ $cycle }}</div>
-            @if($date->checkOpenWindowAccess())
+            @if($hasAccess && $date->checkOpenWindowAccess())
                 <div class="mt-4 flex justify-center text-lg text-indigo-700">
                     <a
                         href="{{ route('dates.show', ['date' => $date]) }}"
