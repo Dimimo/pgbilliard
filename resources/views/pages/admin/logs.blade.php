@@ -23,7 +23,7 @@ state(['logs' => \Storage::disk('logs')->get("scores.log")]);
                     All dates are in <span class="italic">Asia/Manila</span> time.
                 </p>
             </div>
-            <div class="h-auto w-max border-2 border-blue-800 p-2 text-base">
+            <div class="h-auto w-max border-2 border-blue-800 p-2 text-sm">
                 {!! nl2br($logs) !!}
             </div>
         @endif
