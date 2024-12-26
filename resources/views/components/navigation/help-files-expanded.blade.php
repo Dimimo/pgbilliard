@@ -19,6 +19,9 @@
         <x-forms.dropdown-link :href="route('help.teams')" wire:navigate>
             {{ __('Participating Teams') }}
         </x-forms.dropdown-link>
+        <x-forms.dropdown-link :href="route('help.live-scores')" wire:navigate>
+            {{ __('Live scores day event') }}
+        </x-forms.dropdown-link>
 
         @if(auth()->user()?->isAdmin())
             <hr class="my-2 border-b border-b-indigo-700 w-fill">
