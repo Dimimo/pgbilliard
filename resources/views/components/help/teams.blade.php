@@ -15,14 +15,18 @@
         the fall-back number you see is of the bar owner. In case you need to move a date, or you will be later than expected,
         you find who to contact on this page.
     </div>
-    <div class="font-bold">For Bar owners and Captains</div>
+    <div class="mb-4 font-bold">
+        For understandable reasons, all phone numbers are hidden for visitors. In order to see a contact number you need to be
+        <a href="{{ route('login') }}" class="inline-block text-blue-800 link" wire:navigate>Logged In</a>!
+    </div>
+    <div class="font-bold">Bar owners and Captains</div>
     <div class="mb-4">
         Bar owners and Captains may notice a <x-svg.pen-to-square-solid color="fill-blue-600" size="4"/> sign next to some names.
         This means you have access to change what's underneath. For Bar owners that would be the information of the bar, the
         team(s) and the players of the team(s). Including who to appoint as a captain. Appointing the teams itself is done by an
         administrator as it is part of the schedule in the current Season.
     </div>
-    <div class="font-bold">For Captains</div>
+    <div class="font-bold">Captains</div>
     <div class="mb-4">
         Captains (and Bar owners) can add who is playing in the team. I made it as simple as possible. Just read the
         instructions on the page if you have any questions. A mistake is very easily undone by the way. Except...
