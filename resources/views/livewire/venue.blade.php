@@ -22,7 +22,11 @@
             <img src="{{ secure_asset('svg/mobile-phone.svg') }}" alt="Contact number" width="24" height="24">
         </div>
         <div>
-            {{ $venue->get_contact_nr }}
+            @auth()
+                {{ $venue->get_contact_nr }}
+            @else
+                hidden
+            @endauth
         </div>
     </div>
     @can ('update', $venue)
