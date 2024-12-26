@@ -138,7 +138,7 @@
                                         class="link"
                                         wire:navigate
                                     >
-                                        delete the date if this is an error</a>.
+                                        delete the date if this is an error or a holiday</a>
                                 @else
                                     There are no games yet. The teams will appear when the games are known.
                                 @endcan
