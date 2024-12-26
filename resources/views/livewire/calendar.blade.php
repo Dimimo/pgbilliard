@@ -57,7 +57,7 @@
                                                 class="flex justify-between p-1"
                                                 wire:click.self="setMyTeam({{ $event->team_1->id }})"
                                             >
-                                                <div class="text-left text-gray-900">
+                                                <div class="mr-1 text-left text-gray-900">
                                                     <a
                                                         href="{{ route('teams.show', ['team' => $event->team_1]) }}"
                                                         class="link"
@@ -99,7 +99,7 @@
                                                 @else
                                                     <div></div>
                                                 @endif
-                                                <div class="text-right text-gray-900">
+                                                <div class="ml-1 text-right text-gray-900">
                                                     <a
                                                         href="{{ route('teams.show', ['team' => $event->team_2]) }}"
                                                         class="link"
