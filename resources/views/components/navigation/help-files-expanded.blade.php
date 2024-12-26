@@ -2,7 +2,7 @@
     <x-slot name="trigger">
         <button
             class="inline-flex items-center rounded-md border border-transparent bg-transparent px-1 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none"
-            title="Profile related"
+            title="The Help Files"
         >
             <div>
                 <x-svg.circle-question-solid color="fill-green-600" size="5"/>
