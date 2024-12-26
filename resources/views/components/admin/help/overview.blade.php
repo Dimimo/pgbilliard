@@ -63,7 +63,7 @@
         Vision and plans for the future
     </div>
     <ul class="ml-6 list-disc">
-        <li>send an email the day before the game about where and who they play as a reminder
+        <li class="line-through">send an email the day before the game about where and who they play as a reminder
             <span class="text-sm italic">(feels like talking to myself)</span></li>
         <li>more stats and overviews, i.e. for users, players, venues</li>
         <li>
@@ -82,4 +82,18 @@
         <li>overall website settings, most of them are now set in a 'static' environment</li>
         <li>...other ideas we haven't thought of as yet</li>
     </ul>
+    <div class="pt-4 text-lg underline">
+        Recent changes <span class="text-sm">(starting 26-12-2024)</span>
+    </div>
+    <ul class="ml-6 list-disc">
+        <li>all contact numbers are hidden for visitors</li>
+        <li>the good old big navigation buttons are back, only for the scores, calendar and teams</li>
+        <li>the help files are finished</li>
+    </ul>
+    <div>
+        For ALL changes, I refer to
+        <a href="https://github.com/Dimimo/pgbilliard/commits/main/" class="inline-block text-blue-800 link" target="_blank">
+            all GitHub commits 🤞
+        </a>
+    </div>
 </div>
