@@ -1,5 +1,8 @@
 <div>
     <x-title title="Participating teams" subtitle="Season {{ $cycle }}"/>
+
+    <x-navigation.main-links-buttons/>
+
     <table class="min-w-full table-auto border-separate border-spacing-y-3">
         <thead class="whitespace-nowrap">
         <tr class="border border-slate-300">

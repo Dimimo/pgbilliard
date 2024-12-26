@@ -15,7 +15,10 @@
             @endif
         </x-slot:subtitle>
     </x-title>
-    <table class="mb-4 min-w-full bg-transparent table-collapse">
+
+    <x-navigation.main-links-buttons/>
+
+    <table class="my-2 md:my-4 min-w-full bg-transparent table-collapse">
         <thead class="whitespace-nowrap">
         <tr>
             <th class="bg-gray-300 p-2 text-center text-gray-900">#</th>

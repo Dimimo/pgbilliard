@@ -1,7 +1,10 @@
 <div>
     <x-title title="Games schedule" subtitle="Season {{ $cycle }}"/>
+
+    <x-navigation.main-links-buttons/>
+
     <div class="relative flex flex-col">
-        <div class="p-0 sm:p-2 md:p-4">
+        <div class="px-0 py-2 sm:p-2 md:p-4">
             <div class="flex flex-wrap">
 
                 @foreach ($dates as $date)
