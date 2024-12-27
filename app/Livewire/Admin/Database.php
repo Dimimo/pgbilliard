@@ -20,11 +20,8 @@ use stdClass;
 class Database extends Component
 {
     public Collection $seasons;
-
     public ?Collection $dates = null;
-
     public bool $converted = false;
-
     public ?string $messages = null;
 
     public function mount(): void

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 trait WithAdmins
 {
     public Collection $admins;
-
     public array $adminIds;
 
     public function mountWithAdmins(): void

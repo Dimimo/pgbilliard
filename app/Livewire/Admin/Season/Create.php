@@ -11,15 +11,10 @@ use Livewire\Component;
 class Create extends Component
 {
     public Season $season;
-
     public string $cycle;
-
     public int $number_of_teams;
-
     public string $day_of_week;
-
     public string $starting_date;
-
     public bool $has_bye;
 
     public function mount(): void

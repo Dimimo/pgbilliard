@@ -17,13 +17,9 @@ class Score extends Component
     use WithHasAccess;
 
     public array $scores;
-
     public int $i = 1;
-
     public int $week;
-
     public Date $date;
-
     public ?int $score_id = null;
 
     public function mount(): void

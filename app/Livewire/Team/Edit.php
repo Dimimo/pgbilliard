@@ -12,7 +12,6 @@ use Livewire\Component;
 class Edit extends Component
 {
     public TeamForm $team_form;
-
     public Collection $venues;
 
     public function mount(Team $team): void

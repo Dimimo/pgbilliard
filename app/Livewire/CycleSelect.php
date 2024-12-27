@@ -10,7 +10,6 @@ use Livewire\Component;
 class CycleSelect extends Component
 {
     public Collection $cycles;
-
     public string $cycle = '0000/00';
 
     public function mount(): void

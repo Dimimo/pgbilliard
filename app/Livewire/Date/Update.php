@@ -13,13 +13,10 @@ use Livewire\Component;
 class Update extends Component
 {
     public Event $event;
-
     #[Validate]
     public ?int $score1 = null;
-
     #[Validate]
     public ?int $score2 = null;
-
     public bool $confirmed = false;
 
     public function rules(): array

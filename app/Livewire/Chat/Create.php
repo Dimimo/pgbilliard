@@ -14,7 +14,6 @@ use Livewire\Component;
 class Create extends Component
 {
     private ChatRoom $room;
-
     #[Validate([
         'required',
         'alpha_num',
@@ -28,10 +27,8 @@ class Create extends Component
         'unique' => 'This room name already exists',
     ])]
     public string $name;
-
     #[Validate('nullable|boolean')]
     public bool $private;
-
     public bool $new;
 
     public function mount(ChatRoom $room): void

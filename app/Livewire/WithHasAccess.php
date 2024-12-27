@@ -7,7 +7,6 @@ use App\Models\Admin;
 trait WithHasAccess
 {
     public bool $hasAccess = false;
-
     public array $adminIds;
 
     public function mountWithHasAccess(): void

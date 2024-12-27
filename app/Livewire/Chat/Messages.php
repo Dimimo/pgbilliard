@@ -15,11 +15,8 @@ use Livewire\Component;
 class Messages extends Component
 {
     public $showNewOrderNotification = false;
-
     public ChatRoom $room;
-
     public Collection $chats;
-
     #[Validate([
         'required',
         'min:1',
