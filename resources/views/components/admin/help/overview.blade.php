@@ -90,6 +90,7 @@
         <li>the good old big navigation buttons are back, only for the scores, calendar and teams</li>
         <li>the help files are finished</li>
         <li>the help files have a popup link to a modal on the appropriate pages</li>
+        <li>chat messages can be deleted, but alas, the chat itself is not yet fully functional 😒</li>
     </ul>
     <div>
         For ALL changes, I refer to
