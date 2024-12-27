@@ -40,7 +40,7 @@
 </head>
 
 <body class="flex min-h-screen flex-col font-sans antialiased">
-<header class="block sticky top-0 z-50 bg-white h-20">
+<header class="sticky top-0 z-10 block h-20 bg-white">
     <livewire:layout.navigation/>
 </header>
 
