@@ -26,6 +26,7 @@ class Messages extends Component
         'max' => 'Shorten your message to '.Constants::CHATROOM_MESSAGE.' characters',
     ])]
     public ?string $new_chat = null;
+    public int $max_chars = Constants::CHATROOM_MESSAGE;
 
     public function mount(ChatRoom $room): void
     {
@@ -36,6 +37,11 @@ class Messages extends Component
     public function render(): View
     {
         return view('livewire.chat.messages');
+    }
+
+    public function updatedNewChat(): void
+    {
+        $this->validateOnly('new_chat');
     }
 
     #[On('echo:chat-room,message-posted')]
@@ -71,5 +77,14 @@ class Messages extends Component
         $this->dispatch('userSelected')->to(Invited::class);
         broadcast(new MessagePosted($message));
         $this->reset('new_chat');
+    }
+
+    public function deleteMessage($message): void
+    {
+        $message = ChatMessage::find($message);
+        $this->authorize('delete', $message);
+        $message->delete();
+        $this->chats = $this->room->messages->loadMissing(['user' => fn ($q) => $q->select(['id', 'name'])]);
+        $this->dispatch('message-deleted');
     }
 }

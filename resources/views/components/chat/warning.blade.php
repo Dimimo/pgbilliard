@@ -2,12 +2,13 @@
     <p class="mb-2">
         <span class="font-bold">Warning:</span> this chat seems to work, except for
         <a class="text-blue-800" href="https://laravel.com/docs/11.x/broadcasting" target="_blank">the broadcasting</a>
-        of messages. This means, <span class="font-bold">your message will not yet be seen by somebody else
-                in the same room at the same time</span>.
+        of messages. This means, <span class="font-bold">your message will not be seen by somebody else
+                in the same room at the same time</span>. After a refresh of the page, the chat messages of other are available.
+        But that is of course not the purpose of a chat.
     </p>
     <p class="mb-2">
-        This feature is easily implemented with services as
-        <a class="text-blue-800" href="https://pusher.com/channels" target="_blank">Pusher Channels</a> or
+        Broadcasting is easily implemented with services like
+        <a class="text-blue-800" href="https://pusher.com/channels" target="_blank">Pusher</a> or
         <a class="text-blue-800" href="https://github.com/ably/laravel-broadcaster" target="_blank">Ably</a> but
         the free version has its limitations of 2.000 interactions a day. This seems much. But it isn't if you plan
         to use the chat frequently.
