@@ -17,8 +17,7 @@ class AccountHasBeenClaimed
      */
     public function __construct(
         public User $user,
-    )
-    {
+    ) {
         $this->subject = $this->user->name . " has claimed their account";
     }
 

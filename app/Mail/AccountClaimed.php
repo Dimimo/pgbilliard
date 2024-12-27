@@ -12,7 +12,8 @@ use Illuminate\Queue\SerializesModels;
 
 class AccountClaimed extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * Create a new message instance.
@@ -20,8 +21,7 @@ class AccountClaimed extends Mailable implements ShouldQueue
     public function __construct(
         public User $user,
         public $subject,
-    )
-    {
+    ) {
         //
     }
 

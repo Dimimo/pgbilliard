@@ -4,7 +4,6 @@ namespace App\Livewire\Chat;
 
 use App\Models\Chat\ChatRoom;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
