@@ -1,5 +1,5 @@
 <div>
-    <x-title title="Games schedule" subtitle="Season {{ $cycle }}"/>
+    <x-title title="Games schedule" subtitle="Season {{ $cycle }}" help="calendar"/>
 
     <x-navigation.main-links-buttons/>
 
