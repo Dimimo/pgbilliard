@@ -69,7 +69,7 @@
                             'p-2',
                             'bg-green-300' => $my_team === $score->get('team')->id,
                             'bg-blue-100' => $my_team !== $score->get('team')->id
-                        ])µ
+                        ])
                         id="team_{{ $score->get('team')->id }}"
                         wire:click.self="setMyTeam({{ $score->get('team')->id }})"
                     >
