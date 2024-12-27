@@ -3,7 +3,7 @@
         <span class="font-bold">Warning:</span> this chat seems to work, except for
         <a class="text-blue-800" href="https://laravel.com/docs/11.x/broadcasting" target="_blank">the broadcasting</a>
         of messages. This means, <span class="font-bold">your message will not be seen by somebody else
-                in the same room at the same time</span>. After a refresh of the page, the chat messages of other are available.
+                in the same room at the same time</span>. After a refresh of the page, the chat messages of others are available.
         But that is of course not the purpose of a chat.
     </p>
     <p class="mb-2">
