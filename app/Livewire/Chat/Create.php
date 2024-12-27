@@ -46,7 +46,7 @@ class Create extends Component
 
     public function create(): void
     {
-        $this->authorize('create', $this->room);
+        $this->authorize('create', ChatRoom::class);
         $date = array_merge($this->validate(), ['user_id' => Auth::id()]);
         $this->room = ChatRoom::create($date);
         $this->dispatch('room-created');
