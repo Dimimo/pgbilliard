@@ -26,17 +26,17 @@ class Create extends Component
         'max' => 'A room name can\'t have more than '.Constants::FORUM_TITLE.' chars',
         'unique' => 'This room name already exists',
     ])]
-    public string $name;
-    #[Validate('nullable|boolean')]
-    public bool $private;
-    public bool $new;
+    public string $name = '';
+    #[Validate('boolean')]
+    public bool $private = false;
+    public bool $new = false;
 
     public function mount(ChatRoom $room): void
     {
         $this->room = $room;
         $this->name = $room->name ?: '';
         $this->private = $room->private;
-        str_contains(URL::current(), 'chat/edit') ? $this->new = false : $this->new = true;
+        $this->new = ! str_contains(URL::current(), 'chat/edit');
     }
 
     public function render(): View
@@ -46,7 +46,7 @@ class Create extends Component
 
     public function create(): void
     {
-        $this->authorize(ChatRoom::class);
+        $this->authorize('create', $this->room);
         $date = array_merge($this->validate(), ['user_id' => Auth::id()]);
         $this->room = ChatRoom::create($date);
         $this->dispatch('room-created');

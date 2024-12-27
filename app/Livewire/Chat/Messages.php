@@ -54,7 +54,6 @@ class Messages extends Component
         $validated = $this->validate();
         $data = [
             'message' => $validated['new_chat'],
-            //'user_id' => Auth::id(),
             'chat_room_id' => $this->room->id,
         ];
         $message = auth()->user()->chatMessages()->create($data);
@@ -71,7 +70,6 @@ class Messages extends Component
         }
         $this->dispatch('userSelected')->to(Invited::class);
         broadcast(new MessagePosted($message));
-        //MessagePosted::dispatch($message);
         $this->reset('new_chat');
     }
 }
