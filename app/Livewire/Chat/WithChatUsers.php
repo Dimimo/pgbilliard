@@ -9,7 +9,7 @@ use Livewire\Attributes\Validate;
 trait WithChatUsers
 {
     #[Validate(['nullable', 'string'])]
-    public ?string $search;
+    public ?string $search = '';
     private array $ids;
     public Collection $list_users;
 
@@ -28,8 +28,10 @@ trait WithChatUsers
             'messages.user' => fn ($q) => $q->select(['id', 'name']),
 
         ]);
+        $this->room->messages()->whereUserId($user_id)->delete();
         $this->getListUsers();
         $this->dispatch('userSelected');
+        $this->reset('search');
     }
 
     private function getListUsers(): void

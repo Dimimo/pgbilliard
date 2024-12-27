@@ -8,6 +8,7 @@
                 type="checkbox"
                 class="hidden peer"
                 wire:change="toggleUser({{ $user->id }})"
+                @click="open = false"
             />
             <div wire:loading wire:target="toggleUser({{ $user->id }})">
                 <x-forms.spinner/>

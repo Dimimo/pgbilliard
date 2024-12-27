@@ -12,6 +12,7 @@
                         width="20"
                         height="20"
                         wire:click="toggleUser({{ $user->id }})"
+                        wire:confirm="Remove this user from the chat? All related messages will be deleted too."
                         wire:loading.remove
                         wire:target="toggleUser({{ $user->id }})"
                     >
