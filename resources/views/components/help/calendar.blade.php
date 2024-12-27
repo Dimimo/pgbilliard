@@ -6,7 +6,7 @@
             wire:navigate
         >
             that determine the current ranking of your team
-        </a>.
+        </a>
     </div>
     <div class="mb-4">
         Winning teams <span class="font-bold">are shown in bolder text</span>. If you are logged in and participate
