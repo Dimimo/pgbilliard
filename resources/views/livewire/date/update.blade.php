@@ -3,7 +3,7 @@
     <td @class([
             'px-2 pt-4 sm:px-4' => $errors->any(),
             'px-2 py-4 sm:p-4' => !$errors->any(),
-            'text-left',
+            'text-right',
             'font-bold text-green-700' => $score1 > 7
         ])>
         {{ $event->team_1->name }}
