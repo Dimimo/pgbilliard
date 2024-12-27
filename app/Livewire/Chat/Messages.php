@@ -56,7 +56,7 @@ class Messages extends Component
 
     public function postMessage(): void
     {
-        $this->authorize('create', $this->room);
+        $this->authorize('create', ChatMessage::class);
         $validated = $this->validate();
         $data = [
             'message' => $validated['new_chat'],
