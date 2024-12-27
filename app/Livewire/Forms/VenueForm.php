@@ -18,8 +18,8 @@ class VenueForm extends Form
     public ?string $contact_name;
     public ?string $contact_nr;
     public ?string $remark;
-    public ?float $lat;
-    public ?float $lng;
+    public ?string $lat;
+    public ?string $lng;
 
     public function rules(): array
     {

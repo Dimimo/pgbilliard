@@ -16,19 +16,12 @@ use Livewire\Component;
 class Create extends Component
 {
     public Season $season;
-
     public Collection $dates;
-
     public Collection $events;
-
     public EventForm $event;
-
     public Date $last_date;
-
     public DateForm $dateForm;
-
     public Collection $teams;
-
     public Collection $venues;
 
     public function mount(Season $season): void

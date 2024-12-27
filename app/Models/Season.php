@@ -37,21 +37,11 @@ class Season extends Model
         'cycle',
     ];
 
-    /**
-     * A season has many teams
-     *
-     * @return HasMany<Team>
-     */
     public function teams(): HasMany
     {
         return $this->hasMany(Team::class);
     }
 
-    /**
-     * A season has many dates
-     *
-     * @return HasMany<Team>
-     */
     public function dates(): HasMany
     {
         return $this->hasMany(Date::class);

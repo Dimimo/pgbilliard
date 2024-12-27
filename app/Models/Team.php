@@ -66,7 +66,7 @@ class Team extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'id',
@@ -123,41 +123,21 @@ class Team extends Model
         return $this->hasMany(Player::class);
     }
 
-    /**
-     * A team has many events as team 1
-     *
-     * @return HasMany<Event>
-     */
     public function team_1(): HasMany
     {
         return $this->hasMany(Event::class, 'team1', 'id');
     }
 
-    /**
-     * A team has many events as team 2
-     *
-     * @return HasMany<Event>
-     */
     public function team_2(): HasMany
     {
         return $this->hasMany(Event::class, 'team2', 'id');
     }
 
-    /**
-     * A team belongs to a season
-     *
-     * @return BelongsTo<Season, Team>
-     */
     public function season(): BelongsTo
     {
         return $this->belongsTo(Season::class);
     }
 
-    /**
-     * A team belongs to a venue
-     *
-     * @return BelongsTo<Venue, Team>
-     */
     public function venue(): BelongsTo
     {
         return $this->belongsTo(Venue::class, 'venue_id');

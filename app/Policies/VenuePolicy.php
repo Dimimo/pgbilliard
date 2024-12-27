@@ -34,7 +34,7 @@ class VenuePolicy
     public function delete(User $user, Venue $venue): bool
     {
         // make sure the venue has no teams first, only accidentally created venues can be deleted
-        if ($venue->has('teams')) {
+        if ($venue->count('teams')) {
             return false;
         }
 

@@ -60,7 +60,7 @@ class Player extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'user_id',
@@ -108,21 +108,11 @@ class Player extends Model
         return Attribute::make(get: fn () => $this->user?->email);
     }
 
-    /**
-     * A player belongs to a team (!make sure to filter on cycle!)
-     *
-     * @return BelongsTo<Team, Player>
-     */
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class, 'team_id', 'id');
     }
 
-    /**
-     * A player belongs to a user (only needed if captain and life scores are introduced)
-     *
-     * @return BelongsTo<Model, Player>
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(config('auth.providers.users.model'), 'user_id', 'id');

@@ -38,7 +38,7 @@ class Create extends Component
     {
         $this->room = $room;
         $this->name = $room->name ?: '';
-        $this->private = ! is_null($room->private) && $room->private;
+        $this->private = $room->private;
         str_contains(URL::current(), 'chat/edit') ? $this->new = false : $this->new = true;
     }
 

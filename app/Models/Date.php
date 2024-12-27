@@ -63,7 +63,7 @@ class Date extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'id',
@@ -150,21 +150,11 @@ class Date extends Model
         ?->team;
     }
 
-    /**
-     * A date belongs to a season
-     *
-     * @return BelongsTo<Season, Team>
-     */
     public function season(): BelongsTo
     {
         return $this->belongsTo(Season::class);
     }
 
-    /**
-     * A date has many events
-     *
-     * @return HasMany<Event>
-     */
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);

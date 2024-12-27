@@ -10,7 +10,7 @@ namespace App\Traits;
 use App\Models\Date;
 use App\Models\Team;
 use App\Taps\Cycle;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 
 /**
@@ -159,7 +159,7 @@ trait ResultsTrait
     private function getPlayedWeeks(): int
     {
         $dates = Date::tap(new Cycle())->with([
-            'events' => function (HasMany $q) {
+            'events' => function (Relation $q) {
                 return $q->with(['venue', 'date', 'team_1', 'team_2']);
             },
         ])->orderBy('date')->get();

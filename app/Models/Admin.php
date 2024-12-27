@@ -58,7 +58,7 @@ class Admin extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'user_id',
@@ -78,11 +78,6 @@ class Admin extends Model
         return AdminFactory::new();
     }
 
-    /**
-     * An admin belongs to a user
-     *
-     * @return BelongsTo<Model, Admin>
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');

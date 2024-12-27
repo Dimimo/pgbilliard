@@ -71,7 +71,7 @@ class Event extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'id',
@@ -88,7 +88,7 @@ class Event extends Model
     /**
      * The relations to eager load on every query.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $with = ['team_1', 'team_2'];
 
@@ -102,41 +102,21 @@ class Event extends Model
         return ! is_null($this->score1) && ! is_null($this->score2) && ($this->score1 != 0 && $this->score2 != 0);
     }
 
-    /**
-     * An event belongs to a date
-     *
-     * @return BelongsTo<Date, Event>
-     */
     public function date(): BelongsTo
     {
         return $this->belongsTo(Date::class, 'date_id', 'id');
     }
 
-    /**
-     * An event belongs to a venue
-     *
-     * @return BelongsTo<Venue, Event>
-     */
     public function venue(): BelongsTo
     {
         return $this->belongsTo(Venue::class, 'venue_id', 'id');
     }
 
-    /**
-     * An event belongs to team 1
-     *
-     * @return BelongsTo<Team, Event>
-     */
     public function team_1(): BelongsTo
     {
         return $this->belongsTo(Team::class, 'team1', 'id');
     }
 
-    /**
-     * An event belongs to team 2
-     *
-     * @return BelongsTo<Team, Event>
-     */
     public function team_2(): BelongsTo
     {
         return $this->belongsTo(Team::class, 'team2', 'id');

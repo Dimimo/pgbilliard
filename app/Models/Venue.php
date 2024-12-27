@@ -79,7 +79,7 @@ class Venue extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'id',
@@ -105,31 +105,16 @@ class Venue extends Model
         return VenueFactory::new();
     }
 
-    /**
-     * A venue has belongs to an owner (user)
-     *
-     * @return BelongsTo<User, Venue>
-     */
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    /**
-     * A venue has many teams
-     *
-     * @return HasMany<Team>
-     */
     public function teams(): HasMany
     {
         return $this->hasMany(Team::class, 'venue_id', 'id');
     }
 
-    /**
-     * A venue has many events
-     *
-     * @return HasMany<Event>
-     */
     public function events(): HasMany
     {
         return $this->hasMany(Event::class, 'venue_id', 'id');
