@@ -17,6 +17,7 @@ name('dates.show');
         <x-title
             title="Update the scores of the {{ $date->date->format('jS \o\f M Y') }}"
             subtitle="Season {{ $cycle }}"
+            help="live-scores"
         />
         <div class="grid justify-items-center">
             <table class="mb-4 min-w-full border-2 border-gray-900 bg-transparent table-collapse md:min-w-0">
