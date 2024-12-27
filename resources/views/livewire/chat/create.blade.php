@@ -1,9 +1,20 @@
 <div class="mx-auto w-max mt-6">
     <form wire:submit="{{ $new ? 'create' : 'update' }}">
         <div class="p-4">
-            <x-forms.input-label for="name" value="Room name" class="text-left"/>
-            <x-forms.text-input wire:model="name" id="name" name="name" type="text" class="mt-1 block w-full" autofocus
-                          autocomplete="name"/>
+            <x-forms.input-label for="name" class="text-left">
+                Room name <span class="text-sm">(max 12 chars)</span>
+            </x-forms.input-label>
+
+            <x-forms.text-input
+                wire:model="name"
+                id="name"
+                name="name"
+                type="text"
+                class="mt-1 block w-full"
+                autofocus
+                autocomplete="name"
+                maxlength="{{ \App\Constants::CHATROOM_TITLE }}"
+            />
             <x-forms.input-error class="mt-2" :messages="$errors->get('name')"/>
         </div>
 

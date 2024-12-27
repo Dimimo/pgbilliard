@@ -16,7 +16,7 @@ class Create extends Component
     private ChatRoom $room;
     #[Validate([
         'required',
-        'alpha_num',
+        'string',
         'min:2',
         'max:'.Constants::CHATROOM_TITLE,
         'unique:'.ChatRoom::class.',name',
@@ -50,8 +50,9 @@ class Create extends Component
         $date = array_merge($this->validate(), ['user_id' => Auth::id()]);
         $this->room = ChatRoom::create($date);
         $this->dispatch('room-created');
+        auth()->user()->chatRooms()->attach($this->room->id);
         ChatMessage::create([
-            'message' => 'Welcome to my '.$this->room->name.' chat room',
+            'message' => 'Welcome to the "'.$this->room->name.'" chat',
             'user_id' => $this->room->user_id,
             'chat_room_id' => $this->room->id,
         ]);
