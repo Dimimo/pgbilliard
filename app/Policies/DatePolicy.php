@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\date;
+use App\Models\Date;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 

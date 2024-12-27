@@ -23,6 +23,7 @@ trait WithSetMyTeam
 
     private function setMyTeamBasedOnUser(): ?int
     {
+        // @phpstan-ignore-next-line
         $date = $this->date ?? $this->dates->first();
         return $date->getTeam(auth()->user())?->id;
     }

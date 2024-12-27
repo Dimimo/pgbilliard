@@ -19,14 +19,9 @@ class Create extends Component
     use WithTeamOrdering;
 
     public Season $season;
-
     public Collection $teams;
-
     public ?int $team_select = null;
-
     public bool $has_bye;
-
-    public int $i = 1;
 
     public function rules(): array
     {

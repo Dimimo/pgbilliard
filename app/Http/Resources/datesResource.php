@@ -16,7 +16,7 @@ class datesResource extends JsonResource
             'date' => $this->date,
             'regular' => $this->regular,
             'title' => $this->title,
-            'cycle' => $this->cycle,
+            'season' => $this->season,
             'remark' => $this->remark,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

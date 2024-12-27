@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Teams;
 
 use App\Livewire\Forms\TeamForm;
 use App\Livewire\WithTeamOrdering;
+use App\Models\Season;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\Venue;
@@ -16,14 +17,15 @@ class Update extends Component
     use WithTeamOrdering;
 
     public TeamForm $form;
-
     public Collection $users;
-
     public Collection $venues;
+    public Collection $teams;
+    public Season $season;
 
     public function mount(Team $team): void
     {
         $this->form->setTeam($team);
+        $this->season = $team->season;
         $this->users = User::orderBy('name')->get(['id', 'name']);
         $this->venues = Venue::orderBy('name')->get(['id', 'name']);
     }

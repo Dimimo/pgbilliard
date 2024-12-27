@@ -69,8 +69,7 @@ class Messages extends Component
                 ->push(
                     $message
                     ->user()
-                    ->get(['id', 'name'])
-                    ->first()
+                    ->first(['id', 'name'])
                 );
         }
         $this->dispatch('userSelected')->to(Invited::class);

@@ -14,8 +14,6 @@ class UserSelect extends Component
 
     public ChatRoom $room;
 
-    public Collection $list_users;
-
     public function mount(ChatRoom $room): void
     {
         $this->room = $room;

@@ -104,7 +104,7 @@ class Team extends Model
      */
     public function captain(): ?Player
     {
-        return $this->players()->where('captain', '1')->get()->first();
+        return $this->players()->where('captain', '1')->first();
     }
 
     public function hasGames(): bool

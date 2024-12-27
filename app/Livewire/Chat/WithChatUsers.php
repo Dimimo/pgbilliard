@@ -3,14 +3,15 @@
 namespace App\Livewire\Chat;
 
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Livewire\Attributes\Validate;
 
 trait WithChatUsers
 {
     #[Validate(['nullable', 'string'])]
     public ?string $search;
-
     private array $ids;
+    public Collection $list_users;
 
     public function mountWithChatUsers(): void
     {

@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
         //Carbon macro for the timezone. For example $user->updated_at->appTimezone();
         //and even $user->updated_at->appTimezone()->format('d/m/y H:m');
         Carbon::macro('appTimezone', function () {
+            // @phpstan-ignore-next-line
             return $this->tz(config('app.app_timezone'));
         });
     }
