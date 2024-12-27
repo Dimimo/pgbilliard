@@ -17,6 +17,7 @@ npm-debug.log
 yarn-error.log
 phpstan.neon
 phpstan.txt
+phpstan-baseline.neon
 /.fleet
 /.idea
 /.vscode
