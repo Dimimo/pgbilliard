@@ -72,6 +72,7 @@ return [
 
     'timezone' => 'UTC',
     'app_timezone' => 'Asia/Manila',
+    'schedule_timezone' => 'Asia/Manila',
 
     /*
     |--------------------------------------------------------------------------
