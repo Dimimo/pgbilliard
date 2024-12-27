@@ -89,6 +89,7 @@
         <li>all contact numbers are hidden for visitors</li>
         <li>the good old big navigation buttons are back, only for the scores, calendar and teams</li>
         <li>the help files are finished</li>
+        <li>the help files have now a popup link on the appropriate pages</li>
     </ul>
     <div>
         For ALL changes, I refer to
