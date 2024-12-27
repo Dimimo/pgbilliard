@@ -6,6 +6,8 @@ use LivewireUI\Modal\ModalComponent;
 
 class Scoreboard extends ModalComponent
 {
+    public string $help = "Scoreboard";
+
     public function render(): \Illuminate\View\View
     {
         return view('livewire.help.scoreboard');
