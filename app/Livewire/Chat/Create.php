@@ -28,7 +28,7 @@ class Create extends Component
     ])]
     public string $name = '';
     #[Validate('boolean')]
-    public bool $private = false;
+    public ?bool $private = false;
     public bool $new = false;
 
     public function mount(ChatRoom $room): void
