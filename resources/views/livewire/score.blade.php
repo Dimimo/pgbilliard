@@ -1,5 +1,5 @@
 <div class="overflow-x-auto">
-    <x-title title="Competition Results" subtitle="">
+    <x-title title="Competition Results" help="scoreboard">
         <x-slot:subtitle>
             <div>Season {{ $cycle }}</div>
             @if($hasAccess && $date->checkOpenWindowAccess())
