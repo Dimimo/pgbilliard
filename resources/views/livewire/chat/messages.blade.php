@@ -70,7 +70,7 @@
                     console.log('joining ' + user?.name);
                 })
                 .leaving((user) => {
-                    console.log(data, "left room");
+                    console.log(user, "left room");
                 })
                 .error((error) => {
                     console.error(error);
