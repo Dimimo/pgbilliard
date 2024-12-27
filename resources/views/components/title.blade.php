@@ -6,7 +6,7 @@
             <div class="grow">
                 <div class="text-center text-4xl text-blue-900">{!! $title !!}</div>
             </div>
-            <div class="flex-none text-right">
+            <div class="flex-none text-right" title="Get help for the {{ $help }}">
                 <button wire:click="$dispatch('openModal', { component: 'help.{{ $help }}' })">
                     <x-svg.circle-question-regular color="fill-green-600" size="6"/>
                 </button>
