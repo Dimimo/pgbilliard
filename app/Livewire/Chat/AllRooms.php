@@ -4,6 +4,7 @@ namespace App\Livewire\Chat;
 
 use App\Models\Chat\ChatRoom;
 use Illuminate\Support\Collection;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class AllRooms extends Component
@@ -11,6 +12,7 @@ class AllRooms extends Component
     public Collection $public_rooms;
     public Collection $private_rooms;
 
+    #[On('userSelected')]
     public function mount(): void
     {
         $this->public_rooms = ChatRoom::wherePrivate(false)
@@ -29,5 +31,18 @@ class AllRooms extends Component
     public function render(): \Illuminate\View\View
     {
         return view('livewire.chat.all-rooms');
+    }
+
+    public function deleteRoom(int $room_id): void
+    {
+        if ($room_id === 1) {
+            return;
+        }
+        $room = ChatRoom::find($room_id);
+        $this->authorize('delete', $room);
+        $room->messages()->delete();
+        $room->users()->detach();
+        $room->delete();
+        $this->redirect(route('chat.index'), navigate: true);
     }
 }
