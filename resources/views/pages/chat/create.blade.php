@@ -10,7 +10,7 @@ state('chatRoom');
 <x-layout>
     @volt
     <section>
-        <x-title title="Create a chat room"/>
+        <x-title title="Create a chat room" help="chat"/>
 
         @can('create', App\Models\Chat\ChatRoom::class)
             <livewire:chat.create :room="new \App\Models\Chat\ChatRoom()"/>
