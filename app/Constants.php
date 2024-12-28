@@ -16,4 +16,5 @@ class Constants
     public const DATE_TITLE = 20;
     public const DATEFORMAT_START = 12;
     public const DATEFORMAT_END = 20;
+    public const SCHEDULE_DETAILS = 256;
 }
