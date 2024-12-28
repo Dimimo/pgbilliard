@@ -81,6 +81,7 @@ class TeamForm extends Form
             // this could possibly corrupt the players list of the team in the current season, but there is no delete
             $this->team->players()->whereCaptain(true)->update(['captain' => false]);
             $this->team->players()->create(['user_id' => $value, 'captain' => true]);
+            $this->captain_id = $value;
             $this->users = $this->getUsersNotOccupiedExceptOwnCaptain();
         }
     }
@@ -108,9 +109,10 @@ class TeamForm extends Form
     // a rather complex method to figure out possible captains without users that are already occupied in other teams
     // only of importance in case of an update, if new, obviously, all users are selectable
     // but allow the captain in the list that is currently selected
+    // also, omit your own team, you can be selected as a member of the team you play for
     private function getUsersNotOccupiedExceptOwnCaptain(): Collection
     {
-        $teams = Team::tap(new Cycle())->pluck('id')->toArray();
+        $teams = Team::tap(new Cycle())->where('id', '<>', $this->team->id)->pluck('id')->toArray();
         $players = Player::whereIn('team_id', $teams)
             ->pluck('user_id')
             ->toArray();
