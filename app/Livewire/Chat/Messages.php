@@ -3,7 +3,7 @@
 namespace App\Livewire\Chat;
 
 use App\Constants;
-use App\Events\MessagePosted;
+// use App\Events\MessagePosted;
 use App\Models\Chat\ChatMessage;
 use App\Models\Chat\ChatRoom;
 use Illuminate\Contracts\View\View;
@@ -25,13 +25,13 @@ class Messages extends Component
         'required' => 'A chat message can not be empty',
         'max' => 'Shorten your message to '.Constants::CHATROOM_MESSAGE.' characters',
     ])]
-    public ?string $new_chat = null;
+    public string $new_chat = '';
     public int $max_chars = Constants::CHATROOM_MESSAGE;
 
     public function mount(ChatRoom $room): void
     {
         $this->room = $room;
-        $this->chats = $this->room->messages->loadMissing(['user' => fn ($q) => $q->select(['id', 'name'])]);
+        $this->chatMessages();
     }
 
     public function render(): View
@@ -39,12 +39,22 @@ class Messages extends Component
         return view('livewire.chat.messages');
     }
 
+    #[On('refresh-messages')]
+    public function chatMessages(): void
+    {
+        $this->chats = $this->room
+            ->messages()
+            ->orderBy('created_at')
+            ->with(['user' => fn ($q) => $q->select(['id', 'name'])])
+            ->get();
+    }
+
     public function updatedNewChat(): void
     {
         $this->validateOnly('new_chat');
     }
 
-    #[On('echo:chat-room,message-posted')]
+    /*#[On('echo:chat-room,message-posted')]
     public function MessagePosted($room, $message): void
     {
         $this->showNewOrderNotification = true;
@@ -52,11 +62,11 @@ class Messages extends Component
         if ($message->room->id === $room->id) {
             dd($message);
         }
-    }
+    }*/
 
     public function postMessage(): void
     {
-        $this->authorize('create', ChatMessage::class);
+        $this->authorize('create', $this->room);
         $validated = $this->validate();
         $data = [
             'message' => $validated['new_chat'],
@@ -75,7 +85,7 @@ class Messages extends Component
                 );
         }
         $this->dispatch('userSelected')->to(Invited::class);
-        broadcast(new MessagePosted($message));
+        // broadcast(new MessagePosted($message));
         $this->reset('new_chat');
     }
 
@@ -84,7 +94,7 @@ class Messages extends Component
         $message = ChatMessage::find($message);
         $this->authorize('delete', $message);
         $message->delete();
-        $this->chats = $this->room->messages->loadMissing(['user' => fn ($q) => $q->select(['id', 'name'])]);
+        $this->chatMessages();
         $this->dispatch('message-deleted');
     }
 }

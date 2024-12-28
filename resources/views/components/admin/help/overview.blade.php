@@ -93,6 +93,7 @@
         <li>chat messages can be deleted, but alas, the chat itself is not yet fully functional 😒</li>
         <li>Season Structure overview: create a new team with a popup, </li>
         <li>Season Structure overview: the list of potential captains omits occupied players</li>
+        <li>I found a way to make the chat work: a reload of the messages every 2 seconds... well, it works and that is what counts</li>
     </ul>
     <div>
         For ALL changes, I refer to
