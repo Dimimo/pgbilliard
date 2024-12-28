@@ -10,9 +10,8 @@
         the table, the button 'Add a BYE' is invisible.
     </div>
     <div>
-        <strong>New teams can be added</strong> by choosing <strong>(Add a new team)</strong> from the select team
-        dropdown list. A generic name is provided with the Venue set at BYE. Obviously, you need to change it to appropriate
-        values.
+        <strong>New teams can be added</strong> by clicking <strong>Create a new team</strong>. The list of proposed captains
+        is curated. You can't accidentally select a captain who plays already in another team.
     </div>
     <div>
         In case you want to <img class="inline-block mx-auto" src="{{ secure_asset('svg/minus-box-fill.svg') }}" alt="Remove" width="16" height="16">

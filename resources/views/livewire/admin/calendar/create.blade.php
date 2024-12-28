@@ -48,17 +48,23 @@
                             <x-forms.action-message class="mx-3 inline-block p-2 text-2xl text-green-700" on="event-created">
                                 Game saved!
                             </x-forms.action-message>
+                            <x-forms.action-message class="mx-3 inline-block p-2 text-2xl text-green-700" on="team-added">
+                                The new team has been added!
+                            </x-forms.action-message>
 
                             <div class="mt-8">
-                                <x-forms.secondary-button class="bg-blue-300 hover:bg-blue-100" wire:click="createNewTeam">
-                                    If a new team joins the season, you may create it here
-                                </x-forms.secondary-button>
+                                <x-forms.primary-button
+                                    class="!bg-blue-600 hover:!bg-blue-800"
+                                    wire:click="$dispatch('openModal', { component: 'admin.teams.create' })"
+                                >
+                                    You may create a new team here
+                                </x-forms.primary-button>
                             </div>
 
                             @if($new === true)
                                 <div class="mt-8">
-                                    <x-forms.secondary-button wire:click="concludeSeason">
-                                        The new Season is created, so let's have a look at the calendar
+                                    <x-forms.secondary-button class="!bg-green-100" wire:click="concludeSeason">
+                                        When the new Calendar is finished, check the results
                                     </x-forms.secondary-button>
                                 </div>
                             @else

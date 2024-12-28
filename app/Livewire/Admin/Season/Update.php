@@ -130,6 +130,16 @@ class Update extends Component
         session(['team_counter' => $this->i]);
     }
 
+    #[On('team-added')]
+    public function addTeam($team_id): void
+    {
+        $team = Team::find($team_id);
+        $team->append('user_id');
+        $this->teams->push($team);
+        $this->teams->sortBy('name', SORT_NATURAL);
+        $this->i++;
+    }
+
     public function addBye(): void
     {
         $this->authorize('create', Team::class);

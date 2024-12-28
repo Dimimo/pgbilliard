@@ -13,7 +13,7 @@
         </label>
         <select class="inline-block" id="teams[{{ $form->team->id }}['venue_id']" wire:model.live="form.venue_id">
             <option>Select venue...</option>
-            @foreach($venues as $venue)
+            @foreach($form->venues as $venue)
                 <option value="{{ $venue->id }}">{{ $venue->name }}</option>
             @endforeach
         </select>
@@ -23,7 +23,7 @@
         </label>
         <select class="inline-block" id="teams[{{$form->team->id}}]['user_id']" wire:model.live="form.captain_id">
             <option>Select captain...</option>
-            @foreach($users as $user)
+            @foreach($form->users as $user)
                 <option value="{{ $user->id }}">{{ $user->name }}</option>
             @endforeach
         </select>

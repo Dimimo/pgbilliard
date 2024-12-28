@@ -14,7 +14,7 @@ state('team');
     <div>
         <x-title title="Create a new Team"/>
         @can('create', Team::class)
-            <livewire:admin.teams.update/>
+            <livewire:admin.teams.create/>
         @else
             <div class="text-red-700 text-xl">You don't have access to this page</div>
         @endcan

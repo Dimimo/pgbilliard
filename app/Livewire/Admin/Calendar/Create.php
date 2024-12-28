@@ -11,6 +11,7 @@ use App\Models\Team;
 use App\Models\Venue;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Create extends Component
@@ -28,7 +29,7 @@ class Create extends Component
     {
         $this->season = $season;
         $this->getLastEvent();
-        $this->teams = Team::whereSeasonId($season->id)->orderBy('name')->get();
+        $this->getTeams();
         $venue_ids = Team::whereSeasonId($season->id)->get()->unique('venue_id')->pluck('venue_id')->toArray();
         $this->venues = Venue::whereIn('id', $venue_ids)->where('name', '<>', 'BYE')->orderBy('name')->get();
     }
@@ -136,7 +137,7 @@ class Create extends Component
         // make sure the first playing date games are set to 0-0
         $date_id = $this->dates->first()->id;
         Event::whereDateId($date_id)->update(['score1' => 0, 'score2' => 0]);
-        $this->redirect(route('calendar'), navigate: true);
+        $this->continueToCalendar();
     }
 
     public function continueToCalendar(): void
@@ -144,8 +145,14 @@ class Create extends Component
         $this->redirect(route('calendar'), navigate: true);
     }
 
-    public function createNewTeam(): void
+    #[On('team-added')]
+    public function newTeamCreated(): void
     {
-        $this->redirect(route('admin.teams.create', ['season' => $this->season]));
+        $this->getTeams();
+    }
+
+    private function getTeams(): void
+    {
+        $this->teams = Team::whereSeasonId($this->season->id)->orderBy('name')->get();
     }
 }

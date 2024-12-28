@@ -24,34 +24,51 @@
                         Saved!
                     </x-forms.action-message>
                 </div>
-                @if(!$has_bye)
-                    <div class="mt-5 w-1/3 items-center p-4">
-                        <x-forms.primary-button wire:click="addBye">
-                            Or add a BYE
-                        </x-forms.primary-button>
-                    </div>
-                @endif
             </div>
         </div>
     @endif
-    <form class="my-5" wire:submit="save">
-        <div class="block">
-            <label for="team_select">
-                Select team {{ $i++ }}
-            </label>
-            <select
-                name="team_select"
-                id="team_select"
-                wire:model.change="team_select"
+    <div class="flex flex-row items-center space-x-4">
+        <form class="my-5" wire:submit="save">
+            <div class="block">
+                <label for="team_select">
+                    Select team {{ $i++ }}
+                </label>
+                <select
+                    name="team_select"
+                    id="team_select"
+                    wire:model.change="team_select"
+                >
+                    <option value=""> --- select ---</option>
+                    @foreach($dropdown_teams as $item)
+                        @if(Str::upper($item->name) !== 'BYE')
+                            <option value="{{ $item->id }}">{{ $item->season->cycle }} - {{ $item->name }}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+        </form>
+
+        <div>
+            <x-forms.primary-button
+                class="!bg-blue-600 hover:!bg-blue-800"
+                wire:click="$dispatch('openModal', { component: 'admin.teams.create' })"
             >
-                <option value=""> --- select ---</option>
-                @foreach($dropdown_teams as $item)
-                    @if(Str::upper($item->name) !== 'BYE')
-                        <option value="{{ $item->id }}">{{ $item->season->cycle }} - {{ $item->name }}</option>
-                    @endif
-                @endforeach
-                <option value="0">(Add a new team)</option>
-            </select>
+                Create a new team
+            </x-forms.primary-button>
         </div>
-    </form>
+
+        @if(!$has_bye)
+            <div class="">
+                <x-forms.primary-button wire:click="addBye">
+                    Or add a BYE
+                </x-forms.primary-button>
+            </div>
+        @endif
+
+        <div>
+            <x-forms.action-message class="mx-3 text-green-700" on="team-added">
+                A new team has been added!
+            </x-forms.action-message>
+        </div>
+    </div>
 </div>
