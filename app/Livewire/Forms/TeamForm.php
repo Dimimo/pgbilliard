@@ -115,8 +115,8 @@ class TeamForm extends Form
             ->pluck('user_id')
             ->toArray();
         $players = array_diff($players, \Arr::wrap($this->captain_id));
-        $occupied_players = User::whereIn('id', $players)->get(['id', 'name']);
+        $occupied_players = User::whereIn('id', $players)->pluck('id')->toArray();
 
-        return User::orderBy('name')->get(['id', 'name'])->diff($occupied_players);
+        return User::whereNotIn('id', $occupied_players)->orderBy('name')->get(['id', 'name']);
     }
 }
