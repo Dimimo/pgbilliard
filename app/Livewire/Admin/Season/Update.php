@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Admin\Teams;
+namespace App\Livewire\Admin\Season;
 
 use App\Constants;
 use App\Livewire\WithTeamOrdering;
@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class Create extends Component
+class Update extends Component
 {
     use WithTeamOrdering;
 
@@ -59,7 +59,7 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.admin.teams.create');
+        return view('livewire.admin.season.update');
     }
 
     public function submit(): void

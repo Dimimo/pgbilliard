@@ -8,7 +8,7 @@
         <div class="m-2 border border-gray-500 p-0">
             <div class="mb-4 flex flex-row items-center bg-blue-100 p-4 text-lg text-blue-900 space-x-2 text-uppercase">
                 <div>{{ $i-1 }} of the {{ $number_of_teams }} teams are chosen</div>
-                <div class="text-sm text-gray-500">({{ $has_bye ? 'has a BYE' : 'has no BYE' }})</div>
+                <div class="text-sm text-gray-500">({{ $has_bye ? __('has a BYE') : __('has no BYE') }})</div>
                 <x-forms.action-message class="mx-3 text-green-700" on="teams-updated">
                     Saved!
                 </x-forms.action-message>
