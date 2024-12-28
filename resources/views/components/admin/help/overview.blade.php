@@ -91,6 +91,8 @@
         <li>the help files are finished</li>
         <li>the help files have a popup link to a modal on the appropriate pages</li>
         <li>chat messages can be deleted, but alas, the chat itself is not yet fully functional 😒</li>
+        <li>Season Structure overview: create a new team with a popup, </li>
+        <li>Season Structure overview: the list of potential captains omits occupied players</li>
     </ul>
     <div>
         For ALL changes, I refer to
