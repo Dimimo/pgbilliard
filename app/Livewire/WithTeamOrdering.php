@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 trait WithTeamOrdering
 {
+    public Collection $teams;
     public Collection $dropdown_teams;
     public int $number_of_teams;
     public int $i = 1;
