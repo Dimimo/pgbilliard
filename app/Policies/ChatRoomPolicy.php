@@ -26,7 +26,7 @@ class ChatRoomPolicy
 
     public function view(User $user, ChatRoom $chatRoom): bool
     {
-        if ($chatRoom->private === false) {
+        if (! $chatRoom->private) {
             return true;
         }
 

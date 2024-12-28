@@ -55,11 +55,13 @@
                 el_chat.scrollTo({ top: el_chat.scrollHeight/!*, behavior: "smooth"*!/ });
             })
         });*/
-        setInterval(() => {
-            const el_chat = document.getElementById('chat-box');
-            $wire.dispatch('refresh-messages');
-            el_chat.scrollTo({ top: el_chat.scrollHeight, behavior: "smooth" });
-        }, 2000);
+        document.addEventListener('livewire:navigated', () => {
+            setInterval(() => {
+                const el_chat = document.getElementById('chat-box');
+                Livewire.dispatch('refresh-messages');
+                el_chat.scrollTo({ top: el_chat.scrollHeight, behavior: "smooth" });
+            }, 2000);
+        }, { once: true })
     </script>
     @endscript
 

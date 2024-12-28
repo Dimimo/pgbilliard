@@ -24,8 +24,7 @@ state('chatRoom');
 
             @if($chatRoom->private)
                 <div class="text-xl my-4">
-                    If you try to access a private room, it is possible you are didn't receive an invitation. The room is managed
-                    by <strong>{{ $chatRoom->owner->name }}</strong>.
+                    If you try to access a private room, it is possible you are didn't receive an invitation.
                 </div>
             @endif
         @endcan
