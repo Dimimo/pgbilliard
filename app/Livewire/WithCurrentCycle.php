@@ -15,7 +15,7 @@ trait WithCurrentCycle
         $this->season = $this->getCycle();
     }
 
-    private function getCurrentCycle()
+    private function getCurrentCycle(): string
     {
         if (! session()->exists('cycle') || is_null(session('cycle'))) {
             //when no cycle is in the session, put the most recent date cycle as a starting point
