@@ -42,7 +42,7 @@ $updatePassword = function ()
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
-            {{ __('Ensure your account is using a long, random password to stay secure.') }}
+            {{ __('Ensure your account is using a secure password. The current password is \'secret\' and should be filled in.') }}
         </p>
     </header>
 

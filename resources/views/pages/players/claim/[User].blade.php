@@ -35,13 +35,18 @@ state('user');
                     </div>
                 </div>
 
-                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                    <div class="max-w-xl">
-                        <livewire:profile.update-password-form current_password="secret"/>
+                <div x-data="{ open: false }">
+                    <div x-on:profile-updated.window="open = true"></div>
+                    <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg" x-show="open">
+                        <div class="max-w-xl">
+                            <livewire:profile.update-password-form current_password="secret"/>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
+        <div x-on:password-updated.window="Livewire.navigate('/')"></div>
     </section>
 
     @endvolt
