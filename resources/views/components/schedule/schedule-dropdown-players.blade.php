@@ -12,13 +12,13 @@
                 <option
                     x-on:click="$wire.player(0, {{ $position }}, {{ $home }})"
                 >
-                    -- select --
+                    -- {{__('select')}} --
                 </option>
                 @for($p=1;$p<=4;$p++)
                     <option
                         x-on:click="$wire.player({{ $p }}, {{ $position }}, {{ $home }})"
                     >
-                        {{ $home ? 'Home' : 'Visit' }} {{ $p }}
+                        {{ $home ? __('Home') : __('Visit') }} {{ $p }}
                     </option>
                 @endfor
             </select>
@@ -31,14 +31,14 @@
                 <option
                     x-on:click="$wire.player(0, {{ $position }}, {{ $home }})"
                 >
-                    -- select --
+                    -- {{__('select')}} --
                 </option>
                 @for($p=1;$p<=4;$p++)
                     <option
                         @selected($item->player === $p)
                         x-on:click="$wire.player({{ $p }}, {{ $position }}, {{ $home }})"
                     >
-                        {{ $home ? 'Home' : 'Visit' }} {{ $p }}
+                        {{ $home ? __('Home') : __('Visit') }} {{ $p }}
                     </option>
                 @endfor
             </select>
