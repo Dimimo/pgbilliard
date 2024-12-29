@@ -17,7 +17,7 @@
         </thead>
         <tbody class="whitespace-nowrap">
         @foreach ($teams as $team)
-            <tr wire:key="team_{{ $team->id }}">
+            <tr wire:key="team_{{ $team->id }}" @class(['bg-green-50' => $my_team === $team->id])>
                 <td class="border-b-2 border-slate-300 p-2">
                     <div class="flex justify-start">
                         @can ('update', $team)
@@ -26,22 +26,6 @@
                                     <img class="mx-auto" src="{{ secure_asset('svg/pen-square.svg') }}" alt="Edit this team" width="24" height="24">
                                 </a>
                             </div>
-                        @endcan
-                        @can('delete', $team)
-                            @if($team->hasGames() === false)
-                                <div class="mr-4">
-                                    <button
-                                        class=""
-                                        wire:click="deleteTeam({{ $team->id }})"
-                                        wire:loading.remove="deleteTeam"
-                                        wire:confirm="Are you sure you want to delete this team as part of season {{ $season->cycle }}? This teams has no games, it is safe to delete."
-                                    >
-                                        <img class="mx-auto" src="{{ secure_asset('svg/delete-item.svg') }}" alt="Delete this team" width="20"
-                                             height="20">
-                                    </button>
-                                    <x-forms.spinner target="deleteTeam"/>
-                                </div>
-                            @endif
                         @endcan
                         <div class="font-semibold">
                             <a

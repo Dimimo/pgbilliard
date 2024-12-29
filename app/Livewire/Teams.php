@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\Date;
+use App\Models\Season;
 use App\Models\Team;
 use App\Taps\Cycle;
 use Illuminate\Contracts\View\View;
@@ -11,12 +13,15 @@ use Livewire\Component;
 class Teams extends Component
 {
     use WithCurrentCycle;
+    use WithSetMyTeam;
 
     public Collection $teams;
+    public Date $date;
 
     public function mount(): void
     {
         $this->teams = $this->getTeams();
+        $this->date = Season::whereCycle(session('cycle'))->first()->dates()->latest()->first();
     }
 
     public function render(): View
