@@ -1,12 +1,11 @@
 <?php
 
 use App\Livewire\WithCurrentCycle;
-use App\Livewire\WithHasAccess;
 use function Laravel\Folio\name;
 use function Livewire\Volt\state;
 use function Livewire\Volt\uses;
 
-uses([WithHasAccess::class, WithCurrentCycle::class]);
+uses(WithCurrentCycle::class);
 state('date');
 name('dates.show');
 ?>
@@ -25,7 +24,7 @@ name('dates.show');
                 <tr class="py-2">
                     <th class="p-2 text-left">Home</th>
                     <th class="p-2 text-center" colspan="2">
-                        <div class="flex justify-center items-center">
+                        <div class="flex items-center justify-center">
                             <div class="inline-block">Scores</div>
                             <div class="-mb-1 inline-block">
                                 <x-forms.spinner/>
@@ -41,7 +40,7 @@ name('dates.show');
                         </div>
                     </th>
                     <th class="p-2 text-left">Visitors</th>
-                    <th class="p-2 text-left w-28"></th>
+                    <th class="w-28 p-2 text-left"></th>
                 </tr>
                 </thead>
                 @foreach ($date->events as $event)
@@ -49,7 +48,22 @@ name('dates.show');
                 @endforeach
             </table>
         </div>
+        {{-- todo: don't show any schedules of the past if there aren't any this is just for testing --}}
+        <div class="flex flex-col">
+            <x-forms.sub-title>
+                <x-slot:title>
+                    <x-svg.calendar-days-solid color="fill-green-600" size="6" padding="mb-2"/>
+                    The schedules of the day
+                </x-slot:title>
+                @foreach ($date->events as $event)
+                    <div class="my-4 flex justify-center">
+                        <a href="{{ route('schedule.event', ['event' => $event]) }}" class="link" wire:navigate>
+                            {{ $event->team_1->name }} - {{ $event->team_2->name }}
+                        </a>
+                    </div>
+                @endforeach
+            </x-forms.sub-title>
+        </div>
     </section>
-
     @endvolt
 </x-layout>
