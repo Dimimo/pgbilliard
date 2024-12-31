@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
@@ -14,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read Format|null $format
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Game> $games
+ * @property-read int|null $games_count
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Schedule newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Schedule newQuery()
@@ -44,8 +45,13 @@ class Schedule extends Model
         'home' => 'bool',
     ];
 
-    public function format(): BelongsTo
+    public function format(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Format::class);
+    }
+
+    public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Game::class);
     }
 }

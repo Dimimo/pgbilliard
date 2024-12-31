@@ -8,6 +8,7 @@ use App\Models\Chat\ChatRoom;
 use App\Models\Date;
 use App\Models\Event;
 use App\Models\Format;
+use App\Models\Game;
 use App\Models\Player;
 use App\Models\Schedule;
 use App\Models\Season;
@@ -17,6 +18,7 @@ use App\Policies\ChatRoomPolicy;
 use App\Policies\DatePolicy;
 use App\Policies\EventPolicy;
 use App\Policies\FormatPolicy;
+use App\Policies\GamePolicy;
 use App\Policies\PlayerPolicy;
 use App\Policies\SchedulePolicy;
 use App\Policies\SeasonPolicy;
@@ -40,6 +42,7 @@ class AuthServiceProvider extends ServiceProvider
         ChatRoom::class => ChatRoomPolicy::class,
         Format::class => FormatPolicy::class,
         Schedule::class => SchedulePolicy::class,
+        Game::class => GamePolicy::class,
     ];
 
     /**

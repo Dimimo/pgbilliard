@@ -81,7 +81,7 @@ class Date extends Model
      */
     protected $hidden = [];
 
-    protected $with = ['events'];
+    protected $with = [];
 
     /**
      * Check if a guest has write access to a pool day overview, this access is only valid from 12pm to 17pm

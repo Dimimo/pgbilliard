@@ -6,9 +6,8 @@ use Database\Factories\TeamFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -21,15 +20,17 @@ use Illuminate\Support\Carbon;
  * @property string|null $remark
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read mixed                   $user_id
+ * @property-read mixed $user_id
+ * @property-read Collection<int, Game> $games
+ * @property-read int|null $games_count
  * @property-read Collection<int, Player> $players
- * @property-read int|null                $players_count
- * @property-read Season                  $season
- * @property-read Collection<int, Event>  $team_1
- * @property-read int|null                $team_1_count
- * @property-read Collection<int, Event>  $team_2
- * @property-read int|null                $team_2_count
- * @property-read Venue                   $venue
+ * @property-read int|null $players_count
+ * @property-read Season $season
+ * @property-read Collection<int, Event> $team_1
+ * @property-read int|null $team_1_count
+ * @property-read Collection<int, Event> $team_2
+ * @property-read int|null $team_2_count
+ * @property-read Venue $venue
  *
  * @method static TeamFactory factory($count = null, $state = [])
  * @method static Builder|Team newModelQuery()
@@ -47,6 +48,8 @@ use Illuminate\Support\Carbon;
  */
 class Team extends Model
 {
+    use HasFactory;
+
     /**
      * The database table used by the model.
      *
@@ -87,7 +90,7 @@ class Team extends Model
 
     /**
      * Calculates the percentages of a given score table of a team
-     * The results are to be found in CycleController@
+     * The results are to be found in App\Traits\ResultsTrait
      */
     public function percentage(array $result): float
     {
@@ -118,28 +121,33 @@ class Team extends Model
      *
      **************************************/
 
-    public function players(): HasMany
+    public function players(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Player::class);
     }
 
-    public function team_1(): HasMany
+    public function team_1(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Event::class, 'team1', 'id');
     }
 
-    public function team_2(): HasMany
+    public function team_2(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Event::class, 'team2', 'id');
     }
 
-    public function season(): BelongsTo
+    public function season(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Season::class);
     }
 
-    public function venue(): BelongsTo
+    public function venue(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Venue::class, 'venue_id');
+    }
+
+    public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Game::class);
     }
 }

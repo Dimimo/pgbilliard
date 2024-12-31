@@ -6,8 +6,9 @@ use Database\Factories\PlayerFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
@@ -23,6 +24,8 @@ use Illuminate\Support\Carbon;
  * @property-read string $email
  * @property-read string $gender
  * @property-read string $name
+ * @property-read Collection<int, Game> $games
+ * @property-read int|null              $games_count
  * @property-read Team|null $team
  * @property-read User|null $user
  *
@@ -41,6 +44,8 @@ use Illuminate\Support\Carbon;
  */
 class Player extends Model
 {
+    use HasFactory;
+
     /**
      * The database table used by the model.
      *
@@ -75,18 +80,9 @@ class Player extends Model
      */
     protected $hidden = [];
 
-    protected $with = ['team'];
+    protected $with = [];
 
     protected $appends = ['name', 'phone'];
-
-    public function isCaptain(Team $team): bool
-    {
-        if (! $this->captain) {
-            return false;
-        }
-
-        return $this->team->id === $team->id;
-    }
 
     protected function name(): Attribute
     {
@@ -108,13 +104,18 @@ class Player extends Model
         return Attribute::make(get: fn () => $this->user?->email);
     }
 
-    public function team(): BelongsTo
+    public function team(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Team::class, 'team_id', 'id');
     }
 
-    public function user(): BelongsTo
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(config('auth.providers.users.model'), 'user_id', 'id');
+    }
+
+    public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Game::class);
     }
 }

@@ -5,8 +5,9 @@ namespace App\Models;
 use Database\Factories\EventFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
@@ -23,10 +24,12 @@ use Illuminate\Support\Carbon;
  * @property string|null $remark
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Date      $date
+ * @property-read Date $date
+ * @property-read Collection<int, Game> $games
+ * @property-read int|null              $games_count
  * @property-read Team|null $team_1
  * @property-read Team|null $team_2
- * @property-read Venue     $venue
+ * @property-read Venue $venue
  *
  * @method static EventFactory factory($count = null, $state = [])
  * @method static Builder|Event newModelQuery()
@@ -48,6 +51,8 @@ use Illuminate\Support\Carbon;
  */
 class Event extends Model
 {
+    use HasFactory;
+
     /**
      * The database table used by the model.
      *
@@ -99,26 +104,31 @@ class Event extends Model
 
     public function hasScore(): bool
     {
-        return ! is_null($this->score1) && ! is_null($this->score2) && ($this->score1 != 0 && $this->score2 != 0);
+        return !is_null($this->score1) && !is_null($this->score2) && ($this->score1 != 0 && $this->score2 != 0);
     }
 
-    public function date(): BelongsTo
+    public function date(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Date::class, 'date_id', 'id');
     }
 
-    public function venue(): BelongsTo
+    public function venue(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Venue::class, 'venue_id', 'id');
     }
 
-    public function team_1(): BelongsTo
+    public function team_1(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Team::class, 'team1', 'id');
     }
 
-    public function team_2(): BelongsTo
+    public function team_2(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Team::class, 'team2', 'id');
+    }
+
+    public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Game::class);
     }
 }
