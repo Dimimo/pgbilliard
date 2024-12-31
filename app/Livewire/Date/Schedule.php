@@ -2,14 +2,12 @@
 
 namespace App\Livewire\Date;
 
-use App\Models\Date;
 use App\Models\Event;
 use App\Models\Format;
 use App\Models\Game;
 use App\Models\Player;
 use App\Models\Schedule as Matrix;
 use Illuminate\Database\Eloquent\Collection;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Schedule extends Component
@@ -39,6 +37,7 @@ class Schedule extends Component
                 ->first()
                 ->schedule
                 ->format;
+            $this->checkThirdGame();
             $this->recreateMatrix();
         } else {
             $format = Format::all();
@@ -63,7 +62,6 @@ class Schedule extends Component
         $this->dispatch('format-chosen');
     }
 
-    #[On('score-given')]
     public function scoreGiven($game_id): void
     {
         $game = Game::find($game_id);
@@ -84,12 +82,9 @@ class Schedule extends Component
                 ['home', !$game->home]]
         )->update(['win' => $score_is_true ? null : false]);
 
-        //$this->event = $this->event->refresh()->load('games', 'team_1.players', 'team_2.players');
-
         // check if this is the first score being given, if so, lock the players order
         if ($this->event->games()->whereNotNull('win')->count()) {
             $this->can_update_players = false;
-
         }
 
         // finally, update the day score in the event
@@ -98,7 +93,7 @@ class Schedule extends Component
         $this->dispatch('score-updated');
     }
 
-    private function getEventScore(bool $home): int
+    public function getEventScore(bool $home): int
     {
         return $this->event->games()
             ->select(['team_id', 'position'])
@@ -110,16 +105,6 @@ class Schedule extends Component
             ->count();
     }
 
-    public function getScoreStatus($event_id, int $position, bool $home): bool
-    {
-        return Game::where([
-                ['event_id', $event_id],
-                ['position', $position],
-                ['home', $home]]
-        )->first()->win;
-    }
-
-    #[On('player-selected')]
     public function playerSelected(int $player_id, int $position, string $place): void
     {
         if ($player = Player::find($player_id)) {
@@ -166,20 +151,20 @@ class Schedule extends Component
                 ]);
             }
         }
+
         $this->dispatch('player-updated-' . $place);
     }
 
-    #[On('player-changed')]
     public function playerChanged(int $player_id, int $game_id): void
     {
         Game::whereId($game_id)->update(['player_id' => $player_id]);
     }
 
-    #[On('schedule-reset')]
     public function scheduleReset(bool $home): void
     {
         $this->event->games()->where('home', $home)->delete();
         $home ? $this->home_matrix = [] : $this->visit_matrix = [];
+        $this->event->games()->where('position', 15)->delete();
         $this->recreateMatrix();
         $this->dispatch('player-updated-' . $home ? 'home' : 'visit');
     }
@@ -199,6 +184,25 @@ class Schedule extends Component
                     : $this->visit_matrix[$i] = $reserve;
                 $i++;
             }
+        }
+    }
+
+    private function checkThirdGame(): void
+    {
+        if ($this->event->games()->where('position', 15)->count() === 0) {
+            $schedules = $this->format->schedules()->wherePosition(15)->get();
+            foreach ($schedules as $schedule) {
+                $values = [
+                    'schedule_id' => $schedule->id,
+                    'event_id' => $this->event->id,
+                    'team_id' => $schedule->home ? $this->event->team_1->id : $this->event->team_2->id,
+                    'player_id' => null,
+                    'position' => 15,
+                    'home' => $schedule->home,
+                ];
+                (new Game)->create($values);
+            }
+            $this->event->refresh();
         }
     }
 }
