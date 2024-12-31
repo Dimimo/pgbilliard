@@ -10,7 +10,6 @@ use Livewire\Component;
 class Create extends Component
 {
     public Format $format;
-    public ?Schedule $schedule;
     public $table;
     #[Validate(['required', 'min:4', 'max:20', 'unique:formats,name'])]
     public ?string $name = null;
@@ -49,12 +48,20 @@ class Create extends Component
         if ($player === 0) {
             $this->format->schedules()->where([['position', $position], ['home', $home]])->delete();
         } else {
-            $this->schedule = $this->format->schedules()->where([['player', $player], ['position', $position], ['home', $home]])->first();
-            $exists = !is_null($this->schedule);
+            $schedule = $this->format
+                ->schedules()
+                ->where([
+                    ['player', $player],
+                    ['position', $position],
+                    ['home', $home]
+                ])->first();
+
+            $exists = !is_null($schedule);
             $exists
-                ? $this->schedule->update(['player' => $player, 'position' => $position, 'home' => $home])
-                : $this->schedule = $this->format->schedules()->create(['player' => $player, 'position' => $position, 'home' => $home]);
+                ? $schedule->update(['player' => $player, 'position' => $position, 'home' => $home])
+                : $this->format->schedules()->create(['player' => $player, 'position' => $position, 'home' => $home]);
         }
+        $this->checkThirdDouble();
         $this->table = $this->format->schedules;
     }
 
@@ -75,5 +82,19 @@ class Create extends Component
             // redirect (reloads) to this page in case a new input was created
             $this->redirect(route('admin.schedule.update', ['format' => $this->format->id]), navigate: true);
         }
+    }
+
+    private function checkThirdDouble(): void
+    {
+        if ($this->format->schedules()->wherePosition(15)->count() === 0) {
+            $this->insertLastDouble(true);
+            $this->insertLastDouble(false);
+        }
+    }
+
+    private function insertLastDouble(bool $home): void
+    {
+        $values = ['format_id' => $this->format->id, 'position' => 15, 'player' => 0, 'home' => $home];
+        $this->format->schedules()->insert([$values, $values]);
     }
 }
