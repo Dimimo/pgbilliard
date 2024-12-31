@@ -3,13 +3,15 @@
         <x-admin.help.day-schedule/>
     </article>
 
-    <x-forms.action-message class="m-8 text-center text-xl" on="format-updated">
-        {{__('The format is updated')}}
-    </x-forms.action-message>
+    <div class="h-12">
+        <x-forms.action-message class="m-8 text-center text-xl" on="format-updated">
+            {{__('The format is updated')}}
+        </x-forms.action-message>
+    </div>
 
     @if ($request_format_update)
 
-        <div class="my-8">
+        <div class="">
             <form class="flex flex-col space-y-2" wire:submit="save">
                 <label for="name" class="text-lg">{{__('Name of the Schedule')}}: </label>
                 <input id="name" class="w-96" type="text" wire:model.live="name">
