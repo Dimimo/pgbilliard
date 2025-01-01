@@ -9,7 +9,7 @@
         {{ $event->team_1->name }}
     </td>
     @can('update', $event)
-        @if($confirmed === false)
+        @if($confirmed === false && $event->games()->count() === 0)
             <td @class([
             'px-2 pt-4 sm:px-4' => $errors->any(),
             'px-2 py-4 sm:p-4' => !$errors->any(),
@@ -63,6 +63,14 @@
                 >
                     confirm
                 </button>
+            @elseif ($event->games()->count() > 0 && ! $event->confirmed)
+                <a
+                    href="{{ route('schedule.event', ['event' => $event]) }}"
+                    class="text-blue-800 link"
+                    wire:navigate
+                >
+                    Scheduled scores
+                </a>
             @else
                 <x-forms.spinner/>
                 <x-forms.action-message class="font-semibold text-green-700" on="scores-updated-{{ $event->id }}">
