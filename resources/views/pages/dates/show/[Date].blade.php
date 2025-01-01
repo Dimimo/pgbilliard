@@ -51,8 +51,10 @@ name('dates.show');
 
         {{-- check for production; old games: show only if available; now or future: show all --}}
         @if (app()->environment('production'))
-            @if(!$date->date->hour(13) < now()->hour(13) && $date->events()->has('games')->count())
-                <x-schedule.date-show-list :date="$date" :old="true"/>
+            @if(!$date->date->hour(13) < now()->hour(13))
+                @if($date->events()->has('games')->count())
+                    <x-schedule.date-show-list :date="$date" :old="true"/>
+                @endif
             @else
                 <x-schedule.date-show-list :date="$date"/>
             @endif
