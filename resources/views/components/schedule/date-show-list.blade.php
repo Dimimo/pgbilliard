@@ -20,7 +20,7 @@
                                 class="text-blue-800 link"
                                 wire:navigate
                             >
-                                {{ $event->team_1->name }} - {{ $event->team_2->name }} @json($event->games()->count())
+                                {{ $event->team_1->name }} - {{ $event->team_2->name }}
                             </a>
                         </div>
                     @endif
