@@ -60,6 +60,7 @@ name('dates.show');
             @endif
         @else
             {{-- testing: show, no conditions --}}
+            <div class="text-red-600">Warning: what you see here is only because of the test server</div>
             <x-schedule.date-show-list :date="$date"/>
         @endif
 
