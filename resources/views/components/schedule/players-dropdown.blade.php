@@ -67,7 +67,3 @@
         </div>
     @endif
 </div>
-
-{{--
-{{ $player->name }} ({!! trans_choice('plural.games', $format->checkGameNumbers($player->id, true)) !!})
---}}
