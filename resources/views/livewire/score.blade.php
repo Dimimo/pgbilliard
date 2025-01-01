@@ -54,7 +54,7 @@
                 @break
             @else
                 @php
-                    if ($score->get('last_result')->isNotEmpty()) {
+                    if (is_countable($score->get('last_result'))) {
                         $score1 = $score->get('last_result')->get('score1');
                         $score2 = $score->get('last_result')->get('score2');
                     }
