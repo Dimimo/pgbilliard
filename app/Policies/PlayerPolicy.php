@@ -11,12 +11,12 @@ class PlayerPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): bool
+    public function viewAny(): bool
     {
         return true;
     }
 
-    public function view(User $user, Player $player): bool
+    public function view(): bool
     {
         return true;
     }
