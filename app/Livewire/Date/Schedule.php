@@ -84,7 +84,8 @@ class Schedule extends Component
 
         // then reverse the score to the other players, mind the reversed "! $game->home" status
         // but a score to true can be set to false without changing the other score
-        Game::where([
+        Game::where(
+            [
                 ['event_id', $game->event_id],
                 ['position', $game->position],
                 ['home', !$game->home]]
@@ -141,7 +142,7 @@ class Schedule extends Component
             ->orderBy('position')
             ->get();
 
-        (new Game)->where([
+        (new Game())->where([
             ['event_id', $this->event->id],
             ['team_id', $team->id],
             ['home', $place === 'home',]
@@ -150,7 +151,7 @@ class Schedule extends Component
 
         foreach ($schedules as $schedule) {
             if ($player) {
-                (new Game)->create([
+                (new Game())->create([
                     'schedule_id' => $schedule->id,
                     'event_id' => $this->event->id,
                     'team_id' => $player->team->id,
@@ -188,7 +189,7 @@ class Schedule extends Component
         if ($reserves = $this->home_players->diff($this->home_matrix)) {
             $i = 5;
             foreach ($reserves as $reserve) {
-                $this->event->team_1->players->contains(fn($r) => $r === $reserve)
+                $this->event->team_1->players->contains(fn ($r) => $r === $reserve)
                     ? $this->home_matrix[$i] = $reserve
                     : $this->visit_matrix[$i] = $reserve;
                 $i++;
@@ -209,7 +210,7 @@ class Schedule extends Component
                     'position' => 15,
                     'home' => $schedule->home,
                 ];
-                (new Game)->create($values);
+                (new Game())->create($values);
             }
             $this->event->refresh();
         }

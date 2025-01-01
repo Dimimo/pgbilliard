@@ -3,7 +3,6 @@
 namespace App\Livewire\Admin\Schedule;
 
 use App\Models\Format;
-use App\Models\Schedule;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 

@@ -2,11 +2,8 @@
 
 namespace App\Livewire\Date;
 
-use App\Mail\DayScoresConfirmed;
-use App\Mail\DayScoresToAdmin;
 use App\Models\Event;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
