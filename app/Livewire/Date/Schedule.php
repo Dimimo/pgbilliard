@@ -12,6 +12,9 @@ use Livewire\Component;
 
 class Schedule extends Component
 {
+    use LogEventsTrait;
+    use ConsolidateTrait;
+
     public Event $event;
     public Format $format;
     public Matrix $schedule;
@@ -22,12 +25,14 @@ class Schedule extends Component
     public array $visit_matrix = [];
     public array $rounds = [1 => 'First', 6 => 'Second', 11 => 'Last'];
     public bool $can_update_players = true;
+    public bool $confirmed = false;
 
     public function mount(): void
     {
         $this->event->loadMissing('games', 'team_1.players', 'team_2.players');
         $this->home_players = $this->event->team_1->players->sortBy('name');
         $this->visit_players = $this->event->team_2->players->sortBy('name');
+        $this->confirmed = $this->event->confirmed;
         if ($this->event->games()->count() > 0) {
             if ($this->event->games()->whereNotNull('win')->count()) {
                 $this->can_update_players = false;
@@ -39,6 +44,7 @@ class Schedule extends Component
                 ->format;
             $this->checkThirdGame();
             $this->recreateMatrix();
+            $this->event->update(['score1' => $this->getEventScore(true), 'score2' => $this->getEventScore(false)]);
         } else {
             $format = Format::all();
             if ($format->count() === 1) {
@@ -65,6 +71,8 @@ class Schedule extends Component
     public function scoreGiven($game_id): void
     {
         $game = Game::find($game_id);
+        $this->authorize('update', $game);
+
         $score_is_true = $game->win === true;
 
         // set the home or away player(s) to reverse the previous $score_is_true value
@@ -87,8 +95,9 @@ class Schedule extends Component
             $this->can_update_players = false;
         }
 
-        // finally, update the day score in the event
+        // finally, update the day score in the event and log the event
         $this->event->update(['score1' => $this->getEventScore(true), 'score2' => $this->getEventScore(false)]);
+        $this->logScheduleChanges($game);
 
         $this->dispatch('score-updated');
     }
