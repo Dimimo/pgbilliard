@@ -48,22 +48,19 @@ name('dates.show');
                 @endforeach
             </table>
         </div>
-        {{-- todo: don't show any schedules of the past if there aren't any this is just for testing --}}
-        <div class="flex flex-col">
-            <x-forms.sub-title>
-                <x-slot:title>
-                    <x-svg.calendar-days-solid color="fill-green-600" size="6" padding="mb-2"/>
-                    The schedules of the day
-                </x-slot:title>
-                @foreach ($date->events as $event)
-                    <div class="my-4 flex justify-center">
-                        <a href="{{ route('schedule.event', ['event' => $event]) }}" class="link" wire:navigate>
-                            {{ $event->team_1->name }} - {{ $event->team_2->name }}
-                        </a>
-                    </div>
-                @endforeach
-            </x-forms.sub-title>
-        </div>
+
+        {{-- check for production; old games: show only if available; now or future: show all --}}
+        @if (app()->environment('production'))
+            @if(!$date->date->hour(13) < now()->hour(13) && $date->events()->has('games')->count())
+                <x-schedule.date-show-list :date="$date" :old="true"/>
+            @else
+                <x-schedule.date-show-list :date="$date"/>
+            @endif
+        @else
+            {{-- testing: show, no conditions --}}
+            <x-schedule.date-show-list :date="$date"/>
+        @endif
+
     </section>
     @endvolt
 </x-layout>
