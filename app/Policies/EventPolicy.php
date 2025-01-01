@@ -10,6 +10,15 @@ class EventPolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user): ?bool
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        return null;
+    }
+
     public function viewAny(): bool
     {
         return true;
@@ -27,7 +36,7 @@ class EventPolicy
 
     public function update(User $user, Event $event): bool
     {
-        return $user->isAdmin() || ($event->date->checkOpenWindowAccess() && $event->playerBelongsToEvent($user));
+        return $event->date->checkOpenWindowAccess() && $event->playerBelongsToEvent($user);
     }
 
     public function delete(User $user, Event $event): bool

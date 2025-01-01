@@ -10,6 +10,15 @@ class GamePolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user): ?bool
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        return null;
+    }
+
     public function viewAny(): bool
     {
         return true;
