@@ -97,11 +97,6 @@ class Team extends Model
         return round(((($result['won'] / $result['max_games']) * 100) + (($result['for'] / (($result['max_games']) * 15)) * 100)) / 2);
     }
 
-    public function getUserIdAttribute()
-    {
-        return $this->captain()?->user_id;
-    }
-
     /**
      * Return the captain of the team or null if there is no captain assigned
      */
