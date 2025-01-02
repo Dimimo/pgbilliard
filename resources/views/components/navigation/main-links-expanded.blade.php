@@ -1,13 +1,13 @@
 <div class="mb-1 flex sm:space-x-4 md:space-x-8">
     <!-- Logo -->
     <div class="hidden shrink-0 items-center md:flex">
-        <a href="{{ route('scoresheet') }}" wire:navigate>
+        <a href="{{ route('scoreboard') }}" wire:navigate>
             <x-application-logo class="block h-9 w-auto"/>
         </a>
     </div>
     <div class="hidden sm:-my-px sm:flex md:ml-4">
-        <x-forms.nav-link href="{{ route('scoresheet') }}" :active="request()->routeIs('scoresheet')" wire:navigate>
-            Scoresheet
+        <x-forms.nav-link href="{{ route('scoreboard') }}" :active="request()->routeIs('scoreboard')" wire:navigate>
+            Scoreboard
         </x-forms.nav-link>
     </div>
     <div class="hidden space-x-4 sm:-my-px sm:ml-4 sm:flex">

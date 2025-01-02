@@ -27,7 +27,7 @@ class CycleSelect extends Component
     {
         $season = Season::findOrFail($id);
         session()->put('cycle', $season->cycle);
-        $this->redirect(route('scoresheet'), navigate: true);
+        $this->redirect(route('scoreboard'), navigate: true);
     }
 
     public function getAllCycles(): void

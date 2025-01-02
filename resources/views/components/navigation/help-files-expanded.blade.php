@@ -11,7 +11,7 @@
     </x-slot>
     <x-slot name="content">
         <x-forms.dropdown-link :href="route('help.results')" wire:navigate>
-            {{ __('Scoresheet explained') }}
+            {{ __('Scoreboard explained') }}
         </x-forms.dropdown-link>
         <x-forms.dropdown-link :href="route('help.calendar')" wire:navigate>
             {{ __('The Calendar') }}

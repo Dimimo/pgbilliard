@@ -2,7 +2,7 @@
     <div class="mb-4">
         The Calendar gives you an overview of the current Season. When and where you play. Simple. With the results of past games <a
             class="font-bold text-blue-800 hover:text-blue-600 hover:underline"
-            href="{{ route('scoresheet') }}"
+            href="{{ route('scoreboard') }}"
             wire:navigate
         >
             that determine the current ranking of your team

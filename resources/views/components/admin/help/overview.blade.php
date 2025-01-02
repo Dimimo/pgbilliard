@@ -51,7 +51,7 @@
         players with the end results of the day.
     </div>
     <div>
-        The Scoresheet (ranking overview) itself is immutable. So are daily end-scores that are confirmed.
+        The Scoreboard (ranking overview) itself is immutable. So are daily end-scores that are confirmed.
         <span class="text-sm italic">(I may have to change it later. In case a dispute leads to a penalty. For now,
                     even I can't change the score of a finished game)</span>
     </div>

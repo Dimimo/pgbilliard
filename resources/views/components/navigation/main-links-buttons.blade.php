@@ -1,9 +1,9 @@
 <div class="relative flex justify-center md:mb-1">
     <div class="grid grid-cols-1 gap-2 md:grid-cols-3 md:gap-4">
-        <a href="{{ route('scoresheet') }}" wire:navigate.hover>
+        <a href="{{ route('scoreboard') }}" wire:navigate.hover>
             <div class="flex items-center justify-center rounded-full border border-green-500 bg-green-100 px-3 py-1 text-3xl space-x-2 md:py-3 lg:space-mx-4">
                 <x-svg.table-list-solid color="fill-green-600" size="7" padding=""/>
-                <div>Scoresheet</div>
+                <div>Scoreboard</div>
             </div>
         </a>
         <a href="{{ route('calendar') }}" wire:navigate.hover>

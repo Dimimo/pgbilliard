@@ -12,6 +12,6 @@
         The source code can be found on GitHub
     </a>
     {{--<h5>
-        A copy of the daily scoresheet (pdf) <a href="#">can be downloaded here</a>
+        A copy of the daily scoreboard (pdf) <a href="#">can be downloaded here</a>
     </h5>--}}
 </div>

@@ -2,10 +2,10 @@
 
 use function Laravel\Folio\name;
 
-name('scoresheet');
+name('scoreboard');
 ?>
 
-<x-layout>
+<x-layout title="Scoreboard">
     @volt
     <div>
         <livewire:score/>

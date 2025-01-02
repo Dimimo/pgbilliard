@@ -6,6 +6,6 @@
 @endforeach
 </x-mail::table>
 
-<x-mail::button :url="route('scoresheet')">
-Scoresheet
+<x-mail::button :url="route('scoreboard')">
+Scoreboard
 </x-mail::button>

@@ -1,7 +1,7 @@
 <div class="pt-2 pb-3 space-y-1">
-    <x-forms.responsive-nav-link href="{{ route('scoresheet') }}" :active="request()->routeIs('scoresheet')" wire:navigate>
+    <x-forms.responsive-nav-link href="{{ route('scoreboard') }}" :active="request()->routeIs('scoreboard')" wire:navigate>
         <x-svg.table-list-solid color="fill-gray-600" size="5" padding="mr-4"/>
-        Scoresheet
+        Scoreboard
     </x-forms.responsive-nav-link>
 </div>
 <div class="pt-2 pb-3 space-y-1">

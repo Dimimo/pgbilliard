@@ -1,8 +1,8 @@
 <div class="text-justify">
     <div class="mb-4">
         When the games are actually being played, you notice a link on
-        <a href="{{ route('scoresheet') }}" class="inline-block text-blue-800 link" wire:navigate>
-            the Scoresheet
+        <a href="{{ route('scoreboard') }}" class="inline-block text-blue-800 link" wire:navigate>
+            the Scoreboard
         </a>
         and on
         <a href="{{ route('calendar') }}" class="inline-block text-blue-800 link" wire:navigate>
@@ -49,8 +49,8 @@
             It comes with a confirmation dialogue. Just to be sure.<br class="mb-2">
             When the final game is confirmed, <span class="font-bold">all participating players get an email with the day results</span>. <br>
             <span class="font-bold">As always</span>:
-            <a href="{{ route('scoresheet') }}" class="inline-block text-blue-800 link" wire:navigate>
-                the Scoresheet
+            <a href="{{ route('scoreboard') }}" class="inline-block text-blue-800 link" wire:navigate>
+                the Scoreboard
             </a> and <a href="{{ route('calendar') }}" class="inline-block text-blue-800 link" wire:navigate>
                 the Calendar
             </a> are immediately up-to-date.
