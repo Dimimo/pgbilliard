@@ -71,8 +71,6 @@ class Venue extends Model
         'address' => 'string',
         'contact_name' => 'string',
         'contact_nr' => 'string',
-        'lat' => 'decimal',
-        'lng' => 'decimal',
         'name' => 'string',
     ];
 
