@@ -1,5 +1,15 @@
-@props(['title', 'subtitle' => null, 'help' => null])
-<div class="grid grid-rows-auto gap-y-2 py-3 px-6 mb-2 md:mb-4 bg-gradient-to-b from-green-300 rounded-lg" {{ $attributes }}>
+@props(['title', 'subtitle' => null, 'help' => null, 'gradient' => true])
+@php
+    $class = "grid grid-rows-auto gap-y-2 py-3 px-6 mb-2 md:mb-4";
+    if ($gradient) {
+        $class .= " bg-gradient-to-b from-green-300 rounded-lg";
+    }
+@endphp
+<div
+    {{ $attributes->merge([
+        'class' => $class
+        ]) }}
+>
     @if($help)
         <div class="flex flex-row">
             <div class="flex-none"></div>
