@@ -17,7 +17,7 @@ $logout = function () {
         <!-- Primary Navigation Menu -->
         <div class="mx-auto max-w-7xl px-2 md:px-4 lg:px-6">
             <div class="flex h-16 justify-between">
-                <div class="flex h-16 grow justify-between">
+                <div class="flex h-16 grow justify-between items-center">
 
                     <x-navigation.main-links-expanded/>
 
