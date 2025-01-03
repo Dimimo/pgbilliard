@@ -18,6 +18,7 @@
     <link rel="apple-touch-icon" sizes="57x57" href="{{ secure_asset('apple-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ secure_asset('apple-icon-60x60.png') }}">
     <link rel="apple-touch-icon" sizes="72x72" href="{{ secure_asset('apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ secure_asset('apple-icon-76x76.png') }}">
     <link rel="apple-touch-icon" sizes="114x114" href="{{ secure_asset('apple-icon-114x114.png') }}">
     <link rel="apple-touch-icon" sizes="120x120" href="{{ secure_asset('apple-icon-120x120.png') }}">
     <link rel="apple-touch-icon" sizes="144x144" href="{{ secure_asset('apple-icon-144x144.png') }}">
@@ -30,7 +31,7 @@
     <link rel="manifest" href="{{ secure_asset('manifest.json') }}">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#6cc497">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="robots" content="noindex,nofollow">
