@@ -10,7 +10,7 @@ state('date');
 name('dates.show');
 ?>
 
-<x-layout>
+<x-layout title="Day Scores and Game details">
     @volt
     <section>
         <x-title
