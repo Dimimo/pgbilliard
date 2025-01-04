@@ -22,7 +22,7 @@ state([
             />
         </div>
 
-        <div class="my-4">
+        <div>
             <livewire:dashboard :user="$user"/>
         </div>
     </div>
