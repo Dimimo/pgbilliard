@@ -17,11 +17,11 @@ class Dashboard extends Component
     public User $user;
     public ?Team $team;
     public ?Player $player = null;
+    public Collection $teams;
     public Collection $rooms;
 
     public function mount(): void
     {
-        //$this->user = User::find(1);
         $this->team = Team::tap(new Cycle())
             ->has('players', '=', 1, 'and', fn ($q) => $q->where('user_id', $this->user->id))
             ->with('players')
@@ -30,6 +30,9 @@ class Dashboard extends Component
             ?->players()
             ->where('user_id', $this->user->id)
             ->first();
+        if ($this->user->venue) {
+            $this->teams = $this->user->venue->teams()->tap(new Cycle())->get();
+        }
         $this->rooms = $this->user->chatRooms()
             ->has('users', '=', 1, 'and', fn ($q) => $q->where('user_id', $this->user->id))
             ->with('users')

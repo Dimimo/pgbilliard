@@ -1,47 +1,104 @@
 <div>
-    <div class="mb-4 rounded-lg border-2 border-gray-500 p-4">
+    <div class="mb-6">
+        <x-navigation.main-links-buttons/>
+    </div>
+
+    <div class="mb-4 rounded-lg border-2 border-gray-500 p-2">
         <div class="mb-4 border-b border-gray-500 pl-4 text-xl">
             What is your role in the current Season?
         </div>
-        @if ($team)
-            <div>
-                You play for <a
-                    href="{{ route('teams.show', ['team' => $team]) }}"
-                    class="inline-block text-blue-800 link"
-                    wire:navigate
-                >
-                    {{ $team->name }}
-                </a>
-            </div>
-            @if ($player->captain)
-                <div>
-                    You are a captain, you can <a
-                        href="{{ route('teams.edit', ['team' => $team]) }}"
-
-                        class="inline-block text-blue-800 link"
-                        wire:navigate
+        @if ($user->venue)
+            <div class="my-4 rounded-lg bg-green-50 p-4">
+                <div class="text-lg">A bar is on your name:</div>
+                <div class="mb-4">
+                    <a href="{{ route('venues.show', ['venue' => $user->venue]) }}"
+                       class="inline-block text-blue-800 link"
+                       wire:navigate
                     >
-                        manage your team here
+                        {{ $user->venue->name }}
+                    </a>
+                    <span class="text-sm">
+                    (<a href="{{ route('venues.edit', ['venue' => $user->venue]) }}"
+                        title="edit"
+                        class="inline-block text-sm text-blue-800"
+                        wire:navigate
+                        >
+                    edit
+                </a>)
+                </span>
+
+                </div>
+                <div class="text-lg">
+                    There {{ trans_choice('plural.teams', $teams->count()) }} playing for {{ $user->venue->name }}:
+                </div>
+                @foreach($teams as $team)
+                    <div class="flex flex-row items-center space-x-2">
+                        <a
+                            href="{{ route('teams.show', ['team' => $team]) }}"
+                            class="inline-block text-blue-800 link"
+                            wire:navigate
+                        >
+                            {{ $team->name }}
+                        </a>
+                        <div class="text-sm">
+                            (<a href="{{ route('teams.edit', ['team' => $team]) }}"
+                                title="edit"
+                                class="inline-block text-sm text-blue-800"
+                                wire:navigate
+                            >
+                                update team and players
+                            </a>)
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+        <div class="rounded-lg bg-indigo-50 p-4">
+            @if ($team)
+                <div class="text-lg">Your participation:</div>
+                <div class="mb-4">
+                    <div>
+                        You play for <a
+                            href="{{ route('teams.show', ['team' => $team]) }}"
+                            class="inline-block text-blue-800 link"
+                            wire:navigate
+                        >
+                            {{ $team->name }}
+                        </a>
+                    </div>
+                    @if ($player->captain)
+                        <div>
+                            You are a captain, you can <a
+                                href="{{ route('teams.edit', ['team' => $team]) }}"
+                                class="inline-block text-blue-800 link"
+                                wire:navigate
+                            >
+                                manage your team here
+                            </a>
+                        </div>
+                    @endif
+                </div>
+                <div class="text-lg">Your team members are:</div>
+            <ul class="list-inside list-disc">
+                @foreach($team->players->sortBy('name')->sortByDesc('captain') as $member)
+                    <li>{{ $member->user->name }} {{ $member->captain ? 'is captain' : '' }}</li>
+                @endforeach
+            </ul>
+
+            @else
+                <div class="mb-4">
+                    You don't play for a team. If you think this is an error, please
+                    <a href="{{ route('teams.index') }}" class="inline-block text-blue-800 link" wire:navigate>
+                        contact your captain or bar owner
                     </a>
                 </div>
             @endif
-            <div class="mt-4 text-lg">Your team members are:</div>
-            @foreach($team->players->sortBy('name')->sortByDesc('captain') as $member)
-                <div>{{ $member->user->name }} {{ $member->captain ? 'is captain' : '' }}</div>
-            @endforeach
-        @else
-            <div>
-                You don't play for a team. If you think this is an error, please
-                <a href="{{ route('teams.index') }}" class="inline-block text-blue-800 link" wire:navigate>
-                    contact your captain or bar owner
-                </a>
-            </div>
-        @endif
+        </div>
     </div>
 
-    <div class="mb-4 rounded-lg border-2 border-gray-500 p-4">
+    <div class="mb-4 rounded-lg border-2 border-gray-500 p-2">
         <div class="mb-4 border-b border-gray-500 pl-4 text-xl">
-            Forum posts that changed since last login
+            Forum posts that changed since your last login
         </div>
         <ul>
             @forelse($this->newPosts() as $post)
@@ -66,11 +123,11 @@
         </ul>
     </div>
 
-    <div class="mb-4 rounded-lg border-2 border-gray-500 p-4">
+    <div class="mb-4 rounded-lg border-2 border-gray-500 p-2">
         <div class="mb-4 border-b border-gray-500 pl-4 text-xl">
             Chat rooms
         </div>
-        <div>
+        <div class="px-4">
             @foreach($rooms as $room)
                 <div>
                     <a href="{{ route('chat.room', ['chatRoom' => $room]) }}"
