@@ -66,7 +66,7 @@
         <li class="line-through">send an email the day before the game about where and who they play as a reminder
             <span class="text-sm italic">(feels like talking to myself)</span></li>
         <li>more stats and overviews, i.e. for users, players, venues</li>
-        <li>
+        <li class="line-through">
             a daily schedule online, instead of on paper as we do now
             <span class="text-sm italic">(Day Schedules, should be done before the next Season)</span>
         </li>
@@ -75,7 +75,7 @@
             <span class="text-sm italic">(also linked to Day Schedules)</span>
         </li>
         <li>a working Chat and possibly some statistics about it</li>
-        <li>
+        <li class="line-through">
             an entry page <span class="text-sm italic">(the Dashboard, which already exists)</span>
             with some personal information that may apply to the player
         </li>
@@ -94,6 +94,12 @@
         <li>Season Structure overview: create a new team with a popup, </li>
         <li>Season Structure overview: the list of potential captains omits occupied players</li>
         <li>I found a way to make the chat work: a reload of the messages every 2 seconds... well, it works and that is what counts</li>
+        <li>The Day Schedule is finally finished, took me only 6 days to get it right... </li>
+        <li>Finished the Dashboard, an individual overview of the logged in player and their role in the selected (usually current) season</li>
+        <li>The players scoreboard is for later, when there is data to work with... </li>
+        <li>The database table ('games'), which holds the needed player's data, will make the players scoreboard easy...</li>
+        <li>...even if a players switches teams during the season (a win is both for player AND the team at the set date)</li>
+        <li>For now, that's about it, the rest is cosmetics really, especially the Forum can be visually improved</li>
     </ul>
     <div>
         For ALL changes, I refer to
