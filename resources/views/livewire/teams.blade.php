@@ -7,7 +7,9 @@
         <thead class="whitespace-nowrap">
         <tr class="border border-slate-300">
             <th class="border border-slate-300 bg-slate-100 p-2 text-left">Teams</th>
-            <th class="border border-slate-300 bg-slate-100 p-2 text-left">Venue</th>
+            <th class="hidden border border-slate-300 bg-slate-100 p-2 text-left md:table-cell">
+                Venue
+            </th>
             <th class="border border-slate-300 bg-slate-100 p-2 text-center">
                 <img class="mx-auto" src="{{ secure_asset('svg/ordered-list.svg') }}" alt="Number of Players" width="24" height="24">
             </th>
@@ -38,7 +40,7 @@
                         </div>
                     </div>
                 </td>
-                <td class="border-b-2 border-slate-300 p-2">
+                <td class="hidden border-b-2 border-slate-300 p-2 md:table-cell">
                     <div class="flex justify-start">
                         <div class="mr-2">
                             @can ('update', $team->venue)
