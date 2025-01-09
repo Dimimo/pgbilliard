@@ -13,7 +13,7 @@
             @foreach ($date->events as $event)
                 @if ($team->id === $event->team_1->id)
                     <tr>
-                        <td class="p-2">
+                        <td class="p-2 hidden sm:table-row">
                             <div class="flex justify-start">
                                 {{-- todo: add the pdf file --}}
                                 {{--<div class="mr-2">
@@ -22,8 +22,31 @@
                                     </a>
                                 </div>--}}
                                 <div>
-                                    <a href="{{ route('dates.show', ['date' => $date]) }}" wire:navigate>
+                                    <a
+                                        href="{{ route('dates.show', ['date' => $date]) }}"
+                                        class="link"
+                                        wire:navigate
+                                    >
                                         {{ $event->date->date->format('jS \o\f M Y') }}
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-row sm:hidden">
+                            <div class="flex justify-start">
+                                {{-- todo: add the pdf file --}}
+                                {{--<div class="mr-2">
+                                    <a href="#" title="download this personalized day schedule" wire:navigate>
+                                        <img src="{{ secure_asset('svg/file-pdf.svg') }}" alt="" width="16" height="16">
+                                    </a>
+                                </div>--}}
+                                <div>
+                                    <a
+                                        href="{{ route('dates.show', ['date' => $date]) }}"
+                                        class="link"
+                                        wire:navigate
+                                    >
+                                        {{ $event->date->date->format('d-m-y') }}
                                     </a>
                                 </div>
                             </div>
@@ -50,7 +73,7 @@
                     </tr>
                 @elseif($team->id === $event->team_2->id)
                     <tr>
-                        <td class="p-2">
+                        <td class="p-2 hidden sm:table-row">
                             <div class="flex justify-start">
                                 {{-- todo: add the pdf file --}}
                                 {{--<div class="mr-2">
@@ -59,8 +82,31 @@
                                     </a>
                                 </div>--}}
                                 <div>
-                                    <a href="{{ route('dates.show', ['date' => $date]) }}" wire:navigate>
+                                    <a
+                                        href="{{ route('dates.show', ['date' => $date]) }}"
+                                        class="link"
+                                        wire:navigate
+                                    >
                                         {{ $event->date->date->format('jS \o\f M Y') }}
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-row sm:hidden">
+                            <div class="flex justify-start">
+                                {{-- todo: add the pdf file --}}
+                                {{--<div class="mr-2">
+                                    <a href="#" title="download this personalized day schedule" wire:navigate>
+                                        <img src="{{ secure_asset('svg/file-pdf.svg') }}" alt="" width="16" height="16">
+                                    </a>
+                                </div>--}}
+                                <div>
+                                    <a
+                                        href="{{ route('dates.show', ['date' => $date]) }}"
+                                        class="link"
+                                        wire:navigate
+                                    >
+                                        {{ $event->date->date->format('d-m-y') }}
                                     </a>
                                 </div>
                             </div>
