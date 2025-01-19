@@ -7,6 +7,7 @@ use App\Livewire\WithUsersSelect;
 use App\Models\Admin;
 use Auth;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Overview extends Component
@@ -14,6 +15,7 @@ class Overview extends Component
     use WithAdmins;
     use WithUsersSelect;
 
+    #[Validate(['required', 'exists:users,id'])]
     public ?int $user_id = null;
 
     public function mount(): void
