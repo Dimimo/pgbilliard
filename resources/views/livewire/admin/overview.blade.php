@@ -61,19 +61,19 @@
                 </select>
             </div>
         </div>
-        <div class="m-2 flex flex-col space-y-2 rounded-lg border border-green-500 bg-green-100 p-4 text-green-700">
+        <div class="m-2 flex flex-col rounded-lg border border-green-500 bg-green-100 p-4 text-green-700 space-y-2">
             <p>
                 <u>It goes without saying</u>: <strong>please be careful</strong> who you choose to become an administrator.
-                They have the same powers as you!
-                To remove an admin, simply click
+                They have the same powers as you! To remove an admin, simply click
                 <img class="mt-1 inline-block align-text-top" src="{{ secure_asset('svg/user-delete.svg') }}" alt="" width="14" height="14">
             </p>
             <p>
-                No emails are send <u>to the affected user</u> about the admin state. Making a mistake goes quiet 🤫, although, an email
+                No emails are send <u>to the selected user</u> about the admin state. Making a mistake goes quiet 🤫, although, an email
                 is sent to the shared Admin inbox to advice all admins. If you make a mistake, simply delete them from the inbox.
             </p>
             <p>
-                <u class="font-bold">Fun fact</u>: you can accidentally remove yourself... and you can't undo it! It gives you a warning though. Don't worry.
+                <u class="font-bold">Fun fact</u>: you can accidentally remove yourself... and you can't undo it! It gives you a warning though. Don't
+                worry.
             </p>
             <p>
                 For practical reasons, you can't remove the Administrator (user id 1).
