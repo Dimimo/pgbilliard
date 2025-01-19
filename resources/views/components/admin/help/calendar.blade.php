@@ -21,8 +21,7 @@
 
     <div class="text-2xl">Update an existing game</div>
     <div class="my-2">
-        Make sure you select the correct playing date first. Games of a past date cannot be updated or
-        deleted.
+        Make sure you select the correct playing date first. Games of a past date cannot be updated or deleted.
     </div>
 
 @endif
@@ -36,8 +35,12 @@
 <div class="mt-3 text-2xl">Add a new date</div>
 <div class="my-2">
     When done with the current selected date, click on
-    <img class="mx-auto inline-block" src="{{ secure_asset('svg/plus-box-fill.svg') }}" alt="" width="16" height="16"> <span class="text-green-700">Add next week</span>.
-    Simple enough.
+    <img
+        class="mx-auto inline-block"
+        src="{{ secure_asset('svg/plus-box-fill.svg') }}"
+        alt=""
+        width="16"
+        height="16"> <span class="text-green-700">Add next week</span>. Simple enough.
 </div>
 <div class="my-2">
     <strong><u>Hint</u>:</strong> If you want to skip a week (holidays for example), create 2 new dates and delete the holiday later.
@@ -45,7 +48,7 @@
 
 <div class="text-2xl">Delete a date</div>
 <div class="my-2">
-    You can delete a date if their it has no games. If the date is somehow wrong, you
+    You can delete a date if it has no games. If the date is somehow wrong, you
     will have to delete the games <img
         class="inline-block"
         src="{{ secure_asset('svg/minus-box-fill.svg') }}"
