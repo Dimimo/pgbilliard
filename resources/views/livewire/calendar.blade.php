@@ -9,9 +9,21 @@
 
                 @foreach ($dates as $date)
 
-                    <div class="w-full px-4 md:w-1/2 lg:w-1/3" wire:key="date_{{ $date->id }}">
-                        <div
-                            class="relative grid grid-flow-row justify-items-center auto-rows-max gap-y-2 w-auto py-3 px-6 bg-gray-200 text-gray-900 rounded border border-b-1 border-gray-300 {{ $date->regular ? 'bg-green-500' : 'bg-teal-500' }}">
+                    <div class="w-full px-1 md:w-1/2 lg:w-1/3" wire:key="date_{{ $date->id }}">
+                        <div @class([
+                                'relative',
+                                'grid',
+                                'grid-flow-row',
+                                'justify-items-center',
+                                'auto-rows-max',
+                                'gap-y-2',
+                                'w-auto',
+                                'py-3',
+                                'px-6',
+                                'text-gray-900',
+                                'bg-green-500' => $date->regular,
+                                'bg-teal-500' => ! $date->regular
+                            ])>
                             @if($hasAccess || $date->checkOpenWindowAccess())
                                 <a
                                     href="{{ route('dates.show', ['date' => $date]) }}"
