@@ -21,6 +21,7 @@
                                 'py-3',
                                 'px-6',
                                 'text-gray-900',
+                                'rounded-t-lg',
                                 'bg-green-500' => $date->regular,
                                 'bg-teal-500' => ! $date->regular
                             ])>
