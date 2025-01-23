@@ -11,23 +11,23 @@
     @can('update', $event)
         @if($confirmed === false && $event->games()->count() === 0)
             <td @class([
-            'px-2 pt-4 sm:px-4' => $errors->any(),
-            'px-2 py-4 sm:p-4' => !$errors->any(),
-        ])>
-                <x-date.change-score model="score1" :score1="$score1" :score2="$score2"/>
-            </td>
-            <td @class([
-            'px-2 pt-4 sm:px-4' => $errors->any(),
-            'px-2 py-4 sm:p-4' => !$errors->any(),
-        ])>
-                <x-date.change-score model="score2" :score1="$score1" :score2="$score2"/>
-
+                'px-2 pt-4 sm:px-4' => $errors->any(),
+                'px-2 py-4 sm:p-4' => !$errors->any(),
+            ]) colspan="2">
+                <div class="grid grid-cols-1 justify-items-center sm:grid-cols-2 gap-0">
+                    <div class="mr-auto sm:mr-2">
+                        <x-date.change-score model="score1" :score1="$score1" :score2="$score2"/>
+                    </div>
+                    <div class="ml-auto sm:ml-2">
+                        <x-date.change-score model="score2" :score1="$score1" :score2="$score2"/>
+                    </div>
+                </div>
             </td>
         @else
             <td colspan="2" @class([
-            'px-2 pt-4 sm:px-4' => $errors->any(),
-            'px-2 py-4 sm:p-4' => !$errors->any(),
-        ])>
+                'px-2 pt-4 sm:px-4' => $errors->any(),
+                'px-2 py-4 sm:p-4' => !$errors->any(),
+            ])>
                 <x-date.show-score :score1="$score1" :score2="$score2"/>
             </td>
         @endif
