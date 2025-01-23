@@ -26,12 +26,12 @@ trait ConsolidateTrait
                 foreach ($players as $user) {
                     // avoid players that haven't been claimed yet
                     if (!Str::contains($user->email, '@pgbilliard.com')) {
-                        \Mail::to($user)->queue(new DayScoresConfirmed($this->event->date));
+                        \Mail::to($user)->send(new DayScoresConfirmed($this->event->date));
                         $send_to = \Arr::add($send_to, $user->id, $user->name);
                     }
                 }
 
-                \Mail::queue(new DayScoresToAdmin($this->event->date, \Arr::sort($send_to)));
+                \Mail::send(new DayScoresToAdmin($this->event->date, \Arr::sort($send_to)));
 
                 $message = "["
                     . $this->event->date->date->appTimezone()->format("d/m/Y")
