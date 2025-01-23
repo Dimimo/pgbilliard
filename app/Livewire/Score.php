@@ -21,6 +21,7 @@ class Score extends Component
     public int $week;
     public Date $date;
     public ?int $score_id = null;
+    public $show_full_table = false;
 
     public function mount(): void
     {
@@ -32,6 +33,11 @@ class Score extends Component
     public function updatedWithSetMyTeam(): void
     {
         $this->scores = $this->getResults();
+    }
+
+    public function toggleShowFullTable(): void
+    {
+        $this->show_full_table = ! $this->show_full_table;
     }
 
     public function render(): View

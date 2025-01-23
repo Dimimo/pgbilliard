@@ -18,29 +18,54 @@
 
     <x-navigation.main-links-buttons/>
 
-    <table class="my-2 md:my-4 min-w-full bg-transparent table-collapse">
+    <div
+        class="lg:hidden my-2 mx-auto w-min md:ml-auto md:mr-6 whitespace-nowrap rounded-full border border-gray-500 bg-gray-100 text-center">
+        <button class="px-4 py-2" wire:click="toggleShowFullTable">
+            {{ $show_full_table ? 'Hide some' : 'Show all' }} columns
+        </button>
+    </div>
+
+    <table class="my-2 min-w-full bg-transparent table-collapse md:my-4">
         <thead class="whitespace-nowrap">
         <tr>
             <th class="bg-gray-300 p-2 text-center text-gray-900">#</th>
             <th class="bg-blue-300 p-2 text-left text-gray-900">Team</th>
             <th class="bg-amber-300 p-2 text-left text-gray-900">Last game</th>
             <th class="bg-yellow-200 p-2 text-center text-gray-900" title="Last scores">Score</th>
-            <th class="hidden bg-green-300 p-2 text-gray-900 sm:table-cell">
+            <th @class([
+                'bg-green-300 p-2 text-gray-900',
+                'hidden sm:table-cell' => ! $show_full_table
+            ])>
                 <x-svg.thumbs-up-solid color="fill-green-600" size="5"/>
             </th>
-            <th class="hidden bg-red-200 p-2 text-gray-900 sm:table-cell">
+            <th @class([
+                'bg-red-200 p-2 text-gray-900',
+                'hidden sm:table-cell' => ! $show_full_table
+            ])>
                 <x-svg.thumbs-down-solid color="fill-red-600" size="5"/>
             </th>
-            <th class="hidden bg-green-300 p-2 text-gray-900 md:table-cell">
+            <th @class([
+                'bg-green-300 p-2 text-gray-900',
+                'hidden lg:table-cell' => ! $show_full_table
+            ])>
                 <x-svg.square-plus-solid color="fill-green-600" size="5"/>
             </th>
-            <th class="hidden bg-red-200 p-2 text-gray-900 md:table-cell">
+            <th @class([
+                'bg-red-200 p-2 text-gray-900',
+                'hidden lg:table-cell' => ! $show_full_table
+            ])>
                 <x-svg.square-minus-solid color="fill-orange-500" size="5"/>
             </th>
-            <th class="hidden bg-purple-300 p-2 text-gray-900 lg:table-cell" title="Percentage">
+            <th @class([
+                'bg-purple-300 p-2 text-gray-900',
+                'hidden md:table-cell' => ! $show_full_table
+            ]) title="Percentage">
                 <x-svg.percent-solid color="fill-indigo-500" size="5"/>
             </th>
-            <th class="hidden bg-indigo-300 p-2 text-gray-900 lg:table-cell" title="Number of games participated">
+            <th @class([
+                'bg-indigo-300 p-2 text-gray-900',
+                'hidden md:table-cell' => ! $show_full_table
+            ]) title="Number of games participated">
                 <x-svg.champagne-glasses-solid color="fill-blue-800" size="5"/>
             </th>
         </tr>
@@ -115,22 +140,40 @@
                             </div>
                         @endif
                     </td>
-                    <td class="hidden bg-green-200 p-2 text-center text-gray-900 sm:table-cell" title="Daily games won">
+                    <td @class([
+                        'bg-green-200 p-2 text-center text-gray-900',
+                        'hidden sm:table-cell' => ! $show_full_table
+                    ]) title="Daily games won">
                         {{ $score->get('won') }}
                     </td>
-                    <td class="hidden bg-red-100 p-2 text-center text-gray-900 sm:table-cell" title="Daily games lost">
+                    <td @class([
+                        'bg-red-100 p-2 text-center text-gray-900',
+                        'hidden sm:table-cell' => ! $show_full_table
+                    ]) title="Daily games lost">
                         {{ $score->get('lost') }}
                     </td>
-                    <td class="hidden bg-green-200 p-2 text-center text-gray-900 md:table-cell" title="Total games won">
+                    <td @class([
+                        'bg-green-200 p-2 text-center text-gray-900',
+                        'hidden lg:table-cell' => ! $show_full_table
+                    ]) title="Total games won">
                         {{ $score->get('for') }}
                     </td>
-                    <td class="hidden bg-red-100 p-2 text-center text-gray-900 md:table-cell" title="Total games lost">
+                    <td @class([
+                        'bg-red-100 p-2 text-center text-gray-900',
+                        'hidden lg:table-cell' => ! $show_full_table
+                    ]) title="Total games lost">
                         {{ $score->get('against') }}
                     </td>
-                    <td class="hidden bg-purple-100 p-2 text-center text-gray-900 lg:table-cell" title="Percentage">
+                    <td @class([
+                        'bg-purple-100 p-2 text-center text-gray-900',
+                        'hidden md:table-cell' => ! $show_full_table
+                    ]) title="Percentage">
                         {{ $score->get('percentage') }}%
                     </td>
-                    <td class="hidden bg-indigo-100 p-2 text-center text-gray-900 lg:table-cell"
+                    <td @class([
+                        'bg-indigo-100 p-2 text-center text-gray-900',
+                        'hidden md:table-cell' => ! $show_full_table
+                    ])
                         title="{{ $score->get('games_played') }} games participated">
                         {{ $score->get('games_played') }}
                     </td>

@@ -149,7 +149,7 @@
                 <x-svg.minus-solid color="fill-red-700"/>
             </td>
             <td class="h-12 w-12 border border-gray-300 text-center">
-                <x-svg.plus-solid color="fill-green-700"/>
+                <x-svg.minus-solid color="fill-red-700"/>
             </td>
             <td class="h-12 w-12 border border-gray-300 text-center">
                 <x-svg.plus-solid color="fill-green-700"/>
@@ -169,7 +169,7 @@
                 <x-svg.minus-solid color="fill-red-700"/>
             </td>
             <td class="h-12 w-12 border border-gray-300 text-center">
-                <x-svg.plus-solid color="fill-green-700"/>
+                <x-svg.minus-solid color="fill-red-700"/>
             </td>
             <td class="h-12 w-12 border border-gray-300 text-center">
                 <x-svg.plus-solid color="fill-green-700"/>
@@ -189,7 +189,7 @@
                 <x-svg.minus-solid color="fill-red-700"/>
             </td>
             <td class="h-12 w-12 border border-gray-300 text-center">
-                <x-svg.minus-solid color="fill-red-700"/>
+                <x-svg.plus-solid color="fill-green-700"/>
             </td>
             <td class="h-12 w-12 border border-gray-300 text-center">
                 <x-svg.plus-solid color="fill-green-700"/>
@@ -209,7 +209,7 @@
                 <x-svg.minus-solid color="fill-red-700"/>
             </td>
             <td class="h-12 w-12 border border-gray-300 text-center">
-                <x-svg.minus-solid color="fill-red-700"/>
+                <x-svg.plus-solid color="fill-green-700"/>
             </td>
             <td class="h-12 w-12 border border-gray-300 text-center">
                 <x-svg.plus-solid color="fill-green-700"/>
