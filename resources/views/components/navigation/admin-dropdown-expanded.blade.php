@@ -47,6 +47,10 @@
             {{ __('Update the Calendar') }}
         </x-forms.dropdown-link>
 
+        <x-forms.dropdown-link :href="route('admin.calendar.shift', ['season' => $season])" wire:navigate>
+            {{ __('Change a playing date') }}
+        </x-forms.dropdown-link>
+
         <hr class="my-2 w-fill border-b border-b-indigo-700">
 
         <x-forms.dropdown-link :href="route('admin.overview')" wire:navigate>
