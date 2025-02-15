@@ -53,7 +53,11 @@
             'px-2 py-4 sm:p-4' => !$errors->any(),
         ])>
         @can('update', $event)
-            @if (($score1 + $score2 === 15) && ($confirmed === false))
+            @if (
+                (($score1 + $score2 === 15) && ($confirmed === false))
+                ||
+                ($event->date->regular && (($score1 === 8 || $score2 === 8) && ($confirmed === false)))
+            )
                 <button
                     type="button"
                     title="Confirm the final score"
