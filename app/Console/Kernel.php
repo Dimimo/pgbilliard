@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('day-scores')->dailyAt('12:00');
         $schedule->job(new PlayDayReminder())->dailyAt('12:00');
 
-        if (! str_contains(shell_exec('ps xf'), 'php artisan queue:work')) {
+        if (! str_contains(shell_exec('ps xf'), 'php artisan queue:work --queue=high,default --tries=2')) {
             //https://www.tecmint.com/run-linux-command-process-in-background-detach-process/
             $schedule->command('queue:work --queue=high,default --tries=2')->runInBackground();
         }
