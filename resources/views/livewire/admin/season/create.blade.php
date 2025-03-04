@@ -1,12 +1,12 @@
 @php use Illuminate\Support\Carbon; @endphp
 <div>
-    <div class="border border-green-500 bg-green-100 p-4 m-2">
-        <ul class="px-4 list-disc">
+    <div class="m-2 rounded-lg border border-green-500 bg-green-100 p-4">
+        <ul class="list-disc px-4">
             <li>
                 <u><strong>Important</strong></u>:
                 If a new venue is introduced, please
                 <a
-                    class="border border-transparent font-semibold text-blue-700 hover:bg-blue-100 hover:border hover:border-blue-700"
+                    class="border border-transparent font-semibold text-blue-700 hover:border hover:border-blue-700 hover:bg-blue-100"
                     href="{{ route('admin.venues.create') }}"
                     wire:navigate
                 >
@@ -20,7 +20,7 @@
                 The first playing date will be created as a starting point to publish the calendar, the date can still be updated
             </li>
             <li>
-                After creating the new season, you will be invited to establish <strong>the teams first</strong>, before the calendar part
+                After creating the new season, you will be invited to chose <strong>the participating teams</strong>, before the calendar part
             </li>
             <li>
                 Last but not least, <strong>you won't be able to change</strong> the Season {{ $cycle }} setting after creation
@@ -32,7 +32,7 @@
     </div>
     <form wire:submit="save">
         <div class="grid grid-cols-2 gap-4">
-            <div class="p-2 mt-1 text-right text-xl">
+            <div class="mt-1 p-2 text-right text-xl">
                 <x-forms.input-label value="Season"/>
             </div>
             <div class="p-2">
@@ -41,7 +41,7 @@
                     <img class="inline-block cursor-pointer" src="{{ secure_asset('svg/plus-box-fill.svg') }}" alt="" title="Add one month" width="24"
                          height="24">
                 </a>
-                @if(Carbon::createFromFormat('Y/m', $cycle)->subMonth() > Carbon::now())
+                @if(Carbon::createFromFormat('Y/m', $cycle)->subMonth()->format('Ym') >= Carbon::now()->format('Ym'))
                     <a wire:click="subMonth">
                         <img
                             class="inline-block cursor-pointer"
@@ -58,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="p-2 mt-1 text-right text-xl">
+            <div class="mt-1 p-2 text-right text-xl">
                 <label for="number_of_teams">
                     Number of teams
                 </label>
@@ -80,7 +80,7 @@
                 <input id="has_bye" type="checkbox" wire:model="has_bye">
             </div>
 
-            <div class="p-2 mt-1 text-right text-xl">
+            <div class="mt-1 p-2 text-right text-xl">
                 <label for="day_of_week">
                     The weekday we are playing
                 </label>
@@ -97,7 +97,7 @@
                 </select>
             </div>
 
-            <div class="p-2 mt-1 text-right text-xl">
+            <div class="mt-1 p-2 text-right text-xl">
                 <label for="starting_date">
                     The next Season starts at
                 </label>
@@ -116,8 +116,8 @@
                 @endif
             </div>
 
-            <div class="p-2 mt-1 text-right">
-                <div class="flex items-center gap-4">
+            <div class="col-span-2 p-2">
+                <div class="flex justify-center gap-4">
                     <x-forms.primary-button>Create</x-forms.primary-button>
                     <x-forms.spinner target="save"/>
                     <x-forms.action-message class="mx-3" on="season-created">
