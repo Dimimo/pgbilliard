@@ -75,7 +75,8 @@ class Update extends Component
     public function updatedTeamSelect(?int $team_id): void
     {
         // if a team exists, copy it and add it to the new season
-        $old_team = Team::find($team_id);
+        $old_team = Team::with(['venue', 'players'])->find($team_id);
+
         if ($old_team) {
             $this->dropdown_teams = $this->dropdown_teams->filter(fn ($item) => $item->id !== $old_team->id);
             $new_team = Team::create([
@@ -83,8 +84,11 @@ class Update extends Component
                 'venue_id' => $old_team->venue_id,
                 'season_id' => $this->season->id,
             ]);
-            // create the new captain
-            Player::create(['user_id' => $old_team->captain()?->user_id, 'team_id' => $new_team->id, 'captain' => 1]);
+
+            // copy the players
+            foreach ($old_team->players as $player) {
+                Player::create(['user_id' => $player->user_id, 'team_id' => $new_team->id, 'captain' => $player->captain]);
+            }
         } else { // a new team is selected, create one with a generic name and BYE as the team
             $new_team = Team::whereName('BYE')->first()->venue->teams()->create([
                 'name' => 'A new team '.++$this->i,
