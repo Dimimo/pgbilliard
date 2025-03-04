@@ -41,7 +41,7 @@
 
             <div class="col-span-4 h-full w-full bg-blue-50 p-4 text-right">
                 <x-schedule.players-dropdown
-                    :key="'home-matrix' . '-' . count($visit_matrix)"
+                    :key="'home-matrix' . '-' . $home_matrix->count()"
                     :event="$event"
                     :players="$home_players"
                     place="home"
@@ -51,7 +51,7 @@
             </div>
             <div class="col-span-4 h-full w-full bg-green-50 p-4 text-left">
                 <x-schedule.players-dropdown
-                    :key="'visit-matrix' . '-' . count($visit_matrix)"
+                    :key="'visit-matrix' . '-' . $visit_matrix->count()"
                     :event="$event"
                     :players="$visit_players"
                     place="visit"
@@ -109,7 +109,7 @@
                                 title="Confirm the final score"
                                 class="rounded-lg bg-blue-100 p-2 outline outline-blue-600 hover:bg-green-100 hover:outline-green-600"
                                 wire:click="consolidate()"
-                                wire:confirm="Final score is {{ $event->team_1->name }} {{ $event->score1 }} - {{ $visit_score }} {{ $event->team_2->name }}\nYou can't change the score after the confirmation."
+                                wire:confirm="Final score is {{ $event->team_1->name }} {{ $event->score1 }} - {{ $event->score2 }} {{ $event->team_2->name }}\nYou can't change the score after the confirmation."
                             >
                                 confirm
                             </button>
@@ -118,7 +118,7 @@
                 </div>
             @else
                 <div class="fixed bottom-0">
-                    <div class="w-min whitespace-nowrap rounded-t-lg border border-blue-800 bg-indigo-100 p-2 text-xl">
+                    <div class="w-min whitespace-nowrap rounded-t-lg border border-blue-800 bg-yellow-100 p-2 text-xl">
                         <span @class(['text-green-700' => $event->score1 > 7])>{{ $event->team_1->name }} {{ $event->score1 }}</span>
                         <x-svg.minus-solid color="fill-gray-600" size="3" padding="mx-2"/>
                         <span @class(['text-green-700' => $event->score2 > 7])>{{ $event->score2 }} {{ $event->team_2->name }}</span>

@@ -16,7 +16,7 @@
                 'mb-1 flex items-center justify-end',
                 'flex-row-reverse' => $place === 'visit',
             ])
-                 {{--wire:key="player-{{$players->first()->team->id}}-{{count($matrix)}}"--}}
+                 wire:key="player-{{$players->first()->team->id}}-{{$matrix->count()}}"
             >
                 @if ($can_update_players && Gate::authorize('update', $event))
                     <div class="mx-2">
@@ -36,9 +36,9 @@
                             </option>
                             @foreach($players as $player)
                                 <option
-                                    wire:key="selected-{{$i}}-{{count($matrix)}}"
+                                    wire:key="selected-{{$i}}-{{$matrix->count()}}"
                                     wire:click="playerSelected({{$player->id}}, {{$i}}, '{{$place}}')"
-                                    @selected(array_key_exists($i, $matrix) && $matrix[$i]->id === $player->id)
+                                    @selected($matrix->where('rank', $i)->first()?->player->id === $player->id)
                                     value="{{$player->id}}"
                                 >
                                     {{$player->name}}
@@ -46,8 +46,23 @@
                             @endforeach
                         </select>
                     </label>
-                @else
-                    {{$matrix[$i]->name}}
+                @elseif ($matrix->where('rank', $i)->count())
+                    @if($matrix->where('rank', $i)->first()->home)
+                        <div @class([
+                            'mb-1 flex items-center justify-end',
+                            'flex-row-reverse' => $place === 'visit',
+                        ])>
+                            <div class="mx-2 text-lg">{{$matrix->where('rank', $i)->first()->player->name}}</div>
+                            <div class="inline-flex items-center rounded-full border border-indigo-400 bg-indigo-100 px-2 py-1 font-bold leading-4">
+                                {{$i}}
+                            </div>
+                        </div>
+                    @else
+                        <div class="mx-2 text-lg">{{$matrix->where('rank', $i)->first()->player->name}}</div>
+                        <div class="inline-flex items-center rounded-full border border-green-500 bg-green-100 px-2 py-1 font-bold leading-4">
+                            {{$i}}
+                        </div>
+                    @endif
                 @endif
             </div>
         @endfor
@@ -59,8 +74,8 @@
                 'justify-start' => $place === 'visit',
             ])>
             <button
-                wire:click="scheduleReset(1)"
-                class="mt-4 w-min whitespace-nowrap rounded-full border-2 border-green-500 bg-green-100 hover:bg-green-200 px-4 py-2">
+                wire:click="scheduleReset('{{ $place }}')"
+                class="mt-4 w-min whitespace-nowrap rounded-full border-2 border-green-500 bg-green-100 px-4 py-2 hover:bg-green-200">
                 <x-svg.xmark-solid color="fill-red-600" size="5" padding="mr-1"/>
                 Reset the schedule
             </button>

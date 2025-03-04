@@ -35,13 +35,13 @@
                         @if ($i === 15)
                             <option value="">--select--</option>
                         @endif
-                        @foreach($matrix as $player)
+                        @foreach($matrix as $position)
                             <option
-                                wire:key="position-{{$player->id}}"
-                                wire:click="playerChanged({{$player->id}}, {{$game->id}})"
-                                @selected($game->player_id === $player->id)
+                                wire:key="position-{{$position->id}}"
+                                wire:click="playerChanged({{$position->player->id}}, {{$game->id}})"
+                                @selected($game->player_id === $position->player->id)
                             >
-                                {{ $player->name }}
+                                {{ $position->player->name }}
                             </option>
                         @endforeach
                     </select>

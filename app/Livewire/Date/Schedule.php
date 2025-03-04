@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Format;
 use App\Models\Game;
 use App\Models\Player;
+use App\Models\Position;
 use App\Models\Schedule as Matrix;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
@@ -18,11 +19,12 @@ class Schedule extends Component
     public Event $event;
     public Format $format;
     public Matrix $schedule;
+    public Collection $positions;
     public Collection $home_players;
     public Collection $visit_players;
     public bool $choose_format = false;
-    public array $home_matrix = [];
-    public array $visit_matrix = [];
+    public Collection $home_matrix;
+    public Collection $visit_matrix;
     public array $rounds = [1 => 'First', 6 => 'Second', 11 => 'Last'];
     public bool $can_update_players = true;
     public bool $confirmed = false;
@@ -68,7 +70,7 @@ class Schedule extends Component
         $this->dispatch('format-chosen');
     }
 
-    public function scoreGiven($game_id): void
+    public function scoreGiven(int $game_id): void
     {
         $game = Game::find($game_id);
         $this->authorize('update', $game);
@@ -84,12 +86,11 @@ class Schedule extends Component
 
         // then reverse the score to the other players, mind the reversed "! $game->home" status
         // but a score to true can be set to false without changing the other score
-        Game::where(
-            [
-                ['event_id', $game->event_id],
-                ['position', $game->position],
-                ['home', !$game->home]]
-        )->update(['win' => $score_is_true ? null : false]);
+        Game::where([
+            ['event_id', $game->event_id],
+            ['position', $game->position],
+            ['home', !$game->home]
+        ])->update(['win' => $score_is_true ? null : false]);
 
         // check if this is the first score being given, if so, lock the players order
         if ($this->event->games()->whereNotNull('win')->count()) {
@@ -116,37 +117,42 @@ class Schedule extends Component
     }
 
     public function playerSelected(int $player_id, int $position, string $place): void
-    {
+    {//dd($player_id, $position, $place);
+        Position::where([
+            'event_id' => $this->event->id,
+            'rank' => $position,
+            'home' => $place === 'home',
+        ])->delete();
         if ($player = Player::find($player_id)) {
+            Position::updateOrCreate([
+                'event_id' => $this->event->id,
+                'rank' => $position,
+                'home' => $place === 'home',
+            ], ['player_id' => $player_id]);
             $team = $player->team;
-            if ($place === 'home') {
-                $this->home_matrix[$position] = $player;
-            } else {
-                $this->visit_matrix[$position] = $player;
-            }
         } else {
             if ($place === 'home') {
-                unset($this->home_matrix[$position]);
                 $team = $this->event->team_1;
             } else {
-                unset($this->visit_matrix[$position]);
                 $team = $this->event->team_2;
             }
         }
 
         $schedules = Matrix::where([
-            ['format_id', $this->format->id],
-            ['player', $position],
-            ['home', $place === 'home']
-        ])
+                ['format_id', $this->format->id],
+                ['player', $position],
+                ['home', $place === 'home']
+            ])
             ->orderBy('position')
             ->get();
 
-        (new Game())->where([
-            ['event_id', $this->event->id],
-            ['team_id', $team->id],
-            ['home', $place === 'home',]
-        ])->whereIn('position', array_diff($schedules->pluck('position')->toArray(), [5, 10, 15]))
+        Game::query()
+            ->where([
+                ['event_id', $this->event->id],
+                ['team_id', $team->id],
+                ['home', $place === 'home',]
+            ])
+            ->whereIn('position', array_diff($schedules->pluck('position')->toArray(), [5, 10, 15]))
             ->delete();
 
         foreach ($schedules as $schedule) {
@@ -162,6 +168,7 @@ class Schedule extends Component
             }
         }
 
+        $this->recreateMatrix();
         $this->dispatch('player-updated-' . $place);
     }
 
@@ -170,10 +177,13 @@ class Schedule extends Component
         Game::whereId($game_id)->update(['player_id' => $player_id]);
     }
 
-    public function scheduleReset(bool $home): void
+    public function scheduleReset(string $home): void
     {
+        $home = $home === 'home';
         $this->event->games()->where('home', $home)->delete();
-        $home ? $this->home_matrix = [] : $this->visit_matrix = [];
+        $home
+            ? Position::where([['event_id', $this->event->id], ['home', true]])->delete()
+            : Position::where([['event_id', $this->event->id], ['home', false]])->delete();
         $this->event->games()->where('position', 15)->delete();
         $this->recreateMatrix();
         $this->dispatch('player-updated-' . $home ? 'home' : 'visit');
@@ -181,20 +191,8 @@ class Schedule extends Component
 
     private function recreateMatrix(): void
     {
-        foreach ($this->event->games()->with('player.user')->whereBetween('position', [1, 4])->get() as $game) {
-            $game->home
-                ? $this->home_matrix[$game->position] = $game->player
-                : $this->visit_matrix[$game->position] = $game->player;
-        }
-        if ($reserves = $this->home_players->diff($this->home_matrix)) {
-            $i = 5;
-            foreach ($reserves as $reserve) {
-                $this->event->team_1->players->contains(fn ($r) => $r === $reserve)
-                    ? $this->home_matrix[$i] = $reserve
-                    : $this->visit_matrix[$i] = $reserve;
-                $i++;
-            }
-        }
+        $this->home_matrix = Position::with('player.user')->where([['event_id', $this->event->id], ['home', true]])->orderBy('rank')->get();
+        $this->visit_matrix = Position::with('player.user')->where([['event_id', $this->event->id], ['home', false]])->orderBy('rank')->get();
     }
 
     private function checkThirdGame(): void
