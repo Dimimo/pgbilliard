@@ -120,8 +120,14 @@ class Create extends Component
         }
     }
 
-    private function getLastEvent(): void
+    public function getLastEvent(): void
     {
+        // check if a season has any dates, if not, just delete the season, teams and players
+        if (Date::whereSeasonId($this->season->id)->count() === 0) {
+            $this->deleteSeason();
+            return;
+        }
+
         $this->dates = Date::whereSeasonId($this->season->id)
             ->with('events')
             ->orderBy('date')
@@ -137,11 +143,6 @@ class Create extends Component
         // make sure the first playing date games are set to 0-0
         $date_id = $this->dates->first()->id;
         Event::whereDateId($date_id)->update(['score1' => 0, 'score2' => 0]);
-        $this->continueToCalendar();
-    }
-
-    public function continueToCalendar(): void
-    {
         $this->redirect(route('calendar'), navigate: true);
     }
 
@@ -154,5 +155,24 @@ class Create extends Component
     private function getTeams(): void
     {
         $this->teams = Team::whereSeasonId($this->season->id)->orderBy('name')->get();
+    }
+
+    // delete the SEASON as it has no more dates
+    private function deleteSeason(): void
+    {
+        if ($this->season->teams->count() > 0) {
+            foreach ($this->season->teams as $team) {
+                $team->players()->delete();
+                $team->delete();
+            }
+        }
+        foreach ($this->season->dates as $date) {
+            $date->delete();
+        }
+        $this->season->delete();
+        //$cycle = Season::query()->orderBy('cycle', 'desc')->first()->cycle;
+        session()->forget('cycle');
+        session()->flash('status', 'The Season has been deleted');
+        $this->redirect(route('admin.seasons.create'), navigate: true);
     }
 }

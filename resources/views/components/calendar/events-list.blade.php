@@ -28,19 +28,21 @@
         </div>
 
     @empty
-
+        @php $message = $dates->count() === 1 ? 'Delete this SEASON?' : 'Delete this date?'; @endphp
         <div class="inline-block p-4 ml-4">
             (no games yet)
             <div class="block mt-4">
                 <img
                     class="inline-block button cursor-pointer px-2"
                     src="{{ secure_asset('svg/delete-item.svg') }}"
-                    alt="Delete this date"
+                    alt="{{ $message }}"
                     width="35"
                     height="35"
                     wire:click="removeDate({{ $last_date->id }})"
-                    wire:confirm="Delete this date?"
-                > <span class="inline-block text-red-700">Delete this date</span>
+                    wire:confirm="{{ $message }}"
+                > <span class="inline-block text-red-700">
+                    {{ $message }}
+                </span>
             </div>
         </div>
     @endforelse
