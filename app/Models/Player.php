@@ -118,4 +118,9 @@ class Player extends Model
     {
         return $this->hasMany(Game::class);
     }
+
+    public function position(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Position::class);
+    }
 }

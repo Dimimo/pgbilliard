@@ -99,7 +99,8 @@ class Event extends Model
 
     public function playerBelongsToEvent(User $user): bool
     {
-        return $this->team_1->players()->whereUserId($user->id)->count() || $this->team_2->players()->whereUserId($user->id)->count();
+        return $this->team_1->players()->whereUserId($user->id)->count()
+            || $this->team_2->players()->whereUserId($user->id)->count();
     }
 
     public function hasScore(): bool
@@ -130,5 +131,10 @@ class Event extends Model
     public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Game::class);
+    }
+
+    public function position(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Position::class);
     }
 }

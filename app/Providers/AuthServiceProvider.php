@@ -10,6 +10,7 @@ use App\Models\Event;
 use App\Models\Format;
 use App\Models\Game;
 use App\Models\Player;
+use App\Models\Position;
 use App\Models\Schedule;
 use App\Models\Season;
 use App\Models\Team;
@@ -20,6 +21,7 @@ use App\Policies\EventPolicy;
 use App\Policies\FormatPolicy;
 use App\Policies\GamePolicy;
 use App\Policies\PlayerPolicy;
+use App\Policies\PositionPolicy;
 use App\Policies\SchedulePolicy;
 use App\Policies\SeasonPolicy;
 use App\Policies\TeamPolicy;
@@ -43,6 +45,7 @@ class AuthServiceProvider extends ServiceProvider
         Format::class => FormatPolicy::class,
         Schedule::class => SchedulePolicy::class,
         Game::class => GamePolicy::class,
+        Position::class => PositionPolicy::class,
     ];
 
     /**
