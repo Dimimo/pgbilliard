@@ -1,10 +1,5 @@
 <?php
 
-/**
- *  Copyright (c) 2016-2022 Puerto Parrot. Written by Dimitri Mostrey for https// www.puertoparrot.com
- *  Contact me at admin@puertoparrot.com or dmostrey@yahoo.com
- */
-
 namespace App\Traits;
 
 use App\Models\Date;
