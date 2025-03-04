@@ -99,7 +99,8 @@
         <li>The players scoreboard is for later, when there is data to work with... </li>
         <li>The database table ('games'), which holds the needed player's data, will make the players scoreboard easy...</li>
         <li>...even if a players switches teams during the season (a win is both for player AND the team at the set date)</li>
-        <li>For now, that's about it, the rest is cosmetics really, especially the Forum can be visually improved</li>
+        <li>The day schedule should be finished, tested and approved</li>
+        <li>To avoid confusion, the WINNER gets a bonus of 30% extra, the runner-up 15% extra on the percentage</li>
     </ul>
     <div>
         For ALL changes, I refer to
