@@ -27,7 +27,11 @@
     <p class="mb-4">
         <x-svg.percent-solid color="fill-indigo-500" size="5"/> is calculated as following (where TG = total games,
         including semi and finals)<br>
-        <span class="font-mono">(((Games Won / TG) x 100) + (Individual Games Won / (TG x 15) x 100) / 2)</span>
+        <span class="font-mono">(((Games Won / TG) x 100) + (Individual Games Won / (TG x 15) x 100) / 2 * factor)</span>
+    </p>
+    <p class="mb-4">
+        The <span class="font-bold">factor</span> has only an influence to finalists. The winner gets a factor of 1.3 or 30% extra on
+        the percentage. The runner-up gets 15% extra. All other teams get a factor of 1.
     </p>
     <p class="mb-4">
         BYE games are excluded in any calculation as they are not considered a game.

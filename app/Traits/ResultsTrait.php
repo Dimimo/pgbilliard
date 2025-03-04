@@ -36,7 +36,7 @@ trait ResultsTrait
             $result = $this->startCollection();
             $result->put('team', Team::find($team_id));
             foreach ($events as $event) {
-                if (! is_null($event->score1) && ! is_null($event->score2) && $event->team_2->name !== 'BYE') {
+                if (!is_null($event->score1) && !is_null($event->score2) && $event->team_2->name !== 'BYE') {
                     $result->put('id', $event->id);
                     $result->put('last_game_won', false);
                     $result->put('games_played', $result->get('games_played') + 1);
@@ -89,6 +89,9 @@ trait ResultsTrait
                     $max_games++; // in case of semi and finals
                 }
                 $result->put('max_games', $max_games);
+                if ($event->date->regular) {
+                    $result->put('finals', $result->get('finals') + 1);
+                }
             }
             $results->push($result);
         }
@@ -134,7 +137,7 @@ trait ResultsTrait
      */
     private function getEvents(): void
     {
-        $dates = Date::tap(new Cycle())->with('events')->get();
+        $dates = Date::tap(new Cycle())->with('events.date')->get();
         $dates->each(function (Date $date) {
             $date->events->each(function ($event) {
                 if (in_array($event->team_1->id, $this->teams_array)) {
@@ -187,6 +190,7 @@ trait ResultsTrait
         $collection->put('percentage', 0);
         $collection->put('rank', 0);
         $collection->put('max_games', 0);
+        $collection->put('finals', 0);
 
         return $collection;
     }
@@ -196,10 +200,16 @@ trait ResultsTrait
      */
     public function percentage(Collection $result): int
     {
-        if (! $result->get('max_games')) {
+        if (!$result->get('max_games')) {
             return 0;
         }
 
-        return (int) number_format(round(((($result->get('won') / $result->get('max_games')) * 100) + ($result->get('for') / ($result->get('max_games') * 15)) * 100) / 2));
+        // multiply the percentages with a factor for the 2 teams in the final
+        $factor = 1;
+        if ($result->get('finals') === 2) {
+            $result->get('last_game_won') ? $factor = 1.3 : $factor = 1.15;
+        }
+
+        return (int)number_format(round(((($result->get('won') / $result->get('max_games')) * 100) + ($result->get('for') / ($result->get('max_games') * 15)) * 100) / 2 * $factor));
     }
 }
