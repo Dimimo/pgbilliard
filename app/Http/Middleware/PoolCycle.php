@@ -7,7 +7,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Date;
 use Closure;
 use DB;
 use Illuminate\Http\Request;
@@ -30,8 +29,8 @@ class PoolCycle
         if (! $request->session()->exists('cycle') || empty($request->session()->get('cycle')) || $request->session()->get('cycle') === '0000/00') {
             //when no cycle is in the session, put the most recent date cycle as a starting point
             $recent_season = DB::table('seasons')->orderBy('cycle', 'desc')->first();
-            $season = $recent_season ? $recent_season->cycle : '0000/00';
-            $request->session()->put('cycle', $season);
+            $cycle = $recent_season ? $recent_season->cycle : '0000/00';
+            $request->session()->put('cycle', $cycle);
         }
 
         return $next($request);
