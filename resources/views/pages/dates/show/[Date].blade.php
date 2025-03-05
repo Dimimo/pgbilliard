@@ -1,11 +1,12 @@
 <?php
 
+use App\Livewire\WithHasAccess;
 use App\Livewire\WithCurrentCycle;
 use function Laravel\Folio\name;
 use function Livewire\Volt\state;
 use function Livewire\Volt\uses;
 
-uses(WithCurrentCycle::class);
+uses([WithCurrentCycle::class, WithHasAccess::class]);
 state('date');
 name('dates.show');
 ?>
@@ -49,19 +50,10 @@ name('dates.show');
             </table>
         </div>
 
-        {{-- check for production; old games: show only if available; now or future: show all --}}
-        @if (app()->environment('production'))
-            @if($date->date->hour(13) < now()->hour(13))
-                @if($date->events()->has('games')->count())
-                    <x-schedule.date-show-list :date="$date" :old="true"/>
-                @endif
-            @else
-                <x-schedule.date-show-list :date="$date"/>
-            @endif
-        @else
-            {{-- testing: show, no conditions --}}
-            <div class="text-red-600">Warning: what you see here is only because of the test server</div>
+        @if($hasAccess || $date->checkOpenWindowAccess())
             <x-schedule.date-show-list :date="$date"/>
+        @else
+            <x-schedule.date-show-list :date="$date" :old="true"/>
         @endif
 
     </section>
