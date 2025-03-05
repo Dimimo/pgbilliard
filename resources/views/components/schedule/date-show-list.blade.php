@@ -11,7 +11,7 @@
             @endif
         </x-slot:title>
         <div class="my-4">
-            @foreach ($date->events as $event)
+            @foreach ($date->events()->with('games')->get() as $event)
                 @if($old)
                     @if($event->games()->count())
                         <div class="flex justify-center">
@@ -25,16 +25,33 @@
                         </div>
                     @endif
                 @else
-                    <div class="flex flex-row justify-center space-x-4">
-                        <a
-                            href="{{ route('schedule.event', ['event' => $event]) }}"
-                            class="text-blue-800 link"
-                            wire:navigate
-                        >
-                            {{ $event->team_1->name }} - {{ $event->team_2->name }}
-                        </a>
-                        <span class="italic text-gray-600">({{ trans_choice('plural.day-games', $event->games()->count()) }})</span>
-                    </div>
+                    @can('update', $event)
+                        <div class="flex flex-row justify-center space-x-4">
+                            <a
+                                href="{{ route('schedule.event', ['event' => $event]) }}"
+                                class="text-blue-800 link"
+                                wire:navigate
+                            >
+                                {{ $event->team_1->name }} - {{ $event->team_2->name }}
+                            </a>
+                            <span class="italic text-gray-600">
+                                ({{ trans_choice('plural.day-games', $event->games()->where('win', true)->distinct('position')->count()) }})
+                            </span>
+                        </div>
+                    @else
+                        @if($event->games()->where('win', true)->count())
+                            <div class="flex flex-row justify-center space-x-4">
+                                <a
+                                    href="{{ route('schedule.event', ['event' => $event]) }}"
+                                    class="text-blue-800 link"
+                                    wire:navigate
+                                >
+                                    {{ $event->team_1->name }} - {{ $event->team_2->name }}
+                                </a>
+                                <span class="italic text-gray-600">({{ trans_choice('plural.day-games', $event->games()->where('win', true)->distinct('position')->count()) }})</span>
+                            </div>
+                        @endif
+                    @endcan
                 @endif
             @endforeach
         </div>
