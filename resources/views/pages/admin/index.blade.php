@@ -23,7 +23,7 @@ uses([WithCurrentCycle::class]);
                 class="mx-auto flex justify-center text-xl" :active="false"
                 wire:navigate
             >
-                Create a new Venue
+                {{__('Create a new Venue')}}
             </x-forms.nav-link>
             <x-forms.nav-link
                 href="{{ route('admin.seasons.create') }}"
@@ -31,7 +31,7 @@ uses([WithCurrentCycle::class]);
                 :active="false"
                 wire:navigate
             >
-                Create a new Season
+                {{__('Create a new Season')}}
             </x-forms.nav-link>
             <x-forms.nav-link
                 :href="route('admin.schedule.index')"
@@ -46,10 +46,10 @@ uses([WithCurrentCycle::class]);
                 :active="false"
                 wire:navigate
             >
-                Overview of all Administrators
+                {{__('List of Administrators')}}
             </x-forms.nav-link>
             <x-forms.nav-link
-                href="{{ route('admin.logs') }}"
+                href="{{ route('logs') }}"
                 class="mx-auto flex justify-center text-xl"
                 :active="false"
                 wire:navigate
@@ -73,7 +73,7 @@ uses([WithCurrentCycle::class]);
                         :active="false"
                         wire:navigate
                     >
-                        Update the current Calendar ({{ $cycle }})
+                        {{__('Update the current Calendar')}}
                     </x-forms.nav-link>
                     <x-forms.nav-link
                         href="{{ route('admin.season.update', ['season' => $season]) }}"
@@ -81,7 +81,7 @@ uses([WithCurrentCycle::class]);
                         :active="false"
                         wire:navigate
                     >
-                        Update or create teams, their venue and captain, add or remove a BYE ({{ $cycle }})
+                        {{__('Update the Season structure')}}
                     </x-forms.nav-link>
                 </div>
             </div>

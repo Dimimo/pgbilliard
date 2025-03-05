@@ -57,7 +57,7 @@
             {{ __('List of admins') }}
         </x-forms.dropdown-link>
 
-        <x-forms.dropdown-link :href="route('admin.logs')" wire:navigate>
+        <x-forms.dropdown-link :href="route('logs')" wire:navigate>
             {{ __('Score changes log file') }}
         </x-forms.dropdown-link>
     </x-slot>
