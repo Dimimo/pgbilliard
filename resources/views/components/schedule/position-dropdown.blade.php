@@ -20,9 +20,9 @@
             ])
              wire:key="game-{{$game->id}}"
         >
-            @if($event->confirmed)
+            @if($event->confirmed || auth()->user()->cannot('update', $game->event))
                 <div class="mx-2">
-                    {{ $game->player->name }}
+                    {{ $game->player?->user->name }}
                 </div>
             @else
                 @if(is_null($game->win))
@@ -31,14 +31,17 @@
                             {{ $home ? 'Home' : 'Visit' }} {{ $game->player_position }}
                         @endif
                     </label>
-                    <select id="item-{{$game->id}}">
+                    <select
+                        id="item-{{$game->id}}"
+                        wire:change="playerChanged($event.target.value, {{$game->id}})"
+                    >
                         @if ($i === 15)
                             <option value="">--select--</option>
                         @endif
                         @foreach($matrix as $position)
                             <option
                                 wire:key="position-{{$position->id}}"
-                                wire:click="playerChanged({{$position->player->id}}, {{$game->id}})"
+                                value="{{$position->player->id}}"
                                 @selected($game->player_id === $position->player->id)
                             >
                                 {{ $position->player->name }}
@@ -53,11 +56,13 @@
             @endif
 
             @if(($loop->last && $home) || ($loop->first && !$home))
-                @if($event->confirmed)
+                @if($event->confirmed || auth()->user()->cannot('update', $event))
                     @if ($game->win)
                         <x-svg.check-solid color="fill-green-600" size="5"/>
-                    @else
+                    @elseif ($game->event->completed)
                         <x-svg.xmark-solid color="fill-red-600" size="4"/>
+                    @else
+                        <span class="w-5 h-5"></span>
                     @endif
                 @else
                     <div class="mx-3">

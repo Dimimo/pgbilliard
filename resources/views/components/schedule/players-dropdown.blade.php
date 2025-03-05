@@ -27,17 +27,16 @@
                         @endif
                     </div>
                     <label>
-                        <select class="text-sm">
-                            <option
-                                value=""
-                                wire:click="playerSelected(0, {{$i}}, '{{$place}}')"
-                            >
+                        <select
+                            class="text-sm"
+                            wire:change="playerSelected($event.target.value, {{$i}}, '{{$place}}')"
+                        >
+                            <option value="0">
                                 -- select --
                             </option>
                             @foreach($players as $player)
                                 <option
                                     wire:key="selected-{{$i}}-{{$matrix->count()}}"
-                                    wire:click="playerSelected({{$player->id}}, {{$i}}, '{{$place}}')"
                                     @selected($matrix->where('rank', $i)->first()?->player->id === $player->id)
                                     value="{{$player->id}}"
                                 >
