@@ -67,13 +67,13 @@
                 >
                     confirm
                 </button>
-            @elseif ($event->games()->count() > 0 && ! $event->confirmed)
+            @elseif ($event->games()->count() > 0)
                 <a
                     href="{{ route('schedule.event', ['event' => $event]) }}"
                     class="text-blue-800 link"
                     wire:navigate
                 >
-                    Scheduled scores
+                    Day scores
                 </a>
             @else
                 <x-forms.spinner/>
