@@ -25,26 +25,23 @@
                                 'bg-green-500' => $date->regular,
                                 'bg-teal-500' => ! $date->regular
                             ])>
-                            @if($hasAccess || $date->checkOpenWindowAccess())
-                                <a
-                                    href="{{ route('dates.show', ['date' => $date]) }}"
-                                    class="text-lg !text-white after:!bg-yellow-100 link" title="click for details"
-                                    wire:navigate
-                                >
-                                    {{ $date->date->format('jS \o\f M Y') }}
-                                </a>
-                                @if ($date->date->format('ymd') === now()->format('ymd'))
-                                    <div class="text-lg text-yellow-100">
-                                        <a
-                                            href="{{ route('dates.show', ['date' => $date]) }}"
-                                            class="animate-pulse"
-                                        >
-                                            Live update!
-                                        </a>
-                                    </div>
-                                @endif
-                            @else
-                                <div class="text-lg text-white">{{ $date->date->format('jS \o\f M Y') }}</div>
+                            <a
+                                href="{{ route('dates.show', ['date' => $date]) }}"
+                                class="text-lg !text-white after:!bg-yellow-100 link" title="click for details"
+                                wire:navigate
+                            >
+                                {{ $date->date->format('jS \o\f M Y') }}
+                            </a>
+                            @if ($date->checkOpenWindowAccess())
+                                <div class="text-lg text-yellow-100">
+                                    <a
+                                        href="{{ route('dates.show', ['date' => $date]) }}"
+                                        class="animate-pulse"
+                                        wire:navigate
+                                    >
+                                        Live update!
+                                    </a>
+                                </div>
                             @endif
                             @if ($date->title)
                                 <div
