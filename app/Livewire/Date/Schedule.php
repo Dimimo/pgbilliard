@@ -72,8 +72,8 @@ class Schedule extends Component
 
     public function scoreGiven(int $game_id): void
     {
-        $game = Game::find($game_id);
-        $this->authorize('update', $game);
+        $game = Game::with('event')->find($game_id);
+        $this->authorize('update', $game->event);
 
         $score_is_true = $game->win === true;
 
@@ -117,7 +117,7 @@ class Schedule extends Component
     }
 
     public function playerSelected(int $player_id, int $position, string $place): void
-    {//dd($player_id, $position, $place);
+    {
         Position::where([
             'event_id' => $this->event->id,
             'rank' => $position,
