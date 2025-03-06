@@ -38,7 +38,7 @@
             {{ __('Score changes log file') }}
         </x-forms.dropdown-link>
         <x-forms.dropdown-link :href="route('help.changelog')" wire:navigate>
-            {{ __('Changelog & vision') }}
+            {{ __('Changelog') }}
         </x-forms.dropdown-link>
 
         @if(auth()->user()?->isAdmin())
