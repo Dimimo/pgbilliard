@@ -1,6 +1,6 @@
 <div class="my-6 rounded-lg border-2 border-indigo-400 bg-indigo-100 p-4">
     <h4 class="mb-2 text-lg font-bold">
-        <a id="a__OBJECT_OF_THE_COMPETITION_"></a><span class="font-bold">OBJECT OF THE COMPETITION:</span>
+        OBJECT OF THE COMPETITION:
     </h4>
 
     <div class="text-justify">
@@ -13,13 +13,13 @@
 </div>
 
 <div class="my-4 text-xl">TABLE OF CONTENTS</div>
-<hr>
+<hr class="my-5 border-2 border-b border-indigo-700 w-fill">
 <ul class="mb-6 list-inside list-none">
-    <li>1.0 Object Of The Game</li>
-    <li>2.0 Legal Break Shot</li>
-    <li>3.0 8-Ball Pocketed On The Break</li>
-    <li>4.0 Open Table</li>
-    <li>5.0 Call Pocket</li>
+    <li class="mb-2">1.0 Object Of The Game</li>
+    <li class="mb-2">2.0 Legal Break Shot</li>
+    <li class="mb-2">3.0 8-Ball Pocketed On The Break</li>
+    <li class="mb-2">4.0 Open Table</li>
+    <li class="mb-2">5.0 Call Pocket</li>
     <li>6.0 Ball In Hand Penalties</li>
     <li>6.1 Scratch</li>
     <li>6.9 Ball In Hand Penalties</li>
@@ -31,25 +31,26 @@
     <li>6.7 Ball In Hand Placement</li>
     <li>6.8 Interference</li>
     <li>6.9 Marking The Table</li>
-    <li>6.10 Playing Out Of Turn</li>
+    <li class="mb-2">6.10 Playing Out Of Turn</li>
     <li>7.0 Loss Of Game</li>
     <li>7.1 Opponent Wins</li>
     <li>7.2 8-Ball Foul</li>
-    <li>7.3 Illegal Hit On Ball</li>
+    <li class="mb-2">7.3 Illegal Hit On Ball</li>
     <li>8.0 General Pool Rules</li>
     <li>8.1 Starting Times</li>
     <li>8.2 Teams</li>
     <li>8.3 Forfeits</li>
     <li>8.4 Wrong Balls Pocketed</li>
     <li>8.5 Split Hits</li>
-    <li>8.6 Ball Rebounds From Pocket</li>
+    <li class="mb-2">8.6 Ball Rebounds From Pocket</li>
+    <li class="mb-2">9.0 Coaching</li>
     <li>10.0 Other Rules (PGPL)</li>
     <li>10.1 Frozen Object Ball to Cue Ball</li>
     <li>10.2 Frozen Opposition Ball</li>
     <li>10.3 Deliberate Foul On The 8-Ball</li>
-    <li>10.4 Submitting A Protest</li>
+    <li class="mb-2">10.4 Submitting A Protest</li>
     <li>11.0 Finals</li>
-    <li>11.1 Substitute Players</li>
+    <li class="mb-2">11.1 Substitute Players</li>
     <li>12.0 Stalemate</li>
 </ul>
 
@@ -104,8 +105,7 @@
     <div class="mb-4">
         It is encouraged that all balls be specified along with their intended pocket. However, obvious balls and their
         respective pockets do not have to be specified. Any bank shot (object ball to rail) kick shot (rail or rails to object ball), or combinations
-        (2
-        or more balls from either group) must be called to their designated pocket or they are called a miss.
+        (2 or more balls from either group) must be called to their designated pocket or they are called a miss.
     </div>
 
     <div class="mb-4">
@@ -116,6 +116,7 @@
         group (stripes or solids).
     </div>
 
+    <hr class="my-5 border-2 border-b border-indigo-700 w-fill">
     <h3 class="mb-2 text-xl font-bold">
         <a id="a__6_0_Ball_In_Hand_Penalties_"></a>6.0 Ball In Hand Penalties.
     </h3>
@@ -225,7 +226,7 @@
         opposition player.
     </div>
 
-    <hr>
+    <hr class="my-5 border-2 border-b border-indigo-700 w-fill">
     <h3 class="mb-2 text-xl font-bold">
         <a id="a__7_0_Loss_Of_Game"></a>7.0 Loss Of Game
     </h3>
@@ -276,7 +277,7 @@
         player results in loss of game.
     </div>
 
-    <hr>
+    <hr class="my-5 border-2 border-b border-indigo-700 w-fill">
 
     <h3 class="mb-2 text-xl font-bold">
         <a id="a__8_0_General_Pool_Rules"></a>8.0 General Pool Rules
@@ -303,8 +304,9 @@
         </h4>
 
         <div class="mb-4">
-            A team consists of at least <span class="font-bold">4 players</span>. The team must consist of at
-            least one female player, who can be either an <span class="font-bold">Expat</span> or
+            A team consists of <span class="font-bold">at least 4 players</span> and a <span class="font-bold">maximum of 6 players</span>.
+            The team must consist of at least one female player, who can be either an
+            <span class="font-bold">Expat</span> or
             <span class="font-bold">Filipino</span>. If the starting four consists of more than one
             <span class="font-bold">Filipino</span> player, they must play in the same position throughout the match.
         </div>
@@ -316,6 +318,11 @@
             A team can consist of <span class="font-bold">4 players plus inter-change players</span>
             who can play a maximum of <span class="font-bold">4 games each</span>, only after the first four single games. The female player in
             the starting four must play at least <span class="font-bold">two games</span>.
+        </div>
+        <div class="mb-4">
+            <span class="font-bold">In case of only 3 players showing up:</span> this results in a loss of 4 games, 1 double and 3 singles.
+            If <span class="font-bold">no female player shows up</span> but there is a male reserve, this results in the loss of the first
+            game and the first double.
         </div>
 
         <h4 class="mb-2 text-lg font-bold">
@@ -414,11 +421,18 @@
 
     <div class="mb-4">
         Any disputes that may arise <span class="font-bold">during or after a game</span> or match should be
-        referred to the <span class="font-bold">Match Committee</span> for clarification.<br>
+        referred to the <span class="font-bold">Match Committee</span> for clarification.
         Only the <span class="font-bold">Captain of a side</span> is allowed to submit a protest or request a rule clarification.
     </div>
+    <div class="mb-4">
+        It is advisable
+        <a href="{{ route('forum.posts.index') }}" class="inline-block text-blue-800 link" wire:navigate>
+            you post the situation on the forum
+        </a>,
+        so we can also discuss it over there.
+    </div>
 
-    <hr>
+    <hr class="my-5 border-2 border-b border-indigo-700 w-fill">
     <h3 class="mb-2 text-xl font-bold">
         <a id="a__9_0_Coaching"></a><span class="font-bold">9.0 Coaching</span>
     </h3>
@@ -440,7 +454,7 @@
         <span class="font-bold">only causes confusion</span> for a new player and is <span class="font-bold">not allowed</span>.
     </div>
 
-    <hr>
+    <hr class="my-5 border-2 border-b border-indigo-700 w-fill">
     <h3 class="mb-2 text-xl font-bold">
         <a id="a__10_0_Other_Rules_-_PGPL"></a><span class="font-bold">10.0 Other Rules - PGPL</span>
     </h3>
@@ -496,7 +510,15 @@
         The captain of the protesting side must inform the opposing captain that he is submitting a protest.
         Protests submitted the next day will not receive a hearing, and any decision made on the day of play will stand.
     </div>
+    <div class="mb-4">
+        Again, it is advisable
+        <a href="{{ route('forum.posts.index') }}" class="inline-block text-blue-800 link" wire:navigate>
+            you post the situation on the forum
+        </a>,
+        so we can also discuss it over there.
+    </div>
 
+    <hr class="my-5 border-2 border-b border-indigo-700 w-fill">
     <h4 class="mb-2 text-lg font-bold">
         11.0 Finals
     </h4>
@@ -514,15 +536,22 @@
         Semi-Final & Grand Final Format:
     </h4>
 
-    <ul class="mb-4 list-inside list-disc">
-        <li>The first team plays the fourth team in the 1st Semi-Final</li>
-        <li>The second team plays the third team in the 2nd Semi-Final</li>
-        <li>Team 1 and Team 2 play at their chosen venue</li>
-        <li>The Grand Final is played at the venue of Team 1 if they win the 1st Semi-Final</li>
-        <li>If Team 4 wins the Semi-Final, the Grand Final is played at the venue of the winner of the 2nd Semi-Final (Teams 2 & 3)</li>
-    </ul>
+    <div class="mb-4 rounded-lg border-2 border-gray-600 bg-gray-100 p-2">
+        <ul class="list-inside list-disc">
+            <li>The first team plays the fourth team in the 1st Semi-Final</li>
+            <li>The second team plays the third team in the 2nd Semi-Final</li>
+            <li>Team 1 and Team 2 play at their chosen venue</li>
+            <li>The Grand Final is played at the venue of Team 1 if they win the 1st Semi-Final</li>
+            <li>If Team 4 wins the Semi-Final, the Grand Final is played at the venue of the winner of Teams 2 & 3</li>
+        </ul>
+    </div>
+    <div class="mb-4">
+        <span class="font-bold">Remark from Dimitri:</span> the website and statistics are doing what it is supposed to do: show you
+        the ranking and details thereof. It is NOT designed to determine the Semi Finals. It's a coding quagmire to calculate
+        all possibilities that determine the Semi's. An administrator fills in the final games manually.
+    </div>
 
-    <hr>
+    <hr class="my-5 border-2 border-b border-indigo-700 w-fill">
     <h3 class="mb-2 text-xl font-bold">
         12.0 Substitute Players
     </h3>
@@ -536,7 +565,7 @@
         In doing so, they must use only their own qualified team members in the starting four.
     </div>
 
-    <hr>
+    <hr class="my-5 border-2 border-b border-indigo-700 w-fill">
     <h3 class="mb-2 text-xl font-bold">
         13.0 Stalemate
     </h3>
