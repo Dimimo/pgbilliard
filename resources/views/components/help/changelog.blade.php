@@ -23,7 +23,12 @@
                 The log file of given scores
             </a> is accessible by everybody
         </li>
-        <li>Added <a href="{{ route('help.changelog') }}" class="inline-block text-blue-800 link" wire:navigate>the changelog overview</a></li>
+        <li>
+            Added <a href="{{ route('help.changelog') }}" class="inline-block text-blue-800 link" wire:navigate>the changelog overview</a>
+        </li>
+        <li>
+            The maximum number of players allowed to a team is now limited to {{ \App\Constants::MAX_TEAM_PLAYERS }} as agreed on the Captains Meeting
+        </li>
     </ul>
 </div>
 <div class="mt-4">
