@@ -1,4 +1,8 @@
 <div class="text-justify">
+    <div class="mb-4 border-2 border-yellow-500 bg-yellow-100 p-4">
+        <span class="font-bold">Disclaimer:</span> on the captains meeting of the 5th of March 2025 it has been agreed that the
+        maximum amount of players allowed to a team is capped at <span class="font-bold">{{ \App\Constants::MAX_TEAM_PLAYERS }}</span>.
+    </div>
     <div class="mb-4">
         At first, you will find this page boring. But it is actually very interesting and
         <span class="font-bold">important for Bar owners  and Captains</span>.
@@ -21,7 +25,9 @@
     </div>
     <div class="font-bold">Bar owners and Captains</div>
     <div class="mb-4">
-        Bar owners and Captains may notice a <x-svg.pen-to-square-solid color="fill-blue-600" size="4"/> sign next to some names.
+        Bar owners and Captains may notice a
+        <x-svg.pen-to-square-solid color="fill-blue-600" size="4"/>
+        sign next to some names.
         This means you have access to change what's underneath. For Bar owners that would be the information of the bar, the
         team(s) and the players of the team(s). Including who to appoint as a captain. Appointing the teams itself is done by an
         administrator as it is part of the schedule in the current Season.
@@ -36,8 +42,16 @@
     <div class="mb-4">
         <span class="font-bold">Players that are already in another team can not be selected.</span>
         If the player is new and not in the database, simply add a new player. Names have
-        to be unique. Don't worry, a warning is given if the name is already in use. After creating a new user,
+        to be unique. A warning is given if the name is already in use. After creating a new user,
         you will receive an email with the data your new team member needs in order to log in and change their credentials.
+    </div>
+    <div class="mb-4 border-2 border-gray-500 bg-gray-100 p-4">
+        <div class="font-bold">Players leaving or switch to another team</div>
+        <div>
+            If a player leaves and won't come back (holiday is over f.ex.) OR a player wants to switch to another team,
+            <span class="font-bold">you can safely remove the player from the list</span>. Doing so HAS NO impact on past
+            games.
+        </div>
     </div>
     <div class="mb-6">
         That's about it. Cheerio and <span class="font-bold">Have Fun!</span>
