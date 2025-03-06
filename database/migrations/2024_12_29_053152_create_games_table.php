@@ -20,7 +20,7 @@ return new class () extends Migration {
 
             $table->foreign('event_id')->references('id')->on('events');
             $table->foreign('team_id')->references('id')->on('teams');
-            $table->foreign('player_id')->references('id')->on('players');
+            // $table->foreign('player_id')->references('id')->on('players');
 
             $table->index(['team_id', 'home']);
         });
