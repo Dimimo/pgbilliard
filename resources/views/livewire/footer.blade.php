@@ -1,5 +1,10 @@
 <div class="mt-12 bg-indigo-50 border-t border-t-gray-500 p-2 text-center">
-    <div class="mb-4 text-2xl">&copy; {{ now()->format('Y') }} PG Billiard</div>
+    <div class="text-2xl">&copy; {{ now()->format('Y') }} PG Billiard</div>
+    <div class="mb-4 text-lg">
+        <a href="{{ route('help.rules') }}" class="inline-block text-blue-800 link" wire:navigate>
+            Overview of our PG billiard rules
+        </a>
+    </div>
     <div class="mb-4">Designed for the Puerto Galera Billiard League</div>
     <div class="text-xs">
         This is an open source project build on Laravel, Livewire, Reverb and Tailwind

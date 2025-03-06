@@ -10,6 +10,12 @@
         </button>
     </x-slot>
     <x-slot name="content">
+        <x-forms.dropdown-link :href="route('help.rules')" wire:navigate>
+            {{ __('OUR BILLIARD RULES') }}
+        </x-forms.dropdown-link>
+        <hr class="my-2 border-b border-b-indigo-700 w-fill">
+
+        <div class="ml-12 text-sm text-blue-800">Main sections</div>
         <x-forms.dropdown-link :href="route('help.results')" wire:navigate>
             {{ __('Scoreboard explained') }}
         </x-forms.dropdown-link>
@@ -32,7 +38,7 @@
             {{ __('Score changes log file') }}
         </x-forms.dropdown-link>
         <x-forms.dropdown-link :href="route('help.changelog')" wire:navigate>
-            {{ __('Changelog') }}
+            {{ __('Changelog & vision') }}
         </x-forms.dropdown-link>
 
         @if(auth()->user()?->isAdmin())
