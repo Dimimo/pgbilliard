@@ -4,6 +4,7 @@ namespace App;
 
 class Constants
 {
+    public const MAX_TEAM_PLAYERS = 6;
     public const VENUECHARS = 24;
     public const USERCHARS = 24;
     public const TEAMCHARS = 16;
