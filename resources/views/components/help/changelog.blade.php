@@ -29,6 +29,12 @@
         <li>
             The maximum number of players allowed to a team is now limited to {{ \App\Constants::MAX_TEAM_PLAYERS }} as agreed on the Captains Meeting
         </li>
+        <li>
+            The <a href="{{ route('help.changelog') }}" class="inline-block text-blue-800 link" wire:navigate>
+                The Rules of the Puerto Galera Billiard League
+            </a> have been added for online reference.
+            <span class="font-bold">A big thanks to Rob for the work and print-outs</span> and ChatGPT for the digital version!
+        </li>
     </ul>
 </div>
 <div class="mt-4">
