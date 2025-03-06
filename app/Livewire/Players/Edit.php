@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Players;
 
+use App\Constants;
 use App\Jobs\CaptainCreatedNewUser;
 use App\Livewire\Forms\PlayerForm;
 use App\Livewire\Forms\UserForm;
@@ -26,6 +27,8 @@ class Edit extends Component
     public Collection $players;
     public array $occupied_players = [];
     public ?int $user_id = null;
+    public int $max_players;
+    public bool $max_reached = false;
 
     public function mount(Team $team): void
     {
@@ -34,6 +37,8 @@ class Edit extends Component
         $this->setUserForm(new User());
         $this->getPlayers();
         $this->getPlayersActiveInCurrentSeason();
+        $this->max_players = Constants::MAX_TEAM_PLAYERS;
+        $this->setMaxReached();
     }
 
     public function render(): View
@@ -95,6 +100,7 @@ class Edit extends Component
         $this->getPlayers();
         $this->setPlayerForm();
         $this->reset('user_id');
+        $this->setMaxReached();
     }
 
     public function addUser(): void
@@ -118,6 +124,7 @@ class Edit extends Component
         $this->getPlayersActiveInCurrentSeason();
         $this->getPlayers();
         $this->setUserForm(new User());
+        $this->setMaxReached();
         $this->dispatch('user-created');
         CaptainCreatedNewUser::dispatch($user);
     }
@@ -128,5 +135,11 @@ class Edit extends Component
         $player->delete();
         $this->getPlayersActiveInCurrentSeason();
         $this->getPlayers();
+        $this->setMaxReached();
+    }
+
+    private function setMaxReached(): void
+    {
+        $this->max_reached = $this->players->count() >= $this->max_players;
     }
 }
