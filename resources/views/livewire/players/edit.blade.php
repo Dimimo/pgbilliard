@@ -10,7 +10,7 @@
                         'px-4 py-2 text-center text-xl',
                     ])
                 >
-                    {{ $players->count() }} players selected of maximum of {{ $max_players }}
+                    {{ $players->count() }} players selected of a maximum of {{ $max_players }}
                 </div>
             </div>
 
