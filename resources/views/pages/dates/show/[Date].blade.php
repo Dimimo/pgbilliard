@@ -19,7 +19,7 @@ name('dates.show');
             subtitle="Season {{ $cycle }}"
             help="live-scores"
         />
-        <div class="grid justify-items-center">
+        <div class="grid justify-items-center" @if($date->checkOpenWindowAccess()) wire:poll.10s @endif>
             <table class="mb-4 min-w-full border-2 border-gray-900 bg-transparent table-collapse md:min-w-0">
                 <thead class="whitespace-nowrap border-2 border-gray-900 bg-gray-300">
                 <tr class="py-2">

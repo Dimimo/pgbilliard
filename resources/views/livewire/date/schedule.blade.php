@@ -21,7 +21,11 @@
             </x-forms.sub-title>
         </div>
     @else
-        <div class="grid grid-flow-row grid-cols-8 items-center justify-items-center gap-2">
+
+        <div
+            class="grid grid-flow-row grid-cols-8 items-center justify-items-center gap-2"
+            @if($event->date->checkOpenWindowAccess()) wire:poll.10s @endif
+        >
             @if(! $confirmed)
                 <div
                     class="col-span-8 mb-4 h-auto w-min whitespace-nowrap rounded-lg border-2 border-indigo-400 bg-indigo-100 pt-2 text-center text-xl"

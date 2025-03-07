@@ -50,105 +50,107 @@
                         </div>
 
                         @if ($date->events && $date->events()->count() > 0)
-
-                            <table class="mb-4 w-full">
-                                <thead class="whitespace-nowrap">
-                                <tr class="bg-gray-100">
-                                    <th class="p-2 text-left text-red-700">Home Team</th>
-                                    <th class="p-2 text-right text-blue-700">Visitors</th>
-                                </tr>
-                                </thead>
-                                <tbody class="whitespace-nowrap">
-                                @foreach ($date->events as $event)
-
-                                    <tr wire:key="event_{{ $event->id }}">
-                                        <td @class(['bg-green-50' => $my_team === $event->team_1->id, 'font-semibold' => $event->score1 > 7])>
-                                            <div
-                                                class="flex justify-between p-1"
-                                                wire:click.self="setMyTeam({{ $event->team_1->id }})"
-                                            >
-                                                <div class="mr-1 text-left text-gray-900">
-                                                    <a
-                                                        href="{{ route('teams.show', ['team' => $event->team_1]) }}"
-                                                        class="link"
-                                                        wire:navigate
-                                                    >
-                                                        {{ $event->team_1->name }}
-                                                    </a>
-                                                </div>
-                                                @if($event->score1 !== null &&  $event->team_2->name !== 'BYE')
-                                                    <div
-                                                        @class([
-                                                            'mr-1',
-                                                            'text-green-700' => $event->score1 > 7,
-                                                            'text-red-700' => $event->score1 < 8,
-                                                        ])
-                                                    >
-                                                        {{ $event->score1 }}
-                                                    </div>
-                                                @else
-                                                    <div></div>
-                                                @endif
-                                            </div>
-                                        </td>
-                                        <td @class(['bg-green-50' => $my_team === $event->team_2->id, 'font-semibold' => $event->score2 > 7])>
-                                            <div
-                                                class="flex justify-between p-1"
-                                                wire:click.prevent="setMyTeam({{ $event->team_2->id }})"
-                                            >
-                                                @if($event->score2 !== null &&  $event->team_2->name !== 'BYE')
-                                                    <div
-                                                        @class([
-                                                            'ml-1',
-                                                            'text-green-700' => $event->score2 > 7,
-                                                            'text-red-700' => $event->score2 < 8,
-                                                        ])
-                                                    >
-                                                        {{ $event->score2 }}
-                                                    </div>
-                                                @else
-                                                    <div></div>
-                                                @endif
-                                                <div class="ml-1 text-right text-gray-900">
-                                                    <a
-                                                        href="{{ route('teams.show', ['team' => $event->team_2]) }}"
-                                                        class="link"
-                                                        wire:navigate
-                                                    >
-                                                        {{ $event->team_2->name }}
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
+                            <div @if($date->checkOpenWindowAccess()) wire:poll.visible.10s @endif>
+                                <table class="mb-4 w-full">
+                                    <thead class="whitespace-nowrap">
+                                    <tr class="bg-gray-100">
+                                        <th class="p-2 text-left text-red-700">Home Team</th>
+                                        <th class="p-2 text-right text-blue-700">Visitors</th>
                                     </tr>
+                                    </thead>
+                                    <tbody class="whitespace-nowrap">
+                                    @foreach ($date->events as $event)
 
-                                    @if ($event->team_1->venue_id != $event->venue_id)
-
-                                        <tr>
-                                            <td colspan="2" class="text-center font-medium text-red-600">
-                                                Game @ {{ $event->venue->name }}
+                                        <tr wire:key="event_{{ $event->id }}">
+                                            <td @class(['bg-green-50' => $my_team === $event->team_1->id, 'font-semibold' => $event->score1 > 7])>
+                                                <div
+                                                    class="flex justify-between p-1"
+                                                    wire:click.self="setMyTeam({{ $event->team_1->id }})"
+                                                >
+                                                    <div class="mr-1 text-left text-gray-900">
+                                                        <a
+                                                            href="{{ route('teams.show', ['team' => $event->team_1]) }}"
+                                                            class="link"
+                                                            wire:navigate
+                                                        >
+                                                            {{ $event->team_1->name }}
+                                                        </a>
+                                                    </div>
+                                                    @if($event->score1 !== null &&  $event->team_2->name !== 'BYE')
+                                                        <div
+                                                            @class([
+                                                                'mr-1',
+                                                                'text-green-700' => $event->score1 > 7,
+                                                                'text-red-700' => $event->score1 < 8,
+                                                            ])
+                                                        >
+                                                            {{ $event->score1 }}
+                                                        </div>
+                                                    @else
+                                                        <div></div>
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            <td @class(['bg-green-50' => $my_team === $event->team_2->id, 'font-semibold' => $event->score2 > 7])>
+                                                <div
+                                                    class="flex justify-between p-1"
+                                                    wire:click.prevent="setMyTeam({{ $event->team_2->id }})"
+                                                >
+                                                    @if($event->score2 !== null &&  $event->team_2->name !== 'BYE')
+                                                        <div
+                                                            @class([
+                                                                'ml-1',
+                                                                'text-green-700' => $event->score2 > 7,
+                                                                'text-red-700' => $event->score2 < 8,
+                                                            ])
+                                                        >
+                                                            {{ $event->score2 }}
+                                                        </div>
+                                                    @else
+                                                        <div></div>
+                                                    @endif
+                                                    <div class="ml-1 text-right text-gray-900">
+                                                        <a
+                                                            href="{{ route('teams.show', ['team' => $event->team_2]) }}"
+                                                            class="link"
+                                                            wire:navigate
+                                                        >
+                                                            {{ $event->team_2->name }}
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
-                                    @endif
-                                @endforeach
 
-                                </tbody>
-                            </table>
+                                        @if ($event->team_1->venue_id != $event->venue_id)
+
+                                            <tr>
+                                                <td colspan="2" class="text-center font-medium text-red-600">
+                                                    Game @ {{ $event->venue->name }}
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
                         @else
                             <div class="border-x-2 border-b-2 border-green-500 bg-green-100/25 p-2">
                                 @can ('create', $date)
                                     There are no games yet, <a
-                                        href="{{ route('dates.show', ['date' => $date]) }}"
-                                        class="link"
+                                        href="{{ route('admin.calendar.update', ['season' => $date->season]) }}"
+                                        class="inline-block text-blue-600 link"
                                         wire:navigate
                                     >please create
                                         some
                                     </a> or <a
                                         href="{{ route('admin.calendar.update', ['season' => $date->season]) }}"
-                                        class="link"
+                                        class="inline-block text-blue-600 link"
                                         wire:navigate
                                     >
-                                        delete the date if this is an error or a holiday</a>
+                                        delete the date</a>
+                                    if this is an error or a holiday
                                 @else
                                     There are no games yet. The teams will appear when the games are known.
                                 @endcan
