@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
+// only for live scores
+Broadcast::channel('live-score', function () {
+    return ['ably-capability' => ["subscribe", "publish"]];
+});
+
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
