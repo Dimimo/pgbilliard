@@ -2,9 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Models\Event;
 use App\Traits\CalendarTrait;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Calendar extends Component
@@ -29,5 +31,14 @@ class Calendar extends Component
     public function render(): View
     {
         return view('livewire.calendar');
+    }
+
+    #[On('echo:live-score,ScoreEvent')]
+    public function updateLiveScores(array $response): void
+    {
+        $event = Event::find($response['event']['id']);
+        if ($event->date->season->cycle === session('cycle')) {
+            $this->dates = $this->getCalendar();
+        }
     }
 }
