@@ -3,24 +3,23 @@
 namespace App\Events;
 
 use App\Models\Event;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ScoreEvent
+class ScoreEvent implements ShouldBroadcastNow
 {
     use Dispatchable;
     use InteractsWithSockets;
     use SerializesModels;
 
-    public Event $score;
-
     /**
      * Create the event listener.
      */
-    public function __construct(Event $score)
+    public function __construct(public Event $event)
     {
-        $this->score = $score;
     }
 
     /**
@@ -28,14 +27,16 @@ class ScoreEvent
      */
     public function broadcastOn(): array
     {
-        return ['pool-score'];
+        return [
+            new Channel('live-score')
+        ];
     }
 
     /**
      * The event's broadcast name.
      */
-    public function broadcastAs(): string
+    /*public function broadcastAs(): string
     {
         return 'score-event';
-    }
+    }*/
 }
