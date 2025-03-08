@@ -22,24 +22,24 @@
         </div>
     @else
 
-        <div
-            class="grid grid-flow-row grid-cols-8 items-center justify-items-center gap-2"
-            @if($event->date->checkOpenWindowAccess()) wire:poll.10s @endif
-        >
+        <div class="grid grid-flow-row grid-cols-8 items-center justify-items-center gap-2">
             @if(! $confirmed)
                 <div
-                    class="col-span-8 mb-4 h-auto w-min whitespace-nowrap rounded-lg border-2 border-indigo-400 bg-indigo-100 pt-2 text-center text-xl"
+                    class="col-span-8 mb-4 h-auto w-min whitespace-nowrap rounded-lg border-2 border-indigo-400 bg-indigo-100 pt-2 text-center text-xl p-2"
                 >
                     {{__('The format used is the')}} <span class="font-bold">{{ $format->name }}</span>
-                    <div class="m-2 text-center text-sm">
-                        It happens, if you move the players around, the schedule goes haywire. <br>
-                        Simply
-                        <x-svg.xmark-solid color="fill-red-600" size="4" padding="ml-1"/>
-                        reset the schedule and start again. No big deal! <br>
-                        <span class="font-bold">Check the schedule first before starting the game!</span> <br>
-                        <span class="font-bold">After entering the first score, the player order and reserves are locked</span> <br>
-                        You can change any player later on in the schedule itself.
-                    </div>
+
+                    @if ($can_update_players && auth()->check() && auth()->user()->can('update', $event))
+                        <div class="m-2 text-center text-sm">
+                            It happens, if you move the players around, the schedule goes haywire. <br>
+                            Simply
+                            <x-svg.xmark-solid color="fill-red-600" size="4" padding="ml-1"/>
+                            reset the schedule and start again. No big deal! <br>
+                            <span class="font-bold">Check the schedule first before starting the game!</span> <br>
+                            <span class="font-bold">After entering the first score, the player order and reserves are locked</span> <br>
+                            You can change any player later on in the schedule itself.
+                        </div>
+                    @endif
                 </div>
             @endif
 
@@ -121,7 +121,7 @@
                     @endif
                 </div>
             @else
-                <div class="fixed bottom-0">
+                <div class="fixed bottom-0 z-50">
                     <div class="w-min whitespace-nowrap rounded-t-lg border border-blue-800 bg-yellow-100 p-2 text-xl">
                         <span @class(['text-green-700' => $event->score1 > 7])>{{ $event->team_1->name }} {{ $event->score1 }}</span>
                         <x-svg.minus-solid color="fill-gray-600" size="3" padding="mx-2"/>
@@ -132,4 +132,10 @@
 
         </div>
     @endif
+
+    @script
+    <script>
+        window.Echo.channel('live-score');
+    </script>
+    @endscript
 </div>

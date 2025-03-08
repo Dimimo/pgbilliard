@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Date;
 
+use App\Events\ScoreEvent;
 use App\Models\Event;
 use App\Models\Format;
 use App\Models\Game;
@@ -9,6 +10,7 @@ use App\Models\Player;
 use App\Models\Position;
 use App\Models\Schedule as Matrix;
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Schedule extends Component
@@ -102,6 +104,7 @@ class Schedule extends Component
         $this->logScheduleChanges($game);
 
         $this->dispatch('score-updated');
+        broadcast(new ScoreEvent($this->event))->toOthers();
     }
 
     public function getEventScore(bool $home): int
@@ -212,5 +215,11 @@ class Schedule extends Component
             }
             $this->event->refresh();
         }
+    }
+
+    #[On('echo:live-score,ScoreEvent')]
+    public function updateLiveScores(array $response): void
+    {
+        $this->event = Event::find($response['event']['id']);
     }
 }

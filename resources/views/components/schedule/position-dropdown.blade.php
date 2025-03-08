@@ -20,7 +20,7 @@
             ])
              wire:key="game-{{$game->id}}"
         >
-            @if($event->confirmed || auth()->user()->cannot('update', $game->event))
+            @if($event->confirmed || auth()->guest() || auth()->user()->cannot('update', $game->event))
                 <div class="mx-2">
                     {{ $game->player?->user->name }}
                 </div>
@@ -56,7 +56,7 @@
             @endif
 
             @if(($loop->last && $home) || ($loop->first && !$home))
-                @if($event->confirmed || auth()->user()->cannot('update', $event))
+                @if($event->confirmed || auth()->guest() || auth()->user()->cannot('update', $game->event))
                     @if ($game->win)
                         <x-svg.check-solid color="fill-green-600" size="5"/>
                     @elseif ($game->event->completed)
@@ -68,6 +68,7 @@
                     <div class="mx-3">
                         <label wire:replace>
                             <input
+                                id=win-{{$game->id}}-{{$i}}"
                                 type="checkbox"
                                 wire:key="win-{{$game->id}}-{{$i}}"
                                 wire:change="scoreGiven({{$game->id}})"
