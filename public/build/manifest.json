@@ -4,6 +4,12 @@
     "src": "resources/css/app.css",
     "isEntry": true
   },
+  "resources/js/ably.js": {
+    "file": "assets/ably-BPRRVO6l.js",
+    "name": "ably",
+    "src": "resources/js/ably.js",
+    "isEntry": true
+  },
   "resources/js/app.js": {
     "file": "assets/app-D03Ay3w-.js",
     "name": "app",
