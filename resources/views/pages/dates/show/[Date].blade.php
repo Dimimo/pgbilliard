@@ -56,6 +56,12 @@ name('dates.show');
             <x-schedule.date-show-list :date="$date" :old="true"/>
         @endif
 
+        @script
+        <script>
+            window.Echo.channel('live-score');
+        </script>
+        @endscript
+
     </section>
     @endvolt
 </x-layout>

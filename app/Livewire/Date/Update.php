@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Date;
 
+use App\Events\ScoreEvent;
 use App\Models\Event;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -65,6 +67,7 @@ class Update extends Component
         $this->updateScores();
         $this->dispatch('scores-updated-'.$this->event->id);
         $this->logChanges($field);
+        broadcast(new ScoreEvent($this->event))->toOthers();
     }
 
     private function updateScores(): void
@@ -73,9 +76,19 @@ class Update extends Component
         $this->score2 = $this->event->score2;
         if ($this->score1 + $this->score2 > 15) {
             $this->addError('score1', 'More than 15 games? Please correct this...');
+        } else {
+            $this->resetErrorBag();
         }
         $this->confirmed = $this->event->confirmed;
     }
 
-
+    #[On('echo:live-score,ScoreEvent')]
+    public function updateLiveScores(array $response): void
+    {
+        if ($this->event->id === $response['event']['id']) {
+            $this->event->update();
+            $this->updateScores();
+            $this->dispatch('scores-updated-'.$this->event->id);
+        }
+    }
 }
