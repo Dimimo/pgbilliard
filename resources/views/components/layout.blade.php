@@ -74,7 +74,7 @@
 </footer>
 
 {{-- Begin script --}}
-@vite('resources/js/app.js')
+@vite(['resources/js/app.js', 'resources/js/ably.js'])
 
 @stack('js')
 {{-- End script --}}
