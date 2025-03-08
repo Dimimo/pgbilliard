@@ -1,32 +1,31 @@
-<div class="overflow-x-auto">
-    <x-title title="Competition Results" help="scoreboard">
-        <x-slot:subtitle>
-            <div>Season {{ $cycle }}</div>
-            @if($date->checkOpenWindowAccess())
-                <div class="mt-4 flex justify-center text-lg text-indigo-700">
-                    <a
-                        href="{{ route('dates.show', ['date' => $date]) }}"
-                        class="animate-pulse link"
-                        wire:navigate
-                    >
-                        Live update!
-                    </a>
-                </div>
-            @endif
-        </x-slot:subtitle>
-    </x-title>
+<div>
+    <div class="overflow-x-auto">
+        <x-title title="Competition Results" help="scoreboard">
+            <x-slot:subtitle>
+                <div>Season {{ $cycle }}</div>
+                @if($date->checkOpenWindowAccess())
+                    <div class="mt-4 flex justify-center text-lg text-indigo-700">
+                        <a
+                            href="{{ route('dates.show', ['date' => $date]) }}"
+                            class="animate-pulse link"
+                            wire:navigate
+                        >
+                            Live update!
+                        </a>
+                    </div>
+                @endif
+            </x-slot:subtitle>
+        </x-title>
 
-    <x-navigation.main-links-buttons/>
+        <x-navigation.main-links-buttons/>
 
-    <div
-        class="lg:hidden my-2 mx-auto w-min md:ml-auto md:mr-6 whitespace-nowrap rounded-full border border-gray-500 bg-gray-100 text-center">
-        <button class="px-4 py-2" wire:click="toggleShowFullTable">
-            {{ $show_full_table ? 'Hide some' : 'Show all' }} columns
-        </button>
-    </div>
+        <div
+            class="lg:hidden my-2 mx-auto w-min md:ml-auto md:mr-6 whitespace-nowrap rounded-full border border-gray-500 bg-gray-100 text-center">
+            <button class="px-4 py-2" wire:click="toggleShowFullTable">
+                {{ $show_full_table ? 'Hide some' : 'Show all' }} columns
+            </button>
+        </div>
 
-
-    <div @if($date->checkOpenWindowAccess()) wire:poll.10s @endif>
         <table class="my-2 min-w-full bg-transparent table-collapse md:my-4">
             <thead class="whitespace-nowrap">
             <tr>
@@ -185,4 +184,11 @@
             </tbody>
         </table>
     </div>
+
+    @script
+    <script>
+        window.Echo.channel('live-score');
+    </script>
+    @endscript
 </div>
+

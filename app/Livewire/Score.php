@@ -3,9 +3,11 @@
 namespace App\Livewire;
 
 use App\Models\Date;
+use App\Models\Event;
 use App\Traits\CalendarTrait;
 use App\Traits\ResultsTrait;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Score extends Component
@@ -70,5 +72,14 @@ class Score extends Component
         }
 
         return $week;
+    }
+
+    #[On('echo:live-score,ScoreEvent')]
+    public function updateLiveScores(array $response): void
+    {
+        $event = Event::find($response['event']['id']);
+        if ($event->date->season->cycle === $this->season->cycle) {
+            $this->scores = $this->getResults();
+        }
     }
 }
