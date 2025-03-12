@@ -4,13 +4,13 @@
         <select
             class="block appearance-none w-auto py-1 pl-4 pr-8 mr-4 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-500 rounded"
             title="Change the season"
+            wire:change="changeCycle($event.target.value)"
         >
             @if($cycles)
                 @foreach ($cycles as $c)
                     <option
                         value="{{ $c->id }}"
                         @selected($c->cycle === $cycle)
-                        wire:click="changeCycle({{ $c->id }})"
                     >
                         {{ $c->cycle }}
                     </option>
