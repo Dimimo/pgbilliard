@@ -26,5 +26,6 @@ class StartRedisServer extends Command
     public function handle(): void
     {
         shell_exec('redis-server >> /dev/null 2>&1');
+        $this->comment('The redis server has started');
     }
 }
