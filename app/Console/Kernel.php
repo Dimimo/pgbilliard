@@ -15,7 +15,6 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('day-scores')->dailyAt('12:00');
         $schedule->command('queue:start-redis-server')->everyFiveMinutes()->runInBackground();
-        $schedule->
         $schedule->job(new PlayDayReminder())->dailyAt('12:00');
 
         if (str_contains(shell_exec('ps xa'), 'tries=2') === false) {
