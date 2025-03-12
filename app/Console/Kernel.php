@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('day-scores')->dailyAt('12:00');
-        $schedule->command('redis-server >> /dev/null 2>&1')->everyFiveMinutes()->runInBackground();
+        $schedule->command('queue:start-redis-server')->everyFiveMinutes()->runInBackground();
+        $schedule->
         $schedule->job(new PlayDayReminder())->dailyAt('12:00');
 
         if (str_contains(shell_exec('ps xa'), 'tries=2') === false) {
