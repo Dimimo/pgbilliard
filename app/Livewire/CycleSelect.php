@@ -23,16 +23,15 @@ class CycleSelect extends Component
         return view('livewire.cycle-select');
     }
 
-    public function changeCycle($id): void
+    public function changeCycle(int $id): void
     {
-        $season = Season::findOrFail($id);
-        session()->put('cycle', $season->cycle);
-        $this->redirect(route('scoreboard'));
-    }
-
-    public function getAllCycles(): void
-    {
-        $this->redirect(route('seasons.all'), navigate: true);
+        if ($id === 0) {
+            $this->redirect(route('seasons.all'), navigate: true);
+        } else {
+            $season = Season::findOrFail($id);
+            session()->put('cycle', $season->cycle);
+            $this->redirect(route('scoreboard'));
+        }
     }
 
     private function getCycles(): Collection

@@ -22,7 +22,7 @@
                         {{ $cycle }}
                     </option>
                 @endif
-                <option value="all" wire:click="getAllCycles()">All Seasons</option>
+                <option value="0">All Seasons</option>
             @else
                 <option>No seasons are available in the new database</option>
             @endif
