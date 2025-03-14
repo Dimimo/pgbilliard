@@ -12,6 +12,9 @@ module.exports = {
         'justify-end',
         'max-w-xl',
         'md:max-w-2xl',
+        'transition',
+        'ease-in-out',
+        'duration-1000',
         {
             pattern: /max-w-(sm|md|lg|xl|2xl)/,
             variants: ['sm', 'md']
