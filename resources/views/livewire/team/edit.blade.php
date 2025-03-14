@@ -1,9 +1,9 @@
 <section>
-    <div class="text-center border-2 border-green-500 rounded-md p-4 my-4">
+    <div class="my-4 rounded-md border-2 border-green-500 p-4 text-center">
         <form wire:submit="create">
             <div class="grid justify-items-center gap-4">
                 <div>
-                    <label for="team_form.name" class="text-lg mr-2">
+                    <label for="team_form.name" class="mr-2 text-lg">
                         The team
                     </label>
                     <input id="team_form.name" type="text" wire:model="team_form.name">
@@ -13,11 +13,10 @@
                 </div>
 
                 <div>
-                    <label for="venue_id" class="text-lg mr-2">
+                    <label for="venue_id" class="mr-2 text-lg">
                         Plays at
                     </label>
                     <select id="venue_id" wire:model="team_form.venue_id">
-                        <option readonly>Select venue...</option>
                         @foreach($venues->sortBy('name') as $venue)
                             <option value="{{ $venue->id }}">{{ $venue->name }}</option>
                         @endforeach
@@ -28,14 +27,14 @@
                 </div>
 
                 <div class="grid grid-cols-4 gap-4">
-                    <div class="text-right col-start-2">
-                        <x-forms.primary-button class="">
+                    <div class="col-start-2 text-right">
+                        <x-forms.primary-button>
                             Save
                         </x-forms.primary-button>
                     </div>
-                    <x-forms.spinner target="team_save"/>
+                    <x-forms.spinner class="mt-2"/>
                     <x-forms.action-message class="mx-3" on="team-updated">
-                        Saved!
+                        <div class="mt-1 text-lg">Saved!</div>
                     </x-forms.action-message>
                 </div>
             </div>
