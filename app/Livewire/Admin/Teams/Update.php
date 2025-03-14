@@ -27,6 +27,20 @@ class Update extends Component
         return view('livewire.admin.teams.update');
     }
 
+    public function changeTeamVenue(int $venue_id): void
+    {
+        $this->form->venue_id = $venue_id;
+        $this->form->checkAndSetValues('form.venue_id', $venue_id);
+        $this->dispatch('teams-updated');
+    }
+
+    public function changeTeamCaptain(int $captain_id): void
+    {
+        $this->form->captain_id = $captain_id;
+        $this->form->checkAndSetValues('form.captain_id', $captain_id);
+        $this->dispatch('teams-updated');
+    }
+
     public function updating($name, $value): void
     {
         $this->form->checkAndSetValues($name, $value);

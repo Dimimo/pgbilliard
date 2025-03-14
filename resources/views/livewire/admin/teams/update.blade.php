@@ -1,35 +1,64 @@
 @props(['form'])
-<div>
-    <div class="flex items-center w-full my-2 pl-2">
+<div
+    x-data="{ highlight: false }"
+    :class="{ 'bg-yellow-100 transition ease-in-out duration-1000': highlight }"
+    x-on:teams-updated="highlight = true; setTimeout(() => highlight = false, 1000)"
+    class="rounded-lg py-1 pl-2"
+>
+    <div
+        class="flex w-full items-center"
+    >
         <input type="hidden" name="team.{{ $form->team->id }}.id" wire:model.defer="form.id">
 
-        <label for="teams[{{ $form->team->id }}]['name']" class="inline-block mr-2">The team</label>
-        <input type="text" id="teams[{{ $form->team->id }}]['name']" wire:model.live.debounce="form.name"
-               class="shadow-sm border-1 border-blue-300 focus:outline-none p-3 inline-block sm:text-sm rounded-md"
-               placeholder="{{ $form->name }}">
+        <label for="team[{{ $form->team->id }}]" class="mr-2 inline-block">The team</label>
+        <input
+            type="text"
+            id="team[{{ $form->team->id }}]"
+            wire:model.live.debounce="form.name"
+            placeholder="{{ $form->name }}">
 
-        <label for="teams[{{ $form->team->id }}['venue_id']" class="inline-block mx-2">
+        <label for="teams-venue[{{ $form->team->id }}" class="mx-2 inline-block">
             Plays at
         </label>
-        <select class="inline-block" id="teams[{{ $form->team->id }}['venue_id']" wire:model.live="form.venue_id">
+        <select
+            class="inline-block"
+            id="teams-venue[{{ $form->team->id }}"
+            wire:change="changeTeamVenue($event.target.value)"
+        >
             <option>Select venue...</option>
             @foreach($form->venues as $venue)
-                <option value="{{ $venue->id }}">{{ $venue->name }}</option>
+                <option
+                    wire:key="change-venue-{{ $form->team->id }}-{{ $venue->id }}"
+                    value="{{ $venue->id }}"
+                    @selected($form->venue_id === $venue->id)
+                >
+                    {{ $venue->name }}
+                </option>
             @endforeach
         </select>
 
-        <label for="teams[{{$form->team->id}}]['user_id']" class="inline-block mx-2">
+        <label for="teams-captain[{{$form->team->id}}]" class="mx-2 inline-block">
             Captain
         </label>
-        <select class="inline-block" id="teams[{{$form->team->id}}]['user_id']" wire:model.live="form.captain_id">
+        <select
+            class="inline-block"
+            id="teams-captain[{{$form->team->id}}]"
+            wire:change="changeTeamCaptain($event.target.value)"
+        >
             <option>Select captain...</option>
             @foreach($form->users as $user)
-                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                <option
+                    wire:key="change-captain-{{ $form->team->id }}-{{ $user->id }}"
+                    value="{{ $user->id }}"
+                    @selected($form->captain_id === $user->id)
+                >
+                    {{ $user->name }}
+                </option>
             @endforeach
         </select>
 
         @if(!$form->team->hasGames())
-            <div class="inline-block ml-2">
+            <div class="ml-2 inline-block">
                 <button
                     type="submit"
                     title="Remove this team"
