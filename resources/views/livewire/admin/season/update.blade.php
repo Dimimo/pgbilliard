@@ -4,15 +4,19 @@
     <div class="m-2 border border-green-500 bg-green-100 p-4">
         <x-admin.help.explanation/>
     </div>
+
     @if($teams->count() > 0)
         <div class="m-2 border border-gray-500 p-0">
-            <div class="mb-4 flex flex-row items-center bg-blue-100 p-4 text-lg text-blue-900 space-x-2 text-uppercase">
-                <div>{{ $i-1 }} of the {{ $number_of_teams }} teams are chosen</div>
-                <div class="text-sm text-gray-500">({{ $has_bye ? __('has a BYE') : __('has no BYE') }})</div>
-                <x-forms.action-message class="mx-3 text-green-700" on="teams-updated">
-                    Saved!
+            <div class="mb-4 flex justify-between bg-blue-100 p-4">
+                <div class="flex flex-row items-center text-lg text-blue-900 space-x-2 text-uppercase">
+                    <div>{{ $i-1 }} of the {{ $number_of_teams }} teams are chosen</div>
+                    <div class="text-sm text-gray-500">({{ $has_bye ? __('has a BYE') : __('has no BYE') }})</div>
+                </div>
+                <x-forms.action-message class="mx-3 text-right" on="teams-updated">
+                    <div class="text-lg text-green-700">Saved!</div>
                 </x-forms.action-message>
             </div>
+
             @foreach($teams as $team)
                 <livewire:admin.teams.update :team="$team" :key="$team->id"/>
             @endforeach
@@ -27,6 +31,7 @@
             </div>
         </div>
     @endif
+
     <div class="flex flex-row items-center space-x-4">
         <form class="my-5" wire:submit="save">
             <div class="block">

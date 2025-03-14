@@ -30,8 +30,15 @@ class Create extends Component
         $this->season = $season;
         $this->getLastEvent();
         $this->getTeams();
-        $venue_ids = Team::whereSeasonId($season->id)->get()->unique('venue_id')->pluck('venue_id')->toArray();
-        $this->venues = Venue::whereIn('id', $venue_ids)->where('name', '<>', 'BYE')->orderBy('name')->get();
+        $venue_ids = Team::whereSeasonId($season->id)
+            ->get()
+            ->unique('venue_id')
+            ->pluck('venue_id')
+            ->toArray();
+        $this->venues = Venue::whereIn('id', $venue_ids)
+            ->where('name', '<>', 'BYE')
+            ->orderBy('name')
+            ->get();
     }
 
     public function render(): View
