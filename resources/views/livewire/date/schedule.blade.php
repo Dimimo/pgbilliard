@@ -133,9 +133,11 @@
         </div>
     @endif
 
-    @script
-    <script>
-        window.Echo.channel('live-score');
-    </script>
-    @endscript
+    @if (app()->isProduction())
+        @script
+        <script>
+            window.Echo.channel('live-score');
+        </script>
+        @endscript
+    @endif
 </div>

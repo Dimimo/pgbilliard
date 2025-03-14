@@ -56,11 +56,13 @@ name('dates.show');
             <x-schedule.date-show-list :date="$date" :old="true"/>
         @endif
 
-        @script
-        <script>
-            window.Echo.channel('live-score');
-        </script>
-        @endscript
+        @if (app()->isProduction())
+            @script
+            <script>
+                window.Echo.channel('live-score');
+            </script>
+            @endscript
+        @endif
 
     </section>
     @endvolt
