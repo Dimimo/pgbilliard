@@ -8,7 +8,7 @@
     @endphp
 @endif
 <div>
-    <div class="m-2 border border-green-500 bg-green-100 p-4">
+    <div class="m-2 rounded-lg border border-green-500 bg-green-100 p-4">
         <x-admin.help.calendar :dates="$dates" :new="$new"/>
     </div>
     <div class="mx-2 my-4 rounded-lg border border-blue-600">

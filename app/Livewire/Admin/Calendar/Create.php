@@ -46,7 +46,7 @@ class Create extends Component
         return view('livewire.admin.calendar.create');
     }
 
-    public function updating($name, $value): void
+    public function updated($name, $value): void
     {
         if ($name === 'event.date_id' && $value) {
             $this->setSelectedDate($value);
@@ -60,14 +60,19 @@ class Create extends Component
             $this->last_date->refresh();
         } elseif ($name === 'event.team1') {
             $team = Team::find($value);
-            $this->event->venue_id = $team?->venue_id;
+            $this->event->venue_id = $team->venue_id;
             $this->event->validate();
         } elseif ($name === 'event.team2') {
             $this->event->validate();
         } elseif ($name === 'event.venue_id') {
             $venue = Venue::find($value);
-            $this->event->venue_id = $venue?->id;
+            $this->event->venue_id = $venue->id;
             $this->event->validate();
+            if (Team::find($this->event->team1)->venue_id !== $venue->id) {
+                $this->addError('event.venue_id', "Reminder: the selected bar is not that of the Home Team, is it your intention?");
+            } else {
+                $this->resetErrorBag(['event.venue_id']);
+            }
         }
     }
 
@@ -177,7 +182,6 @@ class Create extends Component
             $date->delete();
         }
         $this->season->delete();
-        //$cycle = Season::query()->orderBy('cycle', 'desc')->first()->cycle;
         session()->forget('cycle');
         session()->flash('status', 'The Season has been deleted');
         $this->redirect(route('admin.seasons.create'), navigate: true);
