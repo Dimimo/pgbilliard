@@ -5,7 +5,14 @@
                 <x-team.captain :player="$player"/>
             </div>
             <div class="p-2 text-xl">{{ $player->name }}</div>
-            <div class="p-2 text-xl">{{ $player->contact_nr }}</div>
+            <div class="p-2">
+                @auth()
+                    @if($player->phone)
+                        <x-svg.mobile-screen-solid color="fill-green-600" size="5"/>
+                        {{ $player->phone }}
+                    @endif
+                @endauth
+            </div>
         </div>
     @empty
         <div class="flex justify-center text-xl">No selected players in this team</div>

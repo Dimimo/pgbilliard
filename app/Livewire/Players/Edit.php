@@ -29,6 +29,7 @@ class Edit extends Component
     public ?int $user_id = null;
     public int $max_players;
     public bool $max_reached = false;
+    public bool $show_new_player_form = true;
 
     public function mount(Team $team): void
     {
@@ -48,19 +49,31 @@ class Edit extends Component
 
     public function updatedUserFormName($value): void
     {
+        // there are ways this update can be called: creating a new user or update an existing user (only available for admins)
         $this->validateOnly('user_form.name');
         $this->user_form->name = Str::title($value);
-        $this->user_form->email = Str::lower(Str::snake($value, '-')).'@pgbilliard.com';
+        if ($this->user_form->user->exists) {
+            $this->user_form->update();
+        } else {
+            $this->user_form->email = Str::lower(Str::snake($value, '-')).'@pgbilliard.com';
+        }
     }
 
-    public function updatedUserFormEmail(): void
+    public function updatedUserFormContactNr($value): void
+    {
+        $this->validateOnly('user_form.contact_nr');
+        $this->user_form->contact_nr = $value;
+    }
+
+    public function updatedUserFormEmail($value): void
     {
         $this->validateOnly('user_form.email');
+        $this->user_form->email = $value;
     }
 
     private function getPlayers(): void
     {
-        $this->players = $this->team->players()->get()->sortBy('name')->sortByDesc('captain');
+        $this->players = $this->team->players()->with('user')->get()->sortBy('name')->sortByDesc('captain');
     }
 
     private function getPlayersActiveInCurrentSeason(): void
@@ -77,6 +90,23 @@ class Edit extends Component
             'user_id' => $user_id,
             'team_id' => $this->team->id,
         ]));
+    }
+
+    public function editUser(int $user_id): void
+    {
+        $user = User::find($user_id);
+        $this->setUserForm($user);
+        $this->show_new_player_form = ! $this->show_new_player_form;
+    }
+
+    public function editUserUpdate(): void
+    {
+        $this->show_new_player_form = ! $this->show_new_player_form;
+        $this->user_form->update();
+        $this->setUserForm(new User());
+        $this->setPlayerForm();
+        $this->getPlayers();
+        //$this->user_form->reset(['name', 'email', 'contact_nr', 'gender', 'email_verified_at', 'last_game', 'password']);
     }
 
     private function setUserForm(User $user): void
@@ -126,7 +156,7 @@ class Edit extends Component
         $this->setUserForm(new User());
         $this->setMaxReached();
         $this->dispatch('user-created');
-        CaptainCreatedNewUser::dispatch($user);
+        dispatch(new CaptainCreatedNewUser($user));
     }
 
     public function removePlayer($player_id): void

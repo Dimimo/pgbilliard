@@ -15,8 +15,12 @@
             </div>
 
             @forelse($players as $player)
-                <div class="flex flex-row p-1" wire:key="{{ $player->id }}">
-                    <div class="ml-4 basis-1/12">
+                <div
+                    class="flex flex-row p-1"
+                    wire:key="player-{{ $player->id }}"
+                    x-data="{ edit: false }"
+                >
+                    <div class="mx-4 basis-1/12 text-right">
                         <x-team.captain
                             :player="$player"
                             wire:click="toggleCaptain({{ $player->id }})"
@@ -28,9 +32,38 @@
                         />
                     </div>
 
-                    <div class="basis-5/12 text-xl font-semibold">{{ $player->name }}</div>
-                    <div class="basis-5/12 text-xl">{{ $player->contact_nr }}</div>
-                    <div class="basis-1/12">
+                    <div class="basis-5/12 text-xl font-semibold" x-show="!edit">
+                        {{ $player->name }}
+                    </div>
+                    <div class="basis-4/12 text-xl" x-show="!edit">
+                        {{ $player->phone }}
+                    </div>
+                    <div class="basis-9/12" x-cloak x-show="edit">
+                        <form class="flex flex-row flex-nowrap items-center space-x-2" wire:submit="editUserUpdate">
+                                <label for="user_edit.name"></label>
+                                <input id="user_edit.name" type="text" wire:model="user_form.name">
+
+                                <label for="user_edit.contact_nr"></label>
+                                <input id="user_edit.contact_nr" type="text" wire:model="user_form.contact_nr">
+
+                                <x-forms.secondary-button type="submit" x-on:click="edit = !edit">
+                                    Update
+                                </x-forms.secondary-button>
+                                <x-forms.spinner/>
+                        </form>
+                    </div>
+                    <div class="mr-2 basis-2/12 text-right">
+                        @if(auth()->user()->isAdmin() && $show_new_player_form)
+                            <button
+                                class="cursor-pointer"
+                                title="Edit this player"
+                                x-on:click="edit = !edit"
+                                wire:click="editUser({{ $player->user_id }})"
+                            >
+                                <x-svg.pen-to-square-solid color="fill-green-600" size="5" padding="mb-1 mr-2"/>
+                            </button>
+
+                        @endif
                         <button
                             class="cursor-pointer"
                             title="Remove this user"
@@ -67,7 +100,8 @@
 
     </x-forms.sub-title>
 
-    @if (!$max_reached)
+    @json($show_new_player_form)
+    @if (!$max_reached && $show_new_player_form)
         <x-forms.sub-title title="{{__('Add a player to the team')}}">
             <div class="flex items-center justify-center">
                 <div class="mt-1 p-2 text-xl">
@@ -79,7 +113,12 @@
                     <select id="user_id" wire:model.change="user_id">
                         <option> -- select --</option>
                         @foreach(array_diff($users, $occupied_players) as $id => $name)
-                            <option value="{{ $id }}">{{ $name }}</option>
+                            <option
+                                wire:key="add-{{ $id }}"
+                                value="{{ $id }}"
+                            >
+                                {{ $name }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -169,7 +208,7 @@
                 </div>
             </form>
         </x-forms.sub-title>
-    @else
+    @elseif ($show_new_player_form)
         <div class="text-lg text-red-700">
             The maximum allowed players of <span class="font-bold">{{ $max_players }}</span> has been reached
         </div>

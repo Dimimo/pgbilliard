@@ -76,8 +76,11 @@ class UserForm extends Form
 
     public function update(): void
     {
-        $this->validate();
-        $this->user->update($this->all());
-        $this->user->refresh();
+        // only admins should have access to this method
+        if (auth()->user()->isAdmin()) {
+            $this->validateOnly('name');
+            $this->user->update($this->all());
+            $this->user->refresh();
+        }
     }
 }
