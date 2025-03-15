@@ -22,14 +22,14 @@
                     {{ $admin->created_at->format('Y-m-d') }}
                 </td>
                 <td>
-                    @if(!$admin->super_admin && (Auth::user()->isSuperAdmin() || $admin->assigned_by === Auth::user()->id))
+                    @if(!$admin->super_admin && (auth()->user()->isSuperAdmin() || $admin->assigned_by === auth()->user()->id))
                         <button
                             type="button"
                             title="Remove this administrator"
                             wire:click="removeAdmin({{ $admin->user_id }})"
                             wire:confirm="Do you want to remove this user as an administrator?"
                         >
-                            <img class="mx-auto" src="{{ secure_asset('svg/user-delete.svg') }}" alt="Remove" width="24" height="24">
+                            <x-svg.user-minus-solid color="fill-red-500" size="6" padding="mb-1"/>
                         </button>
                     @endif
                 </td>
@@ -65,15 +65,15 @@
             <p>
                 <u>It goes without saying</u>: <strong>please be careful</strong> who you choose to become an administrator.
                 They have the same powers as you! To remove an admin, simply click
-                <img class="mt-1 inline-block align-text-top" src="{{ secure_asset('svg/user-delete.svg') }}" alt="" width="14" height="14">
+                <x-svg.user-minus-solid color="fill-red-500" size="4" padding="mb-1"/>
             </p>
             <p>
                 No emails are send <u>to the selected user</u> about the admin state. Making a mistake goes quiet 🤫, although, an email
                 is sent to the shared Admin inbox to advice all admins. If you make a mistake, simply delete them from the inbox.
             </p>
             <p>
-                <u class="font-bold">Fun fact</u>: you can accidentally remove yourself... and you can't undo it! It gives you a warning though. Don't
-                worry.
+                <u class="font-bold">Fun fact</u>: you can accidentally remove yourself... and you can't undo it!
+                You have to confirm the action though. Don't worry.
             </p>
             <p>
                 For practical reasons, you can't remove the Administrator (user id 1).

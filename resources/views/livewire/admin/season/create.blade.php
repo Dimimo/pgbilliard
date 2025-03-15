@@ -37,20 +37,12 @@
             </div>
             <div class="p-2">
                 <x-forms.text-input id="cycle" wire:model.live.debounce.500ms="cycle"/>
-                <a wire:click="addMonth">
-                    <img class="inline-block cursor-pointer" src="{{ secure_asset('svg/plus-box-fill.svg') }}" alt="" title="Add one month" width="24"
-                         height="24">
+                <a class="cursor-pointer" wire:click="addMonth">
+                    <x-svg.square-plus-solid color="fill-green-600" size="5" padding="mb-1"/>
                 </a>
                 @if(Carbon::createFromFormat('Y/m', $cycle)->subMonth()->format('Ym') >= Carbon::now()->format('Ym'))
-                    <a wire:click="subMonth">
-                        <img
-                            class="inline-block cursor-pointer"
-                            src="{{ secure_asset('svg/minus-box-fill.svg') }}"
-                            alt=""
-                            title="Distract one month"
-                            width="24"
-                            height="24"
-                        >
+                    <a class="cursor-pointer" wire:click="subMonth">
+                        <x-svg.square-minus-solid color="fill-orange-500" size="5" padding="mb-1"/>
                     </a>
                 @endif
                 <div>
@@ -104,14 +96,12 @@
             </div>
             <div class="p-2">
                 <x-forms.text-input type="date" id="starting_date" wire:model.live="starting_date"/>
-                <a wire:click="addWeek">
-                    <img class="inline-block cursor-pointer" src="{{ secure_asset('svg/plus-box-fill.svg') }}" alt="" title="Add one week" width="24"
-                         height="24">
+                <a class="cursor-pointer" wire:click="addWeek">
+                    <x-svg.square-plus-solid color="fill-green-600" size="5" padding="mb-1"/>
                 </a>
                 @if(Carbon::createFromFormat('Y-m-d', $starting_date)->subWeek() > Carbon::now())
-                    <a wire:click="subWeek">
-                        <img class="inline-block cursor-pointer" src="{{ secure_asset('svg/minus-box-fill.svg') }}" alt="" title="Distract one week" width="24"
-                             height="24">
+                    <a class="cursor-pointer" wire:click="subWeek">
+                        <x-svg.square-minus-solid color="fill-orange-500" size="5" padding="mb-1"/>
                     </a>
                 @endif
             </div>

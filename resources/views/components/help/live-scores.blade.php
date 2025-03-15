@@ -58,8 +58,8 @@
     </div>
     <div class="mb-4">
         <span class="font-bold">Changing scores</span>: either by the
-        <img src="{{ secure_asset('svg/minus-box-fill.svg') }}" class="inline-block" width="16" height="16" alt="">
-        or the <img src="{{ secure_asset('svg/plus-box-fill.svg') }}" class="inline-block" width="16" height="16" alt="">
+        <x-svg.square-minus-solid color="fill-orange-400" size="4" padding="mb-1"/>
+        or the <x-svg.square-plus-solid color="fill-green-600" size="4" padding="mb-1"/>
         buttons. Or change it directly in the box as it was before. Either way works. There are some simple checks, f.ex.
         there can't be more than 15 games. A warning is given because such score can't be confirmed.
     </div>

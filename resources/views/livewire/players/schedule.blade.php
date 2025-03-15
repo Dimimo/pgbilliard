@@ -18,7 +18,7 @@
                                 {{-- todo: add the pdf file --}}
                                 {{--<div class="mr-2">
                                     <a href="#" title="download this personalized day schedule" wire:navigate>
-                                        <img src="{{ secure_asset('svg/file-pdf.svg') }}" alt="" width="16" height="16">
+                                        <x-svg.file-pdf-regular color="fill-green-600" size="5" padding="mb-1"/>
                                     </a>
                                 </div>--}}
                                 <div>
@@ -37,7 +37,7 @@
                                 {{-- todo: add the pdf file --}}
                                 {{--<div class="mr-2">
                                     <a href="#" title="download this personalized day schedule" wire:navigate>
-                                        <img src="{{ secure_asset('svg/file-pdf.svg') }}" alt="" width="16" height="16">
+                                        <x-svg.file-pdf-regular color="fill-green-600" size="5" padding="mb-1"/>
                                     </a>
                                 </div>--}}
                                 <div>
@@ -78,7 +78,7 @@
                                 {{-- todo: add the pdf file --}}
                                 {{--<div class="mr-2">
                                     <a href="#" title="download this personalized day schedule" wire:navigate>
-                                        <img src="{{ secure_asset('svg/file-pdf.svg') }}" alt="" width="16" height="16">
+                                        <x-svg.file-pdf-regular color="fill-green-600" size="5" padding="mb-1"/>
                                     </a>
                                 </div>--}}
                                 <div>
@@ -97,7 +97,7 @@
                                 {{-- todo: add the pdf file --}}
                                 {{--<div class="mr-2">
                                     <a href="#" title="download this personalized day schedule" wire:navigate>
-                                        <img src="{{ secure_asset('svg/file-pdf.svg') }}" alt="" width="16" height="16">
+                                        <x-svg.file-pdf-regular color="fill-green-600" size="5" padding="mb-1"/>
                                     </a>
                                 </div>--}}
                                 <div>
