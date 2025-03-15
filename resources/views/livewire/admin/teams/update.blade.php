@@ -65,12 +65,7 @@
                     wire:confirm="Do you want to remove this team? You can always add again later"
                     wire:click="$dispatch('remove-team', { team_id: {{ $form->team->id }} })"
                 >
-                    <img
-                        class="mx-auto" src="{{ secure_asset('svg/minus-box-fill.svg') }}"
-                        alt="Remove"
-                        width="24"
-                        height="24"
-                    >
+                    <x-svg.square-minus-solid color="fill-orange-400" size="6"/>
                 </button>
             </div>
         @endif
