@@ -1,5 +1,5 @@
 @if ($player->captain)
-    <img alt="" src="{{ secure_asset('svg/user-tie.svg') }}" {{ $attributes->merge(['title' => 'Captain', 'width' => '24px', 'height' => '24px']) }}>
+    <x-svg.user-tie-solid color="fill-orange-500" size="6"/>
 @else
-    <img alt="" src="{{ secure_asset('svg/user-circle.svg') }}" {{ $attributes->merge(['title' => 'Player', 'width' => '24px', 'height' => '24px']) }}>
+    <x-svg.circle-user-solid color="fill-green-600" size="6"/>
 @endif
