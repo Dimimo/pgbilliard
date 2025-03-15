@@ -80,7 +80,7 @@
                 </td>
                 <td class="p-2">{{ $user->last_game->format('d-m-Y') }}</td>
                 <td class="p-2">
-                    {{ $user->players()->orderByDesc('team_id')->first()->team->name }}
+                    {{ $user->players()->orderByDesc('team_id')->first()?->team->name }}
                 </td>
             </tr>
         @endforeach
