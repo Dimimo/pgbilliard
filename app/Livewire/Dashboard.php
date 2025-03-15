@@ -50,6 +50,6 @@ class Dashboard extends Component
     #[Computed]
     public function newPosts(): Collection
     {
-        return Post::where('updated_at', '>', session('last_login'))->get();
+        return Post::where('updated_at', '>', session('last_login', $this->user->updated_at))->get();
     }
 }
