@@ -5,18 +5,15 @@
         <div class="flex justify-between p-1" wire:key="{{ $user->id }}">
             <div>{{ $user->name }}</div>
             @can('update', $room)
-                <div class="inline-block align-middle px-2 cursor-pointer">
-                    <img
-                        src="{{ secure_asset('svg/user-delete.svg') }}"
-                        alt=""
-                        width="20"
-                        height="20"
-                        wire:click="toggleUser({{ $user->id }})"
-                        wire:confirm="Remove this user from the chat? All related messages will be deleted too."
-                        wire:loading.remove
-                        wire:target="toggleUser({{ $user->id }})"
-                    >
-                </div>
+                <button
+                    class="inline-block align-middle px-2 cursor-pointer"
+                    wire:click="toggleUser({{ $user->id }})"
+                    wire:confirm="Remove this user from the chat? All related messages will be deleted too."
+                    wire:loading.remove
+                    wire:target="toggleUser({{ $user->id }})"
+                >
+                    <x-svg.user-minus-solid color="fill-red-500" size="5" padding="mb-1"/>
+                </button>
                 <div wire:loading wire:target="toggleUser({{ $user->id }})">
                     <x-forms.spinner/>
                 </div>
