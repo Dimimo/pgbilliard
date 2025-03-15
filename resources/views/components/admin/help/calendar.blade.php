@@ -37,12 +37,8 @@
     <div class="mt-3 text-2xl">Add a new date</div>
     <div class="my-2">
         When done with the current selected date, click on
-        <img
-            class="mx-auto mb-1 inline-block"
-            src="{{ secure_asset('svg/plus-box-fill.svg') }}"
-            alt=""
-            width="16"
-            height="16"> <span class="text-green-700">Add next week</span>. Simple enough.
+        <x-svg.square-plus-solid color="fill-green-700" size="4" padding="mb-1"/>
+        <span class="text-green-700">Add next week</span>. Simple enough.
     </div>
     <div class="my-2">
         <div class="font-bold">Hints:</div>
@@ -54,14 +50,10 @@
     <div class="text-2xl">Delete a date</div>
     <div class="my-2">
         You can delete a date if it has no games. If the date is somehow wrong, you
-        will have to delete the games <img
-            class="inline-block"
-            src="{{ secure_asset('svg/minus-box-fill.svg') }}"
-            alt="Remove"
-            width="16"
-            height="16"
-        > first before the
-        <img class="inline-block" src="{{ secure_asset('svg/delete-item.svg') }}" alt="" width="16" height="16">
+        will have to delete the games
+        <x-svg.square-minus-solid color="fill-orange-400" size="4" padding="mb-1"/>
+        first before the
+        <x-svg.trash-can-solid color="fill-red-600" size="4" padding="mb-1"/>
         symbol appears. <span class="font-bold">Confirmed games can not be deleted.</span> Past dates yes, if there are no games.
     </div>
 
@@ -76,8 +68,7 @@
         <div class="mt-3 text-2xl">Conclude to the Overview</div>
         <div class="my-2">
             The results (scores) can be added later on the
-            <a href="{{ route('calendar') }}" class="inline-block text-lg text-blue-800 link hover:text-blue-600" wire:navigate>Calendar</a>
-            .
+            <a href="{{ route('calendar') }}" class="inline-block text-lg text-blue-800 link hover:text-blue-600" wire:navigate>Calendar</a>.
             The <strong>first</strong> playing date is automatically set to 0-0. The Scoreboard
             needs <i>some</i> data to work with.
         </div>
