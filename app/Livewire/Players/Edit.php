@@ -51,7 +51,9 @@ class Edit extends Component
     {
         // there are ways this update can be called: creating a new user or update an existing user (only available for admins)
         $this->validateOnly('user_form.name');
-        $this->user_form->name = $value;
+        $this->user_form->name = $value = Str::length($value) > 2
+            ? Str::title($value)
+            : Str::upper($value);
         if ($this->user_form->user->exists) {
             $this->user_form->update();
         } else {
