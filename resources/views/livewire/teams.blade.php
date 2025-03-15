@@ -10,8 +10,8 @@
             <th class="hidden border border-slate-300 bg-slate-100 p-2 text-left md:table-cell">
                 Venue
             </th>
-            <th class="border border-slate-300 bg-slate-100 p-2 text-center">
-                <img class="mx-auto" src="{{ secure_asset('svg/ordered-list.svg') }}" alt="Number of Players" width="24" height="24">
+            <th class="border border-slate-300 bg-slate-100 p-2 text-center" title="number of players">
+                <x-svg.list-ul-solid color="fill-blue-700" size="4" padding="mr-2 mb-1"/>
             </th>
             <th class="border border-slate-300 bg-slate-100 p-2 text-left">Captain</th>
             <th class="border border-slate-300 bg-slate-100 p-2 text-left">Contact</th>
@@ -25,7 +25,7 @@
                         @can ('update', $team)
                             <div class="mr-2">
                                 <a href="{{ route('teams.edit', ['team' => $team]) }}" wire:navigate>
-                                    <img class="mx-auto" src="{{ secure_asset('svg/pen-square.svg') }}" alt="Edit this team" width="24" height="24">
+                                    <x-svg.pen-to-square-solid color="fill-blue-500" size="5" padding="mb-1"/>
                                 </a>
                             </div>
                         @endcan
@@ -45,7 +45,7 @@
                         <div class="mr-2">
                             @can ('update', $team->venue)
                                 <a href="{{ route('venues.edit', ['venue' => $team->venue]) }}" wire:navigate>
-                                    <img class="mx-auto" src="{{ secure_asset('svg/pen-square.svg') }}" alt="Edit this team" width="24" height="24">
+                                    <x-svg.pen-to-square-solid color="fill-blue-500" size="5" padding="mb-1"/>
                                 </a>
                             @endcan
                         </div>
@@ -74,7 +74,7 @@
                         <div class="mr-2">
                             @can ('update', $team)
                                 <a href="{{ route('teams.edit', ['team' => $team]) }}" wire:navigate>
-                                    <img class="mx-auto" src="{{ secure_asset('svg/pen-square.svg') }}" alt="Edit this team" width="24" height="24">
+                                    <x-svg.pen-to-square-solid color="fill-blue-500" size="5" padding="mb-1"/>
                                 </a>
                             @endcan
                         </div>

@@ -1,6 +1,6 @@
 <section>
-    <div class="my-4 rounded-md border-2 border-green-500 p-4 text-center">
-        <form wire:submit="create">
+    <div class="my-4 rounded-md border-2 border-green-500 text-center">
+        <form class="p-4" wire:submit="create">
             <div class="grid justify-items-center gap-4">
                 <div>
                     <label for="team_form.name" class="mr-2 text-lg">
@@ -40,14 +40,16 @@
             </div>
         </form>
         @can ('update', $venue)
-            <a href="{{ route('venues.edit', ['venue' => $team_form->team->venue]) }}" class="flex justify-end p-4" wire:navigate>
-                <div class="mr-2">
-                    <img src="{{ secure_asset('svg/pen-square.svg') }}" alt="" width="24" height="24">
-                </div>
-                <div class="text-blue-700">
+            <div class="mr-4 mb-1 flex justify-end">
+                <a
+                    href="{{ route('venues.edit', ['venue' => $team_form->team->venue]) }}"
+                    class="inline-block link text-blue-700"
+                    wire:navigate
+                >
+                    <x-svg.pen-to-square-solid color="fill-blue-700" size="4" padding="mr-2 mb-1"/>
                     Edit the venue's details
-                </div>
-            </a>
+                </a>
+            </div>
         @endcan
     </div>
 </section>

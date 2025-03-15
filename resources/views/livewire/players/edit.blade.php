@@ -32,7 +32,7 @@
                     <div class="basis-5/12 text-xl">{{ $player->contact_nr }}</div>
                     <div class="basis-1/12">
                         <button
-                            class="cursor-pointer" src="{{ secure_asset('svg/user-delete.svg') }}"
+                            class="cursor-pointer"
                             title="Remove this user"
                             wire:confirm="{{__('Are you sure you want to remove this player from the team?')}}"
                             wire:click="removePlayer({{ $player->id }})"

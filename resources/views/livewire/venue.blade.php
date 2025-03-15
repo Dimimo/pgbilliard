@@ -31,11 +31,9 @@
     </div>
     @can ('update', $venue)
         <div class="mr-4 mb-1 flex justify-end">
-            <a href="{{ route('venues.edit', ['venue' => $venue]) }}" class="inline-block link" wire:navigate>
-                <div class="text-blue-700">
-                    <x-svg.pen-to-square-solid color="fill-blue-700" size="4" padding="mr-2 mb-1"/>
-                    Edit this venue
-                </div>
+            <a href="{{ route('venues.edit', ['venue' => $venue]) }}" class="inline-block link text-blue-700" wire:navigate>
+                <x-svg.pen-to-square-solid color="fill-blue-700" size="4" padding="mr-2 mb-1"/>
+                Edit this venue
             </a>
         </div>
     @endcan
