@@ -71,13 +71,6 @@
                 </td>
                 <td class="border-b-2 border-slate-300 p-2">
                     <div class="flex justify-start">
-                        <div class="mr-2">
-                            @can ('update', $team)
-                                <a href="{{ route('teams.edit', ['team' => $team]) }}" wire:navigate>
-                                    <x-svg.pen-to-square-solid color="fill-blue-500" size="5" padding="mb-1"/>
-                                </a>
-                            @endcan
-                        </div>
                         <div>
                             <a
                                 href="{{ route('teams.show', ['team' => $team]) }}"
