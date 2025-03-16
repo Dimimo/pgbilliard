@@ -23,6 +23,10 @@
                                 {{ $event->team_1->name }} - {{ $event->team_2->name }}
                             </a>
                         </div>
+                    @else
+                        <div class="flex justify-center">
+                            No day schedule for <span class="ml-2 font-bold">{{ $event->team_1->name }} - {{ $event->team_2->name }}</span>
+                        </div>
                     @endif
                 @else
                     @can('update', $event)
