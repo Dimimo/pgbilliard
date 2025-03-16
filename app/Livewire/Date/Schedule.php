@@ -34,11 +34,17 @@ class Schedule extends Component
     public function mount(): void
     {
         $this->event->loadMissing('games', 'team_1.players', 'team_2.players');
-        $this->home_players = $this->event->team_1->players->sortBy('name');
-        $this->visit_players = $this->event->team_2->players->sortBy('name');
         $this->confirmed = $this->event->confirmed;
-        if ($this->event->games()->count() > 0) {
-            if ($this->event->games()->whereNotNull('win')->count()) {
+
+        //first check if the game is confirmed, that means the game is finished
+        if ($this->confirmed) {
+            $this->home_players = $this->getPlayersFromFinishedGame(true);
+            $this->visit_players = $this->getPlayersFromFinishedGame(false);
+            $this->recreateMatrix();
+            $this->can_update_players = false;
+        } elseif ($this->event->games()->whereBetween('position', [1, 15])->count() > 0) {
+            // the game has started but is not finished yet
+            if ($this->event->games()->whereBetween('position', [1, 15])->whereNotNull('win')->count()) {
                 $this->can_update_players = false;
             }
             $this->format = $this->event->games()
@@ -46,14 +52,19 @@ class Schedule extends Component
                 ->first()
                 ->schedule
                 ->format;
+            $this->getPlayersFromUnfinishedGame();
             $this->checkThirdGame();
             $this->recreateMatrix();
             $this->event->update(['score1' => $this->getEventScore(true), 'score2' => $this->getEventScore(false)]);
         } else {
+            // the game is brand new, time to choose the format and the players
             $format = Format::all();
             if ($format->count() === 1) {
                 $this->formatChosen($format->first()->id);
+                $this->getPlayersFromUnfinishedGame();
+                $this->checkThirdGame();
                 $this->recreateMatrix();
+                $this->event->refresh();
             } else {
                 $this->choose_format = true;
             }
@@ -110,13 +121,11 @@ class Schedule extends Component
     public function getEventScore(bool $home): int
     {
         return $this->event->games()
-            ->select(['team_id', 'position'])
-            ->where('home', $home)
-            ->distinct()
-            ->addSelect('win')
-            ->where('win', true)
-            ->get()
-            ->count();
+            ->select('position')
+            ->whereHome($home)
+            ->whereWin(true)
+            ->groupBy(['position'])
+            ->get()->count();
     }
 
     public function playerSelected(int $player_id, int $position, string $place): void
@@ -142,10 +151,10 @@ class Schedule extends Component
         }
 
         $schedules = Matrix::where([
-                ['format_id', $this->format->id],
-                ['player', $position],
-                ['home', $place === 'home']
-            ])
+            ['format_id', $this->format->id],
+            ['player', $position],
+            ['home', $place === 'home']
+        ])
             ->orderBy('position')
             ->get();
 
@@ -182,14 +191,12 @@ class Schedule extends Component
 
     public function scheduleReset(string $home): void
     {
-        $home = $home === 'home';
-        $this->event->games()->where('home', $home)->delete();
-        $home
-            ? Position::where([['event_id', $this->event->id], ['home', true]])->delete()
-            : Position::where([['event_id', $this->event->id], ['home', false]])->delete();
+        $compare = $home === 'home';
+        $this->event->games()->where('home', $compare)->delete();
+        Position::where([['event_id', $this->event->id], ['home', $compare]])->delete();
         $this->event->games()->where('position', 15)->delete();
         $this->recreateMatrix();
-        $this->dispatch('player-updated-' . $home ? 'home' : 'visit');
+        $this->dispatch('player-updated-' . $home);
     }
 
     private function recreateMatrix(): void
@@ -217,9 +224,31 @@ class Schedule extends Component
         }
     }
 
+    private function getPlayersFromFinishedGame(bool $home): Collection
+    {
+        $player_ids = $this->event
+            ->games()
+            ->select('player_id')
+            ->whereBetween('position', [1,15])
+            ->whereHome($home)
+            ->orderBy('position')
+            ->groupBy('player_id')
+            ->get()
+            ->pluck('player_id')
+            ->toArray();
+        return Player::whereIn('id', $player_ids)->get();
+    }
+
+    private function getPlayersFromUnfinishedGame(): void
+    {
+        $this->home_players = $this->event->team_1->players->where('active', true)->sortBy('name');
+        $this->visit_players = $this->event->team_2->players->where('active', true)->sortBy('name');
+    }
+
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores(array $response): void
     {
         $this->event = Event::find($response['event']['id']);
+        $this->event->refresh();
     }
 }

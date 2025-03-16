@@ -6,7 +6,7 @@
     </div>
     @if($choose_format)
         <div class="my-8">
-            <x-forms.sub-title title="Choose a day games format">
+            <x-forms.sub-title title="{{__('Choose a day games format')}}">
                 <div class="flex justify-center">
                     @foreach(\App\Models\Format::orderBy('name')->get() as $f)
                         <button
@@ -25,7 +25,7 @@
         <div class="grid grid-flow-row grid-cols-8 items-center justify-items-center gap-2">
             @if(! $confirmed)
                 <div
-                    class="col-span-8 mb-4 h-auto w-min whitespace-nowrap rounded-lg border-2 border-indigo-400 bg-indigo-100 pt-2 text-center text-xl p-2"
+                    class="col-span-8 mb-4 h-auto w-min whitespace-nowrap rounded-lg border-2 border-indigo-400 bg-indigo-100 p-2 pt-2 text-center text-xl"
                 >
                     {{__('The format used is the')}} <span class="font-bold">{{ $format->name }}</span>
 
@@ -36,7 +36,7 @@
                             <x-svg.xmark-solid color="fill-red-600" size="4" padding="ml-1"/>
                             reset the schedule and start again. No big deal! <br>
                             <span class="font-bold">Check the schedule first before starting the game!</span> <br>
-                            <span class="font-bold">After entering the first score, the player order and reserves are locked</span> <br>
+                            After entering the first score, the player order and reserves are locked<br>
                             You can change any player later on in the schedule itself.
                         </div>
                     @endif
@@ -73,16 +73,18 @@
                     @if($i%5)
                         @if(in_array($i, [1,6,11]))
                             <div class="col-span-8 h-12 w-full bg-green-100 pt-2 text-center text-xl">
-                                {{ $round }} singles
+                                {{ $round }} {{__('singles')}}
                                 <x-forms.spinner/>
                                 <x-forms.action-message on="score-updated">
-                                    <div class="text-blue-600">Score updated</div>
+                                    <div class="text-blue-600">
+                                        {{__('Score updated')}}
+                                    </div>
                                 </x-forms.action-message>
                             </div>
                         @endif
                     @else
                         <div class="col-span-8 h-12 w-full bg-blue-100 pt-2 text-center text-xl">
-                            {{ $round }} double
+                            {{ $round }} {{__('doubles')}}
                         </div>
                     @endif
                     <div class="col-span-4 w-full p-1 text-right">
@@ -100,7 +102,7 @@
 
             @if($event->score1 + $event->score2 === 15)
                 <div class="col-span-8 mt-8 flex w-full flex-col justify-center p-2 text-center text-xl space-y-3">
-                    <div class="text-2xl">Final Score:</div>
+                    <div class="text-2xl">{{__('Final Score')}}:</div>
                     <div>
                         <span @class(['text-green-700' => $event->score1 > 7])>{{ $event->team_1->name }} {{ $event->score1 }}</span>
                         <x-svg.minus-solid color="fill-gray-600" size="3" padding="mx-2"/>
@@ -115,7 +117,7 @@
                                 wire:click="consolidate()"
                                 wire:confirm="Final score is {{ $event->team_1->name }} {{ $event->score1 }} - {{ $event->score2 }} {{ $event->team_2->name }}\nYou can't change the score after the confirmation."
                             >
-                                confirm
+                                {{__('confirm')}}
                             </button>
                         </div>
                     @endif
