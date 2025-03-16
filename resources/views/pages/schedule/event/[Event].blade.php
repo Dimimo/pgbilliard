@@ -13,16 +13,16 @@ name('schedule.event');
     <section>
         <x-title help="schedule">
             <x-slot:title>
-                The schedule of <span class="font-bold">{{ $event->team_1->name }} - {{ $event->team_2->name }}</span>
+                {{__('The daily games of')}} <span class="font-bold">{{ $event->team_1->name }} - {{ $event->team_2->name }}</span>
             </x-slot:title>
 
             <x-slot:subtitle>
-                <div>on the {{ $event->date->date->format('jS \o\f M Y') }}</div>
+                <div>{{__('on the')}} {{ $event->date->date->format('jS \o\f M Y') }}</div>
                 @if ($event->confirmed)
-                    <div class="mt-4">
-                        <span @class(['text-green-700' => $event->score1 > 7])>{{ $event->team_1->name }} {{ $event->score1 }}</span>
+                    <div class="mt-4 text-gray-600">
+                        <span @class(['text-green-700 text-2xl' => $event->score1 > 7])>{{ $event->team_1->name }} {{ $event->score1 }}</span>
                         <x-svg.minus-solid color="fill-gray-600" size="3" padding="mx-2"/>
-                        <span @class(['text-green-700' => $event->score2 > 7])>{{ $event->score2 }} {{ $event->team_2->name }}</span>
+                        <span @class(['text-green-700 text-2xl' => $event->score2 > 7])>{{ $event->score2 }} {{ $event->team_2->name }}</span>
                     </div>
                 @endif
             </x-slot:subtitle>

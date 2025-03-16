@@ -12,7 +12,7 @@ name('dates.show');
     @volt
     <section>
         <x-title
-            title="Update the scores of the {{ $date->date->format('jS \o\f M Y') }}"
+            title="{{__('Update the scores of the')}} {{ $date->date->format('jS \o\f M Y') }}"
             subtitle="{{__('Season')}} {{ session('cycle') }}"
             help="live-scores"
         />
