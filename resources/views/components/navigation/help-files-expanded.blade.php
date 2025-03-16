@@ -41,7 +41,7 @@
             {{ __('Changelog') }}
         </x-forms.dropdown-link>
 
-        @if(auth()->user()?->isAdmin())
+        @if(session('is_admin'))
             <hr class="my-2 border-b border-b-indigo-700 w-fill">
 
             <div class="ml-12 text-sm text-blue-800">Admin only</div>

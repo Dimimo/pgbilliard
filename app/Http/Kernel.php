@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\CheckIfAdmin;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\PoolCycle;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
@@ -61,6 +62,7 @@ class Kernel extends HttpKernel
             ShareErrorsFromSession::class,
             VerifyCsrfToken::class,
             SubstituteBindings::class,
+            CheckIfAdmin::class,
             PoolCycle::class,
         ],
 

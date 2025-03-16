@@ -25,7 +25,7 @@ $logout = function () {
                     @auth()
                         <div class="hidden sm:space-x-2 sm:ml-6 sm:flex sm:flex-row sm:items-center">
                             <!-- Admin Dropdown -->
-                            @if(auth()->user()->isAdmin())
+                            @if(session('is_admin'))
 
                                 <x-navigation.admin-dropdown-expanded :season="$season"/>
 

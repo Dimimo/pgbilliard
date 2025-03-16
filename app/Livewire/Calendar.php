@@ -12,8 +12,6 @@ use Livewire\Component;
 class Calendar extends Component
 {
     use CalendarTrait;
-    use WithCurrentCycle;
-    use WithHasAccess;
     use WithSetMyTeam;
 
     public Collection $dates;

@@ -120,7 +120,7 @@ class User extends Authenticatable
 
     public function isAdmin(): bool
     {
-        return Admin::whereUserId($this->id)->exists();
+        return session('is_admin');
     }
 
     public function isSuperAdmin(): bool

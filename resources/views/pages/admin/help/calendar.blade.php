@@ -11,7 +11,7 @@ name('admin.help.calendar');
 <x-layout>
     @volt
     <section>
-        @if (auth()->user()?->isAdmin())
+        @if (session('is_admin'))
             <x-title>
                 <x-slot:title>The admin help pages</x-slot:title>
                 <x-slot:subtitle>

@@ -52,7 +52,7 @@
         </div>
     @endif
 
-    @if(auth()->user()?->isAdmin())
+    @if(session('is_admin'))
         <div class="my-5 border border-slate-300 bg-slate-100 p-4 sm:hidden">
             <span class="font-bold">Note to the admins:</span> if you see this message, the screen of your device is too small.
             You need a <span class="text-lg">bigger screen</span> to work in the ADMIN section. It is generally not designed for small devices.

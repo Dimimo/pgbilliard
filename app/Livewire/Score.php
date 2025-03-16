@@ -14,9 +14,7 @@ class Score extends Component
 {
     use CalendarTrait;
     use ResultsTrait;
-    use WithCurrentCycle;
     use WithSetMyTeam;
-    use WithHasAccess;
 
     public array $scores;
     public int $i = 1;
@@ -68,7 +66,7 @@ class Score extends Component
     public function updateLiveScores(array $response): void
     {
         $event = Event::find($response['event']['id']);
-        if ($event->date->season->cycle === $this->season->cycle) {
+        if ($event->date->season->cycle === session('cycle')) {
             $this->scores = $this->getResults();
         }
     }

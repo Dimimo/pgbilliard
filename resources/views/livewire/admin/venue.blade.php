@@ -31,9 +31,9 @@
                     @endforeach
                 </select>
                 <div class="text-sm text-gray-700 italic">
-                    @if (!auth()->user()->isAdmin())
-                        The choice of an owner (from the 'users' table) is preferred and has priority.<br>
-                        The owner can change the details of the venue they are responsible for.<br>
+                    @if (session('is_admin'))
+                        The choice of the bar owner (from the 'users' table) is preferred and has priority.
+                        The owner can change the details of the venue they are responsible for (name and address).
                         In other words: they have access to this form.
                     @else
                         Warning: if you change the Owner, you will have no more access to this form! There is not much to

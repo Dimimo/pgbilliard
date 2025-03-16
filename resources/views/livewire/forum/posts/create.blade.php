@@ -21,7 +21,7 @@
                 <x-forms.text-area id="post_form.body" class="w-full md:w-3/4" cols="30" rows="5" wire:model="post_form.body"/>
             </div>
 
-            @if(Auth::user()->isAdmin())
+            @if(session('is_admin'))
                 <x-forms.checkbox for="post_form.sticky" :checked="$post_form->is_sticky" wire:model="post_form.is_sticky">
                     Sticky? <span class="text-sm">(pushed to the top for important messages)</span>
                 </x-forms.checkbox>
