@@ -5,7 +5,7 @@
 
     <div class="mb-4 rounded-lg border-2 border-gray-500 p-2">
         <div class="mb-4 border-b border-gray-500 pl-4 text-xl">
-            What is your role in the current Season?
+            What is your role in the current Season {{ session('cycle') }}?
         </div>
         @if ($user->venue)
             <div class="my-4 rounded-lg bg-green-50 p-4">
@@ -55,7 +55,7 @@
         @endif
         <div class="rounded-lg bg-indigo-50 p-4">
             @if ($team)
-                <div class="text-lg">Your participation:</div>
+                <div class="mb-4 text-lg">Your participation:</div>
                 <div class="mb-4">
                     <div>
                         You play for <a
@@ -68,7 +68,7 @@
                     </div>
                     @if ($player->captain)
                         <div>
-                            You are a captain, you can <a
+                            You are the Captain, you can <a
                                 href="{{ route('teams.edit', ['team' => $team]) }}"
                                 class="inline-block text-blue-800 link"
                                 wire:navigate
