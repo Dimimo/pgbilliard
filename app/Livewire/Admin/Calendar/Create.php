@@ -184,6 +184,6 @@ class Create extends Component
         $this->season->delete();
         session()->forget('cycle');
         session()->flash('status', 'The Season has been deleted');
-        $this->redirect(route('admin.seasons.create'), navigate: true);
+        $this->redirect(route('admin.seasons.create'));
     }
 }
