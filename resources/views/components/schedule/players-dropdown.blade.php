@@ -51,13 +51,13 @@
                             'mb-1 flex items-center justify-end',
                             'flex-row-reverse' => $place === 'visit',
                         ])>
-                            <div class="mx-2 text-lg">{{$matrix->where('rank', $i)->first()->player->name}}</div>
+                            <div class="mx-2 text-lg">{{$matrix->where('rank', $i)->first()->player?->name}}</div>
                             <div class="inline-flex items-center rounded-full border border-indigo-400 bg-indigo-100 px-2 py-1 font-bold leading-4">
                                 {{$i}}
                             </div>
                         </div>
                     @else
-                        <div class="mx-2 text-lg">{{$matrix->where('rank', $i)->first()->player->name}}</div>
+                        <div class="mx-2 text-lg">{{$matrix->where('rank', $i)->first()->player?->name}}</div>
                         <div class="inline-flex items-center rounded-full border border-green-500 bg-green-100 px-2 py-1 font-bold leading-4">
                             {{$i}}
                         </div>
