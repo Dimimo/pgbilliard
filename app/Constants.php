@@ -10,7 +10,7 @@ class Constants
     public const TEAMCHARS = 16;
     public const PHONECHARS = 24;
     public const FORUM_TITLE = 80;
-    public const FORUM_BODY = 1200;
+    public const FORUM_BODY = 5000;
     public const COMMENT_BODY = 250;
     public const CHATROOM_TITLE = 12;
     public const CHATROOM_MESSAGE = 150;
