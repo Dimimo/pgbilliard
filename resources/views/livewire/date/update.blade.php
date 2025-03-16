@@ -86,9 +86,7 @@
                     {{__('Create Day Sheet')}}
                 </a>
             @elseif($event->date->date->isFuture())
-                <div class="text-sm text-gray-600">
-                    Opens in {{ $event->date->date->appTimezone()->midDay()->diffForHumans(['short' => false, 'parts' => 2, 'join' => true]) }}
-                </div>
+                <x-date.event-set-in-future :event="$event"/>
             @else
                 <x-forms.spinner/>
                 <x-forms.action-message class="font-semibold text-green-700" on="scores-updated-{{ $event->id }}">
@@ -109,9 +107,7 @@
                     {{__('Day scores')}}
                 </a>
             @elseif($event->date->date->isFuture())
-                <div class="text-sm text-gray-600">
-                    Opens in {{ $event->date->date->appTimezone()->midDay()->diffForHumans(['short' => false, 'parts' => 2, 'join' => true]) }}
-                </div>
+                <x-date.event-set-in-future :event="$event"/>
             @endif
         @endcan
     </td>
