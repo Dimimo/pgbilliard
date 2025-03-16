@@ -41,6 +41,5 @@ class Create extends ModalComponent
         $team = $this->form->store();
         $this->dispatch('team-added', $team->id);
         $this->closeModal();
-        ;
     }
 }
