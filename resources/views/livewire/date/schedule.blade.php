@@ -1,7 +1,7 @@
 <div>
     <div class="my-2 flex justify-center">
         <x-forms.action-message on="format-chosen">
-            Your favorite format is selected
+            {{__('Your favorite format is selected')}}
         </x-forms.action-message>
     </div>
     @if($choose_format)
