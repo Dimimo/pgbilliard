@@ -5,8 +5,8 @@
                 <div
                     @class([
                         'max-w-min whitespace-nowrap rounded-lg border-2',
-                        'border-indigo-400 bg-indigo-100' => !$max_reached,
-                        'border-red-400 bg-red-50' => $max_reached,
+                        'border-teal-400 bg-teal-100' => !$max_reached,
+                        'border-indigo-400 bg-indigo-50' => $max_reached,
                         'px-4 py-2 text-center text-xl',
                     ])
                 >
@@ -21,15 +21,17 @@
                     x-data="{ edit: false }"
                 >
                     <div class="mx-4 basis-1/12 text-right">
-                        <x-team.captain
-                            :player="$player"
+                        <button
                             wire:click="toggleCaptain({{ $player->id }})"
                             class="cursor-pointer"
-                            :title="$player->captain
+                            title="{{$player->captain
                                 ? __('Toggle to make a regular player')
-                                : __('Toggle to make a captain')"
+                                : __('Toggle to make a captain')}}"
                             wire:confirm="{{__('Change the captain status of')}} {{ $player->user_id === auth()->id() ? 'YOURSELF' : $player->name }}?"
-                        />
+                        >
+                            <x-team.captain :player="$player" />
+                        </button>
+
                     </div>
 
                     <div class="basis-5/12 text-xl font-semibold" x-show="!edit">
@@ -40,20 +42,20 @@
                     </div>
                     <div class="basis-9/12" x-cloak x-show="edit">
                         <form class="flex flex-row flex-nowrap items-center space-x-2" wire:submit="editUserUpdate">
-                                <label for="user_edit.name"></label>
-                                <input id="user_edit.name" type="text" wire:model="user_form.name">
+                            <label for="user_edit.name_{{ $player->id }}"></label>
+                            <input id="user_edit.name_{{ $player->id }}" type="text" wire:model="user_form.name">
 
-                                <label for="user_edit.contact_nr"></label>
-                                <input id="user_edit.contact_nr" type="text" wire:model="user_form.contact_nr">
+                            <label for="user_edit.contact_nr_{{ $player->id }}"></label>
+                            <input id="user_edit.contact_nr_{{ $player->id }}" type="text" wire:model="user_form.contact_nr">
 
-                                <x-forms.secondary-button type="submit" x-on:click="edit = !edit">
-                                    Update
-                                </x-forms.secondary-button>
-                                <x-forms.spinner/>
+                            <x-forms.secondary-button type="submit" x-on:click="edit = !edit">
+                                Update
+                            </x-forms.secondary-button>
+                            <x-forms.spinner/>
                         </form>
                     </div>
                     <div class="mr-2 basis-2/12 text-right">
-                        @if(auth()->user()->isAdmin() && $show_new_player_form)
+                        @if(session('is_admin') && $show_new_player_form)
                             <button
                                 class="cursor-pointer"
                                 title="Edit this player"
@@ -135,10 +137,10 @@
 
             <div class="flex items-center justify-center">
                 <div class="mt-1 p-2 text-xl">
-                    <label for="user_id">Select only players who were active after</label>
+                    <label for="carbon_sub">Select only players who were active after</label>
                 </div>
                 <div class="p-2">
-                    <select id="user_id" wire:model.change="carbon_sub">
+                    <select id="carbon_sub" wire:model.change="carbon_sub">
                         <option value="20 years">No limit</option>
                         <option value="6 months">6 months ago</option>
                         <option value="1 year">1 year ago</option>
@@ -173,7 +175,7 @@
                         @error('user_form.email') <span class="text-red-700">{{ $message }}</span> @enderror
                     </div>
                     <div class="text-sm italic text-gray-500">
-                        {{__('If you don\'t have the person\'s email, it is auto generated')}}.
+                        {{__("If you don't have the person's email, it is auto generated")}}.
                     </div>
                     <div class="p-2">
                         <div class="flex items-center py-2">
@@ -183,7 +185,7 @@
                         </div>
 
                         <div class="text-sm italic text-gray-500">
-                            {{__('You can leave this empty if you don\'t have the number')}}
+                            {{__("You can leave this empty if you don't have the number")}}
                         </div>
                         <div>
                             @error('form.contact_nr') <span class="text-red-700">{{ $message }}</span> @enderror
@@ -203,14 +205,14 @@
                     @endif
                     <x-forms.spinner target="addUser"/>
                     <x-forms.action-message class="p-2" on="user-created" class="text-xl">
-                        User created and added to your team! A reminder has been sent with the login info.
+                        {{__('User created and added to your team! A reminder has been sent with the login info.')}}
                     </x-forms.action-message>
                 </div>
             </form>
         </x-forms.sub-title>
     @elseif ($show_new_player_form)
         <div class="text-lg text-red-700">
-            The maximum allowed players of <span class="font-bold">{{ $max_players }}</span> has been reached
+            {{__('The maximum allowed players has been reached!')}}
         </div>
     @endif
 </div>

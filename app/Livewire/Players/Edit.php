@@ -57,7 +57,7 @@ class Edit extends Component
         if ($this->user_form->user->exists) {
             $this->user_form->update();
         } else {
-            $this->user_form->email = Str::lower(Str::snake($value, '-')).'@pgbilliard.com';
+            $this->user_form->email = Str::lower(Str::snake($value, '-')) . '@pgbilliard.com';
         }
     }
 
@@ -75,35 +75,53 @@ class Edit extends Component
 
     private function getPlayers(): void
     {
-        $this->players = $this->team->players()->with('user')->get()->sortBy('name')->sortByDesc('captain');
+        $this->players = $this->team
+            ->players()
+            ->whereActive(true)
+            ->with('user')
+            ->get()
+            ->sortBy('name')
+            ->sortByDesc('captain');
     }
 
     private function getPlayersActiveInCurrentSeason(): void
     {
-        $teams = Team::tap(new Cycle())->pluck('id')->toArray();
-        $players = Player::whereIn('team_id', $teams)->pluck('user_id')->toArray();
+        $teams = Team::tap(new Cycle())
+            ->pluck('id')
+            ->toArray();
+        $players = Player::whereIn('team_id', $teams)
+            ->whereActive(true)
+            ->pluck('user_id')
+            ->toArray();
         $this->occupied_players = User::whereIn('id', $players)->pluck('name')->toArray();
     }
 
     private function setPlayerForm(?int $user_id = null): void
     {
-        $this->player_form->setPlayer(new Player([
-            'captain' => 0,
-            'user_id' => $user_id,
-            'team_id' => $this->team->id,
-        ]));
+        // if the player exists in the team but has been set to inactive, reactivate the player
+        if ($user_id && $player = Player::whereUserId($user_id)->whereTeamId($this->team->id)->first()) {
+            $player->active = true;
+            $this->setPlayerForm($player);
+        } else {
+            $this->player_form->setPlayer(new Player([
+                'captain' => 0,
+                'active' => 1,
+                'user_id' => $user_id,
+                'team_id' => $this->team->id,
+            ]));
+        }
     }
 
     public function editUser(int $user_id): void
     {
         $user = User::find($user_id);
         $this->setUserForm($user);
-        $this->show_new_player_form = ! $this->show_new_player_form;
+        $this->show_new_player_form = !$this->show_new_player_form;
     }
 
     public function editUserUpdate(): void
     {
-        $this->show_new_player_form = ! $this->show_new_player_form;
+        $this->show_new_player_form = !$this->show_new_player_form;
         $this->user_form->update();
         $this->setUserForm(new User());
         $this->setPlayerForm();
@@ -119,7 +137,7 @@ class Edit extends Component
     public function toggleCaptain(int $user_id): void
     {
         $player = Player::find($user_id);
-        $player->captain = ! $player->captain;
+        $player->captain = !$player->captain;
         $player->save();
         $this->getPlayers();
     }
@@ -141,7 +159,7 @@ class Edit extends Component
         $name = $this->getPropertyValue('user_form.name');
         $user = new User([
             'name' => $name,
-            'email' => Str::lower(Str::snake($name)).'@pgbilliard.com',
+            'email' => Str::lower(Str::snake($name)) . '@pgbilliard.com',
             'password' => Hash::make('secret'),
             'contact_nr' => $this->getPropertyValue('user_form.contact_nr'),
             'last_game' => now(),
@@ -164,7 +182,7 @@ class Edit extends Component
     public function removePlayer($player_id): void
     {
         $player = Player::find($player_id);
-        $player->delete();
+        $player->update(['active' => false]);
         $this->getPlayersActiveInCurrentSeason();
         $this->getPlayers();
         $this->setMaxReached();
