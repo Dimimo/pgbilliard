@@ -1,3 +1,5 @@
+@props(['player'])
+
 @if ($player->captain)
     <x-svg.user-tie-solid color="fill-orange-500" size="6"/>
 @else
