@@ -15,9 +15,9 @@ trait LogEventsTrait
             . auth()->user()->name
             . " set the score of "
             . $game->player->name
-            . " of "
+            . " (of )"
             . $game->team->name
-            . " to a $status";
+            . ") to a $status";
         $this->buildLogChannel()->info($message);
         date_default_timezone_set(config('app.timezone'));
     }
