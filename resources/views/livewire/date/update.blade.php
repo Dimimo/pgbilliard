@@ -97,7 +97,7 @@
                 </x-forms.action-message>
             @endif
         @else
-            @if ($event->games()->count() > 0)
+            @if ($event->confirmed)
                 <a
                     href="{{ route('schedule.event', ['event' => $event]) }}"
                     class="text-blue-800 link"

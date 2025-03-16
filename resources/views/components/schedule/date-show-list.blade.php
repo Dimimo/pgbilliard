@@ -7,7 +7,11 @@
                 <div class="px-4 py-2">
                     <x-svg.calendar-days-solid color="fill-green-600" size="6" padding="mb-2"/>
                     @if($old)
-                    {{__('Previous schedules')}} <span class="text-base italic">({{__('if available')}})</span>
+                        @if($date->date->isFuture())
+                            {{__('Upcoming schedules')}}
+                        @else
+                            {{__('Previous schedules')}} <span class="text-base italic">({{__('if available')}})</span>
+                        @endif
                     @else
                     {{__('Schedules of the day')}}
                     @endif
@@ -17,7 +21,7 @@
             <div class="m-4">
                 @foreach ($date->events()->with('games')->get() as $event)
                     @if($old)
-                        @if($event->games()->count())
+                        @if($event->confirmed)
                             <div class="flex justify-center space-x-2">
                                 <a
                                     href="{{ route('schedule.event', ['event' => $event]) }}"
