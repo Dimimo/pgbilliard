@@ -34,13 +34,20 @@
                                     ({{__('finished')}})
                                 </span>
                             </div>
-                        @else
+                        @elseif($event->date->date->isFuture())
                             <div class="flex justify-center space-x-2">
-                                <span>{{__('No day schedule for')}}</span>
+                                <span>{{__('Planned game for')}}</span>
                                 <span class="font-bold">
                                     {{ $event->team_1->name }} - {{ $event->team_2->name }}
                                 </span>
                             </div>
+                        @else<div class="flex justify-center space-x-2">
+                            <span>{{__('No schedule available for')}}</span>
+                            <span class="font-bold">
+                                {{ $event->team_1->name }} - {{ $event->team_2->name }}
+                            </span>
+                        </div>
+
                         @endif
                     @else
                         @can('update', $event)
