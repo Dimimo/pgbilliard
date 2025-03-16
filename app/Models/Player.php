@@ -18,6 +18,7 @@ use Illuminate\Support\Carbon;
  * @property int|null $user_id
  * @property int|null $team_id
  * @property bool $captain
+ * @property bool $active
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read string $contact_nr
@@ -33,6 +34,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Player newModelQuery()
  * @method static Builder|Player newQuery()
  * @method static Builder|Player query()
+ * @method static Builder|Player whereActive($value)
  * @method static Builder|Player whereCaptain($value)
  * @method static Builder|Player whereCreatedAt($value)
  * @method static Builder|Player whereId($value)
@@ -60,6 +62,7 @@ class Player extends Model
         'user_id' => 'integer',
         'team_id' => 'integer',
         'captain' => 'boolean',
+        'active' => 'boolean',
     ];
 
     /**
@@ -71,6 +74,7 @@ class Player extends Model
         'user_id',
         'team_id',
         'captain',
+        'active',
     ];
 
     /**
