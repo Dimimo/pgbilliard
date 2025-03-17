@@ -10,7 +10,7 @@
     "require": {
         "php": "^8.2",
         "ext-curl": "*",
-        "ext-pdo": "*",,
+        "ext-pdo": "*",
         "ext-zip": "*",
         "ably/laravel-broadcaster": "^1.0",
         "aws/aws-sdk-php": "3.342.1",
