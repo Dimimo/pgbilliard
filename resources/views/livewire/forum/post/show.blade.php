@@ -7,7 +7,7 @@
 
     <x-forum.back-to-posts/>
 
-    <div class="border-2 border-green-500 bg-green-100/25">
+    <div class="rounded-lg border-2 border-gray-600 bg-white">
         <div class="p-4 text-lg">{!! nl2br($post->body) !!}</div>
         @can('update', $post)
             <div class="bottom-0 px-1 text-right">

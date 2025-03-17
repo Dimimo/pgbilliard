@@ -1,5 +1,5 @@
 <div>
-    <div class="border-green-500 border-2 bg-green-100/25 p-6">
+    <div class="border-2 border-green-500 bg-green-100/25 p-6">
         <form wire:submit="{{ $post_form->post->id ? "update" : "create" }}">
             <div class="grid justify-items-center">
                 <x-forms.input-label for="post_form.title">
@@ -8,17 +8,31 @@
                 <div>
                     @error('post_form.title') <span class="text-red-700">{{ $message }}</span> @enderror
                 </div>
-                <x-forms.text-input id="post_form.title" class="w-full md:w-3/4" type="text" wire:model="post_form.title"/>
+                <x-forms.text-input
+                    id="post_form.title"
+                    class="w-full md:w-3/4"
+                    type="text"
+                    wire:model="post_form.title"
+                    :maxlength="\App\Constants::FORUM_TITLE"
+                />
             </div>
 
-            <div class="grid justify-items-center mt-6">
+            <div class="mt-6 grid justify-items-center">
                 <x-forms.input-label for="post_form.body">
                     Your message
                 </x-forms.input-label>
                 <div>
                     @error('post_form.body') <span class="text-red-700">{{ $message }}</span> @enderror
                 </div>
-                <x-forms.text-area id="post_form.body" class="w-full md:w-3/4" cols="30" rows="5" wire:model="post_form.body"/>
+                {{--<x-forms.text-area id="post_form.body" class="w-full md:w-3/4" cols="30" rows="5" wire:model="post_form.body"/>--}}
+                <div class="w-full">
+                    <x-forms.textarea-constrained
+                        for="post_form.body"
+                        :value="$post_form->body"
+                        :limit="\App\Constants::FORUM_BODY"
+                    />
+                </div>
+
             </div>
 
             @if(session('is_admin'))
@@ -30,20 +44,20 @@
                 </x-forms.checkbox>
             @endif
 
-            <div class="grid grid-cols-4 gap-2 my-4">
-                <div class="text-center col-start-2">
+            <div class="my-4 grid grid-cols-4 gap-2">
+                <div class="col-start-2 text-center">
                     <x-forms.primary-button>
                         {{ $post_form->post->id ? "Update post" : "Create post" }}
                     </x-forms.primary-button>
                 </div>
                 <x-forms.spinner target="create, update, delete"/>
-                <x-forms.action-message class="inline-block mx-3" on="post-saved">
+                <x-forms.action-message class="mx-3 inline-block" on="post-saved">
                     Saved!
                 </x-forms.action-message>
-                <x-forms.action-message class="inline-block mx-3" on="post-updated">
+                <x-forms.action-message class="mx-3 inline-block" on="post-updated">
                     Updated!
                 </x-forms.action-message>
-                <x-forms.action-message class="inline-block mx-3" on="post-deleted">
+                <x-forms.action-message class="mx-3 inline-block" on="post-deleted">
                     Deleted!
                 </x-forms.action-message>
             </div>
