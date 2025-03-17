@@ -44,6 +44,20 @@ return [
             'throw' => false,
         ],
 
+        'backup' => [
+            'driver' => 's3',
+            'root' => 'backup',
+            'key' => env('LINODE_S3_ACCESS_KEY'),
+            'secret' => env('LINODE_S3_SECRET'),
+            'endpoint' => env('LINODE_S3_ENDPOINT'),
+            'region' => env('LINODE_S3_REGION'),
+            'bucket' => env('LINODE_S3_IMAGES_BUCKET'),
+            'url' => env('IMAGES_URL'),
+            'version' => 'latest',
+            'ssl' => true,
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
