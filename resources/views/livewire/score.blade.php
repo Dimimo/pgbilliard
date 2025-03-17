@@ -185,12 +185,10 @@
         </table>
     </div>
 
-    @if (app()->isProduction())
-        @script
-        <script>
-            window.Echo.channel('live-score');
-        </script>
-        @endscript
-    @endif
+    @script
+    <script>
+        window.Echo.channel('live-score');
+    </script>
+    @endscript
 </div>
 
