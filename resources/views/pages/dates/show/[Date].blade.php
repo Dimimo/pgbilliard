@@ -19,12 +19,15 @@ name('dates.show');
         <div class="grid justify-items-center">
             <table class="mb-4 min-w-full border-2 border-gray-900 bg-transparent table-collapse md:min-w-0">
                 <thead class="whitespace-nowrap border-2 border-gray-900 bg-gray-300">
-                <tr class="py-2">
+                <tr class="py-2 h-12">
                     <th class="p-2 text-left">{{__('Home')}}</th>
                     <th class="p-2 text-center" colspan="2">
-                        <div class="flex items-center justify-center">
-                            <div class="inline-block">{{__('Scores')}}</div>
-                            <div class="-mb-1 inline-block">
+                        {{__('Scores')}}
+                    </th>
+                    <th class="p-2 text-left">{{__('Visitors')}}</th>
+                    <th class="w-28 p-2 text-left">
+                        <div class="flex justify-start">
+                            <div class="inline-block">
                                 <x-forms.spinner/>
                             </div>
                             <div class="ml-2 inline-block">
@@ -37,8 +40,6 @@ name('dates.show');
                             </div>
                         </div>
                     </th>
-                    <th class="p-2 text-left">{{__('Visitors')}}</th>
-                    <th class="w-28 p-2 text-left"></th>
                 </tr>
                 </thead>
                 @foreach ($date->events as $event)
@@ -53,13 +54,16 @@ name('dates.show');
             <x-schedule.date-show-list :date="$date" :old="true"/>
         @endif
 
-        @if (app()->isProduction())
-            @script
-            <script>
-                window.Echo.channel('live-score');
-            </script>
-            @endscript
-        @endif
+        @script
+        <script>
+            let echoPublicChannel = window.Echo.channel('live-score');
+            let ablyPublicChannelName = echoPublicChannel.name;
+            console.log(ablyPublicChannelName);
+            $wire.on('refresh-list', () => {
+                $wire.$commit();
+            });
+        </script>
+        @endscript
 
     </section>
     @endvolt

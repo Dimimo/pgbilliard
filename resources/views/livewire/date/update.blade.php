@@ -14,7 +14,7 @@
                 'px-2 pt-4 sm:px-4' => $errors->any(),
                 'px-2 py-4 sm:p-4' => !$errors->any(),
             ]) colspan="2">
-                <div class="grid grid-cols-1 justify-items-center sm:grid-cols-2 gap-0">
+                <div class="grid grid-cols-1 justify-items-center gap-0 sm:grid-cols-2">
                     <div class="mr-auto sm:mr-2">
                         <x-date.change-score model="score1" :score1="$score1" :score2="$score2"/>
                     </div>
@@ -67,13 +67,13 @@
                 >
                     confirm
                 </button>
-            @elseif ($event->games()->count() > 0)
+            @elseif ($event->games()->whereNotNull('win')->count() > 0)
                 <a
                     href="{{ route('schedule.event', ['event' => $event]) }}"
                     class="text-blue-800 link"
                     wire:navigate
                 >
-                    <x-svg.eye-regular color="fill-sky-600" size="4"/>
+                    <x-svg.eye-solid color="fill-green-600" size="5" padding=""/>
                     {{__('Day scores')}}
                 </a>
             @elseif($event->date->checkOpenWindowAccess())
@@ -97,17 +97,21 @@
                 </x-forms.action-message>
             @endif
         @else
-            @if ($event->confirmed)
+            @if ($event->confirmed || $event->games()->whereNotNull('win')->count() > 0)
                 <a
                     href="{{ route('schedule.event', ['event' => $event]) }}"
                     class="text-blue-800 link"
                     wire:navigate
                 >
-                    <x-svg.eye-solid color="fill-sky-600" size="4"/>
+                    <x-svg.eye-regular color="fill-sky-600" size="5" padding=""/>
                     {{__('Day scores')}}
                 </a>
             @elseif($event->date->date->isFuture())
                 <x-date.event-set-in-future :event="$event"/>
+            @else
+                <div class="text-sm italic text-gray-600">
+                    ({{__('ready to start')}})
+                </div>
             @endif
         @endcan
     </td>
