@@ -22,6 +22,7 @@
         "laravel/reverb": "^1.4",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10",
+        "league/flysystem-aws-s3-v3": "^3.29",
         "livewire/livewire": "^3.6",
         "livewire/volt": "^1.7",
         "predis/predis": "^2.3",
