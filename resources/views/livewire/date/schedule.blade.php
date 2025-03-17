@@ -109,17 +109,19 @@
                         <span @class(['text-green-700' => $event->score2 > 7])>{{ $event->score2 }} {{ $event->team_2->name }}</span>
                     </div>
                     @if(! $event->confirmed)
-                        <div>
-                            <button
-                                type="button"
-                                title="Confirm the final score"
-                                class="rounded-lg bg-blue-100 p-2 outline outline-blue-600 hover:bg-green-100 hover:outline-green-600"
-                                wire:click="consolidate()"
-                                wire:confirm="Final score is {{ $event->team_1->name }} {{ $event->score1 }} - {{ $event->score2 }} {{ $event->team_2->name }}\nYou can't change the score after the confirmation."
-                            >
-                                {{__('confirm')}}
-                            </button>
-                        </div>
+                        @can('update', $event)
+                            <div>
+                                <button
+                                    type="button"
+                                    title="Confirm the final score"
+                                    class="rounded-lg bg-blue-100 p-2 outline outline-blue-600 hover:bg-green-100 hover:outline-green-600"
+                                    wire:click="consolidate()"
+                                    wire:confirm="Final score is {{ $event->team_1->name }} {{ $event->score1 }} - {{ $event->score2 }} {{ $event->team_2->name }}\nYou can't change the score after the confirmation."
+                                >
+                                    {{__('confirm')}}
+                                </button>
+                            </div>
+                        @endcan
                     @endif
                 </div>
             @else
@@ -133,13 +135,5 @@
             @endif
 
         </div>
-    @endif
-
-    @if (app()->isProduction())
-        @script
-        <script>
-            window.Echo.channel('live-score');
-        </script>
-        @endscript
     @endif
 </div>

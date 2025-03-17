@@ -182,11 +182,13 @@ class Schedule extends Component
 
         $this->recreateMatrix();
         $this->dispatch('player-updated-' . $place);
+        broadcast(new ScoreEvent($this->event))->toOthers();
     }
 
     public function playerChanged(int $player_id, int $game_id): void
     {
         Game::whereId($game_id)->update(['player_id' => $player_id]);
+        broadcast(new ScoreEvent($this->event))->toOthers();
     }
 
     public function scheduleReset(string $home): void
