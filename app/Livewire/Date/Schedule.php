@@ -80,6 +80,10 @@ class Schedule extends Component
     {
         $this->format = Format::find($id);
         $this->choose_format = false;
+        $this->getPlayersFromUnfinishedGame();
+        $this->checkThirdGame();
+        $this->recreateMatrix();
+        $this->event->refresh();
         $this->dispatch('format-chosen');
     }
 
@@ -193,9 +197,9 @@ class Schedule extends Component
 
     public function scheduleReset(string $home): void
     {
-        $compare = $home === 'home';
-        $this->event->games()->where('home', $compare)->delete();
-        Position::where([['event_id', $this->event->id], ['home', $compare]])->delete();
+        $plays_home = $home === 'home';
+        $this->event->games()->where('home', $plays_home)->delete();
+        Position::where([['event_id', $this->event->id], ['home', $plays_home]])->delete();
         $this->event->games()->where('position', 15)->delete();
         $this->recreateMatrix();
         $this->dispatch('player-updated-' . $home);
