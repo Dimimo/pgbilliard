@@ -8,19 +8,18 @@ use Illuminate\Validation\Rule;
 use function Livewire\Volt\state;
 
 state([
-          'contact_nr' => fn() => auth()->user()->contact_nr,
-      ]);
+    'contact_nr' => fn() => auth()->user()->contact_nr,
+]);
 
-$updateContactNr = function ()
-{
-    $user      = auth()->user();
+$updateContactNr = function () {
+    $user = auth()->user();
     $validated = $this->validate([
-                                     'contact_nr' => [
-                                         'nullable',
-                                         'string',
-                                         'max:' . Constants::PHONECHARS,
-                                     ],
-                                 ]);
+        'contact_nr' => [
+            'nullable',
+            'string',
+            'max:' . Constants::PHONECHARS,
+        ],
+    ]);
     $user->fill($validated);
     $user->save();
     $this->dispatch('contact-updated', name: $user->name);
@@ -40,7 +39,7 @@ $updateContactNr = function ()
         <div>
             <x-forms.input-label for="contact_nr"/>
             <x-forms.text-input wire:model="contact_nr" id="contact_nr" name="contact_nr" type="text" class="mt-1 block w-full" required autofocus
-                          autocomplete="contact_nr"/>
+                                autocomplete="contact_nr"/>
             <x-forms.input-error class="mt-2" :messages="$errors->get('contact_nr')"/>
         </div>
 

@@ -29,7 +29,7 @@
                                 : __('Toggle to make a captain')}}"
                             wire:confirm="{{__('Change the captain status of')}} {{ $player->user_id === auth()->id() ? 'YOURSELF' : $player->name }}?"
                         >
-                            <x-team.captain :player="$player" />
+                            <x-team.captain :player="$player"/>
                         </button>
 
                     </div>

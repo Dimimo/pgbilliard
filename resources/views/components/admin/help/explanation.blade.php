@@ -13,7 +13,8 @@
         is curated. You can't accidentally select a captain who plays already in another team.
     </div>
     <div>
-        In case you want to <x-svg.square-minus-solid color="fill-orange-400" size="4" padding=""/>
+        In case you want to
+        <x-svg.square-minus-solid color="fill-orange-400" size="4" padding=""/>
         <strong>remove</strong> a team, make sure all games are deleted for this team first. <strong>A team with games can not be deleted.</strong>
         The same applies to a BYE. If the BYE still has 'games', remove them first.
     </div>

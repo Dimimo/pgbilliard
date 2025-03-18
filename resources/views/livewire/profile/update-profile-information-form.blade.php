@@ -7,20 +7,18 @@ use Illuminate\Validation\Rule;
 use function Livewire\Volt\state;
 
 state([
-          'name'  => fn() => auth()->user()->name,
-          'email' => fn() => auth()->user()->email
-      ]);
+    'name' => fn() => auth()->user()->name,
+    'email' => fn() => auth()->user()->email
+]);
 
-$updateProfileInformation = function ()
-{
-    $user      = auth()->user();
+$updateProfileInformation = function () {
+    $user = auth()->user();
     $validated = $this->validate([
-                                     'name'  => ['required', 'string', 'min:2', 'max:255', Rule::unique(User::class)->ignore($user->id)],
-                                     'email' => ['required', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
-                                 ]);
+        'name' => ['required', 'string', 'min:2', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+        'email' => ['required', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+    ]);
     $user->fill($validated);
-    if ($user->isDirty('email'))
-    {
+    if ($user->isDirty('email')) {
         $user->email_verified_at = null;
         \App\Jobs\AccountHasBeenClaimed::dispatch($user);
         \App\Jobs\EmailHasBeenChanged::dispatch($user);
@@ -29,11 +27,9 @@ $updateProfileInformation = function ()
     $this->dispatch('profile-updated', name: $user->name);
 };
 
-$sendVerification = function ()
-{
+$sendVerification = function () {
     $user = auth()->user();
-    if ($user->hasVerifiedEmail())
-    {
+    if ($user->hasVerifiedEmail()) {
         $path = session('url.intended', RouteServiceProvider::HOME);
         $this->redirect($path);
 

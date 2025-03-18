@@ -32,10 +32,10 @@
                 console.log(e);
             })*/;
         });
-        Livewire.hook('request', ({ succeed }) => {
+        Livewire.hook('request', ({succeed}) => {
             succeed(() => {
                 const el_chat = document.getElementById('chat-box');
-                el_chat.scrollTo({ top: el_chat.scrollHeight, behavior: "smooth" });
+                el_chat.scrollTo({top: el_chat.scrollHeight, behavior: "smooth"});
             })
         })
     </script>

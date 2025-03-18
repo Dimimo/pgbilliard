@@ -14,36 +14,33 @@ layout('components.layout');
 state('token')->locked();
 
 state([
-          'email'                 => fn() => request()->string('email')->value(),
-          'password'              => '',
-          'password_confirmation' => ''
-      ]);
+    'email' => fn() => request()->string('email')->value(),
+    'password' => '',
+    'password_confirmation' => ''
+]);
 
 rules([
-          'token'    => ['required'],
-          'email'    => ['required', 'string', 'email'],
-          'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
-      ]);
+    'token' => ['required'],
+    'email' => ['required', 'string', 'email'],
+    'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+]);
 
-$resetPassword = function ()
-{
+$resetPassword = function () {
     $this->validate();
     // Here we will attempt to reset the user's password. If it is successful we
     // will update the password on an actual user model and persist it to the
     // database. Otherwise we will parse the error and return the response.
-    $status = Password::reset($this->only('email', 'password', 'password_confirmation', 'token'), function ($user)
-    {
+    $status = Password::reset($this->only('email', 'password', 'password_confirmation', 'token'), function ($user) {
         $user->forceFill([
-                             'password'       => Hash::make($this->password),
-                             'remember_token' => Str::random(60),
-                         ])->save();
+            'password' => Hash::make($this->password),
+            'remember_token' => Str::random(60),
+        ])->save();
         event(new PasswordReset($user));
     });
     // If the password was successfully reset, we will redirect the user back to
     // the application's home authenticated view. If there is an error we can
     // redirect them back to where they came from with their error message.
-    if ($status != Password::PASSWORD_RESET)
-    {
+    if ($status != Password::PASSWORD_RESET) {
         $this->addError('email', __($status));
 
         return;
@@ -58,14 +55,16 @@ $resetPassword = function ()
         <!-- Email Address -->
         <div>
             <x-forms.input-label for="email" :value="__('Email')"/>
-            <x-forms.text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autofocus autocomplete="username"/>
+            <x-forms.text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autofocus
+                                autocomplete="username"/>
             <x-forms.input-error :messages="$errors->get('email')" class="mt-2"/>
         </div>
 
         <!-- Password -->
         <div class="mt-4">
             <x-forms.input-label for="password" :value="__('Password')"/>
-            <x-forms.text-input wire:model="password" id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password"/>
+            <x-forms.text-input wire:model="password" id="password" class="block mt-1 w-full" type="password" name="password" required
+                                autocomplete="new-password"/>
             <x-forms.input-error :messages="$errors->get('password')" class="mt-2"/>
         </div>
 
@@ -74,8 +73,8 @@ $resetPassword = function ()
             <x-forms.input-label for="password_confirmation" :value="__('Confirm Password')"/>
 
             <x-forms.text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
-                          type="password"
-                          name="password_confirmation" required autocomplete="new-password"/>
+                                type="password"
+                                name="password_confirmation" required autocomplete="new-password"/>
 
             <x-forms.input-error :messages="$errors->get('password_confirmation')" class="mt-2"/>
         </div>

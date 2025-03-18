@@ -63,7 +63,9 @@
                             @if($event->team_2->name === 'BYE')
                                 <span class="green">BYE</span>
                             @elseif (!is_null($event->score1))
-                                <strong class="{{ $event->score1 > 7 ? 'text-green-700 font-bold' : 'text-red-700' }}">{{ $event->score1 }}</strong>/{{ $event->score2 }}
+                                <strong class="{{ $event->score1 > 7 ? 'text-green-700 font-bold' : 'text-red-700' }}">
+                                    {{ $event->score1 }}
+                                </strong>/{{ $event->score2 }}
                             @elseif($event->score1 === 0 && $event->score2 === 0)
                                 <span class="red">Not in</span>
                             @else
@@ -123,7 +125,8 @@
                             @if($event->team_2->name === 'BYE')
                                 <span class="green">BYE</span>
                             @elseif (!is_null($event->score2))
-                                {{ $event->score1 }}/<strong class="{{ $event->score2 > 7 ? 'text-green-700 font-bold' : 'text-red-700' }}">{{ $event->score2 }}</strong>
+                                {{ $event->score1 }}/<strong
+                                    class="{{ $event->score2 > 7 ? 'text-green-700 font-bold' : 'text-red-700' }}">{{ $event->score2 }}</strong>
                             @elseif($event->score1 === 0 && $event->score2 === 0)
                                 <span class="red">Not in</span>
                             @else

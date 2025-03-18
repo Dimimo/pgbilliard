@@ -5,10 +5,8 @@ use function Livewire\Volt\layout;
 
 layout('components.layout');
 
-$sendVerification = function ()
-{
-    if (auth()->user()->hasVerifiedEmail())
-    {
+$sendVerification = function () {
+    if (auth()->user()->hasVerifiedEmail()) {
         $this->redirect(session('url.intended', RouteServiceProvider::HOME), navigate: true);
 
         return;
@@ -17,8 +15,7 @@ $sendVerification = function ()
     session()->flash('status', 'verification-link-sent');
 };
 
-$logout = function ()
-{
+$logout = function () {
     auth()->guard('web')->logout();
     session()->invalidate();
     session()->regenerateToken();

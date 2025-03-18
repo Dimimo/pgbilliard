@@ -12,17 +12,15 @@ state(['password' => '']);
 
 rules(['password' => ['required', 'string']]);
 
-$confirmPassword = function ()
-{
+$confirmPassword = function () {
     $this->validate();
-    if ( ! auth()->guard('web')->validate([
-                                              'email'    => auth()->user()->email,
-                                              'password' => $this->password,
-                                          ]))
-    {
+    if (!auth()->guard('web')->validate([
+        'email' => auth()->user()->email,
+        'password' => $this->password,
+    ])) {
         throw ValidationException::withMessages([
-                                                    'password' => __('auth.password'),
-                                                ]);
+            'password' => __('auth.password'),
+        ]);
     }
     session(['auth.password_confirmed_at' => time()]);
     $this->redirect(session('url.intended', RouteServiceProvider::HOME), navigate: true);
@@ -40,11 +38,11 @@ $confirmPassword = function ()
             <x-forms.input-label for="password" :value="__('Password')"/>
 
             <x-forms.text-input wire:model="password"
-                          id="password"
-                          class="block mt-1 w-full"
-                          type="password"
-                          name="password"
-                          required autocomplete="current-password"/>
+                                id="password"
+                                class="block mt-1 w-full"
+                                type="password"
+                                name="password"
+                                required autocomplete="current-password"/>
 
             <x-forms.input-error :messages="$errors->get('password')" class="mt-2"/>
         </div>

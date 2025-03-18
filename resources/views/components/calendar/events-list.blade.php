@@ -43,7 +43,8 @@
         class="my-4 cursor-pointer rounded-xl border-2 border-green-500 p-2 text-center text-xl text-green-600"
         wire:click="addNextWeek"
     >
-        <x-svg.square-plus-solid color="fill-green-600" size="5" padding="mb-1"/> Add next week
+        <x-svg.square-plus-solid color="fill-green-600" size="5" padding="mb-1"/>
+        Add next week
     </div>
 
 

@@ -59,9 +59,9 @@
             setInterval(() => {
                 const el_chat = document.getElementById('chat-box');
                 Livewire.dispatch('refresh-messages');
-                el_chat.scrollTo({ top: el_chat.scrollHeight, behavior: "smooth" });
+                el_chat.scrollTo({top: el_chat.scrollHeight, behavior: "smooth"});
             }, 2000);
-        }, { once: true })
+        }, {once: true})
     </script>
     @endscript
 

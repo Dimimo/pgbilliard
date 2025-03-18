@@ -1,4 +1,5 @@
 <?php
+
 use function Livewire\Volt\uses;
 use App\Livewire\WithCurrentCycle;
 

@@ -60,7 +60,7 @@ $register = function () {
                 Contact Number <span class="text-sm text-gray-700">(optional)</span>
             </x-forms.input-label>
             <x-forms.text-input wire:model="contact_nr" id="contact_nr" class="mt-1 block w-full" type="text" name="contact_nr" required autofocus
-                          autocomplete="contact_nr"/>
+                                autocomplete="contact_nr"/>
             <x-forms.input-error :messages="$errors->get('contact_nr')" class="mt-2"/>
         </div>
 
@@ -76,9 +76,9 @@ $register = function () {
             <x-forms.input-label for="password" :value="__('Password')"/>
 
             <x-forms.text-input wire:model="password" id="password" class="mt-1 block w-full"
-                          type="password"
-                          name="password"
-                          required autocomplete="new-password"/>
+                                type="password"
+                                name="password"
+                                required autocomplete="new-password"/>
 
             <x-forms.input-error :messages="$errors->get('password')" class="mt-2"/>
         </div>
@@ -88,8 +88,8 @@ $register = function () {
             <x-forms.input-label for="password_confirmation" :value="__('Confirm Password')"/>
 
             <x-forms.text-input wire:model="password_confirmation" id="password_confirmation" class="mt-1 block w-full"
-                          type="password"
-                          name="password_confirmation" required autocomplete="new-password"/>
+                                type="password"
+                                name="password_confirmation" required autocomplete="new-password"/>
 
             <x-forms.input-error :messages="$errors->get('password_confirmation')" class="mt-2"/>
         </div>
