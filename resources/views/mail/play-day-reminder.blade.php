@@ -3,7 +3,8 @@
 
 ## {{ $event->team_1->name }} - {{ $event->team_2->name }} @ {{ $event->venue->name }}
 
-As usual, the games starts at 1pm.
+The games starts at 2pm as agreed in the last Team meeting. <br>
+Some Captains prefer and may agree to start at 1pm.
 
 <x-mail::button :url="route('calendar')">
 Calendar
