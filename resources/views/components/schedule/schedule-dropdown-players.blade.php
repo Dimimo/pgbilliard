@@ -1,6 +1,6 @@
 @props(['table', 'position', 'home'])
 @php
-    $items = $table->where('position', $position)->where('home', $home);
+    $items = $table ? $table->where('position', $position)->where('home', $home) : collect();
     $double_count = $position % 5 === 0 ? 2 : 1;
 @endphp
 
