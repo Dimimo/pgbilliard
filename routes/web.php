@@ -23,6 +23,10 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
+Route::get('schedule/new', function() {
+    return response()->download(public_path('day-schedule.pdf'));
+})->name('schedule.new');
+
 Route::get('mailable/date/{date}', function ($date) {
     $date = \App\Models\Date::find($date);
     return new \App\Mail\DayScoresConfirmed($date);
