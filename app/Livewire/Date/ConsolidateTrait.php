@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Date;
 
+use App\Events\ScoreEvent;
 use App\Mail\DayScoresConfirmed;
 use App\Mail\DayScoresToAdmin;
 use Illuminate\Support\Str;
@@ -16,6 +17,7 @@ trait ConsolidateTrait
         $this->confirmed = true;
         $this->dispatch('score-confirmed-'.$this->event->id);
         $this->logConsolidate();
+        broadcast(new ScoreEvent($this->event))->toOthers();
 
         // here we check if all events are confirmed, if so, email all participating players, only in production!
         if ($this->event->date->events->every(fn ($value) => $value->confirmed === true)) {
