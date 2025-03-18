@@ -15,10 +15,10 @@ state('chatRoom');
             subtitle="{{ $chatRoom->name }}"
         />
 
-@can('update', $chatRoom)
-    <livewire:chat.create :room="$chatRoom"/>
-@else
-    <div class="text-xl text-red-700">You don't own this chat room</div>
-@endcan
+        @can('update', $chatRoom)
+            <livewire:chat.create :room="$chatRoom"/>
+        @else
+            <div class="text-xl text-red-700">You don't own this chat room</div>
+        @endcan
     </section>
 </x-layout>
