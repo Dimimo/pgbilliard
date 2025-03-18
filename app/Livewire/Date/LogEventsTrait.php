@@ -15,7 +15,7 @@ trait LogEventsTrait
             . auth()->user()->name
             . " set the score of "
             . $game->player->name
-            . " (of )"
+            . " ("
             . $game->team->name
             . ") to a $status";
         $this->buildLogChannel()->info($message);
