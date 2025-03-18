@@ -26,7 +26,7 @@ trait ConsolidateTrait
                 foreach ($players as $user) {
                     // avoid players that haven't been claimed yet
                     if (!Str::contains($user->email, '@pgbilliard.com')) {
-                        \Mail::to($user)->send(new DayScoresConfirmed($this->event->date));
+                        \Mail::to($user)->queue(new DayScoresConfirmed($this->event->date));
                         $send_to = \Arr::add($send_to, $user->id, $user->name);
                     }
                 }
