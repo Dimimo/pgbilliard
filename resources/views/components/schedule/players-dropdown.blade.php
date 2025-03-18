@@ -47,14 +47,9 @@
                     </label>
                 @elseif ($matrix->where('rank', $i)->count())
                     @if($matrix->where('rank', $i)->first()->home)
-                        <div @class([
-                            'mb-1 flex items-center justify-end',
-                            'flex-row-reverse' => $place === 'visit',
-                        ])>
-                            <div class="mx-2 text-lg">{{$matrix->where('rank', $i)->first()->player?->name}}</div>
-                            <div class="inline-flex items-center rounded-full border border-indigo-400 bg-indigo-100 px-2 py-1 font-bold leading-4">
-                                {{$i}}
-                            </div>
+                        <div class="mx-2 text-lg">{{$matrix->where('rank', $i)->first()->player?->name}}</div>
+                        <div class="inline-flex items-center rounded-full border border-indigo-400 bg-indigo-100 px-2 py-1 font-bold leading-4">
+                            {{$i}}
                         </div>
                     @else
                         <div class="mx-2 text-lg">{{$matrix->where('rank', $i)->first()->player?->name}}</div>
