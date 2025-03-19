@@ -1,5 +1,51 @@
 <div class="text-justify">
     <div class="mb-4">
+        On <a href="{{ route('calendar') }}" class="inline-block text-blue-800 link" wire:navigate>
+            the Calendar
+        </a> you can select any date. There are 3 possibilities presented to you:
+    </div>
+
+    <div class="mb-4">
+        <ul class="list-inside list-disc">
+            <li>a date <span class="font-bold">from the past</span> shows you the end score and a link to the daily schedule individual results</li>
+            <li>a date <span class="font-bold">into the future</span> gives you the time remaining for the 'window' to open</li>
+            <li>the <span class="font-bold">'time window' is open</span>, games are about to start or have already started</li>
+        </ul>
+    </div>
+
+    <div class="mb-6 w-full rounded-lg border-2 border-gray-500 text-center">
+        <div class="border-b border-gray-500 font-bold">
+            <div class="rounded-t-lg bg-green-100 p-4">The calendar day overview set into the future</div>
+        </div>
+        <div class="m-4 flex justify-center">
+            <img src="{{ secure_url('/images/schedule/day_score_future.png') }}" alt="">
+        </div>
+    </div>
+
+    <div class="mb-6 w-full rounded-lg border-2 border-gray-500 text-center">
+        <div class="border-b border-gray-500 font-bold">
+            <div class="rounded-t-lg bg-green-100 p-4">The calendar day overview on the day we play from {{ \App\Constants::DATEFORMAT_START }}h to
+                {{ \App\Constants::DATEFORMAT_END }}h</div>
+        </div>
+        <div class="m-4 flex justify-center">
+            <img src="{{ secure_url('/images/schedule/day_score_ready.png') }}" alt="">
+        </div>
+    </div>
+
+    <div class="mb-4">
+        If you are playing for a team, you have access to the game you are participating in.
+        Every player can update the game scores. In this case, the game
+        <span class="font-bold">Pirata Galleon - Victoria</span> can be updated.
+        The other games <span class="font-bold">didn't start yet</span>.
+    </div>
+
+    <div class="mb-4 rounded-lg border-2 border-green-700 bg-green-100 p-4">
+        Every <span class="italic">finished individual game </span>is visible in the Score Board, the Calendar,
+        the day overview AND the "Schedules of the day".
+        <span class="font-bold">No need to refresh. Score updates are immediately reflected.</span>
+    </div>
+
+    <div class="mb-4">
         When the games are actually being played, you notice a link on
         <a href="{{ route('scoreboard') }}" class="inline-block text-blue-800 link" wire:navigate>
             the Scoreboard
@@ -8,28 +54,17 @@
         <a href="{{ route('calendar') }}" class="inline-block text-blue-800 link" wire:navigate>
             the Calendar
         </a>
-        as <span class="font-bold">Live Scores</span>. It looks like this <br>
-        <span class="text-sm">(from the test server, not real data 🤫)</span>
+        as <span class="font-bold">Live Scores</span>.
     </div>
-    <div class="mb-4">
-        <img src="{{ secure_url('/images/day-event-score-input.png') }}" class="w-min rounded-lg border border-gray-500 text-center p-2" alt="">
-    </div>
+
     <div class="mb-4">
         <span class="font-bold">From now on you need to be logged in to change a score.</span> Anybody can visit during
         <span class="italic">opening hours</span> from {{ \App\Constants::DATEFORMAT_START }}h to
         {{ \App\Constants::DATEFORMAT_END }}h.
     </div>
-    <div class="mb-4">
-        <span class="font-bold">What do we see?</span>
-        <div class="ml-4">
-            <span class="font-bold">Pirata 7-8 Geriatric</span>: a finished game that has been confirmed <br>
-            <span class="font-bold">Kickass 7-8 Victoria</span>: a finished game ready to be confirmed <br>
-            <span class="font-bold">Bluemoon 1-1 Tigers</span>: a game in progress
-        </div>
 
-    </div>
     <div class="mb-4">
-        The picture shows what administrators see. <span class="font-bold">There is a logical hierarchy</span>:
+        <span class="font-bold">There is a logical hierarchy</span>:
         <div class="ml-4">
             <span class="font-bold">Administrators</span>: access to all games <span class="font-semibold">except</span>
             confirmed games, these are immutable<br>
@@ -40,8 +75,9 @@
         </div>
         Notice: if you have access to a game in progress, you have access to both the home and visitor's score.
     </div>
+
     <div class="mb-4">
-        <span class="font-bold">What's with the <span class="text-blue-800 text-lg">confirm</span> button?</span>
+        <span class="font-bold">What's with the <span class="text-lg text-blue-800">confirm</span> button?</span>
         <div class="ml-4">
             It appears when the game adds up to 15 games. It's a trigger of sorts. It tells the game is finished and
             the score is final. The Pirata - Geriatric game is set as confirmed.
@@ -56,15 +92,25 @@
             </a> are immediately up-to-date.
         </div>
     </div>
-    <div class="mb-4">
-        <span class="font-bold">Changing scores</span>: either by the
-        <x-svg.square-minus-solid color="fill-orange-400" size="4" padding="mb-1"/>
-        or the
-        <x-svg.square-plus-solid color="fill-green-600" size="4" padding="mb-1"/>
-        buttons. Or change it directly in the box as it was before. Either way works. There are some simple checks, f.ex.
-        there can't be more than 15 games. A warning is given because such score can't be confirmed.
-    </div>
+
     <div class="mb-4 font-bold">
         Confirmed games can't be changed by anybody, not even administrators.
     </div>
+
+    @if(session('is_admin'))
+        <div class="mb-4 rounded-lg border-2 border-indigo-700 text-center">
+            <div class="mb-4 border-b border-indigo-700 font-bold">
+                <div class="rounded-t-lg bg-indigo-100 p-4">Only for administrators</div>
+            </div>
+            <div class="mb-4">
+                As an administrator you can still change the score directly as it was before. <br>
+                The reason? In case of a <span class="font-bold">no-show (8-0)</span>. No daily individual scores
+                will be available as there aren't any.
+            </div>
+            <div class="w-full rounded-lg border border-gray-500 bg-white p-2 text-center">
+                <div class="my-2 font-bold">What an administrator sees when a game is <span class="font-bold">not confirmed</span></div>
+                <img src="{{ secure_url('/images/schedule/admin_direct_score_overview.png') }}" alt="">
+            </div>
+        </div>
+    @endif
 </div>
