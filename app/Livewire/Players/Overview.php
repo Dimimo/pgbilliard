@@ -16,7 +16,7 @@ class Overview extends Component
     public function mount(Team $team): void
     {
         $this->team = $team;
-        $this->players = $team->players()->get()->sortBy('name')->sortByDesc('captain');
+        $this->players = $team->players()->whereActive(true)->get()->sortBy('name')->sortByDesc('captain');
     }
 
     public function render(): View

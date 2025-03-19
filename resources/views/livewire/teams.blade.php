@@ -66,7 +66,7 @@
                         class="rounded-full border border-indigo-400 bg-indigo-50 px-2 py-1 text-blue-800 hover:border-blue-700 hover:bg-blue-100 hover:text-blue-600"
                         wire:navigate
                     >
-                        {{ $team->players()->count() }}
+                        {{ $team->players()->whereActive(true)->count() }}
                     </a>
                 </td>
                 <td class="border-b-2 border-slate-300 p-2">
