@@ -12,7 +12,7 @@ name('help.schedule');
             <x-slot:title>The help pages</x-slot:title>
             <x-slot:subtitle>
                 <x-svg.circle-question-solid color="fill-green-600" size="6"/>
-                the day schedule
+                the detailed day event schedules and individual scores
             </x-slot:subtitle>
         </x-title>
 
