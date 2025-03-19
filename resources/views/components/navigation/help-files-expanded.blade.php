@@ -22,17 +22,21 @@
         <x-forms.dropdown-link :href="route('help.calendar')" wire:navigate>
             {{ __('The Calendar') }}
         </x-forms.dropdown-link>
+        <x-forms.dropdown-link :href="route('help.live-scores')" wire:navigate>
+            {{ __('The day scores overview') }}
+        </x-forms.dropdown-link>
+        <x-forms.dropdown-link :href="route('help.schedule')" wire:navigate>
+            <x-svg.eye-solid color="fill-blue-600" size="4"/>
+            {{ __('Detailed schedules') }}
+        </x-forms.dropdown-link>
         <x-forms.dropdown-link :href="route('help.teams')" wire:navigate>
             {{ __('Participating Teams') }}
         </x-forms.dropdown-link>
-        <x-forms.dropdown-link :href="route('help.live-scores')" wire:navigate>
-            {{ __('Live scores day event') }}
-        </x-forms.dropdown-link>
+        <hr class="my-2 border-b border-b-indigo-700 w-fill">
+
         <x-forms.dropdown-link :href="route('help.chat')" wire:navigate>
             {{ __('The chat and rooms') }}
         </x-forms.dropdown-link>
-        <hr class="my-2 border-b border-b-indigo-700 w-fill">
-
         <div class="ml-12 text-sm text-blue-800">Other</div>
         <x-forms.dropdown-link :href="route('logs')" wire:navigate>
             {{ __('Score changes log file') }}
