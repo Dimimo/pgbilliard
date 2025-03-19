@@ -54,7 +54,7 @@ name('dates.show');
             <x-schedule.date-show-list :date="$date" :old="true"/>
         @endif
 
-        @script
+        {{--@script
         <script>
             let echoPublicChannel = window.Echo.channel('live-score');
             let ablyPublicChannelName = echoPublicChannel.name;
@@ -63,7 +63,7 @@ name('dates.show');
                 $wire.$commit();
             });
         </script>
-        @endscript
+        @endscript--}}
 
     </section>
     @endvolt

@@ -67,5 +67,16 @@
             </div>
         </x-forms.sub-title>
     </div>
+
+    @script
+    <script>
+        let echoPublicChannel = window.Echo.channel('live-score');
+        let ablyPublicChannelName = echoPublicChannel.name;
+        console.log(ablyPublicChannelName);
+        $wire.on('refresh-list-{{ $event->id }}', () => {
+            $wire.$commit();
+        });
+    </script>
+    @endscript
 </div>
 

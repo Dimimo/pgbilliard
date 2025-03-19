@@ -89,7 +89,7 @@ class Update extends Component
             $this->event->update();
             $this->updateScores();
             $this->dispatch('scores-updated-'.$this->event->id);
-            $this->dispatch('refresh-list');
+            $this->dispatch('refresh-list-' . $this->event->id);
         }
     }
 }
