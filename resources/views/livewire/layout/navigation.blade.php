@@ -8,8 +8,9 @@ uses([WithCurrentCycle::class]);
 $logout = function () {
     auth()->guard('web')->logout();
     session()->invalidate();
+    session()->forget('is_admin')
     session()->regenerateToken();
-    $this->redirect('/dashboard', navigate: true);
+    $this->redirect('/', navigate: false);
 };
 ?>
 
