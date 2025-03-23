@@ -44,20 +44,36 @@
                                 </span>
                                 </div>
                             @else
-                                <div class="flex justify-center space-x-2">
-                                    <span>{{__('No schedule available for')}}</span>
-                                    <span class="font-bold">
-                                {{ $event->team_1->name }} - {{ $event->team_2->name }}
-                            </span>
+                                <div class="flex flex-row justify-center space-x-2">
+                                    <div>{{__('No schedule available for')}}</div>
+                                    <div class="font-bold">
+                                        {{ $event->team_1->name }} - {{ $event->team_2->name }}
+                                    </div>
                                 </div>
 
                             @endif
                         @else
                             @can('update', $event)
-                                <x-schedule.schedule-running :event="$event"/>
+                                <x-schedule.schedule-running
+                                    key="date-list-{{$event->id}}"
+                                    :event="$event"
+                                    :can_update="true"
+                                />
                             @else
                                 @if($event->games()->whereNotNull('win')->count())
-                                    <x-schedule.schedule-running :event="$event"/>
+                                    <x-schedule.schedule-running
+                                        key="date-list-{{$event->id}}"
+                                        :event="$event"
+                                        :available="true"
+                                        :can_update="false"
+                                    />
+                                @else
+                                    <x-schedule.schedule-running
+                                        key="date-list-{{$event->id}}"
+                                        :event="$event"
+                                        :available="false"
+                                        :can_update="false"
+                                    />
                                 @endif
                             @endcan
                         @endif
@@ -67,16 +83,5 @@
             </div>
         </x-forms.sub-title>
     </div>
-
-    @script
-    <script>
-        let echoPublicChannel = window.Echo.channel('live-score');
-        let ablyPublicChannelName = echoPublicChannel.name;
-        console.log(ablyPublicChannelName);
-        $wire.on('refresh-list-{{ $event->id }}', () => {
-            $wire.$commit();
-        });
-    </script>
-    @endscript
 </div>
 
