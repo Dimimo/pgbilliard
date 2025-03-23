@@ -47,7 +47,7 @@ $updateContactNr = function () {
             <x-forms.primary-button>{{ __('Save') }}</x-forms.primary-button>
 
             <x-forms.action-message class="mr-3" on="contact-updated">
-                {{ __('Saved.') }}
+                {{ __('Saved') }}
             </x-forms.action-message>
         </div>
     </form>
