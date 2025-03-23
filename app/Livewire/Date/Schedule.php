@@ -30,6 +30,8 @@ class Schedule extends Component
     public array $rounds = [1 => 'First', 6 => 'Second', 11 => 'Last'];
     public bool $can_update_players = true;
     public bool $confirmed = false;
+    public ?int $game_win_id = null;
+    public ?int $game_lost_id = null;
 
     public function mount(): void
     {
@@ -117,8 +119,9 @@ class Schedule extends Component
         // finally, update the day score in the event and log the event
         $this->event->update(['score1' => $this->getEventScore(true), 'score2' => $this->getEventScore(false)]);
         $this->logScheduleChanges($game);
+        $this->checkIfPlayersCanBeUpdated();
 
-        $this->dispatch('score-updated');
+        $this->dispatch('refresh-list');
         broadcast(new ScoreEvent($this->event))->toOthers();
     }
 
@@ -185,7 +188,8 @@ class Schedule extends Component
         }
 
         $this->recreateMatrix();
-        $this->dispatch('player-updated-' . $place);
+        $this->checkThirdGame();
+        $this->dispatch('refresh-list');
         broadcast(new ScoreEvent($this->event))->toOthers();
     }
 
@@ -235,7 +239,7 @@ class Schedule extends Component
         $player_ids = $this->event
             ->games()
             ->select('player_id')
-            ->whereBetween('position', [1,15])
+            ->whereBetween('position', [1, 15])
             ->whereHome($home)
             ->orderBy('position')
             ->groupBy('player_id')
@@ -251,10 +255,31 @@ class Schedule extends Component
         $this->visit_players = $this->event->team_2->players->where('active', true)->sortBy('name');
     }
 
-    #[On('echo:live-score,ScoreEvent')]
-    public function updateLiveScores(array $response): void
+    private function checkIfPlayersCanBeUpdated(): void
     {
-        $this->event = Event::find($response['event']['id']);
-        $this->event->refresh();
+        $this->can_update_players = $this->event->games()
+                ->whereBetween('position', [1, 15])
+                ->whereNotNull('win')
+                ->count() === 0;
+
+        $this->format = $this->event->games()
+            ->orderBy('position')
+            ->first()
+            ->schedule
+            ->format;
+
+        $this->choose_format = false;
+    }
+
+    #[On('echo:live-score,ScoreEvent')]
+    public function updateLiveScores($response): void
+    {
+        if ($this->event->id === $response['event']['id']) {
+            $this->event->refresh();
+            $this->checkIfPlayersCanBeUpdated();
+            $this->game_win_id = Game::whereWin(true)->orderByDesc('updated_at')->first()?->id;
+            $this->game_lost_id = Game::whereWin(false)->orderByDesc('updated_at')->first()?->id;
+            $this->dispatch('refresh-list');
+        }
     }
 }

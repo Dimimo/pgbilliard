@@ -5,21 +5,23 @@
         </x-forms.action-message>
     </div>
     @if($choose_format)
-        <div class="my-8">
-            <x-forms.sub-title title="{{__('Choose a day games format')}}">
-                <div class="flex justify-center">
-                    @foreach(\App\Models\Format::orderBy('name')->get() as $f)
-                        <button
-                            class="m-2 w-full rounded-lg border border-green-500 bg-green-100 p-2 text-left"
-                            wire:click="formatChosen({{ $f->id }})"
-                        >
-                            <div class="text-lg">{{ $f->name }}</div>
-                            <div class="text-sm">{{ $f->details }}</div>
-                        </button>
-                    @endforeach
-                </div>
-            </x-forms.sub-title>
-        </div>
+        @can('update', $event)
+            <div class="my-8">
+                <x-forms.sub-title title="{{__('Choose a day games format')}}">
+                    <div class="flex justify-center">
+                        @foreach(\App\Models\Format::orderBy('name')->get() as $f)
+                            <button
+                                class="m-2 w-full rounded-lg border border-green-500 bg-green-100 p-2 text-left"
+                                wire:click="formatChosen({{ $f->id }})"
+                            >
+                                <div class="text-lg">{{ $f->name }}</div>
+                                <div class="text-sm">{{ $f->details }}</div>
+                            </button>
+                        @endforeach
+                    </div>
+                </x-forms.sub-title>
+            </div>
+        @endcan
     @else
 
         <div class="grid grid-flow-row grid-cols-8 items-center justify-items-center gap-2">
@@ -51,6 +53,7 @@
                     place="home"
                     :matrix="$home_matrix"
                     :can_update_players="$can_update_players"
+
                 />
             </div>
             <div class="col-span-4 h-full w-full bg-green-50 p-4 text-left">
@@ -89,19 +92,33 @@
                     @endif
                     <div class="col-span-4 w-full p-1 text-right">
                         <div>
-                            <x-schedule.position-dropdown :event="$event" :i="$i" :matrix="$home_matrix" home="1"/>
+                            <x-schedule.position-dropdown
+                                :event="$event"
+                                :i="$i"
+                                :matrix="$home_matrix"
+                                home="1"
+                                :game_win_id="$game_win_id"
+                                :game_lost_id="$game_lost_id"
+                            />
                         </div>
                     </div>
                     <div class="col-span-4 w-full p-1">
                         <div>
-                            <x-schedule.position-dropdown :event="$event" :i="$i" :matrix="$visit_matrix" home="0"/>
+                            <x-schedule.position-dropdown
+                                :event="$event"
+                                :i="$i"
+                                :matrix="$visit_matrix"
+                                home="0"
+                                :game_win_id="$game_win_id"
+                                :game_lost_id="$game_lost_id"
+                            />
                         </div>
                     </div>
                 @endfor
             @endforeach
 
             @if($event->score1 + $event->score2 === 15)
-                <div class="col-span-8 mt-8 flex w-full flex-col justify-center p-2 text-center text-xl space-y-3">
+                <div class="col-span-8 mt-8 flex w-min flex-col justify-center whitespace-nowrap rounded-lg border-2 border-green-500 p-2 text-center text-xl space-y-3">
                     <div class="text-2xl">{{__('Final Score')}}:</div>
                     <div>
                         <span @class(['text-green-700' => $event->score1 > 7])>{{ $event->team_1->name }} {{ $event->score1 }}</span>
@@ -136,4 +153,12 @@
 
         </div>
     @endif
+
+    @script
+    <script>
+        let echoPublicChannel = window.Echo.channel('live-score');
+        let ablyPublicChannelName = echoPublicChannel.name;
+        console.log(ablyPublicChannelName);
+    </script>
+    @endscript
 </div>
