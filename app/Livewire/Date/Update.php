@@ -20,6 +20,7 @@ class Update extends Component
     #[Validate]
     public ?int $score2 = null;
     public bool $confirmed = false;
+    public ?int $event_id = null;
 
     public function rules(): array
     {
@@ -52,7 +53,7 @@ class Update extends Component
         $this->validateOnly($field);
         $this->event->update([$field => $value]);
         $this->updateScores();
-        $this->dispatch('scores-updated-'.$this->event->id);
+        $this->dispatch('refresh-list');
         $this->logChanges($field);
     }
 
@@ -65,7 +66,7 @@ class Update extends Component
         }
         $this->event->$action($field);
         $this->updateScores();
-        $this->dispatch('scores-updated-'.$this->event->id);
+        $this->dispatch('refresh-list');
         $this->logChanges($field);
         broadcast(new ScoreEvent($this->event))->toOthers();
     }
@@ -85,11 +86,11 @@ class Update extends Component
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores(array $response): void
     {
-        if ($this->event->id === $response['event']['id']) {
+        if ($this->event->id == $response['event']['id']) {
             $this->event->update();
             $this->updateScores();
-            $this->dispatch('scores-updated-'.$this->event->id);
-            $this->dispatch('refresh-list-' . $this->event->id);
+            $this->event_id = $this->event->id;
+            $this->dispatch('refresh-list');
         }
     }
 }

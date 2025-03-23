@@ -1,7 +1,7 @@
 @props(['event'])
 
 <tbody class="whitespace-nowrap">
-<tr @class(['bg-red-50' => $errors->any()])>
+<tr @class(['bg-red-50' => $errors->any(), 'bg-green-50' => $event->id === $event_id,])>
     <td @class([
             'px-2 pt-4 sm:px-4' => $errors->any(),
             'px-2 py-4 sm:p-4' => !$errors->any(),
