@@ -34,15 +34,15 @@
         </x-forms.dropdown-link>
         <hr class="my-2 border-b border-b-indigo-700 w-fill">
 
+        <div class="ml-12 text-sm text-blue-800">Other</div>
         <x-forms.dropdown-link :href="route('help.chat')" wire:navigate>
             {{ __('The chat and rooms') }}
         </x-forms.dropdown-link>
-        <div class="ml-12 text-sm text-blue-800">Other</div>
         <x-forms.dropdown-link :href="route('logs')" wire:navigate>
             {{ __('Score changes log file') }}
         </x-forms.dropdown-link>
         <x-forms.dropdown-link :href="route('help.changelog')" wire:navigate>
-            {{ __('Changelog') }}
+            {{ __('Website changelog') }}
         </x-forms.dropdown-link>
 
         @if(session('is_admin'))
