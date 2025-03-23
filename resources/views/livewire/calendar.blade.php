@@ -162,7 +162,12 @@
 
     @script
     <script>
-        window.Echo.channel('live-score');
+        let echoPublicChannel = window.Echo.channel('live-score');
+        let ablyPublicChannelName = echoPublicChannel.name;
+        console.log(ablyPublicChannelName);
+        $wire.on('refresh-list', () => {
+            $wire.$commit();
+        });
     </script>
     @endscript
 </div>
