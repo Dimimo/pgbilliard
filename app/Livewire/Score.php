@@ -68,6 +68,7 @@ class Score extends Component
         $event = Event::find($response['event']['id']);
         if ($event->date->season->cycle === session('cycle')) {
             $this->scores = $this->getResults();
+            $this->score_id = $event->id;
         }
     }
 }

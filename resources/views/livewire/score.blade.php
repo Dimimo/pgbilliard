@@ -113,10 +113,8 @@
                             </a>
                         </td>
                         <td @class([
-                            'text-center',
-                            'p-2',
-                            'bg-amber-100' => !is_null($score_id) && $score_id != $score->get('id'),
-                            'text-lg text-blue-700 bg-blue-100' => !is_null($score_id) && $score_id == $score->get('id')
+                            'text-center p-2',
+                            'bg-green-100' => $score_id == $score->get('id')
                         ])
                         >
                             @if ($score->get('last_result') === 'not in')
@@ -187,7 +185,9 @@
 
     @script
     <script>
-        window.Echo.channel('live-score');
+        let echoPublicChannel = window.Echo.channel('live-score');
+        let ablyPublicChannelName = echoPublicChannel.name;
+        console.log(ablyPublicChannelName);
     </script>
     @endscript
 </div>
