@@ -1,4 +1,4 @@
-@props(['event', 'matrix', 'i', 'home'])
+@props(['event', 'matrix', 'i', 'home', 'game_win_id', 'game_lost_id'])
 @php
     $games = $event->games()
     ->where([
@@ -17,6 +17,8 @@
         <div @class([
                 'flex items-center',
                 'flex-row-reverse' => ! $home,
+                'border border-green-500 rounded-lg bg-green-100 p-1' => $game->id === $game_win_id,
+                'border border-yellow-500 rounded-lg bg-yellow-100 p-1' => $game->id === $game_lost_id,
             ])
              wire:key="game-{{$game->id}}"
         >
@@ -62,9 +64,12 @@
                     @elseif ($game->event->completed)
                         <x-svg.xmark-solid color="fill-red-600" size="4"/>
                     @else
-                        <span class="w-5 h-5"></span>
+                        <span class="h-5 w-5"></span>
                     @endif
                 @else
+                    @php
+                        $has_complete_final_game = $event->games()->wherePosition(15)->has('player')->count() === 4;
+                    @endphp
                     <div class="mx-3">
                         <label wire:replace>
                             <input
@@ -73,8 +78,15 @@
                                 wire:key="win-{{$game->id}}-{{$i}}"
                                 wire:change="scoreGiven({{$game->id}})"
                                 wire:target="scoreGiven({{$game->id}})"
-                                @class(['h-6 w-6', 'cursor-pointer', 'text-green-600' => $game->win, 'bg-red-50' => $game->win === false])
+                                @class([
+                                    'h-6 w-6',
+                                    'cursor-pointer' => $game->position === 15 && $has_complete_final_game,
+                                    'cursor-not-allowed bg-indigo-100' => $game->position === 15 && !$has_complete_final_game,
+                                    'text-green-600' => $game->win,
+                                    'bg-red-50' => $game->win === false]
+                                )
                                 @checked($game->win)
+                                @disabled($game->position === 15 && !$has_complete_final_game)
                             >
                         </label>
                     </div>
