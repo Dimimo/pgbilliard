@@ -35,6 +35,7 @@
             </a> have been added for online reference.
             <span class="font-bold">A big thanks to Rob for the work and print-outs</span> and ChatGPT for the digital version!
         </li>
+        <li>The collision on daily schedule live updates is fixed.</li>
     </ul>
 </div>
 <div class="mt-4">
