@@ -1,3 +1,5 @@
+@props(['event'])
+
 <tbody class="whitespace-nowrap">
 <tr @class(['bg-red-50' => $errors->any()])>
     <td @class([
@@ -106,7 +108,7 @@
                     <x-svg.eye-regular color="fill-sky-600" size="5" padding=""/>
                     {{__('Day scores')}}
                 </a>
-            @elseif($event->date->date->isFuture())
+            @elseif(! $event->date->checkOpenWindowAccess())
                 <x-date.event-set-in-future :event="$event"/>
             @else
                 <div class="text-sm italic text-gray-600">
