@@ -28,7 +28,7 @@ name('schedule.event');
             </x-slot:subtitle>
         </x-title>
 
-        <livewire:date.schedule :event="$event"/>
+        <livewire:date.schedule key="date-event-{{$event->id}}" :event="$event"/>
 
     </section>
     @endvolt
