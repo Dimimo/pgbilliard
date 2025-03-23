@@ -37,8 +37,8 @@
                         id="item-{{$game->id}}"
                         wire:change="playerChanged($event.target.value, {{$game->id}})"
                     >
-                        @if ($i === 15)
-                            <option value="0">--select--</option>
+                        @if ($i === 15 && !$game->player_id)
+                            <option value="0">--{{__('select')}}--</option>
                         @endif
                         @foreach($matrix as $position)
                             <option
