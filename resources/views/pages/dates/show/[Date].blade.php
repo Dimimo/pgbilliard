@@ -43,7 +43,7 @@ name('dates.show');
                 </tr>
                 </thead>
                 @foreach ($date->events as $event)
-                    <livewire:date.update :event="$event" :key="$event->id"/>
+                    <livewire:date.update key="event-{{$event->id}}" :event="$event"/>
                 @endforeach
             </table>
         </div>
@@ -54,7 +54,7 @@ name('dates.show');
             <x-schedule.date-show-list :date="$date" :old="true"/>
         @endif
 
-        {{--@script
+        @script
         <script>
             let echoPublicChannel = window.Echo.channel('live-score');
             let ablyPublicChannelName = echoPublicChannel.name;
@@ -63,7 +63,7 @@ name('dates.show');
                 $wire.$commit();
             });
         </script>
-        @endscript--}}
+        @endscript
 
     </section>
     @endvolt
