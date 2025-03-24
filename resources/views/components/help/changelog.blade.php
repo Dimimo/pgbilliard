@@ -36,6 +36,15 @@
             <span class="font-bold">A big thanks to Rob for the work and print-outs</span> and ChatGPT for the digital version!
         </li>
         <li>The collision on daily schedule live updates is fixed.</li>
+        <li>For Admins: the maximum amount of players a Season allows is now Season dependable.</li>
+        <li>
+            For Admins: an empty Season can be deleted if there are no games (events) and has only 1 date.
+            Teams and players get deleted as well. In case of a fresh new Season reset is requested.
+        </li>
+        <li>
+            Extra check of the 15th game (last double) added. If the 4 players are not selected, no checkboxes appear.
+        </li>
+        <li>The last updated score is highlighted in color. On the Scoreboard, the Calendar and daily overview.<Oli>
     </ul>
 </div>
 <div class="mt-4">
