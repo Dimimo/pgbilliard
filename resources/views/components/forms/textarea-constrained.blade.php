@@ -15,6 +15,7 @@
             maxlength="{{ $limit }}"
             id="{{ $for }}"
             rows="8"
+            wire:model="{{$for}}"
             {{ $attributes->merge(['class' => "mx-auto mb-2 block w-full rounded-lg border-2 border-indigo-800 p-4 focus:border-transparent" . $css_error]) }}
         ></textarea>
     </label>
