@@ -14,5 +14,5 @@ the log in page
 </x-mail::button>
 
 Thanks,<br>
-{{ config('app.name') }}
+The Puerto Galera Billiard League
 </x-mail::message>
