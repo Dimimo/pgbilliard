@@ -5,7 +5,6 @@ use function Laravel\Folio\name;
 use function Livewire\Volt\state;
 use function Livewire\Volt\uses;
 
-uses([WithCurrentCycle::class]);
 state('team');
 name('teams.edit');
 ?>
@@ -15,7 +14,7 @@ name('teams.edit');
     <section>
         <x-title
             title="Edit the team <strong>{{$team->name}}</strong>"
-            subtitle="Season {{ $cycle }}"
+            subtitle="Season {{ session('cycle') }}"
             help="teams"
         />
 
