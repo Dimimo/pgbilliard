@@ -32,6 +32,8 @@
                 (no games yet)
                 <button
                     class="mt-4 cursor-pointer text-red-700"
+                    wire:click="removeDate({{ $dates->first()->id }})"
+                    wire:confirm="{{$message}}"
                 >
                     <x-svg.trash-can-solid color="fill-red-600" size="4" padding="mb-1"/> {{ $message }}
                 </button>

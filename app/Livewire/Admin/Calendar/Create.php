@@ -175,14 +175,12 @@ class Create extends Component
         if ($this->season->teams->count() > 0) {
             foreach ($this->season->teams as $team) {
                 $team->players()->delete();
-                $team->delete();
             }
         }
-        foreach ($this->season->dates as $date) {
-            $date->delete();
-        }
+        $this->season->teams()->delete();
+        $this->season->dates()->delete();
         $this->season->delete();
-        session()->forget('cycle');
+        session()->forget(['cycle', 'alert', 'number_of_teams', 'players', 'has_bye']);
         session()->flash('status', 'The Season has been deleted');
         $this->redirect(route('admin.seasons.create'));
     }
