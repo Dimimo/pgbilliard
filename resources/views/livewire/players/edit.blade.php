@@ -102,7 +102,6 @@
 
     </x-forms.sub-title>
 
-    @json($show_new_player_form)
     @if (!$max_reached && $show_new_player_form)
         <x-forms.sub-title title="{{__('Add a player to the team')}}">
             <div class="flex items-center justify-center">
