@@ -75,7 +75,12 @@ class Update extends Component
     public function updatedTeamSelect(?int $team_id): void
     {
         // if a team exists, copy it and add it to the new season
-        $old_team = Team::with(['venue', 'players'])->find($team_id);
+        $old_team = Team::with(
+            [
+                'venue',
+                'players' => fn($q) => $q->orderByDesc('updated_at')->limit($this->season->players)
+            ])
+            ->find($team_id);
 
         if ($old_team) {
             $this->dropdown_teams = $this->dropdown_teams->filter(fn ($item) => $item->id !== $old_team->id);
