@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Players;
 
-use App\Constants;
 use App\Jobs\CaptainCreatedNewUser;
 use App\Livewire\Forms\PlayerForm;
 use App\Livewire\Forms\UserForm;
@@ -38,7 +37,7 @@ class Edit extends Component
         $this->setUserForm(new User());
         $this->getPlayers();
         $this->getPlayersActiveInCurrentSeason();
-        $this->max_players = Constants::MAX_TEAM_PLAYERS;
+        $this->max_players = $this->team->season->players;
         $this->setMaxReached();
     }
 
