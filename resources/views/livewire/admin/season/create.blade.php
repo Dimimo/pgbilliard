@@ -3,10 +3,10 @@
     <div class="m-2 rounded-lg border border-green-500 bg-green-100 p-4">
         <ul class="list-disc px-4">
             <li>
-                <u><strong>Important</strong></u>:
+                <u><span class="font-bold">Important</span></u>:
                 If a new venue is introduced, please
                 <a
-                    class="border border-transparent font-semibold text-blue-700 hover:border hover:border-blue-700 hover:bg-blue-100"
+                    class="inline-block font-bold text-blue-800 link"
                     href="{{ route('admin.venues.create') }}"
                     wire:navigate
                 >
@@ -20,13 +20,18 @@
                 The first playing date will be created as a starting point to publish the calendar, the date can still be updated
             </li>
             <li>
-                After creating the new season, you will be invited to chose <strong>the participating teams</strong>, before the calendar part
+                After creating the new season, you will be invited to chose <span class="font-bold">the participating teams</span>, before the
+                calendar part
             </li>
             <li>
-                Last but not least, <strong>you won't be able to change</strong> the Season {{ $cycle }} setting after creation
+                On the other hand, <span class="font-bold">you will be able</span> to change the number of teams participating and the BYE option
+                later on
             </li>
             <li>
-                On the other hand, <strong>you will be able</strong> to change the number of teams participating and the BYE option later on
+                Last but not least, <span class="font-bold">you won't be able to change</span> the Season {{ $cycle }} setting
+            </li>
+            <li>
+                But <span class="font-bold">you can delete a season of the only date is empty</span>, in other words, right after creation
             </li>
         </ul>
     </div>
@@ -58,6 +63,19 @@
             <div class="p-2">
                 <select id="number_of_teams" wire:model.live="number_of_teams">
                     @for ($i = 2; $i <= 12; $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                </select>
+            </div>
+
+            <div class="mt-1 p-2 text-right text-xl">
+                <label for="players">
+                    Max number of players allowed in a team
+                </label>
+            </div>
+            <div class="p-2">
+                <select id="players" wire:model="players">
+                    @for ($i = 6; $i <= 10; $i++)
                         <option value="{{ $i }}">{{ $i }}</option>
                     @endfor
                 </select>

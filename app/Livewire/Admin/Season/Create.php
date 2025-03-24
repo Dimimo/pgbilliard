@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Season;
 
+use App\Constants;
 use App\Models\Date;
 use App\Models\Season;
 use Illuminate\Contracts\View\View;
@@ -12,18 +13,18 @@ class Create extends Component
 {
     public Season $season;
     public string $cycle;
-    public int $number_of_teams;
+    public int $number_of_teams = 6;
+    public int $players;
     public string $day_of_week;
     public string $starting_date;
-    public bool $has_bye;
+    public bool $has_bye = false;
 
     public function mount(): void
     {
         $this->season = new Season(['cycle' => Carbon::now()->appTimezone()->format('Y/m')]);
         $this->cycle = $this->season->cycle;
-        $this->number_of_teams = 6;
-        $this->has_bye = false;
-        $this->day_of_week = 'Wednesday';
+        $this->day_of_week = Constants::STARTING_DAY;
+        $this->players = Constants::MAX_TEAM_PLAYERS;
         $this->starting_date = Carbon::now()
             ->appTimezone()
             ->next($this->day_of_week)
@@ -47,6 +48,7 @@ class Create extends Component
         $this->dispatch('season-created');
         session(['alert' => "Season $season->cycle is created. Time to create the teams!"]);
         session(['number_of_teams' => $this->number_of_teams]);
+        session(['players' => $this->players]);
         session(['has_bye' => $this->has_bye]);
         $this->redirect(route('admin.season.update', ['season' => $season]), navigate: true);
     }
@@ -115,6 +117,10 @@ class Create extends Component
             'cycle' => [
                 'date_format:Y/m',
                 'unique:seasons,cycle',
+            ],
+            'players' => [
+                'required',
+                'int',
             ],
         ];
     }
