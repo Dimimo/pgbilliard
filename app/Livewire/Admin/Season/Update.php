@@ -78,8 +78,9 @@ class Update extends Component
         $old_team = Team::with(
             [
                 'venue',
-                'players' => fn($q) => $q->orderByDesc('updated_at')->limit($this->season->players)
-            ])
+                'players' => fn ($q) => $q->orderByDesc('updated_at')->limit($this->season->players)
+            ]
+        )
             ->find($team_id);
 
         if ($old_team) {

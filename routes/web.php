@@ -23,7 +23,7 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::get('schedule/new', function() {
+Route::get('schedule/new', function () {
     return response()->download(public_path('day-schedule.pdf'));
 })->name('schedule.new');
 
