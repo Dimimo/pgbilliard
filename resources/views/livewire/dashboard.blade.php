@@ -110,9 +110,9 @@
                     >
                         {{ $post->title }}
                     </a>
-                    @if ($post->comments)
-                        last comment by {{ $post->comments()->latest()->first()->user->name }}
-                        {{ $post->comments()->latest()->first()->updated_at->diffForHumans() }}
+                    @if ($post->comments && $comment = $post->comments()->latest()->first())
+                        last comment by {{ $comment->user->name }}
+                        {{ $comment->updated_at->diffForHumans() }}
                     @else
                         posted by {{ $post->user->name }} {{ $post->updated_at->diffForHumans() }}
                     @endif
