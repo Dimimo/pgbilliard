@@ -23,11 +23,11 @@
                 <td>
                     @if ($post->visits->count() === 1)
                         <div class="ml-4" title="Has been opened">
-                            <x-svg.envelope-solid color="fill-green-700" size="5"/>
+                            <x-svg.envelope-open-text-solid color="fill-green-700" size="5"/>
                         </div>
                     @else
                         <div class="ml-4" title="Not opened yet">
-                            <x-svg.envelope-open-text-solid color="fill-black" size="5"/>
+                            <x-svg.envelope-solid color="fill-indigo-600" size="5"/>
                         </div>
                     @endif
                 </td>
