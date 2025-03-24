@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
  *
  * @property int $id
  * @property string $cycle
+ * @property int $players
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Collection<int, Date> $dates
@@ -27,6 +28,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Season whereCreatedAt($value)
  * @method static Builder|Season whereCycle($value)
  * @method static Builder|Season whereId($value)
+ * @method static Builder|Season wherePlayers($value)
  * @method static Builder|Season whereUpdatedAt($value)
  *
  * @mixin Eloquent
@@ -35,6 +37,7 @@ class Season extends Model
 {
     protected $fillable = [
         'cycle',
+        'players',
     ];
 
     public function teams(): HasMany
