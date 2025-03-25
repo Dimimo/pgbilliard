@@ -19,6 +19,9 @@
         <x-forms.dropdown-link :href="route('help.results')" wire:navigate>
             {{ __('Scoreboard explained') }}
         </x-forms.dropdown-link>
+        <x-forms.dropdown-link :href="route('help.ranking')" wire:navigate>
+            {{ __('The Individual Ranking') }}
+        </x-forms.dropdown-link>
         <x-forms.dropdown-link :href="route('help.calendar')" wire:navigate>
             {{ __('The Calendar') }}
         </x-forms.dropdown-link>
