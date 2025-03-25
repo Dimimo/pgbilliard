@@ -19,6 +19,7 @@ use Illuminate\Support\Carbon;
  * @property int|null $team_id
  * @property bool $captain
  * @property bool $active
+ * @property int|null $participation
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read string $contact_nr
@@ -27,6 +28,8 @@ use Illuminate\Support\Carbon;
  * @property-read string $name
  * @property-read Collection<int, Game> $games
  * @property-read int|null              $games_count
+ * @property-read Collection<int, Rank> $ranks
+ * @property-read int|null              $ranks_count
  * @property-read Team|null $team
  * @property-read User|null $user
  *
@@ -86,7 +89,7 @@ class Player extends Model
 
     protected $with = [];
 
-    protected $appends = ['name', 'phone'];
+    protected $appends = ['name', 'phone', 'participation'];
 
     protected function name(): Attribute
     {
@@ -108,6 +111,11 @@ class Player extends Model
         return Attribute::make(get: fn () => $this->user?->email);
     }
 
+    public function participation(): int
+    {
+        return Game::select('event_id')->where('player_id', $this->id)->distinct()->count('event_id');
+    }
+
     public function team(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Team::class, 'team_id', 'id');
@@ -126,5 +134,10 @@ class Player extends Model
     public function position(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Position::class);
+    }
+
+    public function ranks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Rank::class);
     }
 }

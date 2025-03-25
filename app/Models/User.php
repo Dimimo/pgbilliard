@@ -12,9 +12,6 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -140,53 +137,58 @@ class User extends Authenticatable
         return false;
     }
 
-    public function admin(): HasOne
+    public function admin(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Admin::class, 'user_id', 'id');
     }
 
-    public function assignees(): HasMany
+    public function assignees(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Admin::class, 'assigned_by', 'id');
     }
 
-    public function venue(): HasOne
+    public function venue(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Venue::class, 'user_id', 'id');
     }
 
-    public function players(): HasMany
+    public function players(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Player::class, 'user_id', 'id');
     }
 
-    public function posts(): HasMany
+    public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Post::class, 'user_id', 'id');
     }
 
-    public function comments(): HasMany
+    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Comment::class, 'user_id', 'id');
     }
 
-    public function visits(): HasMany
+    public function visits(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Visit::class, 'user_id', 'id');
     }
 
-    public function chatMessages(): HasMany
+    public function chatMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ChatMessage::class);
     }
 
-    public function chatRooms(): BelongsToMany
+    public function chatRooms(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(ChatRoom::class)->withTimestamps();
     }
 
-    public function formats(): hasMany
+    public function formats(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Format::class);
+    }
+
+    public function ranks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Rank::class);
     }
 }

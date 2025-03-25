@@ -6,7 +6,6 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -19,6 +18,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read Collection<int, Date> $dates
  * @property-read int|null              $dates_count
+ * @property-read Collection<int, Rank> $ranks
+ * @property-read int|null              $ranks_count
  * @property-read Collection<int, Team> $teams
  * @property-read int|null              $teams_count
  *
@@ -40,13 +41,18 @@ class Season extends Model
         'players',
     ];
 
-    public function teams(): HasMany
+    public function teams(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Team::class);
     }
 
-    public function dates(): HasMany
+    public function dates(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Date::class);
+    }
+
+    public function ranks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Rank::class);
     }
 }

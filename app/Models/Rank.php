@@ -1,0 +1,72 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * App\Models\Rank
+ *
+ * @property int $id
+ * @property int $season_id
+ * @property int $player_id
+ * @property int $user_id
+ * @property int $max_games total of days played
+ * @property int $participated participated days played
+ * @property int $won
+ * @property int $lost
+ * @property int $played sum of won and lost
+ * @property int $percentage defines the ranking
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Player|null $player
+ * @property-read Season|null $season
+ * @property-read User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereLost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereMaxGames($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereParticipated($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank wherePercentage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank wherePlayed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank wherePlayerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereSeasonId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereWon($value)
+ * @mixin \Eloquent
+ */
+class Rank extends Model
+{
+    protected $fillable = [
+        'season_id',
+        'player_id',
+        'user_id',
+        'max_games',
+        'participated',
+        'won',
+        'lost',
+        'played',
+        'percentage',
+    ];
+
+    protected $with = ['player', 'user'];
+
+    public function season(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Season::class);
+    }
+
+    public function player(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Player::class);
+    }
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+}

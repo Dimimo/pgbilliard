@@ -3,6 +3,8 @@
 namespace App\Livewire\Date;
 
 use App\Events\ScoreEvent;
+use App\Jobs\UpdateRanks;
+use App\Livewire\WithCurrentCycle;
 use App\Models\Event;
 use App\Models\Format;
 use App\Models\Game;
@@ -17,6 +19,7 @@ class Schedule extends Component
 {
     use LogEventsTrait;
     use ConsolidateTrait;
+    use WithCurrentCycle;
 
     public Event $event;
     public Format $format;
@@ -112,7 +115,7 @@ class Schedule extends Component
         ])->update(['win' => $score_is_true ? null : false]);
 
         // check if this is the first score being given, if so, lock the players order
-        if ($this->event->games()->whereNotNull('win')->count()) {
+        if ($this->can_update_players && $this->event->games()->whereNotNull('win')->count()) {
             $this->can_update_players = false;
         }
 
@@ -123,6 +126,9 @@ class Schedule extends Component
 
         $this->dispatch('refresh-list');
         broadcast(new ScoreEvent($this->event))->toOthers();
+
+        // update the individual scores (table: Rank)
+        UpdateRanks::dispatch($this->season);
     }
 
     public function getEventScore(bool $home): int
