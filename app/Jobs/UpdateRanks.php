@@ -6,7 +6,7 @@ use App\Models\Date;
 use App\Models\Event;
 use App\Models\Game;
 use App\Models\Player;
-use App\Models\Season;
+use App\Models\Rank;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -24,7 +24,7 @@ class UpdateRanks implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(public Season $season)
+    public function __construct(public $season)
     {
         //
     }
@@ -61,6 +61,9 @@ class UpdateRanks implements ShouldQueue
 
     private function updateRankTable(): void
     {
+        // as all data is rewritten, we delete all data of the current Season
+        Rank::whereSeasonId($this->season->id)->delete();
+
         $insert = [
             'season_id' => $this->season->id,
             'max_games' => $this->max_possible_games
@@ -84,7 +87,9 @@ class UpdateRanks implements ShouldQueue
                 'percentage' => $score,
             ]);
 
-            $player->ranks()->updateOrCreate($insert);
+            $player->ranks()->save(new Rank($insert));
         }
+
+        $this->dispatch('refresh-requested')->afterCommit();
     }
 }
