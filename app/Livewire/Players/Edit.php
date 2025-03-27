@@ -100,7 +100,7 @@ class Edit extends Component
         // if the player exists in the team but has been set to inactive, reactivate the player
         if ($user_id && $player = Player::whereUserId($user_id)->whereTeamId($this->team->id)->first()) {
             $player->active = true;
-            $this->setPlayerForm($player);
+            $this->setPlayerForm($player->id);
         } else {
             $this->player_form->setPlayer(new Player([
                 'captain' => 0,

@@ -116,6 +116,11 @@ class Player extends Model
         return Game::select('event_id')->where('player_id', $this->id)->distinct()->count('event_id');
     }
 
+    public function getParticipationAttribute(): int
+    {
+        return Game::select('event_id')->where('player_id', $this->id)->distinct()->count('event_id');
+    }
+
     public function team(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Team::class, 'team_id', 'id');
