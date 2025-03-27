@@ -18,6 +18,11 @@ Broadcast::channel('live-score', function () {
     return ['ably-capability' => ["subscribe", "publish"]];
 });
 
+// for universal use, just request a refresh of the page
+Broadcast::channel('refresh-request', function () {
+    return ['ably-capability' => ["subscribe", "publish"]];
+});
+
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
