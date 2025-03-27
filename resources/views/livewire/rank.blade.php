@@ -14,8 +14,8 @@
         </div>
     @endif
     <ul>
-        @foreach($results->take(30) as $result)
-            <li>
+        @foreach($results->take(10) as $result)
+            <li wire:key="rank-{{ $result->player_id }}">
                 <span class="mr-2 font-bold">{{ $rank++ }}</span>{{ $result->percentage }}% - {{ $result->user->name }}
                 with {{ $result->won }} games won
                 out of {{ $result->played }} total played games
@@ -27,11 +27,7 @@
 
     @script
     <script>
-        let echoPublicChannel = window.Echo.channel('refresh-requested');
-        let ablyPublicChannelName = echoPublicChannel.name;
-        console.log(ablyPublicChannelName);
         $wire.on('refresh-requested', () => {
-            console.log('refresh requested');
             $wire.$commit();
         });
     </script>

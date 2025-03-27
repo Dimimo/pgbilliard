@@ -2,14 +2,14 @@
 
 namespace App\Livewire;
 
-use App\Jobs\UpdateRanks;
 use App\Models\Season;
 use Illuminate\Support\Collection;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Rank extends Component
 {
+    use UpdateRanksTrait;
+
     public Collection $results;
     public Season $season;
     public int $rank = 1;
@@ -17,7 +17,7 @@ class Rank extends Component
     public function mount(): void
     {
         $this->season = Season::where('cycle', session('cycle'))->first();
-        $this->results = $this->season->ranks()->orderByDesc('percentage')->get();
+        $this->getResults();
     }
 
     public function render(): \Illuminate\View\View
@@ -27,14 +27,14 @@ class Rank extends Component
 
     public function requestUpdate(): void
     {
-        UpdateRanks::dispatchSync($this->season);
+        $this->updateRanks();
         $this->dispatch('updated');
+        $this->getResults();
+        $this->dispatch('refresh-requested')->self();
     }
 
-    #[On('echo:refresh-requested,RefreshRequested')]
-    public function refreshRequested(): void
+    private function getResults(): void
     {
         $this->results = $this->season->ranks()->orderByDesc('percentage')->get();
-        $this->dispatch('refresh-requested');
     }
 }

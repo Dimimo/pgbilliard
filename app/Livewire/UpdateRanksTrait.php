@@ -1,42 +1,23 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Livewire;
 
 use App\Models\Date;
 use App\Models\Event;
 use App\Models\Game;
 use App\Models\Player;
 use App\Models\Rank;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Log;
 
-class UpdateRanks implements ShouldQueue
+trait UpdateRanksTrait
 {
-    use Queueable;
-    use Dispatchable;
+    private Collection $players;
+    private int $max_possible_games = 0;
 
-    public Collection $players;
-    public int $max_possible_games = 0;
-
-    /**
-     * Create a new job instance.
-     */
-    public function __construct(public $season)
-    {
-        //
-    }
-
-    /**
-     * Execute the job.
-     */
-    public function handle(): void
+    private function updateRanks(): void
     {
         $this->populateData();
         $this->updateRankTable();
-        Log::info('[UpdateRanks] job executed');
     }
 
     private function populateData(): void
@@ -89,7 +70,5 @@ class UpdateRanks implements ShouldQueue
 
             $player->ranks()->save(new Rank($insert));
         }
-
-        $this->dispatch('refresh-requested')->afterCommit();
     }
 }
