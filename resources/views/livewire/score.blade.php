@@ -20,7 +20,7 @@
         <x-navigation.main-links-buttons/>
 
         <div
-            class="lg:hidden my-2 mx-auto w-min md:ml-auto md:mr-6 whitespace-nowrap rounded-full border border-gray-500 bg-gray-100 text-center">
+            class="mx-auto my-2 w-min whitespace-nowrap rounded-full border border-gray-500 bg-gray-100 text-center md:mr-6 md:ml-auto lg:hidden">
             <button class="px-4 py-2" wire:click="toggleShowFullTable">
                 {{ $show_full_table ? 'Hide some' : 'Show all' }} columns
             </button>
@@ -181,6 +181,23 @@
             @endforeach
             </tbody>
         </table>
+    </div>
+
+    <div class="mt-12 rounded-lg border-2 border-gray-900 p-4">
+        <x-title
+            title="{{__('The individual ranking overview')}}"
+            subtitle="{{__('Season')}} {{ session('cycle') }}"
+            help="ranking"
+            :gradient="false"
+        />
+
+        <div class="m-4 rounded-lg border border-red-400 bg-red-50 p-2 text-center">
+            This is still experimental! Please read the help file
+            <button wire:click="$dispatch('openModal', { component: 'help.ranking' })">
+                <x-svg.circle-question-regular color="fill-green-700" size="4"/>
+            </button>
+        </div>
+        <livewire:rank/>
     </div>
 
     @script
