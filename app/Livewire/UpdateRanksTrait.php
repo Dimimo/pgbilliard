@@ -41,22 +41,12 @@ trait UpdateRanksTrait
 
     private function updateRankTable(): void
     {
-        // as all data is rewritten, we delete all data of the current Season
-        Rank::whereSeasonId($this->season->id)->delete();
-
         $insert = [
             'season_id' => $this->season->id,
             'max_games' => $this->max_possible_games
         ];
 
         foreach ($this->players as $player) {
-            if (!$player->games_won) {
-                $score = 0;
-            } else {
-                $score = $player->games_won / ($player->games_won + $player->games_lost) * ($player->participation / $this->max_possible_games) * 100;
-                $score = round($score);
-            }
-
             $insert = array_merge($insert, [
                 'player_id' => $player->id,
                 'user_id' => $player->user_id,
@@ -64,10 +54,35 @@ trait UpdateRanksTrait
                 'won' => $player->games_won,
                 'lost' => $player->games_lost,
                 'played' => $player->games_played,
-                'percentage' => $score,
+                'percentage' => 0,
             ]);
 
-            $player->ranks()->save(new Rank($insert));
+            Rank::updateOrCreate(
+                ['season_id' => $this->season->id, 'player_id' => $player->id],
+                $insert
+            );
         }
+
+        // we add the percentage this way, the calculation takes participation and played games into account
+        $adjusted_percentage = $this->finalAdjustedPercentage();
+        foreach ($adjusted_percentage as $player_id => $percentage) {
+            Rank::whereSeasonId($this->season->id)
+                ->wherePlayerId($player_id)
+                ->update(['percentage' => $percentage]);
+        }
+    }
+
+    private function finalAdjustedPercentage(): array
+    {
+        // OVER () * (won / played) works as long as the first player has the most wins ('games_won')
+        return Rank::selectRaw("player_id,
+                ((won / played) * (participated / max_games)) /
+                MAX((won / played) * (participated / max_games))
+                OVER () * (won / played) * 100 AS percentage")
+            ->whereSeasonId($this->season->id)
+            ->where('played', '>', 0)
+            ->orderByDesc('percentage')
+            ->pluck('percentage', 'player_id')
+            ->toArray();
     }
 }
