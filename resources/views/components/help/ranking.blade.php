@@ -15,6 +15,10 @@
         <span class="font-bold">A double game</span> results in a win (or loss) of 2 players. The ranking doesn't differentiate
         between singles or doubles.
     </div>
+    <div class="mb-4">
+        <span class="font-bold">Changing teams</span> has no influence on individual achievements. The only thing that changes is
+        the current team name.
+    </div>
     <div class="mb-4 font-bold">
         Some explanation:
     </div>
