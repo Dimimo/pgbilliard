@@ -30,7 +30,7 @@ class Rank extends Component
         $this->updateRanks();
         $this->dispatch('updated');
         $this->getResults();
-        $this->dispatch('refresh-requested')->self();
+        $this->dispatch('refresh-request')->self();
     }
 
     private function getResults(): void
