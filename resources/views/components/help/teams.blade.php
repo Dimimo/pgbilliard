@@ -46,20 +46,20 @@
         you will receive an email with the data your new team member needs in order to log in and change their credentials.
     </div>
     <div class="mb-4 border-2 border-gray-500 bg-gray-100 p-4">
-        <div class="mb-2 font-bold">Players leaving or switch to another team</div>
+        <div class="mb-2 font-bold">Players leaving or switching to another team</div>
         <div class="mb-2">
             If a player leaves and won't come back (holiday is over f.ex.) OR a player wants to switch to another team,
             <span class="font-bold">you can safely remove the player from the list</span>. Doing so HAS NO impact on past
             games.
         </div>
         <div class="mb-2">
-            <span class="font-bold">How does it works under the hood?</span> The players gets
+            <span class="font-bold">How does it works under the hood?</span> The player gets
             <span class="italic">deactivated</span>. (S)he is still  in the league, but has no more attachment to a team.
             If the player comes back OR switches team, the player's status is updated accordingly.
         </div>
         <div class="mb-2">
             <span class="font-bold">For Captains:</span> a player that is deactivated becomes available to invite
-            into another team.
+            into any team.
         </div>
         <div>
             A player's status OR team has no influence on
