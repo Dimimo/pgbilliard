@@ -35,6 +35,10 @@ class Rank extends Component
 
     private function getResults(): void
     {
-        $this->results = $this->season->ranks()->orderByDesc('percentage')->get();
+        $this->results = $this->season
+            ->ranks()
+            ->with('player.team')
+            ->orderByDesc('percentage')
+            ->get();
     }
 }
