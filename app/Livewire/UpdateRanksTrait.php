@@ -26,7 +26,6 @@ trait UpdateRanksTrait
         $dates = Date::whereSeasonId($this->season->id)->orderBy('date')->pluck('id');
         $event_ids = Event::whereIn('date_id', $dates)->whereNotNull(['score1', 'score2'])->pluck('id');
         $this->max_possible_games = count($event_ids) / $teams_count * 2;
-        // $games_played_count = Game::whereIn('event_id', $event_ids)->whereNotNull('player_id')->whereNotNull('win')->pluck('player_id')->count();
         $player_ids = Game::whereIn('event_id', $event_ids)->whereNotNull('player_id')->pluck('player_id')->unique();
         $this->players = Player::whereIn('players.id', $player_ids)
             ->withCount([
