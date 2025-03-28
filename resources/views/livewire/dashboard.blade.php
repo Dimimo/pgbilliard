@@ -66,6 +66,16 @@
                             {{ $team->name }}
                         </a>
                     </div>
+                    <div class="my-4">
+                        Your current <a
+                            href="{{ route('rank') }}"
+                            class="inline-block text-blue-800 link"
+                            wire:navigate
+                        >individual rank is</a>
+                        <span class="m-1 rounded-full border border-green-500 bg-green-100 px-2 py-1 font-bold">
+                            {{ $rank }}
+                        </span>
+                    </div>
                     @if ($player->captain)
                         <div>
                             You are the Captain, you can <a
