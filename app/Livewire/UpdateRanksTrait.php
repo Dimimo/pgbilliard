@@ -68,7 +68,7 @@ trait UpdateRanksTrait
         foreach ($adjusted_percentage as $player_id => $percentage) {
             Rank::whereSeasonId($this->season->id)
                 ->wherePlayerId($player_id)
-                ->update(['percentage' => $percentage]);
+                ->update(['percentage' => $percentage*100]);
         }
     }
 
@@ -78,7 +78,7 @@ trait UpdateRanksTrait
         return Rank::selectRaw("player_id,
                 ((won / played) * (participated / max_games)) /
                 MAX((won / played) * (participated / max_games))
-                OVER () * (won / played) * 100 AS percentage")
+                OVER () AS percentage")
             ->whereSeasonId($this->season->id)
             ->where('played', '>', 0)
             ->orderByDesc('percentage')
