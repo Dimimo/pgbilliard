@@ -52,6 +52,12 @@ Route::get('mailable/captain-reminder/{user}', function ($user) {
     return new \App\Mail\RemindCaptainOfNewUser($user);
 });
 
+Route::get('mailable/contact-players', function() {
+    $subject = "A simple test";
+    $body = "The body content\nwith a new line";
+    return new \App\Mail\ContactPlayers($subject, $body);
+});
+
 // try with /mailable/game-reminder/300/240
 Route::get('mailable/game-reminder/{date}/{team}', function ($date, $team) {
     $date = \App\Models\Date::find($date);
