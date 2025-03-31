@@ -68,7 +68,7 @@ trait UpdateRanksTrait
         foreach ($adjusted_percentage as $player_id => $percentage) {
             Rank::whereSeasonId($this->season->id)
                 ->wherePlayerId($player_id)
-                ->update(['percentage' => $percentage*100]);
+                ->update(['percentage' => $percentage * 100]);
         }
     }
 

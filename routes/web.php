@@ -52,7 +52,7 @@ Route::get('mailable/captain-reminder/{user}', function ($user) {
     return new \App\Mail\RemindCaptainOfNewUser($user);
 });
 
-Route::get('mailable/contact-players', function() {
+Route::get('mailable/contact-players', function () {
     $subject = "A simple test";
     $body = "The body content\nwith a new line";
     return new \App\Mail\ContactPlayers($subject, $body);
