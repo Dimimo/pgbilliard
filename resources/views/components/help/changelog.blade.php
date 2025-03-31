@@ -46,6 +46,7 @@
         </li>
         <li>The last updated score is highlighted in color. On the Scoreboard, the Calendar and daily overview.<li>
         <li>The individual ranking is now available <span class="font-bold">but still in beta!</span></li>
+        <li>For Admins: you may send out emails to Captains and/or Players</li>
     </ul>
 </div>
 <div class="mt-4">
