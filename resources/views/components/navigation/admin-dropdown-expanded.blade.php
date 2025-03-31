@@ -53,6 +53,10 @@
 
         <hr class="my-2 w-fill border-b border-b-indigo-700">
 
+        <x-forms.dropdown-link :href="route('admin.contact')" wire:navigate>
+            {{ __('Send emails to players') }}
+        </x-forms.dropdown-link>
+
         <x-forms.dropdown-link :href="route('admin.overview')" wire:navigate>
             {{ __('List of admins') }}
         </x-forms.dropdown-link>
