@@ -19,4 +19,6 @@ class Constants
     public const DATEFORMAT_START = 12;
     public const DATEFORMAT_END = 20;
     public const SCHEDULE_DETAILS = 256;
+    public const EMAIL_TITLE = 80;
+    public const EMAIL_BODY = 5000;
 }
