@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command('queue:work --tries=2 --max-time=900 --queue=high,default')->runInBackground();
+        // $schedule->command('queue:work --tries=2 --max-time=900 --queue=high,default')->runInBackground();
         $schedule->command('day-scores')->dailyAt('12:00');
         // $schedule->command('queue:start-redis-server')->everyFiveMinutes()->runInBackground();
         $schedule->job(new PlayDayReminder())->dailyAt('12:00');
