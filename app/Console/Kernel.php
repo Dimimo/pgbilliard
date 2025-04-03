@@ -13,16 +13,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->command('queue:work --tries=2 --max-time=900 --queue=high,default')->runInBackground();
         $schedule->command('day-scores')->dailyAt('12:00');
         $schedule->command('queue:start-redis-server')->everyFiveMinutes()->runInBackground();
         $schedule->job(new PlayDayReminder())->dailyAt('12:00');
         $schedule->command('backup:clean')->daily()->at('01:00');
         $schedule->command('backup:run')->daily()->at('01:15');
 
-        if (str_contains(shell_exec('ps xa'), 'tries=2') === false) {
+        /*if (str_contains(shell_exec('ps xa'), 'tries=2') === false) {
             //https://www.tecmint.com/run-linux-command-process-in-background-detach-process/
             $schedule->command('queue:work --tries=2 --max-time=930 --queue=high,default')->runInBackground();
-        }
+        }*/
     }
 
     /**
