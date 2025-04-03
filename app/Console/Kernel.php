@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
 
         if (str_contains(shell_exec('ps xa'), 'tries=2') === false) {
             //https://www.tecmint.com/run-linux-command-process-in-background-detach-process/
-            $schedule->command('queue:work --tries=2 --max-time=900 --queue=high,default')->runInBackground();
+            $schedule->command('queue:work --tries=2 --max-time=930 --queue=high,default')->runInBackground();
         }
     }
 
