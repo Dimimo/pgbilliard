@@ -9,8 +9,8 @@ name('seasons.all');
 
     <section>
         <x-title>
-            <x-slot:title>All seasons</x-slot:title>
-            <x-slot:subtitle>Select a season</x-slot:subtitle>
+            <x-slot:title>{{__('All Seasons')}}</x-slot:title>
+            <x-slot:subtitle>{{__('Select another Season')}}</x-slot:subtitle>
         </x-title>
 
         <livewire:cycle-all/>

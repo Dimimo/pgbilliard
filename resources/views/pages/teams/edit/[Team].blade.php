@@ -13,8 +13,8 @@ name('teams.edit');
     @volt
     <section>
         <x-title
-            title="Edit the team <strong>{{$team->name}}</strong>"
-            subtitle="Season {{ session('cycle') }}"
+            title="{{__('Edit the team')}} <strong>{{$team->name}}</strong>"
+            subtitle="{{__('Season')}} {{ session('cycle') }}"
             help="teams"
         />
 
@@ -27,7 +27,7 @@ name('teams.edit');
 
             <livewire:players.edit :team="$team"/>
         @else
-            <div class="text-red-700 text-xl">You don't have access to this page</div>
+            <div class="text-red-700 text-xl">{{__("You don't have access to this page")}}</div>
         @endcan
 
     </section>

@@ -14,8 +14,8 @@ name('venues.show');
     @volt
     <section>
         <x-title
-            title="Details of the venue <strong>{{ $venue->name }}</strong>"
-            subtitle="Season {{ $cycle }}"
+            title="{{__('Details of the venue')}} <strong>{{ $venue->name }}</strong>"
+            subtitle="{{__('Season')}} {{ $cycle }}"
         />
         <livewire:venue :venue="$venue" :title="$venue->name"/>
 
