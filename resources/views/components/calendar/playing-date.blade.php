@@ -1,10 +1,10 @@
 @props(['dates', 'last_day'])
-<label for="date_id">Playing date</label>
+<label for="date_id">{{__('Playing date')}}</label>
 <div class="flex items-center justify-between">
     <select
         class="block appearance-none w-auto py-1 pl-4 pr-8 mr-4 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-500 rounded"
         id="date_id" wire:model.change="event.date_id">
-        <option value=""> -- select date --</option>
+        <option value=""> -- {{__('select date')}} --</option>
         @foreach($dates as $date)
             <option
                 value="{{ $date->id }}"
@@ -25,7 +25,7 @@
             wire:model.change="dateForm.regular"
         />
         <label for="regular" class="ml-3 block text-sm">
-            Special date?
+            {{__('Special date')}}?
         </label>
     </div>
 
@@ -45,7 +45,7 @@
                 'bg-green-100' => $last_day->regular
 
 ]           )
-            placeholder="{{ $last_day->regular ? 'Finals? Semi\'s? Other?' : '' }}"
+            placeholder="{{ $last_day->regular ? __("Finals? Semi? Other?") : "' }}"
             wire:model.live.debounce.500ms="dateForm.title"
         />
     </label>

@@ -28,10 +28,10 @@ $updateContactNr = function () {
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
-            Contact Number
+            {{__('Contact Number')}}
         </h2>
         <p class="mt-1 text-sm text-gray-600">
-            You may leave this empty. Except for bar owners and captains.
+            {{__('You may leave this empty, except for bar owners and captains')}}.
         </p>
     </header>
 

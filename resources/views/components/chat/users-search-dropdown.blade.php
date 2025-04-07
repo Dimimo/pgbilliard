@@ -5,7 +5,7 @@
             @click="open = ! open"
             class="px-6 py-2 rounded text-white text-sm font-semibold border-none outline-none bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
     >
-        Invite people
+        {{__('Invite players')}}
 
         <svg
             x-show="! open"

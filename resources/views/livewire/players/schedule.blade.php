@@ -2,10 +2,10 @@
     <table class="border-separate border-spacing-2">
         <thead class="whitespace-nowrap">
         <tr class="bg-gray-100">
-            <th class="p-2 text-left text-gray-900 font-semibold">Date</th>
-            <th class="p-2 text-left text-red-700">Home Team</th>
-            <th class="p-2 text-left text-blue-700">Visitor</th>
-            <th class="p-2 text-gray-900 text-center">Score</th>
+            <th class="p-2 text-left text-gray-900 font-semibold">{{__('Date')}}</th>
+            <th class="p-2 text-left text-red-700">{{__('Home Team')}}</th>
+            <th class="p-2 text-left text-blue-700">{{__('Visitor')}}</th>
+            <th class="p-2 text-gray-900 text-center">{{__('Score')}}</th>
         </tr>
         </thead>
         <tbody class="whitespace-nowrap">
@@ -67,7 +67,7 @@
                                     {{ $event->score1 }}
                                 </strong>/{{ $event->score2 }}
                             @elseif($event->score1 === 0 && $event->score2 === 0)
-                                <span class="red">Not in</span>
+                                <span class="red">{{__('Not in')}}</span>
                             @else
                                 ----
                             @endif
@@ -128,7 +128,7 @@
                                 {{ $event->score1 }}/<strong
                                     class="{{ $event->score2 > 7 ? 'text-green-700 font-bold' : 'text-red-700' }}">{{ $event->score2 }}</strong>
                             @elseif($event->score1 === 0 && $event->score2 === 0)
-                                <span class="red">Not in</span>
+                                <span class="red">{{__('Not in')}}</span>
                             @else
                                 ----
                             @endif

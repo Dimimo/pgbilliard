@@ -15,12 +15,12 @@
             </div>
         </div>
     @empty
-        <div class="flex justify-center text-xl">No selected players in this team</div>
+        <div class="flex justify-center text-xl">{{__('No selected players in this team')}}</div>
     @endforelse
 
     @if(!request()->is('teams/show/*'))
         <a href="{{ route('teams.show', ['team' => $team]) }}" class="flex justify-end px-4 pt-4 text-blue-700" wire:navigate>
-            Team details
+            {{__('Team details')}}
         </a>
     @endif
 
@@ -28,7 +28,7 @@
         <div class="mr-4 mb-1 flex justify-end">
             <a href="{{ route('teams.edit', ['team' => $team]) }}" class="inline-block link text-blue-700" wire:navigate>
                 <x-svg.pen-to-square-solid color="fill-blue-700" size="4" padding="mr-2 mb-1"/>
-                Edit the team players
+                {{__('Edit the team players')}}
             </a>
         </div>
     @endcan

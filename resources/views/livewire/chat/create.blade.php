@@ -2,7 +2,7 @@
     <form wire:submit="{{ $new ? 'create' : 'update' }}">
         <div class="p-4">
             <x-forms.input-label for="name" class="text-left">
-                Room name <span class="text-sm">(max 12 chars)</span>
+                {{__('Room name')}} <span class="text-sm">(max {{ \App\Constants::CHATROOM_TITLE }} chars)</span>
             </x-forms.input-label>
 
             <x-forms.text-input
@@ -20,22 +20,22 @@
 
         <div class="p-4">
             <x-forms.checkbox :checked="$private" for="private" wire:model="private">
-                <x-forms.input-label for="private" value="Is this room private?"/>
+                <x-forms.input-label for="private" value="{{__('Is this room private')}}?"/>
             </x-forms.checkbox>
             <x-forms.input-error class="mt-2" :messages="$errors->get('private')"/>
         </div>
 
         <div class="p-4 grid grid-cols-1 gap-4">
             <x-forms.primary-button>
-                {{ $new ? 'Create the new Room' : 'Update your Chat Room' }}
+                {{ $new ? __('Create the new Room') : __('Update your Chat Room') }}
             </x-forms.primary-button>
             <x-forms.spinner target="create, update"/>
 
             <x-forms.action-message class="mr-3" on="room-created">
-                Room created!
+                {{__('Room created')}}!
             </x-forms.action-message>
             <x-forms.action-message class="mr-3" on="room-updated">
-                Room updated!
+                {{__('Room updated')}}!
             </x-forms.action-message>
         </div>
     </form>

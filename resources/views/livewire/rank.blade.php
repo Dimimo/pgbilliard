@@ -9,7 +9,7 @@
                 Request update
             </button>
             <div>
-                <x-forms.action-message on="updated">Updated!</x-forms.action-message>
+                <x-forms.action-message on="updated">{{__('Updated')}}!</x-forms.action-message>
             </div>
         </div>
     @endif
@@ -23,9 +23,9 @@
             <th class="bg-indigo-100 text-center">
                 <x-svg.percent-solid color="fill-indigo-500" size="5"/>
             </th>
-            <th class="bg-blue-300 p-2 text-left text-gray-900">Name</th>
+            <th class="bg-blue-300 p-2 text-left text-gray-900">{{__('Name')}}</th>
             <th class="bg-gray-100 p-2 text-left" title="Current team">
-                Current Team
+                {{__('Current Team')}}
             </th>
             <th class="bg-green-300 p-2 text-center">
                 <x-svg.thumbs-up-solid color="fill-green-600" size="5"/>

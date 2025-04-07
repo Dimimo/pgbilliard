@@ -6,15 +6,21 @@
     <table class="min-w-full table-auto border-separate border-spacing-y-3">
         <thead class="whitespace-nowrap">
         <tr class="border border-slate-300">
-            <th class="border border-slate-300 bg-slate-100 p-2 text-left">Teams</th>
+            <th class="border border-slate-300 bg-slate-100 p-2 text-left">
+                {{__('Teams')}}
+            </th>
             <th class="hidden border border-slate-300 bg-slate-100 p-2 text-left md:table-cell">
-                Venue
+                {{__('Venue')}}
             </th>
             <th class="border border-slate-300 bg-slate-100 p-2 text-center" title="number of players">
                 <x-svg.list-ul-solid color="fill-blue-700" size="4" padding="mr-2 mb-1"/>
             </th>
-            <th class="border border-slate-300 bg-slate-100 p-2 text-left">Captain</th>
-            <th class="border border-slate-300 bg-slate-100 p-2 text-left">Contact</th>
+            <th class="border border-slate-300 bg-slate-100 p-2 text-left">
+                {{__('Captain')}}
+            </th>
+            <th class="border border-slate-300 bg-slate-100 p-2 text-left">
+                {{__('Contact')}}
+            </th>
         </tr>
         </thead>
         <tbody class="whitespace-nowrap">

@@ -9,7 +9,7 @@
         <form wire:submit="{{ $comment_form->comment->id ? "update" : "create" }}">
             <div class="grid justify-items-center mt-2">
                 <x-forms.input-label for="comment_form.body">
-                    Your comment
+                    {{__('Your comment')}}
                 </x-forms.input-label>
                 <div>
                     @error('comment_form.body') <span class="text-red-700">{{ $message }}</span> @enderror
@@ -24,13 +24,13 @@
                     </div>
                     <x-forms.spinner target="create, update, delete"/>
                     <x-forms.action-message class="inline-block mx-3" on="comment-saved">
-                        Saved!
+                        {{__('Saved')}}!
                     </x-forms.action-message>
                     <x-forms.action-message class="inline-block mx-3" on="comment-updated">
-                        Updated!
+                        {{__('Updated')}}!
                     </x-forms.action-message>
                     <x-forms.action-message class="inline-block mx-3" on="comment-deleted">
-                        Deleted!
+                        {{__('Deleted')}}!
                     </x-forms.action-message>
                 </div>
             </div>

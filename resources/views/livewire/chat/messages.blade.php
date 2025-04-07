@@ -11,7 +11,7 @@
                         <div class="text-gray-800">{{ $chat->message }}</div>
                         @can('delete', $chat)
                             <button
-                                wire:confirm="Are you sure to delete your message?"
+                                wire:confirm="{{__('Are you sure to delete your message')}}?"
                                 wire:click="deleteMessage({{ $chat->id }})"
                             >
                                 <x-svg.trash-can-solid color="fill-gray-500" size="4"/>
@@ -33,14 +33,14 @@
                     autofocus
                     wire:model.live.debounce.500ms="new_chat"
                 />
-                <x-forms.secondary-button type="submit">Send</x-forms.secondary-button>
+                <x-forms.secondary-button type="submit">{{__('Send')}}</x-forms.secondary-button>
             </div>
             <small class="block ml-2">
-                Character left:
+                {{__('Character left')}}:
                 <span x-text="$wire.new_chat ? {{ $max_chars }} - $wire.new_chat.length : {{ $max_chars }}"></span>
                 <x-forms.input-error class="mt-2 ml-2" :messages="$errors->get('new_chat')"/>
                 <x-forms.action-message on="message-deleted">
-                    Message deleted
+                    {{__('Message deleted')}}
                 </x-forms.action-message>
             </small>
         </form>

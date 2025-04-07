@@ -5,6 +5,6 @@
             wire:click="$toggle('showComment')"
             class="p-2 mx-auto bg-yellow-100 border-2 border-yellow-500 cursor-pointer">
         <x-svg.message-regular color="fill-black" size="5" padding=""/>
-        {{ $showComment ? 'Hide comment' : 'Add a comment'}}
+        {{ $showComment ? __('Hide comment') : __('Add a comment')}}
     </button>
 </div>

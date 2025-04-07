@@ -5,15 +5,15 @@
         <tr>
             <th></th>
             <th class="px-6 py-3 text-left text-sm font-semibold text-white"></th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-white">Started by</th>
-            <th class="px-6 py-3 text-left text-sm font-semibold text-white">Last update</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-white">{{__('Started by')}}</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-white">{{__('Last update')}}</th>
             <th></th>
             @if(session('is_admin'))
-                <th class="px-6 py-3 text-left text-sm font-semibold text-white">Sticky?</th>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-white">{{__('Sticky')}}?</th>
             @endif
-            <th class="px-6 py-3 text-left text-sm font-semibold text-white">Locked?</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-white">{{__('Locked')}}?</th>
             @auth()
-                <th class="px-6 py-3 text-left text-sm font-semibold text-white">Actions</th>
+                <th class="px-6 py-3 text-left text-sm font-semibold text-white">{{__('Actions')}}</th>
             @endauth
         </tr>
         </thead>
@@ -22,11 +22,11 @@
             <tr class="h-8 hover:bg-blue-50" wire:key="{{ $post->id }}">
                 <td>
                     @if ($post->visits->count() === 1)
-                        <div class="ml-4" title="Has been opened">
+                        <div class="ml-4" title="{{__('Has been opened')}}">
                             <x-svg.envelope-open-text-solid color="fill-green-700" size="5"/>
                         </div>
                     @else
-                        <div class="ml-4" title="Not opened yet">
+                        <div class="ml-4" title="{{__('Not opened yet')}}">
                             <x-svg.envelope-solid color="fill-indigo-600" size="5"/>
                         </div>
                     @endif

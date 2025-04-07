@@ -39,7 +39,7 @@
                                         class="animate-pulse"
                                         wire:navigate
                                     >
-                                        Live update!
+                                        {{__('Live update')}}!
                                     </a>
                                 </div>
                             @endif
@@ -53,8 +53,8 @@
                             <table class="mb-4 w-full">
                                 <thead class="whitespace-nowrap">
                                 <tr class="bg-gray-100">
-                                    <th class="p-2 text-left text-red-700">Home Team</th>
-                                    <th class="p-2 text-right text-blue-700">Visitors</th>
+                                    <th class="p-2 text-left text-red-700">{{__('Home Team')}}</th>
+                                    <th class="p-2 text-right text-blue-700">{{__('Visitors')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody class="whitespace-nowrap">
@@ -125,7 +125,7 @@
 
                                         <tr>
                                             <td colspan="2" class="text-center font-medium text-red-600">
-                                                Game @ {{ $event->venue->name }}
+                                                {{__('Game')}} @ {{ $event->venue->name }}
                                             </td>
                                         </tr>
                                     @endif
@@ -136,21 +136,20 @@
                         @else
                             <div class="border-x-2 border-b-2 border-green-500 bg-green-100/25 p-2">
                                 @can ('create', $date)
-                                    There are no games yet, <a
+                                {{__('There are no games yet')}}, <a
                                         href="{{ route('admin.calendar.update', ['season' => $date->season]) }}"
                                         class="inline-block text-blue-600 link"
                                         wire:navigate
-                                    >please create
-                                        some
+                                    >{{__('please create some')}}
                                     </a> or <a
                                         href="{{ route('admin.calendar.update', ['season' => $date->season]) }}"
                                         class="inline-block text-blue-600 link"
                                         wire:navigate
                                     >
-                                        delete the date</a>
-                                    if this is an error or a holiday
+                                {{__('delete the date')}}</a>
+                                {{__('if this is an error or a holiday')}}
                                 @else
-                                    There are no games yet. The teams will appear when the games are known.
+                                {{__('There are no games yet')}}
                                 @endcan
                             </div>
                         @endif

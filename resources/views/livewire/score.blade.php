@@ -10,7 +10,7 @@
                             class="animate-pulse link"
                             wire:navigate
                         >
-                            Live update!
+                            {{__('Live update')}}!
                         </a>
                     </div>
                 @endif
@@ -22,7 +22,7 @@
         <div
             class="mx-auto my-2 w-min whitespace-nowrap rounded-full border border-gray-500 bg-gray-100 text-center md:mr-6 md:ml-auto lg:hidden">
             <button class="px-4 py-2" wire:click="toggleShowFullTable">
-                {{ $show_full_table ? 'Hide some' : 'Show all' }} columns
+                {{ $show_full_table ? 'Hide some' : 'Show all' }} {{__('columns')}}
             </button>
         </div>
 
@@ -30,9 +30,15 @@
             <thead class="whitespace-nowrap">
             <tr>
                 <th class="bg-gray-300 p-2 text-center text-gray-900">#</th>
-                <th class="bg-blue-300 p-2 text-left text-gray-900">Team</th>
-                <th class="bg-amber-300 p-2 text-left text-gray-900">Last game</th>
-                <th class="bg-yellow-200 p-2 text-center text-gray-900" title="Last scores">Score</th>
+                <th class="bg-blue-300 p-2 text-left text-gray-900">
+                    {{__('Team')}}
+                </th>
+                <th class="bg-amber-300 p-2 text-left text-gray-900">
+                    {{__('Last game')}}
+                </th>
+                <th class="bg-yellow-200 p-2 text-center text-gray-900" title="{{__('Last scores')}}">
+                    {{__('Score')}}
+                </th>
                 <th @class([
                 'bg-green-300 p-2 text-gray-900',
                 'hidden sm:table-cell' => ! $show_full_table
@@ -75,7 +81,7 @@
             @foreach ($scores as $score)
                 @if (!$score->get('played'))
                     <div class="m-5 box-rounded-danger">
-                        <h3 class="center">No games yet</h3>
+                        <h3 class="center">{{__('No games yet')}}</h3>
                     </div>
                     @break
                 @else
@@ -87,7 +93,7 @@
                     @endphp
 
                     <tr class="h-8" wire:key="{{ $score->get('id') }}">
-                        <td class="bg-gray-200 p-2 text-center text-gray-900" title="Your current position">
+                        <td class="bg-gray-200 p-2 text-center text-gray-900" title="{{__('Your current position')}}">
                             <strong>{{ $i++ }}</strong>
                         </td>
                         <td
@@ -103,7 +109,7 @@
                                 {{ $score->get('team')->name }}
                             </a>
                         </td>
-                        <td class="bg-amber-200 p-2 text-gray-900" title="Last played Team (week {{ $week }})">
+                        <td class="bg-amber-200 p-2 text-gray-900" title="{{__('Last played Team')}} ({{__('week')}} {{ $week }})">
                             <a href="{{ route('teams.show', ['team' => $score->get('played')]) }}" class="link" wire:navigate>
                                 @if ($score->get('max_games') === $score->get('games_played'))
                                     {{ $score->get('played')->name }}
@@ -142,38 +148,38 @@
                         <td @class([
                         'bg-green-200 p-2 text-center text-gray-900',
                         'hidden sm:table-cell' => ! $show_full_table
-                    ]) title="Daily games won">
+                    ]) title="{{__('Daily games won')}}">
                             {{ $score->get('won') }}
                         </td>
                         <td @class([
                         'bg-red-100 p-2 text-center text-gray-900',
                         'hidden sm:table-cell' => ! $show_full_table
-                    ]) title="Daily games lost">
+                    ]) title="{{__('Daily games lost')}}">
                             {{ $score->get('lost') }}
                         </td>
                         <td @class([
                         'bg-green-200 p-2 text-center text-gray-900',
                         'hidden lg:table-cell' => ! $show_full_table
-                    ]) title="Total games won">
+                    ]) title="{{__('Total games won')}}">
                             {{ $score->get('for') }}
                         </td>
                         <td @class([
                         'bg-red-100 p-2 text-center text-gray-900',
                         'hidden lg:table-cell' => ! $show_full_table
-                    ]) title="Total games lost">
+                    ]) title="{{__('Total games lost')}}">
                             {{ $score->get('against') }}
                         </td>
                         <td @class([
                         'bg-purple-100 p-2 text-center text-gray-900',
                         'hidden md:table-cell' => ! $show_full_table
-                    ]) title="Percentage">
+                    ]) title="{{__('Percentage')}}">
                             {{ $score->get('percentage') }}%
                         </td>
                         <td @class([
                         'bg-indigo-100 p-2 text-center text-gray-900',
                         'hidden md:table-cell' => ! $show_full_table
                     ])
-                            title="{{ $score->get('games_played') }} games participated">
+                            title="{{ $score->get('games_played') }} {{__('games participated')}}">
                             {{ $score->get('games_played') }}
                         </td>
                     </tr>

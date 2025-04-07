@@ -14,7 +14,7 @@
             <div class="p-4 mb-2">{!! nl2br($comment->body) !!}</div>
             <div class="flex justify-between px-2 pt-2 text-sm text-right border border-t-gray-500 bg-gray-200">
                 <div>
-                    Posted by {{ $comment->user->name }} {{ $comment->updated_at->diffForHumans() }}
+                    {{__('Posted by')}} {{ $comment->user->name }} {{ $comment->updated_at->diffForHumans() }}
                 </div>
 
                 @can('update', $comment)
@@ -27,7 +27,7 @@
                         <div
                             class="inline-block px-1 cursor-pointer"
                             wire:click="delete({{ $comment->id }})"
-                            wire:confirm="Are you sure you want to delete your comment?"
+                            wire:confirm="{{__('Are you sure you want to delete your comment')}}?"
                         >
                             <x-forum.button-delete/>
                         </div>

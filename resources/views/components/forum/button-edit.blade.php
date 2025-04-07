@@ -1,4 +1,4 @@
-<button title="Edit">
+<button title="{{__('Edit')}}">
     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 fill-blue-500 hover:fill-blue-700"
          viewBox="0 0 348.882 348.882">
         <path

@@ -10,7 +10,7 @@
                         'px-4 py-2 text-center text-xl',
                     ])
                 >
-                    {{ $players->count() }} players selected of a maximum of {{ $max_players }}
+                    {{ $players->count() }} {{__('players selected of a maximum of')}} {{ $max_players }}
                 </div>
             </div>
 
@@ -125,7 +125,7 @@
                 </div>
                 <div class="w-32">
                     <x-forms.action-message class="mx-3" on="users-list-updated" class="text-xl">
-                        {{ count(array_diff($users, $occupied_players)) }} users
+                        {{ count(array_diff($users, $occupied_players)) }} {{__('users')}}
                     </x-forms.action-message>
                 </div>
             </div>

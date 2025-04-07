@@ -5,11 +5,11 @@
 
     <div class="mb-4 rounded-lg border-2 border-gray-500 p-2">
         <div class="mb-4 border-b border-gray-500 pl-4 text-xl">
-            What is your role in the current Season {{ session('cycle') }}?
+            {{__('What is your role in the current Season')}} {{ session('cycle') }}?
         </div>
         @if ($user->venue)
             <div class="my-4 rounded-lg bg-green-50 p-4">
-                <div class="text-lg">A bar is on your name:</div>
+                <div class="text-lg">{{__('A bar is on your name')}}:</div>
                 <div class="mb-4">
                     <a href="{{ route('venues.show', ['venue' => $user->venue]) }}"
                        class="inline-block text-blue-800 link"
@@ -23,7 +23,7 @@
                         class="inline-block text-sm text-blue-800"
                         wire:navigate
                         >
-                    edit
+                    {{__('Edit')}}
                 </a>)
                 </span>
 
@@ -46,7 +46,7 @@
                                 class="inline-block text-sm text-blue-800"
                                 wire:navigate
                             >
-                                update team and players
+                            {{__('update team and players')}}
                             </a>)
                         </div>
                     </div>
@@ -55,10 +55,10 @@
         @endif
         <div class="rounded-lg bg-indigo-50 p-4">
             @if ($team)
-                <div class="mb-4 text-lg">Your participation:</div>
+                <div class="mb-4 text-lg">{{__('Your participation')}}:</div>
                 <div class="mb-4">
                     <div>
-                        You play for <a
+                        {{__('You play for')}} <a
                             href="{{ route('teams.show', ['team' => $team]) }}"
                             class="inline-block text-blue-800 link"
                             wire:navigate
@@ -67,28 +67,28 @@
                         </a>
                     </div>
                     <div class="my-4">
-                        Your current <a
+                        {{__('Your current')}} <a
                             href="{{ route('rank') }}"
                             class="inline-block text-blue-800 link"
                             wire:navigate
-                        >individual rank is</a>
+                        >{{__('individual rank is')}}</a>
                         <span class="m-1 rounded-full border border-green-500 bg-green-100 px-2 py-1 font-bold">
                             {{ $rank }}
                         </span>
                     </div>
                     @if ($player->captain)
                         <div>
-                            You are the Captain, you can <a
+                            {{__('You are the Captain, you can')}} <a
                                 href="{{ route('teams.edit', ['team' => $team]) }}"
                                 class="inline-block text-blue-800 link"
                                 wire:navigate
                             >
-                                manage your team here
+                            {{__('manage your team here')}}
                             </a>
                         </div>
                     @endif
                 </div>
-                <div class="text-lg">Your team members are:</div>
+                <div class="text-lg">{{__('Your team members are')}}:</div>
                 <ul class="list-inside list-disc">
                     @foreach($team->players->sortBy('name')->sortByDesc('captain') as $member)
                         <li>{{ $member->user->name }} {{ $member->captain ? 'is captain' : '' }}</li>
@@ -97,9 +97,9 @@
 
             @else
                 <div class="mb-4">
-                    You don't play for a team. If you think this is an error, please
+                    {{__("You don't play for a team. If you think this is an error")}}
                     <a href="{{ route('teams.index') }}" class="inline-block text-blue-800 link" wire:navigate>
-                        contact your captain or bar owner
+                        {{__('contact your captain or bar owner')}}
                     </a>
                 </div>
             @endif
@@ -108,7 +108,7 @@
 
     <div class="mb-4 rounded-lg border-2 border-gray-500 p-2">
         <div class="mb-4 border-b border-gray-500 pl-4 text-xl">
-            Forum posts that changed since your last login
+            {{__('Forum posts that changed since your last login')}}
         </div>
         <ul>
             @forelse($this->newPosts() as $post)
@@ -121,21 +121,21 @@
                         {{ $post->title }}
                     </a>
                     @if ($post->comments && $comment = $post->comments()->latest()->first())
-                        last comment by {{ $comment->user->name }}
+                    {{__('last comment by')}} {{ $comment->user->name }}
                         {{ $comment->updated_at->diffForHumans() }}
                     @else
-                        posted by {{ $post->user->name }} {{ $post->updated_at->diffForHumans() }}
+                    {{__('posted by')}} {{ $post->user->name }} {{ $post->updated_at->diffForHumans() }}
                     @endif
                 </li>
             @empty
-                <li class="ml-4">No new posts or comments</li>
+                <li class="ml-4">{{__('No new posts or comments')}}</li>
             @endforelse
         </ul>
     </div>
 
     <div class="mb-4 rounded-lg border-2 border-gray-500 p-2">
         <div class="mb-4 border-b border-gray-500 pl-4 text-xl">
-            Chat rooms
+            {{__('Chat rooms')}}
         </div>
         <div class="px-4">
             @foreach($rooms as $room)
@@ -152,7 +152,7 @@
                             >
                                 {{ $room->name }}
                             </a>
-                            created by {{ $room->owner->name }}
+                        {{__('created by')}} {{ $room->owner->name }}
                         @else
                             <a href="{{ route('chat.room', ['chatRoom' => $room]) }}"
                                class="inline-block text-blue-800 link"

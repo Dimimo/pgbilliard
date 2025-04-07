@@ -3,7 +3,7 @@
 
     </label>
     <select id="venue_id" wire:model.change="venue_id">
-        <option readonly>Select venue...</option>
+        <option readonly>{{__('Select venue')}}...</option>
         @foreach($venues as $venue)
             @if($venue->name !== 'BYE')
                 <option value="{{ $venue->id }}">{{ $venue->name }}</option>

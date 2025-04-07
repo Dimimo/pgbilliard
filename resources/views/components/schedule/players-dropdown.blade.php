@@ -7,9 +7,9 @@
                 'justify-start text-green-600' => $place === 'visit',
             ])>
             <x-forms.action-message on="player-updated-home">
-                updated
+                {{__('Updated')}}
             </x-forms.action-message>
-            <div>{{ Str::ucfirst($place) }} team</div>
+            <div>{{ Str::ucfirst($place) }} {{__('Team')}}</div>
         </div>
         @for($i=1;$i<=$players->count();$i++)
             <div @class([
@@ -23,7 +23,7 @@
                         @if ($i <= 4)
                             {{Str::ucfirst($place)}} {{ $i }}
                         @else
-                            Reserve
+                        {{__('Reserve')}}
                         @endif
                     </div>
                     <label>
@@ -32,7 +32,7 @@
                             wire:change="playerSelected($event.target.value, {{$i}}, '{{$place}}')"
                         >
                             <option value="0">
-                                -- select --
+                                -- {{__('select')}} --
                             </option>
                             @foreach($players as $player)
                                 <option
@@ -71,7 +71,7 @@
                 wire:click="scheduleReset('{{ $place }}')"
                 class="mt-4 w-min whitespace-nowrap rounded-full border-2 border-green-500 bg-green-100 px-4 py-2 hover:bg-green-200">
                 <x-svg.xmark-solid color="fill-red-600" size="5" padding="mr-1"/>
-                Reset the schedule
+                {{__('Reset the schedule')}}
             </button>
         </div>
     @endif

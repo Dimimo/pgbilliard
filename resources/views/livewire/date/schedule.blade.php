@@ -135,7 +135,7 @@
                                     wire:click="consolidate()"
                                     wire:confirm="Final score is {{ $event->team_1->name }} {{ $event->score1 }} - {{ $event->score2 }} {{ $event->team_2->name }}\nYou can't change the score after the confirmation."
                                 >
-                                    {{__('confirm')}}
+                                    {{__('Confirm')}}
                                 </button>
                             </div>
                         @endcan

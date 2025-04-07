@@ -4,7 +4,7 @@
             <div class="grid justify-items-center gap-4">
                 <div>
                     <label for="team_form.name" class="mr-2 text-lg">
-                        The team
+                        {{__('The team')}}
                     </label>
                     <input id="team_form.name" type="text" wire:model="team_form.name">
                     <div>
@@ -14,7 +14,7 @@
 
                 <div>
                     <label for="venue_id" class="mr-2 text-lg">
-                        Plays at
+                        {{__('Plays at')}}
                     </label>
                     <select id="venue_id" wire:model="team_form.venue_id">
                         @foreach($venues->sortBy('name') as $venue)
@@ -29,12 +29,12 @@
                 <div class="grid grid-cols-4 gap-4">
                     <div class="col-start-2 text-right">
                         <x-forms.primary-button>
-                            Save
+                            {{__('Save')}}
                         </x-forms.primary-button>
                     </div>
                     <x-forms.spinner class="mt-2"/>
                     <x-forms.action-message class="mx-3" on="team-updated">
-                        <div class="mt-1 text-lg">Saved!</div>
+                        <div class="mt-1 text-lg">{{__('Saved')}}!</div>
                     </x-forms.action-message>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                     wire:navigate
                 >
                     <x-svg.pen-to-square-solid color="fill-blue-700" size="4" padding="mr-2 mb-1"/>
-                    Edit the venue's details
+                    {{__("Edit the venue's details")}}
                 </a>
             </div>
         @endcan
