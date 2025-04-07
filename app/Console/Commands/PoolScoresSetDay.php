@@ -14,7 +14,7 @@ class PoolScoresSetDay extends Command
      *
      * @var string
      */
-    protected $signature = 'day-scores';
+    protected $signature = 'pool:day-scores';
 
     /**
      * The console command description.
