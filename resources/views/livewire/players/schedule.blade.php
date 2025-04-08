@@ -46,7 +46,7 @@
                                         class="link"
                                         wire:navigate
                                     >
-                                        {{ $event->date->date->format('d-m-y') }}
+                                        {{ $event->date->date->format('d/m') }}
                                     </a>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@
                                         class="link"
                                         wire:navigate
                                     >
-                                        {{ $event->date->date->format('d-m-y') }}
+                                        {{ $event->date->date->format('d/m') }}
                                     </a>
                                 </div>
                             </div>
