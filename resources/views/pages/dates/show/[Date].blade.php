@@ -25,7 +25,7 @@ name('dates.show');
                         {{__('Scores')}}
                     </th>
                     <th class="p-2 text-left">{{__('Visitors')}}</th>
-                    <th class="w-28 p-2 text-left">
+                    <th class="w-auto sm:w-28 p-2 text-left">
                         <div class="flex justify-start">
                             <div class="inline-block">
                                 <x-forms.spinner/>

@@ -5,12 +5,12 @@
         <x-forms.sub-title>
             <x-slot:title>
                 <div class="px-4 py-2">
-                    <x-svg.calendar-days-solid color="fill-sky-600" size="6" padding="mb-2"/>
                     @if($old)
                         @if($date->date->isFuture())
                             {{__('Upcoming schedules')}}
                         @else
-                            {{__('Previous schedules')}} <span class="text-base italic">({{__('if available')}})</span>
+                            <div>{{__('Previous schedules')}}</div>
+                            <div class="text-center text-base italic">({{__('if   available')}})</div>
                         @endif
                     @else
                         {{__('Schedules of the day')}}

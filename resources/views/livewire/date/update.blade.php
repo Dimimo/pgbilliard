@@ -76,7 +76,7 @@
                     wire:navigate
                 >
                     <x-svg.eye-solid color="fill-green-600" size="5" padding=""/>
-                    {{__('Day scores')}}
+                    <span class="hidden sm:text-base">{{__('Day scores')}}</span>
                 </a>
             @elseif($event->date->checkOpenWindowAccess())
                 <a
@@ -85,7 +85,7 @@
                     wire:navigate
                 >
                     <x-svg.table-list-solid color="fill-green-600" size="4"/>
-                    {{__('Create Day Sheet')}}
+                    <span class="hidden sm:text-base">{{__('Create Day Sheet')}}</span>
                 </a>
             @elseif($event->date->date->isFuture())
                 <x-date.event-set-in-future :event="$event"/>
@@ -106,12 +106,12 @@
                     wire:navigate
                 >
                     <x-svg.eye-regular color="fill-sky-600" size="5" padding=""/>
-                    {{__('Day scores')}}
+                    <span class="hidden sm:text-base">{{__('Day scores')}}</span>
                 </a>
             @elseif(! $event->date->checkOpenWindowAccess())
                 <x-date.event-set-in-future :event="$event"/>
             @else
-                <div class="text-sm italic text-gray-600">
+                <div class="text-sm italic text-gray-600 hidden sm:text-base">
                     ({{__('ready to start')}})
                 </div>
             @endif
