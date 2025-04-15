@@ -13,7 +13,7 @@ class VenueForm extends Form
     public Venue $venue;
     public bool $show_name;
     public string $name;
-    public ?int $user_id;
+    public ?int $user_id = null;
     public ?string $address;
     public ?string $contact_name;
     public ?string $contact_nr;
@@ -31,8 +31,10 @@ class VenueForm extends Form
                 Rule::unique(Venue::class)->ignore($this->venue),
             ],
             'user_id' => [
+                'sometimes',
                 'nullable',
-                'exists:'.User::class.',id',
+                // Rule::exists(User::class, 'id')->unless($this->user_id === null),
+                // 'exists:'.User::class.',id',
             ],
             'address' => [
                 'required',
