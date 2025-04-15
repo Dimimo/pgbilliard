@@ -90,7 +90,7 @@
                 </td>
                 <td class="border-b-2 border-slate-300 p-2 text-left">
                     @auth()
-                        {{ $team->captain()?->contact_nr ?: $team->venue->contact_nr }}
+                        {{ $team->captain()?->phone ?? $team->venue->contact_nr }}
                     @else
                         hidden
                     @endauth
