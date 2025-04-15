@@ -1,5 +1,6 @@
 <div>
     <form wire:submit="save">
+        @json($errors->all())
         <div class="grid grid-cols-2 gap-4">
             <div class="p-2 mt-1 text-right text-xl">
                 <x-forms.input-label value="Name"/>
@@ -25,7 +26,7 @@
             </div>
             <div class="p-2">
                 <select id="user_id" wire:model.live="venue_form.user_id">
-                    <option value="0"> -- owner select --</option>
+                    <option value=""> -- owner select --</option>
                     @foreach($users as $id => $name)
                         <option value="{{ $id }}">{{ $name }}</option>
                     @endforeach
