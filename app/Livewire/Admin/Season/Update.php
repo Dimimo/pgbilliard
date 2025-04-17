@@ -28,7 +28,7 @@ class Update extends Component
         return [
             'teams' => 'array',
             'teams.*.id' => 'required',
-            'teams.*.name' => 'required|min:2|max:'.Constants::USERCHARS,
+            'teams.*.name' => 'required|min:2|max:' . Constants::USERCHARS,
             'teams.*.venue_id' => 'required',
             'teams.*.user_id' => 'nullable',
         ];
@@ -37,8 +37,8 @@ class Update extends Component
     public function messages(): array
     {
         return [
-            'teams.*.name.required' => 'A team needs a name, min 2, max '.Constants::USERCHARS,
-            'teams.*.venue_id.required' => 'A team needs a name, min 2, max '.Constants::USERCHARS,
+            'teams.*.name.required' => 'A team needs a name, min 2, max ' . Constants::USERCHARS,
+            'teams.*.venue_id.required' => 'A team needs a name, min 2, max ' . Constants::USERCHARS,
         ];
     }
 
@@ -50,7 +50,7 @@ class Update extends Component
         $this->dropdown_teams = $this->getDropdownTeams();
         $this->number_of_teams = session('number_of_teams', $this->teams->count() > 0 ? $this->teams->count() : 6);
         // if the admin loads this page the first time, no teams yet exists, so, if a BYE is requested, create it if it doesn't exist yet
-        if (! $this->has_bye && session()->has('has_bye') && session('has_bye') === true) {
+        if (!$this->has_bye && session()->has('has_bye') && session('has_bye') === true) {
             $this->addBye();
         }
         $this->i = $this->teams->count() + 1;
@@ -68,7 +68,7 @@ class Update extends Component
         foreach ($validated['teams'] as $values) {
             Team::find($values['id'])->update($values);
         }
-        session(['success' => count($validated).' teams created. Time to create the Calendar!']);
+        session(['success' => count($validated) . ' teams created. Time to create the Calendar!']);
         $this->redirect(route('admin.calendar.create', ['season' => $this->season]), navigate: true);
     }
 
@@ -97,7 +97,7 @@ class Update extends Component
             }
         } else { // a new team is selected, create one with a generic name and BYE as the team
             $new_team = Team::whereName('BYE')->first()->venue->teams()->create([
-                'name' => 'A new team '.++$this->i,
+                'name' => 'A new team ' . ++$this->i,
                 'season_id' => $this->season->id,
             ]);
         }
