@@ -45,7 +45,7 @@
                 'bg-green-100' => $last_day->regular
 
 ]           )
-            placeholder="{{ $last_day->regular ? __("Finals? Semi? Other?") : "' }}"
+            placeholder="{{ $last_day->regular ? __("Finals? Semi? Other?") : '' }}"
             wire:model.live.debounce.500ms="dateForm.title"
         />
     </label>
