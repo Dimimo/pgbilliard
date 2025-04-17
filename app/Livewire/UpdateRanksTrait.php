@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Collection;
 
 trait UpdateRanksTrait
 {
+    /**
+     * @var Collection<Player>
+     */
     private Collection $players;
     private int $max_possible_games = 0;
 
