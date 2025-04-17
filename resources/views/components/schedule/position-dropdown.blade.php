@@ -68,6 +68,7 @@
                     @endif
                 @else
                     @php
+                        // this check is needed to enable the win checkbox for the final game, only if all 4 players are selected
                         $has_complete_final_game = $event->games()->wherePosition(15)->has('player')->count() === 4;
                     @endphp
                     <div class="mx-3">
