@@ -47,6 +47,7 @@
         <li>The last updated score is highlighted in color. On the Scoreboard, the Calendar and daily overview.<li>
         <li>The individual ranking is now available <span class="font-bold">but still in beta!</span></li>
         <li>For Admins: you may send out emails to Captains and/or Players</li>
+        <li>On a live event scoresheet, the player on the break has <span class="rounded-lg border border-neutral-400 bg-neutral-100 px-1">a grayish background</span></li>
     </ul>
 </div>
 <div class="mt-4">
