@@ -139,7 +139,7 @@ class Schedule extends Component
             ->whereHome($home)
             ->whereWin(true)
             ->groupBy(['position'])
-            ->get()->count();
+            ->count();
     }
 
     public function playerSelected(int $player_id, int $position, string $place): void
