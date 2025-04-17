@@ -15,6 +15,7 @@ class Shift extends Component
     public Collection $mutable_dates;
     public Collection $events;
     public DateForm $form;
+    // $last_played_date also act as a trigger in case the season is over and no unfinished games
     public ?Date $last_played_date = null;
 
     public function mount(Season $season): void
@@ -35,15 +36,16 @@ class Shift extends Component
             ->orderBy('date')
             ->get();
         $this->mutable_dates = $this->dates->filter(fn ($date) => $date->events_count === 0);
-        $this->last_played_date = $this->mutable_dates->first();
-        $this->form->setDate($this->last_played_date);
+        if ($this->last_played_date = $this->mutable_dates->first()) {
+            $this->form->setDate($this->last_played_date);
+        }
     }
 
     public function changeDate(int $date_id, $diff): void
     {
         $date = Date::find($date_id);
         $new_date = $date->date->addDays($diff);
-        $overlaps = $this->dates->filter(fn ($exists) => $exists->date == $new_date)->count() === 1;
+        $overlaps = $this->dates->filter(fn (Date $exists) => $exists->date == $new_date)->count() === 1;
         if ($overlaps) {
             $this->dispatch('overlaps');
         } else {
