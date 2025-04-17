@@ -10,7 +10,7 @@
                             {{__('Upcoming schedules')}}
                         @else
                             <div>{{__('Previous schedules')}}</div>
-                            <div class="text-center text-base italic">({{__('if   available')}})</div>
+                            <div class="text-center text-base italic">({{__('if available')}})</div>
                         @endif
                     @else
                         {{__('Schedules of the day')}}
