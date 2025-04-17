@@ -70,6 +70,7 @@
             @foreach($rounds as $i => $round)
                 @php
                     $j = $i+5;
+                    $pg = $event->score1 + $event->score2;
                 @endphp
 
                 @for($i;$i<$j;$i++)
@@ -90,19 +91,27 @@
                             {{ $round }} {{__('doubles')}}
                         </div>
                     @endif
-                    <div class="col-span-4 w-full p-1 text-right">
-                        <div>
-                            <x-schedule.position-dropdown
-                                :event="$event"
-                                :i="$i"
-                                :matrix="$home_matrix"
-                                home="1"
-                                :game_win_id="$game_win_id"
-                                :game_lost_id="$game_lost_id"
-                            />
-                        </div>
+                    <div
+                        @class([
+                            'col-span-4 w-full p-1 text-right',
+                            'bg-neutral-100 border border-neutral-400 rounded-lg' => $i%2 !== 0 && ! $confirmed && $i > $pg,
+                            ])
+                    >
+                        <x-schedule.position-dropdown
+                            :event="$event"
+                            :i="$i"
+                            :matrix="$home_matrix"
+                            home="1"
+                            :game_win_id="$game_win_id"
+                            :game_lost_id="$game_lost_id"
+                        />
                     </div>
-                    <div class="col-span-4 w-full p-1">
+                    <div
+                        @class([
+                            'col-span-4 w-full p-1',
+                            'bg-neutral-100 border border-neutral-400 rounded-lg' => $i%2 === 0 && ! $confirmed && $i > $pg,
+                            ])
+                    >
                         <div>
                             <x-schedule.position-dropdown
                                 :event="$event"
@@ -118,7 +127,8 @@
             @endforeach
 
             @if($event->score1 + $event->score2 === 15)
-                <div class="col-span-8 mt-8 flex w-min flex-col justify-center whitespace-nowrap rounded-lg border-2 border-green-500 p-2 text-center text-xl space-y-3">
+                <div
+                    class="col-span-8 mt-8 flex w-min flex-col justify-center whitespace-nowrap rounded-lg border-2 border-green-500 p-2 text-center text-xl space-y-3">
                     <div class="text-2xl">{{__('Final Score')}}:</div>
                     <div>
                         <span @class(['text-green-700' => $event->score1 > 7])>{{ $event->team_1->name }} {{ $event->score1 }}</span>
