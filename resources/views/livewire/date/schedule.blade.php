@@ -109,7 +109,7 @@
                     <div
                         @class([
                             'col-span-4 w-full p-1',
-                            'bg-neutral-100 border border-neutral-400 rounded-lg' => $i%2 === 0 && ! $confirmed && $i > $pg,
+                            'bg-neutral-100 border border-neutral-700 rounded-lg' => $i%2 === 0 && ! $confirmed && $i > $pg,
                             ])
                     >
                         <div>

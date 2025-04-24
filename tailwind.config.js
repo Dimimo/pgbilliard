@@ -15,6 +15,8 @@ module.exports = {
         'transition',
         'ease-in-out',
         'duration-1000',
+        'bg-neutral-100',
+        'border-neutral-700',
         {
             pattern: /max-w-(sm|md|lg|xl|2xl)/,
             variants: ['sm', 'md']
