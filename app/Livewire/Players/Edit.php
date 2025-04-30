@@ -95,12 +95,14 @@ class Edit extends Component
         $this->occupied_players = User::whereIn('id', $players)->pluck('name')->toArray();
     }
 
-    private function setPlayerForm(?int $user_id = null): void
+    private function setPlayerForm(?int $user_id = null): bool
     {
         // if the player exists in the team but has been set to inactive, reactivate the player
         if ($user_id && $player = Player::whereUserId($user_id)->whereTeamId($this->team->id)->first()) {
-            $player->active = true;
+            $player->active = 1;
+            $player->update();
             $this->setPlayerForm($player->id);
+            return true;
         } else {
             $this->player_form->setPlayer(new Player([
                 'captain' => 0,
@@ -108,6 +110,7 @@ class Edit extends Component
                 'user_id' => $user_id,
                 'team_id' => $this->team->id,
             ]));
+            return false;
         }
     }
 
@@ -143,8 +146,10 @@ class Edit extends Component
 
     public function updatedUserId($user_id): void
     {
-        $this->setPlayerForm($user_id);
-        $this->player_form->player->save();
+        $updated = $this->setPlayerForm($user_id);
+        if (! $updated) {
+            $this->player_form->player->save();
+        }
         $this->getPlayersActiveInCurrentSeason();
         $this->getPlayers();
         $this->setPlayerForm();
