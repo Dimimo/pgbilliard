@@ -44,10 +44,15 @@
         <li>
             Extra check of the 15th game (last double) added. If the 4 players are not selected, no checkboxes appear.
         </li>
-        <li>The last updated score is highlighted in color. On the Scoreboard, the Calendar and daily overview.<li>
+        <li>The last updated score is highlighted in color. On the Scoreboard, the Calendar and daily overview.
+        <li>
         <li>The individual ranking is now available <span class="font-bold">but still in beta!</span></li>
         <li>For Admins: you may send out emails to Captains and/or Players</li>
-        <li>On a live event scoresheet, the player on the break has <span class="rounded-lg border border-neutral-400 bg-neutral-100 px-1">a grayish background</span></li>
+        <li>
+            On a live event scoresheet, the player on the break has
+            <span class="rounded-lg border border-neutral-400 bg-neutral-100 px-1">a grayish background</span>.
+        </li>
+        <li>Set the experimental individual ranking to the original idea</li>
     </ul>
 </div>
 <div class="mt-4">
