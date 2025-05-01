@@ -57,7 +57,10 @@
         <div class="flex-none w-12 h-12">
             <x-svg.hashtag-solid color="fill-blue-700" size="5"/>
         </div>
-        <div class="flex-1">Total played games, of course, simply the sum of lost and won games</div>
+        <div class="flex-1">
+            Total played games, of course, simply the sum of lost and won games, <span class="font-bold">unless</span> a
+            game is in progress and the players hasn't played the scheduled games yet.
+        </div>
     </div>
     <div class="flex">
         <div class="flex-none w-12 h-12">
