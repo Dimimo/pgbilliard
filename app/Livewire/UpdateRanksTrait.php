@@ -14,7 +14,7 @@ trait UpdateRanksTrait
     /**
      * @var Collection<Player>
      */
-    private Collection $players;
+    public Collection $players;
     private int $max_possible_games = 0;
 
     private function updateRanks(): void
@@ -50,6 +50,7 @@ trait UpdateRanksTrait
         ];
 
         foreach ($this->players as $player) {
+            $percentage = $player->games_won / ($player->games_won + $player->games_lost) * ($player->participation / $this->max_possible_games) * 100;
             $insert = array_merge($insert, [
                 'player_id' => $player->id,
                 'user_id' => $player->user_id,
@@ -57,7 +58,7 @@ trait UpdateRanksTrait
                 'won' => $player->games_won,
                 'lost' => $player->games_lost,
                 'played' => $player->games_played,
-                'percentage' => 0,
+                'percentage' => $percentage,
             ]);
 
             Rank::updateOrCreate(
@@ -67,15 +68,15 @@ trait UpdateRanksTrait
         }
 
         // we add the percentage this way, the calculation takes participation and played games into account
-        $adjusted_percentage = $this->finalAdjustedPercentage();
+        /*$adjusted_percentage = $this->finalAdjustedPercentage();
         foreach ($adjusted_percentage as $player_id => $percentage) {
             Rank::whereSeasonId($this->season->id)
                 ->wherePlayerId($player_id)
                 ->update(['percentage' => $percentage * 100]);
-        }
+        }*/
     }
 
-    private function finalAdjustedPercentage(): array
+    /*private function finalAdjustedPercentage(): array
     {
         // OVER () * (won / played) works as long as the first player has the most wins ('games_won')
         return Rank::selectRaw("player_id,
@@ -87,5 +88,5 @@ trait UpdateRanksTrait
             ->orderByDesc('percentage')
             ->pluck('percentage', 'player_id')
             ->toArray();
-    }
+    }*/
 }
