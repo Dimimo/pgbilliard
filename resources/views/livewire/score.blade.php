@@ -197,7 +197,7 @@
             :gradient="false"
         />
 
-        <div class="m-4 rounded-lg border border-red-400 bg-red-50 p-2 text-center">
+        <div class="m-auto w-min whitespace-nowrap rounded-lg border border-indigo-400 bg-indigo-50 p-2 text-center">
             This is still experimental! Please read the help file
             <button wire:click="$dispatch('openModal', { component: 'help.ranking' })">
                 <x-svg.circle-question-regular color="fill-green-700" size="4"/>
