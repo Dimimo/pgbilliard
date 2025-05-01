@@ -14,6 +14,19 @@
         </div>
     @endif
 
+    @php
+        if(session('is_admin')) {
+            $count = $results->count();
+        } else {
+            $count = 10;
+        }
+    @endphp
+
+    <div class="flex">
+        Ranking 10 of {{ $results->count() }} players
+        @if(session('is_admin')) <span class="ml-2 font-bold text-red-700">(Admins see all results)</span> @endif
+    </div>
+
     <table class="my-2 min-w-full bg-transparent table-collapse md:my-4">
         <thead class="whitespace-nowrap">
         <tr>
@@ -42,7 +55,7 @@
         </tr>
         </thead>
         <tbody class="whitespace-nowrap">
-        @foreach($results->take(10) as $result)
+        @foreach($results->take($count) as $result)
             <tr class="h-8" wire:key="rank-{{ $result->player->id }}">
                 <td class="bg-gray-200 p-2 text-center text-gray-900" title="Your current position">
                     <span class="font-bold">{{ $rank++ }}</span>
