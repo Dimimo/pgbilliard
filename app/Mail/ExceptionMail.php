@@ -27,7 +27,7 @@ class ExceptionMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'An error on the website occurred',
+            subject: '[Error] ' . $this->subject,
         );
     }
 
