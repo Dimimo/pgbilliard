@@ -6,6 +6,7 @@ class Constants
 {
     public const MAX_TEAM_PLAYERS = 6;
     public const STARTING_DAY = 'Wednesday';
+    public const SHOW_INDIVIDUAL_RANK_COUNT = 20;
     public const VENUECHARS = 24;
     public const USERCHARS = 24;
     public const TEAMCHARS = 16;

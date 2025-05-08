@@ -14,16 +14,8 @@
         </div>
     @endif
 
-    @php
-        if(session('is_admin')) {
-            $count = $results->count();
-        } else {
-            $count = 10;
-        }
-    @endphp
-
     <div class="flex">
-        Ranking 10 of {{ $results->count() }} players
+        Ranking {{ $count }} of {{ $results->count() }} players
         @if(session('is_admin')) <span class="ml-2 font-bold text-red-700">(Admins see all results)</span> @endif
     </div>
 
