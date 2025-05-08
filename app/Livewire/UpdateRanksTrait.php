@@ -50,7 +50,13 @@ trait UpdateRanksTrait
         ];
 
         foreach ($this->players as $player) {
-            $percentage = $player->games_won / ($player->games_won + $player->games_lost) * ($player->participation / $this->max_possible_games) * 100;
+            try{
+                $percentage = $player->games_won / ($player->games_won + $player->games_lost) * ($player->participation / $this->max_possible_games) * 100;
+            } catch (\DivisionByZeroError $e) {
+                $e->getMessage();
+                $percentage = 0;
+            }
+
             $insert = array_merge($insert, [
                 'player_id' => $player->id,
                 'user_id' => $player->user_id,
