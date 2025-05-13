@@ -10,6 +10,16 @@ Some Teams prefer and may agree to start at 1pm. Please check with your captain.
 Calendar
 </x-mail::button>
 
+<x-mail::panel>
+### The other games are:
+@foreach($date->events as $game)
+@if ($game != $event)
+{{ $game->team_1->name }} - {{ $game->team_2->name }} @ {{ $game->venue->name }}
+@endif
+@endforeach
+</x-mail::panel>
+
+
 Good luck to you all!<br>
 The Puerto Galera Billiard League
 </x-mail::message>
