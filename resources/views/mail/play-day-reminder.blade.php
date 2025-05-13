@@ -14,7 +14,7 @@ Calendar
 ### The other games are:
 @foreach($date->events as $game)
 @if ($game != $event)
-{{ $game->team_1->name }} - {{ $game->team_2->name }} @ {{ $game->venue->name }}
+{{ $game->team_1->name }} - {{ $game->team_2->name }} @ {{ $game->venue->name }}<br>
 @endif
 @endforeach
 </x-mail::panel>
