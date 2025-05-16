@@ -56,6 +56,11 @@ class Game extends Model
     protected $casts = [
         'home' => 'bool',
         'win' => 'bool',
+        'schedule_id' => 'int',
+        'event_id' => 'int',
+        'team_id' => 'int',
+        'player_id' => 'int',
+        'position' => 'int',
     ];
 
     public function schedule(): BelongsTo
