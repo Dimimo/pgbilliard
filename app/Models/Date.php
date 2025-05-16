@@ -55,6 +55,7 @@ class Date extends Model
      * @var array<string, string>
      */
     protected $casts = [
+        'season_id' => 'integer',
         'date' => 'date',
         'regular' => 'boolean',
         'title' => 'string',

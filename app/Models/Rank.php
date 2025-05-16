@@ -41,6 +41,21 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Rank extends Model
 {
+    /**
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'season_id' => 'integer',
+        'player_id' => 'integer',
+        'user_id' => 'integer',
+        'max_games' => 'integer',
+        'participated' => 'integer',
+        'won' => 'integer',
+        'lost' => 'bool',
+        'played' => 'integer',
+        'percentage' => 'integer',
+    ];
+
     protected $fillable = [
         'season_id',
         'player_id',

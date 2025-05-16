@@ -32,6 +32,13 @@ use Illuminate\Database\Eloquent\Model;
 class Format extends Model
 {
     /**
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'user_id' => 'integer',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>

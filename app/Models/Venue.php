@@ -72,6 +72,7 @@ class Venue extends Model
         'contact_name' => 'string',
         'contact_nr' => 'string',
         'name' => 'string',
+        'user_id' => 'integer',
     ];
 
     /**
