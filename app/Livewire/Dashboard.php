@@ -26,7 +26,7 @@ class Dashboard extends Component
     {
         $this->team = Team::tap(new Cycle())
             ->has('players', '=', 1, 'and', fn ($q) => $q->where('user_id', $this->user->id))
-            ->with('players')
+            ->with(['players' => fn ($q) => $q->where('active', true)])
             ->first();
         $this->player = $this->team
             ?->players()
