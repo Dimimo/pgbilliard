@@ -13,6 +13,9 @@
             </div>
         </div>
     @endif
+    <div class="my-2 w-min whitespace-nowrap rounded-lg border border-green-500 bg-green-50 p-2">
+        <span class="font-bold text-green-700">New:</span> click on a name to see the game details
+    </div>
 
     <div class="flex">
         Ranking {{ $count }} of {{ $results->count() }} players
