@@ -53,7 +53,11 @@
                     <span class="font-bold">{{ $rank++ }}</span>
                 </td>
                 <td class="bg-indigo-50 text-center">{{ $result->percentage }}%</td>
-                <td class="bg-blue-100 p-2 text-left font-bold">{{ $result->user->name }}</td>
+                <td class="bg-blue-100 p-2 text-left font-bold">
+                    <a class="link" href="{{ route('player.show', ['player' => $result->player->id]) }}" wire:navigate>
+                    {{ $result->user->name }}
+                    </a>
+                </td>
                 <td class="bg-gray-50 p-2 text-left">{{ $result->player->team->name }}</td>
                 <td class="bg-green-100 text-center">{{ $result->won }}</td>
                 <td class="bg-red-100 text-center">{{ $result->lost }}</td>
