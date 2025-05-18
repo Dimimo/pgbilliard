@@ -27,7 +27,7 @@
         <div class="grid grid-flow-row grid-cols-8 items-center justify-items-center gap-2">
             @if(! $confirmed)
                 <div
-                    class="col-span-8 mb-4 h-auto w-min whitespace-nowrap rounded-lg border-2 border-indigo-400 bg-indigo-100 p-2 pt-2 text-center text-xl"
+                    class="col-span-8 mb-4 mx-2 md:mx-0 h-auto rounded-lg border-2 border-indigo-400 bg-indigo-100 p-2 pt-2 text-center text-xl"
                 >
                     {{__('The format used is the')}} <span class="font-bold">{{ $format->name }}</span>
 
@@ -78,7 +78,6 @@
                         @if(in_array($i, [1,6,11]))
                             <div class="col-span-8 h-12 w-full bg-green-100 pt-2 text-center text-xl">
                                 {{ $round }} {{__('singles')}}
-                                <x-forms.spinner/>
                                 <x-forms.action-message on="score-updated">
                                     <div class="text-blue-600">
                                         {{__('Score updated')}}
@@ -94,10 +93,11 @@
                     <div
                         @class([
                             'col-span-4 w-full p-1 text-right',
-                            'bg-neutral-100 border border-neutral-400 rounded-lg' => $i%2 !== 0 && ! $confirmed && $i > $pg,
+                            'bg-neutral-100 border border-neutral-400 rounded-lg' => $i%2 === 1 && ! $confirmed && $i > $pg,
                             ])
                     >
                         <x-schedule.position-dropdown
+                            key="home-{{ $i }}"
                             :event="$event"
                             :i="$i"
                             :matrix="$home_matrix"
@@ -114,6 +114,7 @@
                     >
                         <div>
                             <x-schedule.position-dropdown
+                                key="visit-{{ $i }}"
                                 :event="$event"
                                 :i="$i"
                                 :matrix="$visit_matrix"
