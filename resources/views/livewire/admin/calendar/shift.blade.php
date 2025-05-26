@@ -1,17 +1,15 @@
 <div>
     <x-admin.help.shift :date="$dates->first()"/>
 
-    @if (!is_null($last_played_date))
-        <x-forms.sub-title title="{{__('Dates played and should be immutable')}}">
-            <div class="my-4 text-center">
-                @foreach($dates as $date)
-                    @if($date->date < $last_played_date->date)
-                        <x-date.shift-buttons :date="$date"/>
-                    @endif
-                @endforeach
-            </div>
-        </x-forms.sub-title>
-    @endif
+    <x-forms.sub-title title="{{__('Dates played and should be immutable')}}">
+        <div class="my-4 text-center">
+            @foreach($dates as $date)
+                @if($date->date < $last_played_date->date)
+                    <x-date.shift-buttons :date="$date"/>
+                @endif
+            @endforeach
+        </div>
+    </x-forms.sub-title>
 
     <x-forms.sub-title title="{{ $last_played_date ? __('Dates not played yet') : __('No dates can be changed')}}">
         <div class="my-4 text-center">

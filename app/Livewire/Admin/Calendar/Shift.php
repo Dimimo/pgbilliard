@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Admin\Calendar;
 
-use App\Livewire\Forms\DateForm;
 use App\Models\Date;
 use App\Models\Season;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,9 +13,8 @@ class Shift extends Component
     public Collection $dates;
     public Collection $mutable_dates;
     public Collection $events;
-    public DateForm $form;
     // $last_played_date also act as a trigger in case the season is over and no unfinished games
-    public ?Date $last_played_date = null;
+    public Date $last_played_date;
 
     public function mount(Season $season): void
     {
@@ -36,8 +34,10 @@ class Shift extends Component
             ->orderBy('date')
             ->get();
         $this->mutable_dates = $this->dates->filter(fn ($date) => $date->events_count === 0);
-        if ($this->last_played_date = $this->mutable_dates->first()) {
-            $this->form->setDate($this->last_played_date);
+        if ($this->mutable_dates->count() > 0) {
+            $this->last_played_date = $this->mutable_dates->first();
+        } else {
+            $this->last_played_date = $this->dates->last();
         }
     }
 
