@@ -14,7 +14,7 @@ state('season');
         @can('create', \App\Models\Date::class)
             <livewire:admin.calendar.create :season="$season"/>
         @else
-            <div class="text-red-700 text-xl">You don't have access to this page</div>
+            <div class="text-red-700 text-xl">{{__("You don't have access to this page")}}</div>
         @endcan
     </section>
     @endvolt

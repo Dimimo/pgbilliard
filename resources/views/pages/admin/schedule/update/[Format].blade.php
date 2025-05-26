@@ -13,7 +13,7 @@ state('format');
         @can('update', $format)
             <livewire:admin.schedule.create :format="$format"/>
         @else
-            <div class="text-red-700 text-xl">You don't have access to this page</div>
+            <div class="text-red-700 text-xl">{{__("You don't have access to this page")}}</div>
         @endcan
     </section>
     @endvolt

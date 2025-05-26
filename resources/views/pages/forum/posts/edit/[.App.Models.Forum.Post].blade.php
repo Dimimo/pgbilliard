@@ -28,7 +28,7 @@ name('forum.posts.edit');
         @else
 
             <x-forum.back-to-posts/>
-            <div class="text-red-700 text-xl">You don't have access to this page</div>
+            <div class="text-red-700 text-xl">{{__("You don't have access to this page")}}</div>
 
         @endcan
 

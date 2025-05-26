@@ -23,7 +23,7 @@ name('admin.contact');
             </div>
             <livewire:admin.send-emails/>
         @else
-            <div class="text-xl text-red-700">You don't have access to this page</div>
+            <div class="text-xl text-red-700">{{__("You don't have access to this page")}}</div>
         @endcan
     </section>
     @endvolt

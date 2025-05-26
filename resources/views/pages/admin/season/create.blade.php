@@ -13,7 +13,7 @@ name('admin.seasons.create');
         @can('create', Season::class)
             <livewire:admin.season.create/>
         @else
-            <div class="text-red-700 text-xl">You don't have access to this page</div>
+            <div class="text-red-700 text-xl">{{__("You don't have access to this page")}}</div>
         @endcan
     </div>
     @endvolt
