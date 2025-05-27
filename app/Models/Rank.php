@@ -51,7 +51,7 @@ class Rank extends Model
         'max_games' => 'integer',
         'participated' => 'integer',
         'won' => 'integer',
-        'lost' => 'bool',
+        'lost' => 'integer',
         'played' => 'integer',
         'percentage' => 'integer',
     ];
