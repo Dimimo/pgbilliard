@@ -28,7 +28,7 @@ trait UpdateRanksTrait
         $teams_count = $this->season->teams()->count();
         $dates = Date::whereSeasonId($this->season->id)->orderBy('date')->pluck('id');
         $event_ids = Event::whereIn('date_id', $dates)->whereNotNull(['score1', 'score2'])->pluck('id');
-        $this->max_possible_games = count($event_ids) / $teams_count * 2;
+        $this->max_possible_games = round(count($event_ids) / $teams_count * 2);
         $player_ids = Game::whereIn('event_id', $event_ids)->whereNotNull('player_id')->pluck('player_id')->unique();
         $this->players = Player::whereIn('players.id', $player_ids)
             ->withCount([
@@ -36,7 +36,7 @@ trait UpdateRanksTrait
                 'games as games_lost' => fn ($q) => $q->whereNotNull('win')->where('win', false),
                 'games as games_played' => fn ($q) => $q->whereIn('event_id', $event_ids),
             ])
-            ->with('user')
+            ->with(['user', 'team'])
             ->orderByDesc('games_won')
             ->get()
             ->each(fn ($player) => $player->participation = $player->participation());
@@ -72,27 +72,5 @@ trait UpdateRanksTrait
                 $insert
             );
         }
-
-        // we add the percentage this way, the calculation takes participation and played games into account
-        /*$adjusted_percentage = $this->finalAdjustedPercentage();
-        foreach ($adjusted_percentage as $player_id => $percentage) {
-            Rank::whereSeasonId($this->season->id)
-                ->wherePlayerId($player_id)
-                ->update(['percentage' => $percentage * 100]);
-        }*/
     }
-
-    /*private function finalAdjustedPercentage(): array
-    {
-        // OVER () * (won / played) works as long as the first player has the most wins ('games_won')
-        return Rank::selectRaw("player_id,
-                ((won / played) * (participated / max_games)) /
-                MAX((won / played) * (participated / max_games))
-                OVER () AS percentage")
-            ->whereSeasonId($this->season->id)
-            ->where('played', '>', 0)
-            ->orderByDesc('percentage')
-            ->pluck('percentage', 'player_id')
-            ->toArray();
-    }*/
 }
