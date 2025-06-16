@@ -24,7 +24,7 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 Route::get('schedule/new', function () {
-    return response()->download(public_path('day-schedule.pdf'));
+    return response()->download(public_path('reviewed_day_schedule.pdf'));
 })->name('schedule.new');
 
 Route::get('mailable/date/{date}', function ($date) {

@@ -7,7 +7,7 @@
     </div>
     <div class="mb-4">
         <a href="{{ route('schedule.new') }}" class="inline-block text-blue-800 link">
-            <x-svg.file-pdf-regular color="fill-green-600" size="4"/> New Day schedule
+            <x-svg.file-pdf-regular color="fill-green-600" size="4"/> Reviewed Day schedule
         </a>
     </div>
     <div class="mb-4">Designed for the Puerto Galera Billiard League</div>
