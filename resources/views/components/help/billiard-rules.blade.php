@@ -66,6 +66,7 @@
     <li>12.0 Stalemate</li>
 </ul>
 
+
 <div class="text-justify">
 
     <h3 class="mb-2 text-xl font-bold">

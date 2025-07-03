@@ -53,7 +53,7 @@
             <span class="rounded-lg border border-neutral-400 bg-neutral-100 px-1">a grayish background</span>.
         </li>
         <li>Set the experimental individual ranking to the original idea</li>
-        <li>The one female rule has been dropped (02/07/2025)</li>
+        <li>The one female rule has been dropped (Captains Meeting agreement on the 2nd of June 2025)</li>
     </ul>
 </div>
 <div class="mt-4">
