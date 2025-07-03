@@ -1,14 +1,26 @@
-<div class="my-6 rounded-lg border-2 border-indigo-400 bg-indigo-100 p-4">
-    <h4 class="mb-2 text-lg font-bold">
-        OBJECT OF THE COMPETITION:
-    </h4>
+<div class="mb-6">
+    <div class="my-2 rounded-lg border-2 border-indigo-400 bg-indigo-100 p-4">
+        <h4 class="mb-2 text-lg font-bold">
+            OBJECT OF THE COMPETITION:
+        </h4>
 
-    <div class="text-justify">
-        The <span class="font-bold">PUERTO GALERA POOL LEAGUE</span> has been formed to help support local
-        bars and clubs in the area and to provide a form of recreation for players to meet new people and form new friendships. It does not aim to be
-        a
-        platform for finding the best player or best team—<span class="font-bold">no more than an enjoyable day out</span>.
-        <span class="font-bold">So drink up and be happy, we are not playing for keeps.</span>
+        <div class="text-justify">
+            The <span class="font-bold">PUERTO GALERA POOL LEAGUE</span> has been formed to help support local
+            bars and clubs in the area and to provide a form of recreation for players to meet new people and form new friendships. It does not aim to
+            be
+            a
+            platform for finding the best player or best team—<span class="font-bold">no more than an enjoyable day out</span>.
+            <span class="font-bold">So drink up and be happy, we are not playing for keeps.</span>
+        </div>
+    </div>
+
+    <div class="my-2 rounded-lg border-2 border-yellow-500 bg-yellow-100 p-4">
+        <h4 class="mb-2 text-lg font-bold">
+            CHANGES:
+        </h4>
+        <div class="list-disc list-inside">
+            <span class="font-bold">02/07/2025</span> there is no more need of a female player, agreed on the Captains Meeting
+        </div>
     </div>
 </div>
 
@@ -292,8 +304,8 @@
             The starting times for all matches is <span class="font-bold">2:00 PM (14:00 hrs)</span>. The scoresheet must be filled out by each team
             by
             <span class="font-bold">2:00 PM</span>, with only the names of players that are at the venue and ready to play.
-            If any player arrives after the start time, he/she is to be placed in the next available slot. Providing that a female
-            player is in the starting <span class="font-bold">position</span>.
+            If any player arrives after the start time, he/she is to be placed in the next available slot.
+            <span class="line-through text-gray-500">Providing that a female player is in the starting <span class="font-bold">position</span></span>.
         </div>
         <div class="mb-4">
             If the 2 captains prefer and <span class="font-bold">both agree</span>, starting time and day of the week can be changed.
@@ -305,12 +317,14 @@
 
         <div class="mb-4">
             A team consists of <span class="font-bold">at least 4 players</span> and a <span class="font-bold">maximum of 6 players</span>.
-            The team must consist of at least one female player, who can be either an
+            <span class="line-through text-gray-500">The team must consist of at least one female player, who can be either an
             <span class="font-bold">Expat</span> or
-            <span class="font-bold">Filipino</span>. If the starting four consists of more than one
+            <span class="font-bold">Filipino</span>.</span>
+        </div>
+        <div class="mb-4">If the starting four consists of more than one
             <span class="font-bold">Filipino</span> player, they must play in the same position throughout the match.
         </div>
-        <div class="mb-4">
+        <div class="mb-4 line-through text-gray-500">
             The remaining two places must be filled by an <span class="font-bold">Expat</span>, the exception being if one or
             more is a female player, then they can be <span class="font-bold">Filipinos</span>.
         </div>
@@ -321,8 +335,8 @@
         </div>
         <div class="mb-4">
             <span class="font-bold">In case of only 3 players showing up:</span> this results in a loss of 4 games, 1 double and 3 singles.
-            If <span class="font-bold">no female player shows up</span> but there is a male reserve, this results in the loss of the first
-            game and the first double.
+            <span class="line-through text-gray-500">If <span class="font-bold">no female player shows up</span> but there is a male reserve, this results in the loss of the first
+            game and the first double.</span>
         </div>
 
         <h4 class="mb-2 text-lg font-bold">
