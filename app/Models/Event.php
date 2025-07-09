@@ -99,8 +99,8 @@ class Event extends Model
 
     public function playerBelongsToEvent(User $user): bool
     {
-        return $this->team_1->players()->whereUserId($user->id)->count()
-            || $this->team_2->players()->whereUserId($user->id)->count();
+        return $this->team_1->activePlayers()->whereUserId($user->id)->count()
+            || $this->team_2->activePlayers()->whereUserId($user->id)->count();
     }
 
     public function hasScore(): bool
