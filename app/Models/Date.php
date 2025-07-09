@@ -108,14 +108,14 @@ class Date extends Model
                 ->map(
                     fn ($event) => $event
                         ->team_1
-                        ->players
+                        ->activePlayers()
                         ->map(fn ($player) => $player->user)
                 )
                 ->merge(
                     $this->events->map(
                         fn ($event) => $event
                             ->team_2
-                            ->players
+                            ->activePlayers()
                             ->map(fn ($player) => $player->user)
                             ->merge(Admin::with('user')->get()->map(fn ($admin) => $admin->user))
                     )
@@ -126,26 +126,26 @@ class Date extends Model
 
     /**
      * get the team for a logged-in user based on the set day
-     * just make sure the user exists
+     * just make sure the user exists and is active
      */
-    public function getTeam(User $user)
+    public function getTeam(User $user): ?Team
     {
         return $this->events
         ->map(
             fn ($event) => $event
                 ->team_1
-                ->players
-                ->filter(fn ($player) => $player->user_id == $user->id)
+                ->activePlayers()
+                ->filter(fn ($player) => $player->user_id === $user->id)
         )
         ->merge(
             $this->events->map(
                 fn ($event) => $event
                     ->team_2
-                    ->players
+                    ->activePlayers()
                     ->filter(fn ($player) => $player->user_id == $user->id)
             )
         )
-        ->filter(fn ($q) => $q->count())
+        ->filter(fn ($c) => $c->count())
         ->first()
         ?->first()
         ?->team;
