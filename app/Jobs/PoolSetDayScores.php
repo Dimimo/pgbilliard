@@ -28,6 +28,8 @@ class PoolSetDayScores implements ShouldQueue
 
     /**
      * Check for events today, if they exist, set the scores to 0-0
+     * If the same team plays itself, it means the final, no changes
+     * If team 2 is a BYE, no scores given but set to confirmed
      */
     public function handle(): void
     {
@@ -38,6 +40,8 @@ class PoolSetDayScores implements ShouldQueue
                 if (! $event->score1 && ! $event->score2) {
                     if ($event->team_1->id !== $event->team_2->id || $event->team_2->name !== 'BYE') {
                         $event->update(['score1' => 0, 'score2' => 0]);
+                    } elseif ($event->team_2->name === 'BYE') {
+                        $event->update(['confirmed' => true]);
                     }
                 }
             }
