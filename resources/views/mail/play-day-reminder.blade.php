@@ -11,7 +11,7 @@ Calendar
 </x-mail::button>
 
 <x-mail::panel>
-### The other games are:
+### All planned games:
 @foreach($date->events as $game)
 @if ($game != $event)
 {{ $game->team_1->name }} - {{ $game->team_2->name }} @ {{ $game->venue->name }}<br>
