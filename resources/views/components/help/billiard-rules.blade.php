@@ -7,9 +7,7 @@
         <div class="text-justify">
             The <span class="font-bold">PUERTO GALERA POOL LEAGUE</span> has been formed to help support local
             bars and clubs in the area and to provide a form of recreation for players to meet new people and form new friendships. It does not aim to
-            be
-            a
-            platform for finding the best player or best team—<span class="font-bold">no more than an enjoyable day out</span>.
+            be a platform for finding the best player or best team—<span class="font-bold">no more than an enjoyable day out</span>.
             <span class="font-bold">So drink up and be happy, we are not playing for keeps.</span>
         </div>
     </div>
@@ -76,9 +74,8 @@
     <div class="mb-4">
         8-ball is played with a cue ball and fifteen object balls numbered 1 to 15. 1 to 7 are solid colours and are
         commonly called low, small, or solid balls. 9 to 15 are striped and are commonly called large balls. One player must play the solid balls
-        while
-        the other player must pocket the large balls. The player that pockets all their entire group and then legally pockets the 8-ball wins the
-        game.
+        while the other player must pocket the large balls. The player that pockets all their entire group and then legally pockets the 8-ball wins
+        the game.
     </div>
 
     <h3 class="mb-2 text-xl font-bold">
@@ -87,8 +84,8 @@
 
     <div class="mb-4">For the break shot to be legal, the breaker (with the cue ball placed anywhere behind the head string) commonly
         called the kitchen, must either pocket a numbered ball or drive at least 4 racked balls to one or more rails. If the breaker fails to make a
-        legal
-        break, the balls will be re-racked and the opposition player has the right to perform the break, or ask the offending player to re-break.
+        legal break, the balls will be re-racked and the opposition player has the right to perform the break, or ask the offending player to
+        re-break.
     </div>
 
     <h3 class="mb-2 text-xl font-bold">
@@ -97,16 +94,15 @@
 
     <div class="mb-4">If the eight-ball is pocketed on the break, the opponent has the option of re-racking the balls for a re-start, or
         spotting the black (if this option is taken, the cue ball remains in the position it came to rest and is played from said position). The
-        player
-        that broke will break again, or if the eight-ball is respotted and no other ball has been pocketed the opposition player takes the next shot.
+        player that broke will break again, or if the eight-ball is respotted and no other ball has been pocketed the opposition player takes the next
+        shot.
     </div>
     <h3 class="mb-2 text-xl font-bold"><a id="a__4_0_Open_Table_"></a>4.0 Open Table.</h3>
 
     <div class="mb-4">
         The table is always open immediately after the break shot. The player's designated group (solid or stripes) will not
         be determined until a player legally pockets a called object ball. The table is considered "Open" until an object ball is legally pocketed.
-        When
-        the table is open it is legal to hit one group of balls in order to pocket a ball from the opposite group.<br>
+        When the table is open it is legal to hit one group of balls in order to pocket a ball from the opposite group.<br>
         <span class="font-bold">Note:</span> The 8-ball may be utilized in a combination as long as it is not hit first, if it is, it is a
         foul shot.
     </div>
@@ -137,8 +133,7 @@
     <div class="mb-4">
         Touching or causing even the slightest movement of the cue ball (other than a normal shot) even accidentally is a
         foul. However, a player may use the ferrule or shaft of the cue to line up the cue ball when a "ball in hand" is in play. Using the tip to do
-        so
-        is a foul and ball in hand is given to the other player.
+        so is a foul and ball in hand is given to the other player.
     </div>
 
     <h4 class="mb-2 text-lg font-bold">
@@ -148,8 +143,8 @@
     <div class="mb-4">
         Pocketing the cue ball or driving it off the table is a <span class="font-bold">ball in hand</span>
         foul. If a scratch occurs while shooting the <span class="font-bold">8-ball</span> but was not pocketed or removed from the table
-        the game continues with ball in hand to the opponent (scratching on the <span class="font-bold">8-ball</span> is <span
-            class="font-bold">not</span> loss of game as long as the <span class="font-bold">8-ball</span> is still in play).
+        the game continues with ball in hand to the opponent (scratching on the <span class="font-bold">8-ball</span> is
+        <span class="font-bold">not</span> loss of game as long as the <span class="font-bold">8-ball</span> is still in play).
     </div>
 
     <h4 class="mb-2 text-lg font-bold">
@@ -215,8 +210,7 @@
         While the shooting player is at the table, <span class="font-bold">the non-shooting player</span>, as
         well as their teammates, cannot disturb, make noises, move around, or <span class="font-bold">cause distraction</span> in any way.
         All players must conduct themselves in a respectful manner.<br>At no time can a teammate suggest a certain shot to play in any singles game.
-        In a
-        <span class="font-bold">doubles</span> game, only the partner of a player can coach.
+        In a <span class="font-bold">doubles</span> game, only the partner of a player can coach.
     </div>
 
     <h4 class="mb-2 text-lg font-bold">
@@ -226,8 +220,7 @@
     <div class="mb-4">
         Marking the table in any way that could <span class="font-bold">provide an advantage</span> in
         executing a shot is a foul. This includes placing the chalk cube in a specific place on the edge of the table. The offending mark must be
-        removed
-        before the shot is taken, otherwise, it is a foul.
+        removed before the shot is taken, otherwise, it is a foul.
     </div>
 
     <h4 class="mb-2 text-lg font-bold">
@@ -303,8 +296,7 @@
 
         <div class="mb-4">
             The starting times for all matches is <span class="font-bold">2:00 PM (14:00 hrs)</span>. The scoresheet must be filled out by each team
-            by
-            <span class="font-bold">2:00 PM</span>, with only the names of players that are at the venue and ready to play.
+            by <span class="font-bold">2:00 PM</span>, with only the names of players that are at the venue and ready to play.
             If any player arrives after the start time, he/she is to be placed in the next available slot.
             <span class="line-through text-gray-500">Providing that a female player is in the starting <span class="font-bold">position</span></span>.
         </div>
@@ -318,9 +310,10 @@
 
         <div class="mb-4">
             A team consists of <span class="font-bold">at least 4 players</span> and a <span class="font-bold">maximum of 6 players</span>.
-            <span class="line-through text-gray-500">The team must consist of at least one female player, who can be either an
-            <span class="font-bold">Expat</span> or
-            <span class="font-bold">Filipino</span>.</span>
+            <span class="line-through text-gray-500">
+                The team must consist of at least one female player, who can be either an
+                <span class="font-bold">Expat</span> or <span class="font-bold">Filipino</span>.
+            </span>
         </div>
         <div class="mb-4">If the starting four consists of more than one
             <span class="font-bold">Filipino</span> player, they must play in the same position throughout the match.
@@ -443,8 +436,7 @@
         It is advisable
         <a href="{{ route('forum.posts.index') }}" class="inline-block text-blue-800 link" wire:navigate>
             you post the situation on the forum
-        </a>,
-        so we can also discuss it over there.
+        </a>, so we can also discuss it over there.
     </div>
 
     <hr class="my-5 border-2 border-b border-indigo-700 w-fill">
@@ -481,9 +473,8 @@
     <div class="mb-4">
         In the case of a <span class="font-bold">cue ball frozen to an object ball</span> (player's own ball),
         the player can play <span class="font-bold">away from the ball</span> and is <span class="font-bold">not required to hit another of his object balls</span>.<br>He
-        can hit an <span class="font-bold">opposition ball without penalty</span>, but at least <span
-            class="font-bold">one ball must hit a rail</span>
-        in its play.
+        can hit an <span class="font-bold">opposition ball without penalty</span>, but at least
+        <span class="font-bold">one ball must hit a rail</span> in its play.
     </div>
 
     <div class="mb-4">
