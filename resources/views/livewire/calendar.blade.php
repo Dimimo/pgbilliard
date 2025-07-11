@@ -136,7 +136,7 @@
                         @else
                             <div class="border-x-2 border-b-2 border-green-500 bg-green-100/25 p-2">
                                 @can ('create', $date)
-                                {{__('There are no games yet')}}, <a
+                                    {{__('There are no games yet')}}, <a
                                         href="{{ route('admin.calendar.update', ['season' => $date->season]) }}"
                                         class="inline-block text-blue-600 link"
                                         wire:navigate
@@ -146,10 +146,10 @@
                                         class="inline-block text-blue-600 link"
                                         wire:navigate
                                     >
-                                {{__('delete the date')}}</a>
-                                {{__('if this is an error or a holiday')}}
+                                        {{__('delete the date')}}</a>
+                                    {{__('if this is an error or a holiday')}}
                                 @else
-                                {{__('There are no games yet')}}
+                                    {{__('There are no games yet')}}
                                 @endcan
                             </div>
                         @endif

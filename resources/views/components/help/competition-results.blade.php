@@ -25,7 +25,8 @@
         Team and individual wins influence the score. To get a 100% you should win every game at the maximum score of 15/0.
     </p>
     <p class="mb-4">
-        <x-svg.percent-solid color="fill-indigo-500" size="5"/> is calculated as following (where TG = total games,
+        <x-svg.percent-solid color="fill-indigo-500" size="5"/>
+        is calculated as following (where TG = total games,
         including semi and finals)<br>
         <span class="font-mono">(((Games Won / TG) x 100) + (Individual Games Won / (TG x 15) x 100) / 2 * factor)</span>
     </p>
@@ -53,9 +54,13 @@
     </p>
     <p class="mb-4">
         <span class="font-bold">The site is build on mobile first.</span> In the table, some columns are
-        <span class="font-bold">dropped</span> (<x-svg.minus-solid color="fill-red-700" size="5" padding="-mr-1"/>)
+        <span class="font-bold">dropped</span> (
+        <x-svg.minus-solid color="fill-red-700" size="5" padding="-mr-1"/>
+        )
         on smaller devices but <span class="font-bold">visible</span> on larger screens
-        (<x-svg.plus-solid color="fill-green-700" size="5" padding="-mr-1"/>).
+        (
+        <x-svg.plus-solid color="fill-green-700" size="5" padding="-mr-1"/>
+        ).
         <span class="text-sm">The width of the screens are:
         extra small (xs) < 640px, small (sm) > 640px, medium (md) > 768px, large (lg) >1024px.</span>
     </p>

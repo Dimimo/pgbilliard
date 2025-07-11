@@ -3,7 +3,7 @@
         @isset($title)
             <strong>{!! $title !!}</strong>
         @else
-        {{__('Plays at')}} <strong>{{ $venue->name }}</strong>
+            {{__('Plays at')}} <strong>{{ $venue->name }}</strong>
         @endisset
     </div>
     <div class="my-2 text-center text-xl">
@@ -25,7 +25,7 @@
             @auth()
                 {{ $venue->get_contact_nr }}
             @else
-            {{__('hidden')}}
+                {{__('hidden')}}
             @endauth
         </div>
     </div>

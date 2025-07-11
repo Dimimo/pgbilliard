@@ -19,7 +19,9 @@
 
     <div class="flex">
         Ranking {{ $count }} of {{ $results->count() }} players
-        @if(session('is_admin')) <span class="ml-2 font-bold text-red-700">(Admins see all results)</span> @endif
+        @if(session('is_admin'))
+            <span class="ml-2 font-bold text-red-700">(Admins see all results)</span>
+        @endif
     </div>
 
     <table class="my-2 min-w-full bg-transparent table-collapse md:my-4">
@@ -58,7 +60,7 @@
                 <td class="bg-indigo-50 text-center">{{ $result->percentage }}%</td>
                 <td class="bg-blue-100 p-2 text-left font-bold">
                     <a class="link" href="{{ route('player.show', ['player' => $result->player->id]) }}" wire:navigate>
-                    {{ $result->user->name }}
+                        {{ $result->user->name }}
                     </a>
                 </td>
                 <td class="bg-gray-50 p-2 text-left">{{ $result->player->team->name }}</td>

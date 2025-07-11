@@ -54,7 +54,7 @@
         </div>
         <div class="mb-2">
             <span class="font-bold">How does it works under the hood?</span> The player gets
-            <span class="italic">deactivated</span>. (S)he is still  in the league, but has no more attachment to a team.
+            <span class="italic">deactivated</span>. (S)he is still in the league, but has no more attachment to a team.
             If the player comes back OR switches team, the player's status is updated accordingly.
         </div>
         <div class="mb-2">

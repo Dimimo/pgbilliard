@@ -24,8 +24,9 @@
 
     <div class="mb-6 w-full rounded-lg border-2 border-gray-500 text-center">
         <div class="border-b border-gray-500 font-bold">
-            <div class="rounded-t-lg bg-green-100 p-4">The calendar day overview on the day we play from {{ \App\Constants::DATEFORMAT_START }}h to
-                {{ \App\Constants::DATEFORMAT_END }}h</div>
+            <div class="rounded-t-lg bg-green-100 p-4">
+                The calendar day overview on the day we play from {{ \App\Constants::DATEFORMAT_START }}h to {{ \App\Constants::DATEFORMAT_END }}h
+            </div>
         </div>
         <div class="m-4 flex justify-center">
             <img src="{{ secure_url('/images/schedule/day_score_ready.png') }}" alt="">

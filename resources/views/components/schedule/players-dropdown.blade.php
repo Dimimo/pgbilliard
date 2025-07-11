@@ -23,7 +23,7 @@
                         @if ($i <= 4)
                             {{Str::ucfirst($place)}} {{ $i }}
                         @else
-                        {{__('Reserve')}}
+                            {{__('Reserve')}}
                         @endif
                     </div>
                     <label>

@@ -46,7 +46,7 @@
                                 class="inline-block text-sm text-blue-800"
                                 wire:navigate
                             >
-                            {{__('update team and players')}}
+                                {{__('update team and players')}}
                             </a>)
                         </div>
                     </div>
@@ -73,10 +73,10 @@
                         {{ $post->title }}
                     </a>
                     @if ($post->comments && $comment = $post->comments()->latest()->first())
-                    {{__('last comment by')}} {{ $comment->user->name }}
+                        {{__('last comment by')}} {{ $comment->user->name }}
                         {{ $comment->updated_at->diffForHumans() }}
                     @else
-                    {{__('posted by')}} {{ $post->user->name }} {{ $post->updated_at->diffForHumans() }}
+                        {{__('posted by')}} {{ $post->user->name }} {{ $post->updated_at->diffForHumans() }}
                     @endif
                 </li>
             @empty
@@ -104,7 +104,7 @@
                             >
                                 {{ $room->name }}
                             </a>
-                        {{__('created by')}} {{ $room->owner->name }}
+                            {{__('created by')}} {{ $room->owner->name }}
                         @else
                             <a href="{{ route('chat.room', ['chatRoom' => $room]) }}"
                                class="inline-block text-blue-800 link"
