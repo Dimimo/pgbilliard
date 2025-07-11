@@ -19,7 +19,7 @@ class Score extends Component
     public array $scores;
     public int $i = 1;
     public int $week = 0;
-    public Date $date;
+    public ?Date $date;
     public ?int $score_id = null;
     public $show_full_table = false;
 
@@ -42,7 +42,7 @@ class Score extends Component
     /**
      * Determine the last played week
      */
-    private function getLastWeek(): Date
+    private function getLastWeek(): ?Date
     {
         $dates = $this->getCalendar();
         $returnDate = null;
