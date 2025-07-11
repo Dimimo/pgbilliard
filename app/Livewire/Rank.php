@@ -20,7 +20,7 @@ class Rank extends Component
     {
         $this->season = Season::where('cycle', session('cycle'))->first();
         $this->getResults();
-        if(session('is_admin')) {
+        if (session('is_admin')) {
             $this->count = $this->results->count();
         } else {
             $this->count = Constants::SHOW_INDIVIDUAL_RANK_COUNT;
