@@ -3,7 +3,7 @@
         <x-title title="Competition Results" help="scoreboard">
             <x-slot:subtitle>
                 <div>{{__('Season')}} {{ session('cycle') }}</div>
-                @if($date->checkOpenWindowAccess())
+                @if($date && $date->checkOpenWindowAccess())
                     <div class="mt-4 flex justify-center text-lg text-indigo-700">
                         <a
                             href="{{ route('dates.show', ['date' => $date]) }}"
@@ -40,39 +40,39 @@
                     {{__('Score')}}
                 </th>
                 <th @class([
-                'bg-green-300 p-2 text-gray-900',
-                'hidden sm:table-cell' => ! $show_full_table
-            ])>
+                    'bg-green-300 p-2 text-gray-900',
+                    'hidden sm:table-cell' => ! $show_full_table
+                ])>
                     <x-svg.thumbs-up-solid color="fill-green-600" size="5"/>
                 </th>
                 <th @class([
-                'bg-red-200 p-2 text-gray-900',
-                'hidden sm:table-cell' => ! $show_full_table
-            ])>
+                    'bg-red-200 p-2 text-gray-900',
+                    'hidden sm:table-cell' => ! $show_full_table
+                ])>
                     <x-svg.thumbs-down-solid color="fill-red-600" size="5"/>
                 </th>
                 <th @class([
-                'bg-green-300 p-2 text-gray-900',
-                'hidden lg:table-cell' => ! $show_full_table
-            ])>
+                    'bg-green-300 p-2 text-gray-900',
+                    'hidden lg:table-cell' => ! $show_full_table
+                ])>
                     <x-svg.square-plus-solid color="fill-green-600" size="5"/>
                 </th>
                 <th @class([
-                'bg-red-200 p-2 text-gray-900',
-                'hidden lg:table-cell' => ! $show_full_table
-            ])>
+                    'bg-red-200 p-2 text-gray-900',
+                    'hidden lg:table-cell' => ! $show_full_table
+                ])>
                     <x-svg.square-minus-solid color="fill-orange-500" size="5"/>
                 </th>
-                <th @class([
-                'bg-purple-300 p-2 text-gray-900',
-                'hidden md:table-cell' => ! $show_full_table
-            ]) title="Percentage">
+                <th title={{__('Percentage')}} @class([
+                    'bg-purple-300 p-2 text-gray-900',
+                    'hidden md:table-cell' => ! $show_full_table
+                ])>
                     <x-svg.percent-solid color="fill-indigo-500" size="5"/>
                 </th>
-                <th @class([
-                'bg-indigo-300 p-2 text-gray-900',
-                'hidden md:table-cell' => ! $show_full_table
-            ]) title="Number of games participated">
+                <th title={{__('Number of games participated')}} @class([
+                    'bg-indigo-300 p-2 text-gray-900',
+                    'hidden md:table-cell' => ! $show_full_table
+                ])>
                     <x-svg.champagne-glasses-solid color="fill-blue-800" size="5"/>
                 </th>
             </tr>
@@ -121,8 +121,7 @@
                         <td @class([
                             'text-center p-2',
                             'bg-green-100' => $score_id == $score->get('id')
-                        ])
-                        >
+                        ])>
                             @if ($score->get('last_result') === 'not in')
                                 <span class="text-orange-600"><i>not in</i></span>
                             @elseif ($score->get('last_result') === 'BYE')
@@ -146,39 +145,39 @@
                             @endif
                         </td>
                         <td @class([
-                        'bg-green-200 p-2 text-center text-gray-900',
-                        'hidden sm:table-cell' => ! $show_full_table
-                    ]) title="{{__('Daily games won')}}">
+                            'bg-green-200 p-2 text-center text-gray-900',
+                            'hidden sm:table-cell' => ! $show_full_table
+                        ]) title="{{__('Daily games won')}}">
                             {{ $score->get('won') }}
                         </td>
                         <td @class([
-                        'bg-red-100 p-2 text-center text-gray-900',
-                        'hidden sm:table-cell' => ! $show_full_table
-                    ]) title="{{__('Daily games lost')}}">
+                            'bg-red-100 p-2 text-center text-gray-900',
+                            'hidden sm:table-cell' => ! $show_full_table
+                        ]) title="{{__('Daily games lost')}}">
                             {{ $score->get('lost') }}
                         </td>
                         <td @class([
-                        'bg-green-200 p-2 text-center text-gray-900',
-                        'hidden lg:table-cell' => ! $show_full_table
-                    ]) title="{{__('Total games won')}}">
+                            'bg-green-200 p-2 text-center text-gray-900',
+                            'hidden lg:table-cell' => ! $show_full_table
+                        ]) title="{{__('Total games won')}}">
                             {{ $score->get('for') }}
                         </td>
                         <td @class([
-                        'bg-red-100 p-2 text-center text-gray-900',
-                        'hidden lg:table-cell' => ! $show_full_table
-                    ]) title="{{__('Total games lost')}}">
+                            'bg-red-100 p-2 text-center text-gray-900',
+                            'hidden lg:table-cell' => ! $show_full_table
+                        ]) title="{{__('Total games lost')}}">
                             {{ $score->get('against') }}
                         </td>
                         <td @class([
-                        'bg-purple-100 p-2 text-center text-gray-900',
-                        'hidden md:table-cell' => ! $show_full_table
-                    ]) title="{{__('Percentage')}}">
+                            'bg-purple-100 p-2 text-center text-gray-900',
+                            'hidden md:table-cell' => ! $show_full_table
+                        ]) title="{{__('Percentage')}}">
                             {{ $score->get('percentage') }}%
                         </td>
                         <td @class([
-                        'bg-indigo-100 p-2 text-center text-gray-900',
-                        'hidden md:table-cell' => ! $show_full_table
-                    ])
+                            'bg-indigo-100 p-2 text-center text-gray-900',
+                            'hidden md:table-cell' => ! $show_full_table
+                        ])
                             title="{{ $score->get('games_played') }} {{__('games participated')}}">
                             {{ $score->get('games_played') }}
                         </td>
