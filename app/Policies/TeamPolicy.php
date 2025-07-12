@@ -45,6 +45,6 @@ class TeamPolicy
             return true;
         }
 
-        return $team->players()->where('user_id', $user->id)->first()?->captain === true;
+        return $team->activePlayers()->where('user_id', $user->id)->first()?->captain === true;
     }
 }
