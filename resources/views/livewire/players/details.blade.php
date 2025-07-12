@@ -1,7 +1,7 @@
 <div>
     <x-player.participation :team="$player->team" :player="$player" :rank="$rank"/>
 
-    <x-forms.sub-title title="Individual Games and Results">
+    <x-forms.sub-title title="{{__('Individual Games and Results')}}">
         @foreach($games as $game)
             <div class="p-2">
                 @if ($new_date)
