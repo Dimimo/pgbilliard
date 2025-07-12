@@ -14,11 +14,11 @@
         </div>
     @endif
     <div class="my-2 w-min whitespace-nowrap rounded-lg border border-green-500 bg-green-50 p-2">
-        <span class="font-bold text-green-700">New:</span> click on a name to see the game details
+        <span class="font-bold text-green-700">{{__('New')}}:</span> {{__('click on a name to see the game details')}}
     </div>
 
     <div class="flex">
-        Ranking {{ $count }} of {{ $results->count() }} players
+        {{__('sentence.player-rank', ['count' => $count, 'result' => $results->count()])}}
         @if(session('is_admin'))
             <span class="ml-2 font-bold text-red-700">(Admins see all results)</span>
         @endif
@@ -34,7 +34,7 @@
                 <x-svg.percent-solid color="fill-indigo-500" size="5"/>
             </th>
             <th class="bg-blue-300 p-2 text-left text-gray-900">{{__('Name')}}</th>
-            <th class="bg-gray-100 p-2 text-left" title="Current team">
+            <th class="bg-gray-100 p-2 text-left" title="{{__('Current team')}}">
                 {{__('Current Team')}}
             </th>
             <th class="bg-green-300 p-2 text-center">
@@ -43,10 +43,10 @@
             <th class="bg-red-200 p-2 text-center">
                 <x-svg.thumbs-down-solid color="fill-red-600" size="5"/>
             </th>
-            <th class="bg-blue-100 p-2 text-center" title="Number of participated games">
+            <th class="bg-blue-100 p-2 text-center" title="{{__('Number of games participated')}}">
                 <x-svg.hashtag-solid color="fill-blue-700" size="5"/>
             </th>
-            <th class="bg-green-100 p-2 text-center" title="Number of participated playing dates">
+            <th class="bg-green-100 p-2 text-center" title="{{__('Number of participated playing dates')}}">
                 <x-svg.calendar-days-solid color="fill-green-700" size="5"/>
             </th>
         </tr>
@@ -54,7 +54,7 @@
         <tbody class="whitespace-nowrap">
         @foreach($results->take($count) as $result)
             <tr class="h-8" wire:key="rank-{{ $result->player->id }}">
-                <td class="bg-gray-200 p-2 text-center text-gray-900" title="Your current position">
+                <td class="bg-gray-200 p-2 text-center text-gray-900" title="{{__('Your current position')}}">
                     <span class="font-bold">{{ $rank++ }}</span>
                 </td>
                 <td class="bg-indigo-50 text-center">{{ $result->percentage }}%</td>
