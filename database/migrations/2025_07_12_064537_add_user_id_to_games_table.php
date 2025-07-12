@@ -15,7 +15,7 @@ return new class () extends Migration
     {
         Schema::table('games', function (Blueprint $table) {
             $table->after('player_id', function (Blueprint $table) {
-                $table->unsignedBigInteger('user_id')->index();
+                $table->unsignedBigInteger('user_id')->nullable()->index();
             });
         });
     }
