@@ -188,22 +188,7 @@
         </table>
     </div>
 
-    <div class="mt-12 rounded-lg border-2 border-gray-900 p-4">
-        <x-title
-            title="{{__('The individual ranking overview')}}"
-            subtitle="{{__('Season')}} {{ session('cycle') }}"
-            help="ranking"
-            :gradient="false"
-        />
-
-        <div class="m-auto w-min whitespace-nowrap rounded-lg border border-indigo-400 bg-indigo-50 p-2 text-center">
-            This is still experimental! Please read the help file
-            <button wire:click="$dispatch('openModal', { component: 'help.ranking' })">
-                <x-svg.circle-question-regular color="fill-green-700" size="4"/>
-            </button>
-        </div>
-        <livewire:rank/>
-    </div>
+    <livewire:rank/>
 
     @script
     <script>
