@@ -28,8 +28,8 @@ use Illuminate\Support\Carbon;
  * @property-read string $name
  * @property-read Collection<int, Game> $games
  * @property-read int|null              $games_count
- * @property-read Collection<int, Rank> $ranks
- * @property-read int|null              $ranks_count
+ * @property-read Collection<int, Rank> $rank
+ * @property-read int|null              $rank_count
  * @property-read Team|null $team
  * @property-read User|null $user
  *
@@ -113,13 +113,20 @@ class Player extends Model
 
     public function participation(): int
     {
-        return Game::select('event_id')->where('player_id', $this->id)->distinct()->count('event_id');
+        return Game::select('event_id')
+            ->where('player_id', $this->id)
+            ->whereNotNull('win')
+            ->distinct()
+            ->count('event_id');
     }
 
-    public function getParticipationAttribute(): int
+    /*public function getParticipationAttribute(): int
     {
-        return Game::select('event_id')->where('player_id', $this->id)->distinct()->count('event_id');
-    }
+        return Game::select('event_id')
+            ->where('user_id', $this->user_id)
+            ->distinct()
+            ->count('event_id');
+    }*/
 
     public function team(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -141,7 +148,7 @@ class Player extends Model
         return $this->hasMany(Position::class);
     }
 
-    public function ranks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function rank(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Rank::class);
     }
