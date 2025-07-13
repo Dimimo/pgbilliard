@@ -15,7 +15,6 @@ trait UpdateRanksTrait
      * @var Collection<Player>
      */
     public Collection $players;
-    private int $max_possible_games = 0;
 
     private function updateRanks(): void
     {
@@ -23,54 +22,68 @@ trait UpdateRanksTrait
         $this->updateRankTable();
     }
 
+    /**
+     * First we have to prepare the data before we can enter the completed set to the database
+     * A season has dates, dates, have events, events have players, players have games
+     */
     private function populateData(): void
     {
-        $teams_count = $this->season->teams()->count();
-        $dates = Date::whereSeasonId($this->season->id)->orderBy('date')->pluck('id');
-        $event_ids = Event::whereIn('date_id', $dates)->whereNotNull(['score1', 'score2'])->pluck('id');
-        $this->max_possible_games = round(count($event_ids) / $teams_count * 2);
-        $player_ids = Game::whereIn('event_id', $event_ids)->whereNotNull('player_id')->pluck('player_id')->unique();
+        $date_ids = Date::whereSeasonId($this->season->id)->orderBy('date')->pluck('id');
+        $event_ids = Event::whereIn('date_id', $date_ids)->whereNotNull(['score1', 'score2'])->pluck('id');
+        $player_ids = Game::whereIn('event_id', $event_ids)->whereNotNull('player_id')->distinct()->pluck('player_id');
         $this->players = Player::whereIn('players.id', $player_ids)
             ->withCount([
                 'games as games_won' => fn ($q) => $q->where('win', true),
                 'games as games_lost' => fn ($q) => $q->whereNotNull('win')->where('win', false),
-                'games as games_played' => fn ($q) => $q->whereIn('event_id', $event_ids),
+                'games as games_played' => fn ($q) => $q->whereIn('event_id', $event_ids)->whereNotNull('win'),
             ])
             ->with(['user', 'team'])
-            ->orderByDesc('games_won')
+            ->orderByDesc('user_id')
             ->get()
             ->each(fn ($player) => $player->participation = $player->participation());
     }
 
     private function updateRankTable(): void
     {
+        $max_played_games = $this->players->sortByDesc('games_played')->first()->games_played;
+
         $insert = [
             'season_id' => $this->season->id,
-            'max_games' => $this->max_possible_games
+            'max_games' => $max_played_games
         ];
 
-        foreach ($this->players as $player) {
+        // first we group by user_id and then sum the won, lost, participated and played games
+        // users can go in and out teams, leaving them with possibly several 'player' ids
+        $players = $this->players->groupBy('user_id');
+        $merged = collect();
+
+        foreach ($players as $player) {
+            $data = collect(
+                array_merge($insert, [
+                    'player_id' => $player->where('active', true)->first()?->id ?: $player->last()->id,
+                    'user_id' => $player->first()->user_id,
+                    'participated' => $player->sum('participation'),
+                    'won' => $player->sum('games_won'),
+                    'lost' => $player->sum('games_lost'),
+                    'played' => $player->sum('games_played'),
+                ])
+            );
+
+            $merged->push($data);
+        }
+
+        $merged = $merged->sortByDesc('played');
+        Rank::whereSeasonId($this->season->id)->delete();
+
+        foreach ($merged as $data) {
             try {
-                $percentage = $player->games_won / ($player->games_won + $player->games_lost) * ($player->participation / $this->max_possible_games) * 100;
-            } catch (\DivisionByZeroError $e) {
-                $e->getMessage();
+                $percentage = ($data->get('won') / $data->get('played')) * 100;
+            } catch (\DivisionByZeroError) {
                 $percentage = 0;
             }
+            $data->put('percentage', ($percentage));
 
-            $insert = array_merge($insert, [
-                'player_id' => $player->id,
-                'user_id' => $player->user_id,
-                'participated' => $player->participation,
-                'won' => $player->games_won,
-                'lost' => $player->games_lost,
-                'played' => $player->games_played,
-                'percentage' => $percentage,
-            ]);
-
-            Rank::updateOrCreate(
-                ['season_id' => $this->season->id, 'player_id' => $player->id],
-                $insert
-            );
+            Rank::create($data->toArray());
         }
     }
 }

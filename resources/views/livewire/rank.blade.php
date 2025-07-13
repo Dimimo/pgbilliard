@@ -1,27 +1,59 @@
-<div>
-    @if(session('is_admin'))
-        <div class="my-8 flex flex-row items-center space-x-2">
-            <button
-                type="button"
-                class="rounded-lg border border-indigo-700 bg-indigo-100 px-4 py-2"
-                wire:click="requestUpdate"
-            >
-                Request update
+<div class="mt-12 rounded-lg border-2 border-gray-900 p-4">
+    <x-title
+        title="{{__('The individual ranking overview')}}"
+        subtitle="{{__('Season')}} {{ session('cycle') }}"
+        help="ranking"
+        :gradient="false"
+    />
+
+    <div class="m-auto mb-4 rounded-lg border border-indigo-400 bg-indigo-50 p-2 text-center">
+        <div class="mb-4 font-bold">
+            This is still experimental! Please read the help file
+            <button wire:click="$dispatch('openModal', { component: 'help.ranking' })">
+                <x-svg.circle-question-regular color="fill-green-700" size="4"/>
             </button>
-            <div>
+        </div>
+        <div class="mb-4">
+            Some things to consider.
+        </div>
+        <div class="mb-4">At first the list shows <span class="font-bold">the {{ $median }} best players</span>
+            of a total of {{ $results->count() }} players in this Season.
+        </div>
+        <div class="mb-4">
+            How and why?<br>
+            The number is the median of the total games played
+            (<span class="text-lg font-bold text-blue-700">#</span> in the list)
+        </div>
+        <div class="mb-4">
+            Optionally, you can see the list of all players.<br>
+            Either way, the calculation of the percentage is strait forward:<br>
+            <span class="font-mono">(Games Won / Total Games) * 100</span>
+        </div>
+        <div class="mb-4">
+            {{__('New') }}: {{__('click on a name to see the game details')}}
+        </div>
+        @if(session('is_admin'))
+            <div class="text-center">
+                <button
+                    type="button"
+                    class="rounded-lg border border-gray-600 bg-gray-50 px-4 py-2 text-gray-700"
+                    wire:click="requestUpdate"
+                >
+                    Request update <span class="italic">(only for admins)</span>
+                </button>
                 <x-forms.action-message on="updated">{{__('Updated')}}!</x-forms.action-message>
             </div>
-        </div>
-    @endif
-    <div class="my-2 w-min whitespace-nowrap rounded-lg border border-green-500 bg-green-50 p-2">
-        <span class="font-bold text-green-700">{{__('New')}}:</span> {{__('click on a name to see the game details')}}
+        @endif
     </div>
 
-    <div class="flex">
-        {{__('sentence.player-rank', ['count' => $count, 'result' => $results->count()])}}
-        @if(session('is_admin'))
-            <span class="ml-2 font-bold text-red-700">(Admins see all results)</span>
-        @endif
+    <div class="flex justify-center">
+        <x-forms.primary-button wire:click="toggleMedian">
+            @if ($show_all_results)
+                Show only the {{ $median }} best players (median #)
+            @else
+                Show the list of ALL players (not accurate)
+            @endif
+        </x-forms.primary-button>
     </div>
 
     <table class="my-2 min-w-full bg-transparent table-collapse md:my-4">
@@ -52,7 +84,7 @@
         </tr>
         </thead>
         <tbody class="whitespace-nowrap">
-        @foreach($results->take($count) as $result)
+        @foreach($results->sortByDesc('played')->take($count)->sortByDesc('percentage') as $result)
             <tr class="h-8" wire:key="rank-{{ $result->player->id }}">
                 <td class="bg-gray-200 p-2 text-center text-gray-900" title="{{__('Your current position')}}">
                     <span class="font-bold">{{ $rank++ }}</span>
