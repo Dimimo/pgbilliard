@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $event_id
  * @property int $team_id
  * @property int|null $player_id
+ * @property int $user_id
  * @property int $position
  * @property bool $home
  * @property bool|null $win
@@ -36,6 +37,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Game whereScheduleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Game whereTeamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Game whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Game whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Game whereWin($value)
  * @mixin \Eloquent
  */
@@ -48,6 +50,7 @@ class Game extends Model
         'event_id',
         'team_id',
         'player_id',
+        'user_id',
         'position',
         'home',
         'win',
@@ -60,6 +63,7 @@ class Game extends Model
         'event_id' => 'int',
         'team_id' => 'int',
         'player_id' => 'int',
+        'user_id' => 'int',
         'position' => 'int',
     ];
 
@@ -81,5 +85,10 @@ class Game extends Model
     public function player(): BelongsTo
     {
         return $this->belongsTo(Player::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -43,6 +43,8 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @property-read int|null                                                  $chat_rooms_count
  * @property-read Collection<int, Comment>                                  $comments
  * @property-read int|null                                                  $comments_count
+ * @property-read Collection<int, Player>                                   $games
+ * @property-read int|null                                                  $games_count
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null                                                  $notifications_count
  * @property-read Collection<int, Player>                                   $players
@@ -190,5 +192,10 @@ class User extends Authenticatable
     public function ranks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Rank::class);
+    }
+
+    public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Game::class);
     }
 }
