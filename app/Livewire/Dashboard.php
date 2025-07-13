@@ -25,11 +25,11 @@ class Dashboard extends Component
     public function mount(): void
     {
         $this->team = Team::tap(new Cycle())
-            ->has('players', '=', 1, 'and', fn ($q) => $q->where('user_id', $this->user->id))
+            ->has('players', '=', 1, 'and', fn ($q) => $q->where([['user_id', $this->user->id], ['active', true]]))
             ->with(['players' => fn ($q) => $q->where('active', true)])
             ->first();
         $this->player = $this->team
-            ?->players()
+            ?->activePlayers()
             ->where('user_id', $this->user->id)
             ->first();
         $this->rank = $this->getPlayerIndividualRank();
