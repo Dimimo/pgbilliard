@@ -186,8 +186,9 @@ class Schedule extends Component
                 (new Game())->create([
                     'schedule_id' => $schedule->id,
                     'event_id' => $this->event->id,
-                    'team_id' => $player->team->id,
+                    'team_id' => $player->team_id,
                     'player_id' => $player_id,
+                    'user_id' => $player->user_id,
                     'position' => $schedule->position,
                     'home' => $place === 'home',
                 ]);
@@ -218,8 +219,15 @@ class Schedule extends Component
 
     private function recreateMatrix(): void
     {
-        $this->home_matrix = Position::with('player.user')->where([['event_id', $this->event->id], ['home', true]])->orderBy('rank')->get();
-        $this->visit_matrix = Position::with('player.user')->where([['event_id', $this->event->id], ['home', false]])->orderBy('rank')->get();
+        $this->home_matrix = Position::with('player.user')
+            ->where([['event_id', $this->event->id], ['home', true]])
+            ->orderBy('rank')
+            ->get();
+
+        $this->visit_matrix = Position::with('player.user')
+            ->where([['event_id', $this->event->id], ['home', false]])
+            ->orderBy('rank')
+            ->get();
     }
 
     private function checkThirdGame(): void
@@ -232,6 +240,7 @@ class Schedule extends Component
                     'event_id' => $this->event->id,
                     'team_id' => $schedule->home ? $this->event->team_1->id : $this->event->team_2->id,
                     'player_id' => null,
+                    'user_id' => null,
                     'position' => 15,
                     'home' => $schedule->home,
                 ];
@@ -258,8 +267,15 @@ class Schedule extends Component
 
     private function getPlayersFromUnfinishedGame(): void
     {
-        $this->home_players = $this->event->team_1->players->where('active', true)->sortBy('name');
-        $this->visit_players = $this->event->team_2->players->where('active', true)->sortBy('name');
+        $this->home_players = $this->event
+            ->team_1
+            ->activePlayers()
+            ->sortBy('name');
+
+        $this->visit_players = $this->event
+            ->team_2
+            ->activePlayers()
+            ->sortBy('name');
     }
 
     private function checkIfPlayersCanBeUpdated(): void
