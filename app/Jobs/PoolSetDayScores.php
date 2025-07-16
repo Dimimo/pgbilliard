@@ -40,9 +40,9 @@ class PoolSetDayScores implements ShouldQueue
                 if (! $event->score1 && ! $event->score2) {
                     if ($event->team_1->id !== $event->team_2->id || $event->team_2->name !== 'BYE') {
                         $event->update(['score1' => 0, 'score2' => 0]);
-                    } elseif ($event->team_2->name === 'BYE') {
-                        $event->update(['score1' => null, 'score2' => null, 'confirmed' => true]);
                     }
+                } elseif ($event->team_2->name === 'BYE') {
+                    $event->update(['score1' => null, 'score2' => null, 'confirmed' => true]);
                 }
             }
         }
