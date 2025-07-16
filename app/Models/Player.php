@@ -111,6 +111,14 @@ class Player extends Model
         return Attribute::make(get: fn () => $this->user?->email);
     }
 
+    public function getParticipationAttribute(): int
+    {
+        return Game::select('event_id')
+            ->where('user_id', $this->user_id)
+            ->distinct()
+            ->count('event_id');
+    }
+
     public function participation(): int
     {
         return Game::select('event_id')
