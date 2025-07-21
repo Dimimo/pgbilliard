@@ -47,7 +47,7 @@
 
             <div class="col-span-4 h-full w-full bg-blue-50 p-4 text-right">
                 <x-schedule.players-dropdown
-                    :key="'home-matrix' . '-' . $home_matrix->count()"
+                    :key="'home-matrix' . '-' . $home_matrix?->count()"
                     :event="$event"
                     :players="$home_players"
                     place="home"
@@ -58,7 +58,7 @@
             </div>
             <div class="col-span-4 h-full w-full bg-green-50 p-4 text-left">
                 <x-schedule.players-dropdown
-                    :key="'visit-matrix' . '-' . $visit_matrix->count()"
+                    :key="'visit-matrix' . '-' . $visit_matrix?->count()"
                     :event="$event"
                     :players="$visit_players"
                     place="visit"
