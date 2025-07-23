@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Notification;
 use Livewire\Volt\Volt;
 
 test('reset password link screen can be rendered', function () {
+    $this->seed(\Database\Seeders\SeasonSeeder::class);
     $response = $this->get('/forgot-password');
 
     $response
@@ -28,6 +29,7 @@ test('reset password link can be requested', function () {
 });
 
 test('reset password screen can be rendered', function () {
+    $this->seed(\Database\Seeders\SeasonSeeder::class);
     Notification::fake();
 
     $user = User::factory()->create();

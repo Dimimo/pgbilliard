@@ -1,10 +1,23 @@
 <?php
 
+use App\Models\Season;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Volt\Volt;
 
+uses(RefreshDatabase::class);
+
+test('can create a season', function() {
+    Season::factory()->count(1)->create();
+
+    $current_season = Season::orderByDesc('cycle')->count();
+    expect($current_season)->toBe(1);
+});
+
 test('login screen can be rendered', function () {
+    Season::factory()->count(1)->create();
+
     $response = $this->get('/login');
 
     $response
@@ -45,6 +58,7 @@ test('users can not authenticate with invalid password', function () {
 });
 
 test('navigation menu can be rendered', function () {
+    Season::factory()->count(1)->create();
     $user = User::factory()->create();
 
     $this->actingAs($user);
@@ -53,10 +67,12 @@ test('navigation menu can be rendered', function () {
 
     $response
         ->assertSeeVolt('layout.navigation')
+        ->assertSee($user->name)
         ->assertOk();
 });
 
 test('users can logout', function () {
+    $this->seed(\Database\Seeders\SeasonSeeder::class);
     $user = User::factory()->create();
 
     $this->actingAs($user);

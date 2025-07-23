@@ -6,6 +6,7 @@ use App\Providers\RouteServiceProvider;
 use Livewire\Volt\Volt;
 
 test('registration screen can be rendered', function () {
+    $this->seed(\Database\Seeders\SeasonSeeder::class);
     $response = $this->get('/register');
 
     $response

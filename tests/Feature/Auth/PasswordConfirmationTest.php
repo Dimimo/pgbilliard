@@ -6,6 +6,7 @@ use App\Models\User;
 use Livewire\Volt\Volt;
 
 test('confirm password screen can be rendered', function () {
+    $this->seed(\Database\Seeders\SeasonSeeder::class);
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)->get('/confirm-password');
@@ -26,7 +27,7 @@ test('password can be confirmed', function () {
     $component->call('confirmPassword');
 
     $component
-        ->assertRedirect('/dashboard')
+        ->assertRedirect('/')
         ->assertHasNoErrors();
 });
 
