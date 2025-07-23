@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Player;
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -17,13 +18,10 @@ class PlayerFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => $this->faker->randomDigitNotNull(),
-            'name' => $this->faker->name(),
-            'gender' => $this->faker->randomElement(['M', 'F']),
+            'user_id' => User::factory(),
+            'team_id' => Team::factory(),
             'captain' => $this->faker->boolean(),
-            'contact_nr' => $this->faker->phoneNumber(),
-            'cycle' => $this->faker->date('Y/m'),
-            'pool_team_id' => Team::factory(),
+            'active' => $this->faker->boolean(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];

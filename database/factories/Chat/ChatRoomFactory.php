@@ -13,16 +13,9 @@ class ChatRoomFactory extends Factory
 
     public function definition(): array
     {
-        $user_ids = User::whereKeyNot(1)
-            ->whereNotNull('last_game')
-            ->inRandomOrder('id')
-            ->get(['id'])
-            ->pluck('id')
-            ->toArray();
-
         return [
             'name' => $this->faker->words(rand(1, 4), true),
-            'user_id' => $this->faker->randomElement($user_ids),
+            'user_id' => User::factory(),
             'private' => $this->faker->boolean(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

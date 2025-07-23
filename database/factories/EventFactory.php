@@ -19,12 +19,13 @@ class EventFactory extends Factory
     public function definition(): array
     {
         return [
-            'score1' => $this->faker->randomDigitNotNull(),
-            'score2' => $this->faker->randomDigitNotNull(),
-            'pool_date_id' => Date::factory(),
-            'pool_venue_id' => Venue::factory(),
+            'score1' => $this->faker->numberBetween(0, 12),
+            'score2' => $this->faker->numberBetween(0, 12),
+            'date_id' => Date::factory(),
+            'venue_id' => Venue::factory(),
             'team1' => Team::factory(),
             'team2' => Team::factory(),
+            'confirmed' => true,
             'remark' => $this->faker->words(3, true),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

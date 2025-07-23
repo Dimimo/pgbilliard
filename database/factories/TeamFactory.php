@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Season;
 use App\Models\Team;
 use App\Models\Venue;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,8 +20,8 @@ class TeamFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'remark' => $this->faker->words(3, true),
-            'cycle' => $this->faker->date('Y/m'),
-            'pool_venue_id' => Venue::factory(),
+            'season_id' => Season::factory(),
+            'venue_id' => Venue::factory(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
