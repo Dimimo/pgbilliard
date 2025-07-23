@@ -31,7 +31,11 @@ class Teams extends Component
 
     private function getTeams(): Collection
     {
-        return Team::tap(new Cycle())->where('name', '<>', 'BYE')->orderBy('name')->get();
+        return Team::tap(new Cycle())
+            ->where('name', '<>', 'BYE')
+            ->with(['players', 'venue'])
+            ->orderBy('name')
+            ->get();
     }
 
     public function deleteTeam($id): void

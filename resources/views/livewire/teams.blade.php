@@ -83,14 +83,14 @@
                                 class="link"
                                 wire:navigate
                             >
-                                {{ $team->captain() ? $team->captain()->name : '(unknown)' }}
+                                {{ $team->players->where('captain', '1')->first() ? $team->players->where('captain', '1')->first()->name : '(unknown)' }}
                             </a>
                         </div>
                     </div>
                 </td>
                 <td class="border-b-2 border-slate-300 p-2 text-left">
                     @auth()
-                        {{ $team->captain()?->phone ?? $team->venue->contact_nr }}
+                        {{ $team->players->where('captain', '1')->first()?->phone ?? $team->venue->contact_nr }}
                     @else
                         hidden
                     @endauth
