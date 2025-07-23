@@ -24,6 +24,7 @@ class Dashboard extends Component
 
     public function mount(): void
     {
+        $this->user = auth()->user();
         $this->team = Team::tap(new Cycle())
             ->has('players', '=', 1, 'and', fn ($q) => $q->where([['user_id', $this->user->id], ['active', true]]))
             ->with(['players' => fn ($q) => $q->where('active', true)])
