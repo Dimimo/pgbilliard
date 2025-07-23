@@ -1,12 +1,11 @@
 <div>
     <form wire:submit="save">
-        @json($errors->all())
         <div class="grid grid-cols-2 gap-4">
             <div class="p-2 mt-1 text-right text-xl">
                 <x-forms.input-label value="Name"/>
             </div>
             <div class="p-2">
-                <x-forms.text-input id="name" wire:model.live.debounce.500ms="venue_form.name"/>
+                <x-forms.text-input id="name" wire:model.live.debounce.1000ms="venue_form.name"/>
                 <div>
                     @error('venue_form.name') <span class="text-red-700">{{ $message }}</span> @enderror
                 </div>
