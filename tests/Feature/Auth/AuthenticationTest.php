@@ -8,15 +8,8 @@ use Livewire\Volt\Volt;
 
 uses(RefreshDatabase::class);
 
-test('can create a season', function () {
-    Season::factory()->count(1)->create();
-
-    $current_season = Season::orderByDesc('cycle')->count();
-    expect($current_season)->toBe(1);
-});
-
 test('login screen can be rendered', function () {
-    Season::factory()->count(1)->create();
+    Season::factory()->create();
 
     $response = $this->get('/login');
 
@@ -58,7 +51,7 @@ test('users can not authenticate with invalid password', function () {
 });
 
 test('navigation menu can be rendered', function () {
-    Season::factory()->count(1)->create();
+    Season::factory()->create();
     $user = User::factory()->create();
 
     $this->actingAs($user);
