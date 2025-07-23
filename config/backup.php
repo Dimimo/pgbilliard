@@ -26,6 +26,7 @@ return [
                 'exclude' => [
                     base_path('vendor'),
                     base_path('node_modules'),
+                    base_path('storage'),
                 ],
 
                 /*
@@ -36,7 +37,7 @@ return [
                 /*
                  * Determines if it should avoid unreadable folders.
                  */
-                'ignore_unreadable_directories' => false,
+                'ignore_unreadable_directories' => true,
 
                 /*
                  * This path is used to make directories in resulting zip-file relative
