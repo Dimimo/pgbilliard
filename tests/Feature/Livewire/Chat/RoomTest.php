@@ -1,10 +1,10 @@
 <?php
 
-use App\Livewire\Chat\Invited;
+use App\Livewire\Chat\Room;
 use Livewire\Livewire;
 
 it('renders successfully', function () {
     $room = \App\Models\Chat\ChatRoom::factory()->create();
-    Livewire::test(Invited::class, ['room' => $room])
+    Livewire::test(Room::class, ['chatRoom' => $room])
         ->assertStatus(200);
 });
