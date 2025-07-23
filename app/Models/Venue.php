@@ -81,7 +81,6 @@ class Venue extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id',
         'name',
         'user_id',
         'address',
