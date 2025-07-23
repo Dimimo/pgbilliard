@@ -17,7 +17,7 @@ class RankFactory extends Factory
     {
         return [
             'max_games' => 20,
-            'participated' => $this->faker->numberBetween(2,20),
+            'participated' => $this->faker->numberBetween(2, 20),
             'won' => $this->faker->numberBetween(2, 20),
             'lost' => $this->faker->numberBetween(2, 20),
             'played' => $this->faker->numberBetween(2, 20),

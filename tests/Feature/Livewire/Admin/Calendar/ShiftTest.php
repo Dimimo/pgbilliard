@@ -3,7 +3,7 @@
 use App\Livewire\Admin\Calendar\Shift;
 use Livewire\Livewire;
 
-it('has dates', function() {
+it('has dates', function () {
     $this->seed(\Database\Seeders\EventSeeder::class);
     $dates = \App\Models\Date::where('season_id', 1)
         ->withCount(['events' => fn ($event) => $event->where('confirmed', 1)])

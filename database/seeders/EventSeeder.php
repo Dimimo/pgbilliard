@@ -24,7 +24,7 @@ class EventSeeder extends Seeder
                 ->for($team1, 'team_1')
                 ->for($team2, 'team_2')
                 ->for($venue1, 'venue')
-                ->set('confirmed', $i%2)
+                ->set('confirmed', $i % 2)
                 ->for(Date::factory()->create(['season_id' => $season->id]))
                 ->create();
         }

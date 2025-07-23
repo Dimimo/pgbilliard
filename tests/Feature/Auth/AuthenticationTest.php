@@ -8,7 +8,7 @@ use Livewire\Volt\Volt;
 
 uses(RefreshDatabase::class);
 
-test('can create a season', function() {
+test('can create a season', function () {
     Season::factory()->count(1)->create();
 
     $current_season = Season::orderByDesc('cycle')->count();

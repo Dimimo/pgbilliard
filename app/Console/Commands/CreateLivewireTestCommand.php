@@ -36,8 +36,11 @@ class CreateLivewireTestCommand extends Command
         foreach ((new Finder())->in($paths)->files() as $file) {
             $component = ucfirst(trim(
                 str_replace(
-                    [realpath(base_path()), '.php']
-                    , '', $file->getRealPath()), '/'
+                    [realpath(base_path()), '.php'],
+                    '',
+                    $file->getRealPath()
+                ),
+                '/'
             ));
             $className = str_replace(['/', '\\app'], ['\\', '\\App'], $component);
 
