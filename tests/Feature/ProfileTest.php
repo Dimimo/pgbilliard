@@ -4,6 +4,7 @@ use App\Models\User;
 use Livewire\Volt\Volt;
 
 test('profile page is displayed', function () {
+    $this->seed(\Database\Seeders\SeasonSeeder::class);
     $user = User::factory()->create();
 
     $this->actingAs($user);
