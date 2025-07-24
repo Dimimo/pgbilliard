@@ -3,6 +3,14 @@
 use App\Livewire\Admin\Venues\Create;
 use Livewire\Livewire;
 
+beforeEach(function () {
+    $this->admin = \App\Models\Admin::factory()->create();
+
+    $this->component = Livewire::actingAs($this->admin->user)
+        ->test(Create::class, ['venue' => new \App\Models\Venue(['name' => ''])])
+        ->assertViewIs('livewire.admin.venue');
+});
+
 it('renders the component successfully', function () {
     $venue = \App\Models\Venue::factory()->create();
     Livewire::test(Create::class, ['venue' => $venue->id])
@@ -12,8 +20,7 @@ it('renders the component successfully', function () {
 });
 
 it('creating a new venue validation test', function () {
-    $component = adminVenuesCreateTest();
-    $component
+    $this->component
         ->set('venue_form.name', '')
         ->set('venue_form.address', '')
         ->call('save')
@@ -24,9 +31,7 @@ it('creating a new venue validation test', function () {
 });
 
 it('can create a new venue', function () {
-    $component = adminVenuesCreateTest();
-
-    $component
+    $this->component
         ->set('venue_form.name', 'my venue')
         ->set('venue_form.address', 'my address')
         ->set('venue_form.contact_name', 'my name')
@@ -40,17 +45,16 @@ it('can create a new venue', function () {
 });
 
 it('can update an existing venue', function () {
-    $admin = \App\Models\Admin::factory()->create();
+    // uses a different LiveWire component
     $venue = \App\Models\Venue::factory()->create(['name' => 'my venue']);
-    $component = Livewire::actingAs($admin->user)
+    Livewire::actingAs($this->admin->user)
         ->test(\App\Livewire\Admin\Venue::class, ['venue' => $venue])
         ->assertViewIs('livewire.admin.venue')
-        ->assertOk();
-
-    $component
+        ->assertOk()
         ->set('venue_form.name', 'other venue')
         ->call('save')
         ->assertHasNoErrors()
+        ->assertOk()
         ->assertRedirect(route('teams.index'))
         ->assertOk();
 
@@ -58,12 +62,3 @@ it('can update an existing venue', function () {
 
     $this->assertEquals($venue->name, 'other venue');
 });
-
-function adminVenuesCreateTest(): \Livewire\Features\SupportTesting\Testable
-{
-    $admin = \App\Models\Admin::factory()->create();
-
-    return Livewire::actingAs($admin->user)
-        ->test(Create::class, ['venue' => new \App\Models\Venue(['name' => ''])])
-        ->assertViewIs('livewire.admin.venue');
-}
