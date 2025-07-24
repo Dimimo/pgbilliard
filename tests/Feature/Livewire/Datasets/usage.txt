@@ -1,0 +1,16 @@
+source: https://pestphp.com/docs/datasets
+
+example:
+// tests/Feature/Products/ExampleTest.php...
+it('has products', function (string $product) {
+    expect($product)->not->toBeEmpty();
+})->with('products');
+
+// tests/Feature/Products/Datasets.php...
+dataset('products', [
+    'egg',
+    'milk'
+]);
+
+how?
+'products' are found in the tests/Datasets/Products.php file
