@@ -21,7 +21,7 @@ class PlayerFactory extends Factory
             'user_id' => User::factory(),
             'team_id' => Team::factory(),
             'captain' => $this->faker->boolean(),
-            'active' => $this->faker->boolean(),
+            'active' => true,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
