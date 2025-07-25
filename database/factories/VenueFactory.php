@@ -17,7 +17,7 @@ class VenueFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
+            'name' => $this->faker->company(),
             'address' => $this->faker->address(),
             'contact_name' => $this->faker->name(),
             'contact_nr' => $this->faker->phoneNumber(),
