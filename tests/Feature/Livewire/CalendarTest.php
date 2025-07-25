@@ -10,15 +10,26 @@ beforeEach(function () {
     $this->component = Livewire::test(Calendar::class);
 });
 
+it('shows the correct component', function () {
+    $response = $this->get('/calendar');
+
+    $response
+        ->assertOk()
+        ->assertSeeVolt('calendar');
+});
+
 it('renders successfully', function () {
     $this->component
         ->assertStatus(200);
 });
 
-it('has dates', function () {
+it('shows the correct view', function() {
     $this->component
-        ->assertViewIs('livewire.calendar')
-        ->assertOk()
+        ->assertViewIs('livewire.calendar');
+});
+
+it('has dates and the correct count', function () {
+    $this->component
         ->assertViewHas('dates')
         ->assertCount('dates', 4);
 });
