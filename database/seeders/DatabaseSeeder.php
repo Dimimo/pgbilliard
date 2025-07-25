@@ -27,8 +27,8 @@ class DatabaseSeeder extends Seeder
         /*if (ChatMessage::count() === 0) {
             $this->call([ChatSeeder::class]);
         }*/
-        if (Game::count() === 0) {
+        /*if (Game::count() === 0) {
             $this->call([GameSeeder::class]);
-        }
+        }*/
     }
 }
