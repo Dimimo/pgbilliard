@@ -13,7 +13,7 @@ class SeasonFactory extends Factory
     public function definition(): array
     {
         return [
-            'cycle' => $this->faker->dateTimeThisYear()->format('Y-m-d'),
+            'cycle' => $this->faker->dateTimeThisYear()->format('Y/m'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
             'players' => $this->faker->numberBetween(2, 8),
