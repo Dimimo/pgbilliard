@@ -65,6 +65,6 @@ class Dashboard extends Component
         $season = Season::whereCycle(session('cycle'))->first();
         $ranks = $season->ranks()->orderByDesc('percentage')->pluck('user_id')->toArray();
         $key = array_search($this->user->id, $ranks);
-        return ++$key;
+        return $key ? ++$key : 0;
     }
 }
