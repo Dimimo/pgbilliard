@@ -19,6 +19,9 @@ use Illuminate\Support\Carbon;
  * @property int|null $team_id
  * @property bool $captain
  * @property bool $active
+ * @property int|null $games_lost
+ * @property int|null $games_played
+ * @property int|null $games_won
  * @property int|null $participation
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -27,9 +30,9 @@ use Illuminate\Support\Carbon;
  * @property-read string $gender
  * @property-read string $name
  * @property-read Collection<int, Game> $games
- * @property-read int|null              $games_count
+ * @property-read int|null $games_count
  * @property-read Collection<int, Rank> $rank
- * @property-read int|null              $rank_count
+ * @property-read int|null $rank_count
  * @property-read Team|null $team
  * @property-read User|null $user
  *
@@ -89,26 +92,33 @@ class Player extends Model
 
     protected $with = [];
 
-    protected $appends = ['name', 'phone', 'participation'];
+    protected $appends = [
+        'name',
+        'phone',
+        'participation',
+        'games_won',
+        'games_lost',
+        'games_played',
+    ];
 
     protected function name(): Attribute
     {
-        return Attribute::make(get: fn () => $this->user?->name);
+        return Attribute::make(get: fn() => $this->user?->name);
     }
 
     protected function phone(): Attribute
     {
-        return Attribute::make(get: fn () => $this->user?->contact_nr);
+        return Attribute::make(get: fn() => $this->user?->contact_nr);
     }
 
     protected function gender(): Attribute
     {
-        return Attribute::make(get: fn () => $this->user?->gender);
+        return Attribute::make(get: fn() => $this->user?->gender);
     }
 
     protected function email(): Attribute
     {
-        return Attribute::make(get: fn () => $this->user?->email);
+        return Attribute::make(get: fn() => $this->user?->email);
     }
 
     public function getParticipationAttribute(): int
