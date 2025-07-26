@@ -37,7 +37,7 @@
         </div>
         <div class="text-lg">{{__('Your team members are')}}:</div>
         <ul class="list-inside list-disc">
-            @foreach($team->players->sortBy('name')->sortByDesc('captain') as $member)
+            @foreach($team->players->where('active', true)->sortBy('name')->sortByDesc('captain') as $member)
                 <li>{{ $member->user->name }} {{ $member->captain ? 'is captain' : '' }}</li>
             @endforeach
         </ul>
