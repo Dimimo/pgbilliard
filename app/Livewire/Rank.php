@@ -13,8 +13,8 @@ class Rank extends Component
     public Collection $results;
     public Season $season;
     public int $rank = 1;
-    public int $count;
-    public int $median;
+    public int|float $count;
+    public int|float $median;
     public bool $show_all_results = false;
 
     public function mount(): void
