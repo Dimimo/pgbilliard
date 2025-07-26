@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Game;
 use App\Models\Player;
 use App\Models\Rank;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 trait UpdateRanksTrait
@@ -33,9 +34,9 @@ trait UpdateRanksTrait
         $player_ids = Game::whereIn('event_id', $event_ids)->whereNotNull('player_id')->distinct()->pluck('player_id');
         $this->players = Player::whereIn('players.id', $player_ids)
             ->withCount([
-                'games as games_won' => fn ($q) => $q->where('win', true),
-                'games as games_lost' => fn ($q) => $q->whereNotNull('win')->where('win', false),
-                'games as games_played' => fn ($q) => $q->whereIn('event_id', $event_ids)->whereNotNull('win'),
+                'games as games_won' => fn (Builder $q) => $q->where('win', true),
+                'games as games_lost' => fn (Builder $q) => $q->whereNotNull('win')->where('win', false),
+                'games as games_played' => fn (Builder $q) => $q->whereIn('event_id', $event_ids)->whereNotNull('win'),
             ])
             ->with(['user', 'team'])
             ->orderByDesc('user_id')
@@ -60,7 +61,8 @@ trait UpdateRanksTrait
         foreach ($players as $player) {
             $data = collect(
                 array_merge($insert, [
-                    'player_id' => $player->where('active', true)->first()?->id ?: $player->last()->id,
+                    'player_id' => $player->where('active', true)->first()?->id
+                        ?: $player->first()->id,
                     'user_id' => $player->first()->user_id,
                     'participated' => $player->sum('participation'),
                     'won' => $player->sum('games_won'),
