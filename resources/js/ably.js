@@ -13,4 +13,9 @@ window.Echo.connector.ably.connection.on(stateChange => {
             console.log("LOGGER:: Connection token expired https://help.ably.io/error/40142");
         }
     }
+    if (stateChange.current === 'disconnected') {
+        window.onfocus = function () {
+            window.location.reload();
+        }
+    }
 });
