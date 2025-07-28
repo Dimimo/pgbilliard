@@ -5,5 +5,6 @@ use Livewire\Livewire;
 
 it('renders successfully', function () {
     Livewire::test(LiveScores::class)
-        ->assertStatus(200);
+        ->assertStatus(200)
+        ->assertViewIs('livewire.help.live-scores');
 });
