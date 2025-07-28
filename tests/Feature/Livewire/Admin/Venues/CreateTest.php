@@ -7,16 +7,14 @@ beforeEach(function () {
     $this->admin = \App\Models\Admin::factory()->create();
 
     $this->component = Livewire::actingAs($this->admin->user)
-        ->test(Create::class, ['venue' => new \App\Models\Venue(['name' => ''])])
-        ->assertViewIs('livewire.admin.venue');
+        ->test(Create::class, ['venue' => new \App\Models\Venue(['name' => ''])]);
 });
 
 it('renders the component successfully', function () {
     $venue = \App\Models\Venue::factory()->create();
     Livewire::test(Create::class, ['venue' => $venue->id])
         ->assertStatus(200)
-        ->assertViewIs('livewire.admin.venue')
-        ->assertOk();
+        ->assertViewIs('livewire.admin.venue');
 });
 
 it('creating a new venue validation test', function () {
