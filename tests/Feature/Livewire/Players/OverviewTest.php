@@ -4,8 +4,11 @@ use App\Livewire\Players\Overview;
 use Livewire\Livewire;
 
 it('renders successfully', function () {
-    $player = \App\Models\Player::factory()->create();
+    $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
+    $team = \App\Models\Team::find(1);
 
-    Livewire::test(Overview::class, ['team' => $player->team])
-        ->assertStatus(200);
+    Livewire::test(Overview::class, ['team' => $team])
+        ->assertStatus(200)
+        ->assertCount('players', 4)
+        ->assertSet('team', $team);
 });
