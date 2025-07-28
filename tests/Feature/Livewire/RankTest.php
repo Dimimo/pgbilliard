@@ -10,7 +10,8 @@ beforeEach(function () {
 
 it('renders successfully', function () {
     Livewire::test(Rank::class)
-        ->assertStatus(200);
+        ->assertStatus(200)
+        ->assertViewIs('livewire.rank');
 });
 
 it('tests the ranking order and names', function () {
