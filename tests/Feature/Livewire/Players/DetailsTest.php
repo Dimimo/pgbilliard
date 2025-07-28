@@ -10,5 +10,10 @@ it('renders successfully', function () {
     session()->put('cycle', $season->cycle);
 
     Livewire::test(Details::class, ['player' => $player])
-        ->assertStatus(200);
+        ->assertStatus(200)
+        ->assertSeeVolt('players.details')
+        ->assertViewIs('livewire.players.details')
+        ->assertViewHas(['player', 'games', 'rank', 'date'])
+        ->assertSee('Individual Games and Results')
+        ->assertSee($player->name);
 });
