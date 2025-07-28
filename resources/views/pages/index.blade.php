@@ -9,6 +9,7 @@ name('scoreboard');
     @volt
     <div>
         <livewire:score/>
+        <livewire:rank/>
     </div>
     @endvolt
 </x-layout>

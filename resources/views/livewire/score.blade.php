@@ -188,8 +188,6 @@
         </table>
     </div>
 
-    <livewire:rank/>
-
     @script
     <script>
         let echoPublicChannel = window.Echo.channel('live-score');
