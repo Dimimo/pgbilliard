@@ -23,7 +23,7 @@ it('renders successfully', function () {
         ->assertStatus(200);
 });
 
-it('shows the correct view', function() {
+it('shows the correct view', function () {
     $this->component
         ->assertViewIs('livewire.calendar');
 });
