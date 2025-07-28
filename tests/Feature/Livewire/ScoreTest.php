@@ -22,13 +22,18 @@ it('loads the score and rank components', function () {
         ->assertOk()
         ->assertSeeVolt('score')
         ->assertSeeVolt('rank')
-        ->assertSee('Competition Results');
+        ->assertSee('Competition Results')
+        ->assertSee('Season ' . session('cycle'));
 });
 
 it('shows the score board of a full Season in the correct order', function () {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
     session()->put('cycle', \App\Models\Season::first()->cycle);
-    $team_names = \App\Models\Team::where('name', '<>', 'BYE')->orderBy('name')->get()->pluck('name')->toArray();
+    $team_names = \App\Models\Team::where('name', '<>', 'BYE')
+        ->orderBy('name')
+        ->get()
+        ->pluck('name')
+        ->toArray();
 
     $response = $this->get('/');
 
