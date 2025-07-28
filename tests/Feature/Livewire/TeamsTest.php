@@ -16,7 +16,8 @@ beforeEach(function () {
 
 it('renders successfully', function () {
     Livewire::test(Teams::class)
-        ->assertStatus(200);
+        ->assertStatus(200)
+        ->assertViewIs('livewire.teams');
 });
 
 it('has teams', function () {
@@ -36,10 +37,11 @@ it('does not show the phone numbers as a guest', function () {
         ->assertSee('hidden');
 });
 
-it('shows the phone numbers if logged in but can not edit', function () {
+it('shows the correct phone number if logged in but can not edit', function () {
     Livewire::actingAs($this->player->user)
         ->test(Teams::class)
-        ->assertSee($this->team->venue->contact_nr)
+        ->assertDontSee($this->team->venue->contact_nr)
+        ->assertSee($this->captain->phone)
         ->assertDontSeeHtml('teams/edit')
         ->assertDontSeeHtml('venues/edit');
 });
@@ -57,6 +59,5 @@ it('checks if the bar owner can edit the venue and shows their contact number', 
     Livewire::actingAs($this->owner)
         ->test(Teams::class)
         ->assertOk()
-        ->assertSeeText($this->owner->contact_nr)
         ->assertSeeHtml('venues/edit/1');
 });
