@@ -15,7 +15,7 @@ class NewPlayersSeeder extends Seeder
     ): void {
         foreach ($teams as $team) {
             if ($team->name !== 'BYE') {
-                for ($i = 1 ; $i <= 5 ; $i++) {
+                for ($i = 1 ; $i <= 4 ; $i++) {
                     $user = User::factory()->create([
                         'name' => "user $i team $team->id",
                     ]);
