@@ -16,6 +16,7 @@ class TeamForm extends Form
 {
     public Team $team;
     public Collection $users;
+    public Collection $venues;
 
     #[Validate([
         'required',
@@ -64,6 +65,7 @@ class TeamForm extends Form
             ?->user_id;
 
         $this->users = $this->getUsersNotOccupiedExceptOwnCaptain();
+        $this->venues = Venue::orderBy('name')->get(['id', 'name']);
     }
 
     public function checkAndSetValues($name, $value): void
