@@ -2,7 +2,6 @@
 # These day score results have been sent to:
 @foreach($mail_to as $name)
 - {{ $name }}
-
 @endforeach
 
 <x-mail::panel>
