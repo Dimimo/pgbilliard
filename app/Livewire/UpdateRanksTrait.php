@@ -36,7 +36,7 @@ trait UpdateRanksTrait
             ->withCount([
                 'games as games_won' => fn (Builder $q) => $q->where('win', true),
                 'games as games_lost' => fn (Builder $q) => $q->whereNotNull('win')->where('win', false),
-                'games as games_played' => fn (Builder $q) => $q->whereIn('event_id', $event_ids)->whereNotNull('win'),
+                'games as games_played' => fn (Builder $q) => $q->whereIn('event_id', $event_ids)->whereNotNull('win')->withCount('event'),
             ])
             ->with(['user', 'team'])
             ->orderByDesc('user_id')
@@ -64,7 +64,7 @@ trait UpdateRanksTrait
                     'player_id' => $player->where('active', true)->first()?->id
                         ?: $player->first()->id,
                     'user_id' => $player->first()->user_id,
-                    'participated' => $player->sum('participation'),
+                    'participated' => $player->first()->participation(),
                     'won' => $player->sum('games_won'),
                     'lost' => $player->sum('games_lost'),
                     'played' => $player->sum('games_played'),
