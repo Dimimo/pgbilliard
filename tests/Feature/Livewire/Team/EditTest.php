@@ -3,7 +3,7 @@
 use App\Livewire\Team\Edit;
 use Livewire\Livewire;
 
-beforeEach(function() {
+beforeEach(function () {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
     $this->team = \App\Models\Team::find(1);
     session(['is_admin' => false]);
@@ -16,7 +16,7 @@ it('renders successfully', function () {
         ->assertCount('venues', 3);
 });
 
-it('a bar owner can edit the bar and team but cannot create a team', function() {
+it('a bar owner can edit the bar and team but cannot create a team', function () {
     $owner = $this->team->venue->owner;
     $this->actingAs($owner);
     $response = $this->get('/teams/edit/' . $this->team->id);
@@ -29,7 +29,7 @@ it('a bar owner can edit the bar and team but cannot create a team', function() 
         ->assertSeeVolt('players.edit');
 });
 
-it('a captain can edit the team but cannot edit the bar', function() {
+it('a captain can edit the team but cannot edit the bar', function () {
     $captain = $this->team->players()->where('captain', true)->first()->user;
     $this->actingAs($captain);
     $response = $this->get('/teams/edit/' . $this->team->id);
@@ -42,7 +42,7 @@ it('a captain can edit the team but cannot edit the bar', function() {
         ->assertSeeVolt('players.edit');
 });
 
-it('a guest can not see any edit of team or bar', function() {
+it('a guest can not see any edit of team or bar', function () {
     $response = $this->get('/teams/edit/' . $this->team->id);
     $response
         ->assertSee($this->team->name)
