@@ -61,7 +61,7 @@
                                 @foreach ($date->events as $event)
 
                                     <tr wire:key="event_{{ $event->id }}">
-                                        <td @class(['bg-green-50' => $my_team === $event->team_1->id, 'font-semibold' => $event->score1 > 7])>
+                                        <td @class(['bg-green-50' => $my_team === $event->team_1->id])>
                                             <div
                                                 class="flex justify-between p-1"
                                                 wire:click.self="setMyTeam({{ $event->team_1->id }})"
@@ -81,6 +81,7 @@
                                                             'mr-1',
                                                             'text-green-700' => $event->score1 > 7,
                                                             'text-red-700' => $event->score1 < 8,
+                                                            'font-semibold' => $event->score1 > 7
                                                         ])
                                                     >
                                                         {{ $event->score1 }}
@@ -90,7 +91,7 @@
                                                 @endif
                                             </div>
                                         </td>
-                                        <td @class(['bg-green-50' => $my_team === $event->team_2->id, 'font-semibold' => $event->score2 > 7])>
+                                        <td @class(['bg-green-50' => $my_team === $event->team_2->id])>
                                             <div
                                                 class="flex justify-between p-1"
                                                 wire:click.prevent="setMyTeam({{ $event->team_2->id }})"
@@ -101,6 +102,7 @@
                                                             'ml-1',
                                                             'text-green-700' => $event->score2 > 7,
                                                             'text-red-700' => $event->score2 < 8,
+                                                            'font-semibold' => $event->score2 > 7
                                                         ])
                                                     >
                                                         {{ $event->score2 }}
