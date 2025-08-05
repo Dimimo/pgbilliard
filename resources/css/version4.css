@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+@theme {
+    --font-roboto: "Roboto", "sans-serif";
+}
+@source inline('font-roboto');
+@source inline('relative {after:}{hover:}scale-x-100 {after:}text-blue-800 {after:}block {after:}content-[""] {after:}absolute {after:}h-[1.5px] {after:}bg-blue-800 {after:}w-full {after:}scale-x-0 {after:}transition {after:}duration-300 {after:}origin-center');
