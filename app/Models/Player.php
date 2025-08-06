@@ -96,9 +96,9 @@ class Player extends Model
         'name',
         'phone',
         'participation',
-        'games_won',
+        /*'games_won',
         'games_lost',
-        'games_played',
+        'games_played',*/
     ];
 
     protected function name(): Attribute
@@ -121,7 +121,7 @@ class Player extends Model
         return Attribute::make(get: fn () => $this->user?->email);
     }
 
-    public function getGamesWonAttribute()
+    /*public function getGamesWonAttribute()
     {
         return Attribute::make(get: fn() => $this->games_won);
     }
@@ -134,7 +134,7 @@ class Player extends Model
     public function getGamesPlayedAttribute()
     {
         return Attribute::make(get: fn() => $this->games_played);
-    }
+    }*/
 
     public function getParticipationAttribute(): int
     {
