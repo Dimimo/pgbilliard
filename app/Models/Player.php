@@ -121,6 +121,21 @@ class Player extends Model
         return Attribute::make(get: fn () => $this->user?->email);
     }
 
+    public function getGamesWonAttribute()
+    {
+        return Attribute::make(get: fn() => $this->games_won);
+    }
+
+    public function getGamesLostAttribute()
+    {
+        return Attribute::make(get: fn() => $this->games_lost);
+    }
+
+    public function getGamesPlayedAttribute()
+    {
+        return Attribute::make(get: fn() => $this->games_played);
+    }
+
     public function getParticipationAttribute(): int
     {
         return Game::select('event_id')
