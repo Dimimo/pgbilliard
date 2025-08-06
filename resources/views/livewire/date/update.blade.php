@@ -78,7 +78,7 @@
                     <x-svg.eye-solid color="fill-green-600" size="5" padding=""/>
                     <span class="hidden sm:inline-block">{{__('Day scores')}}</span>
                 </a>
-            @elseif($event->date->checkOpenWindowAccess())
+            @elseif($event->date->checkOpenWindowAccess() && $confirmed === false)
                 <a
                     href="{{ route('schedule.event', ['event' => $event]) }}"
                     class="text-blue-800 link"
