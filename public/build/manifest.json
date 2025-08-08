@@ -1,11 +1,14 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-BuEwzg6m.css",
+    "file": "assets/app-z5e-N5fy.css",
     "src": "resources/css/app.css",
-    "isEntry": true
+    "isEntry": true,
+    "names": [
+      "app.css"
+    ]
   },
   "resources/js/ably.js": {
-    "file": "assets/ably-BZ0w1ka_.js",
+    "file": "assets/ably-BWxyvsmz.js",
     "name": "ably",
     "src": "resources/js/ably.js",
     "isEntry": true
