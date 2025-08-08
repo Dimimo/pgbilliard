@@ -15,7 +15,7 @@ window.Echo.connector.ably.connection.on(stateChange => {
     }
     if (stateChange.current === 'disconnected' || stateChange.current === 'suspended' || stateChange.current === 'failed') {
         window.onfocus = function () {
-            window.location.reload();
+            window.Echo.connect();
         }
     }
 });
