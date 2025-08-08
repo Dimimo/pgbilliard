@@ -6,28 +6,13 @@ use PHPUnit\Framework\TestCase;
 
 class PlayerTest extends TestCase
 {
-    public function testWhereId()
-    {
+    public function test_where_id() {}
 
-    }
+    public function test_where_team_id() {}
 
-    public function testWhereTeamId()
-    {
+    public function test_where_active() {}
 
-    }
+    public function test_where_captain() {}
 
-    public function testWhereActive()
-    {
-
-    }
-
-    public function testWhereCaptain()
-    {
-
-    }
-
-    public function testGetParticipationAttribute()
-    {
-
-    }
+    public function test_get_participation_attribute() {}
 }
