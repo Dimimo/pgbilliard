@@ -258,7 +258,7 @@ class Schedule extends Component
             ->whereBetween('position', [1, 15])
             ->whereHome($home)
             ->orderBy('position')
-            ->groupBy('player_id')
+            ->groupBy(['player_id'])
             ->get()
             ->pluck('player_id')
             ->toArray();
