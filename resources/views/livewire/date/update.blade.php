@@ -11,7 +11,7 @@
         {{ $event->team_1->name }}
     </td>
     @if(session('is_admin'))
-        @if($confirmed === false && $event->games()->count() === 0)
+        @if($confirmed === false && $event->games()->count() === 0 && $event->team_2->name !== 'BYE')
             <td @class([
                 'px-2 pt-4 sm:px-4' => $errors->any(),
                 'px-2 py-4 sm:p-4' => !$errors->any(),
@@ -100,24 +100,25 @@
                         {{__('Confirmed')}}
                     </x-forms.action-message>
                 @endif
+            @else
+                @if (($event->confirmed || $event->games()->whereNotNull('win')->count() > 0))
+                    <a
+                        href="{{ route('schedule.event', ['event' => $event]) }}"
+                        class="text-blue-800 link"
+                        wire:navigate
+                    >
+                        <x-svg.eye-regular color="fill-sky-600" size="5" padding=""/>
+                        <span class="hidden sm:inline-block">{{__('Day scores')}}</span>
+                    </a>
+                @elseif(! $event->date->checkOpenWindowAccess())
+                    <x-date.event-set-in-future :event="$event"/>
+                @else
+                    <div class="text-sm italic text-gray-600 hidden sm:inline-block">
+                        ({{__('ready to start')}})
+                    </div>
+                @endif
             @endcan
 
-            @if (($event->confirmed || $event->games()->whereNotNull('win')->count() > 0))
-                <a
-                    href="{{ route('schedule.event', ['event' => $event]) }}"
-                    class="text-blue-800 link"
-                    wire:navigate
-                >
-                    <x-svg.eye-regular color="fill-sky-600" size="5" padding=""/>
-                    <span class="hidden sm:inline-block">{{__('Day scores')}}</span>
-                </a>
-            @elseif(! $event->date->checkOpenWindowAccess())
-                <x-date.event-set-in-future :event="$event"/>
-            @else
-                <div class="text-sm italic text-gray-600 hidden sm:inline-block">
-                    ({{__('ready to start')}})
-                </div>
-            @endif
         @endif
 
     </td>
