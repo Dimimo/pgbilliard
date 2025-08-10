@@ -12,3 +12,10 @@ it('renders successfully', function () {
         ->assertCount('players', 4)
         ->assertSet('team', $team);
 });
+
+it('shows player names', function () {
+    $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
+    $team = \App\Models\Team::find(1);
+    Livewire::test(Overview::class, ['team' => $team])
+        ->assertSee('user 1 team 1');
+});

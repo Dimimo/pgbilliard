@@ -8,3 +8,10 @@ it('renders successfully', function () {
     Livewire::test(Update::class, ['team' => $team])
         ->assertStatus(200);
 });
+
+it('can update a team', function () {
+    $team = \App\Models\Team::factory()->create(['name' => 'Old Name']);
+    Livewire::test(Update::class, ['team' => $team])
+        ->set('form.name', 'Updated Name')
+        ->assertSee('Updated Name');
+});
