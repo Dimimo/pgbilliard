@@ -10,7 +10,7 @@ $logout = function () {
     session()->invalidate();
     session()->forget('is_admin');
     session()->regenerateToken();
-    $this->redirect('/', navigate: false);
+    $this->redirect('/');
 };
 ?>
 
@@ -56,7 +56,7 @@ $logout = function () {
                                 <div x-show="! open">Open Menu</div>
                                 <div x-show="open">Close</div>
                             </div>
-                            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <svg class="h-6 w-6 bg-transparent" stroke="currentColor" viewBox="0 0 24 24">
                                 <path
                                     :class="{'hidden': open, 'inline-flex': ! open }"
                                     class="inline-flex"
@@ -82,7 +82,6 @@ $logout = function () {
                     <x-navigation.help-files-expanded/>
                 </div>
             </div>
-
         </div>
 
         <!-- Responsive Navigation Menu -->
@@ -103,5 +102,4 @@ $logout = function () {
             @endauth
         </div>
     </div>
-
 </nav>
