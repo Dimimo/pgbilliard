@@ -54,52 +54,55 @@
             'px-2 pt-4 sm:px-4' => $errors->any(),
             'px-2 py-4 sm:p-4' => !$errors->any(),
         ])>
-        @can('update', $event)
-            @if (
-                (($score1 + $score2 === 15) && ($confirmed === false))
-                ||
-                ($event->date->regular && (($score1 === 8 || $score2 === 8) && ($confirmed === false)))
-            )
-                <button
-                    type="button"
-                    title="{{__('Confirm the final score')}}"
-                    class="rounded-lg bg-blue-100 p-2 outline outline-blue-600 hover:bg-green-100 hover:outline-green-600"
-                    wire:click="consolidate()"
-                    wire:confirm="{{__('Final score is')}} {{ $event->team_1->name }} {{ $score1 }} - {{ $score2 }} {{ $event->team_2->name }}\n{{__("You can't change the score after the confirmation")}}."
-                >
-                    confirm
-                </button>
-            @elseif ($event->games()->whereNotNull('win')->count() > 0)
-                <a
-                    href="{{ route('schedule.event', ['event' => $event]) }}"
-                    class="text-blue-800 link"
-                    wire:navigate
-                >
-                    <x-svg.eye-solid color="fill-green-600" size="5" padding=""/>
-                    <span class="hidden sm:inline-block">{{__('Day scores')}}</span>
-                </a>
-            @elseif($event->date->checkOpenWindowAccess() && $confirmed === false)
-                <a
-                    href="{{ route('schedule.event', ['event' => $event]) }}"
-                    class="text-blue-800 link"
-                    wire:navigate
-                >
-                    <x-svg.table-list-solid color="fill-green-600" size="4"/>
-                    <span class="hidden sm:inline-block">{{__('Create Day Sheet')}}</span>
-                </a>
-            @elseif($event->date->date->isFuture())
-                <x-date.event-set-in-future :event="$event"/>
-            @else
-                <x-forms.spinner/>
-                <x-forms.action-message class="font-semibold text-green-700" on="scores-updated-{{ $event->id }}">
-                    {{__('Updated')}}
-                </x-forms.action-message>
-                <x-forms.action-message class="font-bold text-green-700" on="score-confirmed-{{ $event->id }}">
-                    {{__('Confirmed')}}
-                </x-forms.action-message>
-            @endif
-        @else
-            @if ($event->confirmed || $event->games()->whereNotNull('win')->count() > 0)
+
+        @if($event->team_2->name !== 'BYE')
+            @can('update', $event)
+                @if (
+                    (($score1 + $score2 === 15) && ($confirmed === false))
+                    ||
+                    ($event->date->regular && (($score1 === 8 || $score2 === 8) && ($confirmed === false)))
+                )
+                    <button
+                        type="button"
+                        title="{{__('Confirm the final score')}}"
+                        class="rounded-lg bg-blue-100 p-2 outline outline-blue-600 hover:bg-green-100 hover:outline-green-600"
+                        wire:click="consolidate()"
+                        wire:confirm="{{__('Final score is')}} {{ $event->team_1->name }} {{ $score1 }} - {{ $score2 }} {{ $event->team_2->name }}\n{{__("You can't change the score after the confirmation")}}."
+                    >
+                        confirm
+                    </button>
+                @elseif ($event->games()->whereNotNull('win')->count() > 0)
+                    <a
+                        href="{{ route('schedule.event', ['event' => $event]) }}"
+                        class="text-blue-800 link"
+                        wire:navigate
+                    >
+                        <x-svg.eye-solid color="fill-green-600" size="5" padding=""/>
+                        <span class="hidden sm:inline-block">{{__('Day scores')}}</span>
+                    </a>
+                @elseif($event->date->checkOpenWindowAccess() && $confirmed === false)
+                    <a
+                        href="{{ route('schedule.event', ['event' => $event]) }}"
+                        class="text-blue-800 link"
+                        wire:navigate
+                    >
+                        <x-svg.table-list-solid color="fill-green-600" size="4"/>
+                        <span class="hidden sm:inline-block">{{__('Create Day Sheet')}}</span>
+                    </a>
+                @elseif($event->date->date->isFuture())
+                    <x-date.event-set-in-future :event="$event"/>
+                @else
+                    <x-forms.spinner/>
+                    <x-forms.action-message class="font-semibold text-green-700" on="scores-updated-{{ $event->id }}">
+                        {{__('Updated')}}
+                    </x-forms.action-message>
+                    <x-forms.action-message class="font-bold text-green-700" on="score-confirmed-{{ $event->id }}">
+                        {{__('Confirmed')}}
+                    </x-forms.action-message>
+                @endif
+            @endcan
+
+            @if (($event->confirmed || $event->games()->whereNotNull('win')->count() > 0))
                 <a
                     href="{{ route('schedule.event', ['event' => $event]) }}"
                     class="text-blue-800 link"
@@ -115,7 +118,8 @@
                     ({{__('ready to start')}})
                 </div>
             @endif
-        @endcan
+        @endif
+
     </td>
 </tr>
 @if($errors->any())
