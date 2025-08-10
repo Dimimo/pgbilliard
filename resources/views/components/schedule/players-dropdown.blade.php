@@ -1,4 +1,5 @@
 @props(['event', 'players', 'matrix', 'place', 'can_update_players'])
+
 <div class="grid h-full content-between">
     <div>
         <div @class([
@@ -12,6 +13,10 @@
             <div>{{ Str::ucfirst($place) }} {{__('Team')}}</div>
         </div>
         @for($i=1;$i<=$players->count();$i++)
+            @php
+                $old_position_player_id = $matrix->where('rank', $i)->first()?->player->id;
+            @endphp
+
             <div @class([
                 'mb-1 flex items-center justify-end',
                 'flex-row-reverse' => $place === 'visit',
@@ -29,7 +34,7 @@
                     <label>
                         <select
                             class="text-sm"
-                            wire:change="playerSelected($event.target.value, {{$i}}, '{{$place}}')"
+                            wire:change="playerSelected($event.target.value, {{$i}}, '{{$place}}', {{$old_position_player_id}})"
                         >
                             <option value="0">
                                 -- {{__('select')}} --
@@ -37,7 +42,7 @@
                             @foreach($players as $player)
                                 <option
                                     wire:key="selected-{{$i}}-{{$matrix->count()}}"
-                                    @selected($matrix->where('rank', $i)->first()?->player->id === $player->id)
+                                    @selected($old_position_player_id === $player->id)
                                     value="{{$player->id}}"
                                 >
                                     {{$player->name}}

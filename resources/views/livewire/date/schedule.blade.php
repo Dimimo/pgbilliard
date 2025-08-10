@@ -33,13 +33,15 @@
 
                     @if ($can_update_players && auth()->check() && auth()->user()->can('update', $event))
                         <div class="m-2 text-center text-sm">
-                            It happens, if you move the players around, the schedule goes haywire. <br>
-                            Simply
-                            <x-svg.xmark-solid color="fill-red-600" size="4" padding="ml-1"/>
-                            reset the schedule and start again. No big deal! <br>
                             <span class="font-bold">Check the schedule first before starting the game!</span> <br>
                             After entering the first score, the player order and reserves are locked<br>
                             You can change any player later on in the schedule itself.
+                        </div>
+                        <div class="m-2 text-center text-sm">
+                            <span class="font-bold">Hint:</span> <br>
+                            If you are not sure if a reserve will show up, add the player anyway.<br>
+                            A reserve with no games doesn't make any difference<br>
+                            for the scoreboard or individual score.
                         </div>
                     @endif
                 </div>
