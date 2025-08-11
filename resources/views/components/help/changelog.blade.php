@@ -54,6 +54,7 @@
         </li>
         <li>Set the experimental individual ranking to the original idea</li>
         <li>The one female rule has been dropped (Captains Meeting agreement on the 2nd of June 2025)</li>
+        <li>Aug 10, 2025: finally fixed the bug on the day schedule selecting the players</li>
     </ul>
 </div>
 <div class="mt-4">
