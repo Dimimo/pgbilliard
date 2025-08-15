@@ -13,13 +13,14 @@ class FormatFactory extends Factory
 
     public function definition(): array
     {
+        $user = User::factory()->create();
+
         return [
             'name' => $this->faker->name(),
+            'details' => $this->faker->sentence(),
+            'user_id' => $user->id,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-            'details' => $this->faker->word(),
-
-            'user_id' => User::factory(),
         ];
     }
 }
