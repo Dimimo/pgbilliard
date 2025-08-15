@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -31,6 +32,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Format extends Model
 {
+    use HasFactory;
+
     /**
      * @var array<string, string>
      */
@@ -46,6 +49,7 @@ class Format extends Model
     protected $fillable = [
         'name',
         'details',
+        'user_id',
     ];
 
     public function checkGameNumbers(int $player, bool $home): int
