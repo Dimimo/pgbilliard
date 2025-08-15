@@ -21,7 +21,15 @@
                 class="w-min whitespace-nowrap text-lg border border-transparent font-semibold text-blue-700 hover:border hover:border-blue-700 hover:bg-blue-100 px-2"
                 wire:navigate
             >
-                <x-svg.circle-info-solid color="fill-blue-600" size="5" padding="mr-2 mb-1"/> {{ $format->name }}
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    class="inline-block w-5 h-5 fill-blue-600 mr-2 mb-1"
+                >
+                    <path
+                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
+                </svg>
+                {{ $format->name }}
             </a>
             <div class="text-sm">{{ $format->details }}</div>
         </div>

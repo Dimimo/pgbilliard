@@ -15,7 +15,14 @@ name('admin.help.calendar');
             <x-title>
                 <x-slot:title>The admin help pages</x-slot:title>
                 <x-slot:subtitle>
-                    <x-svg.circle-info-solid color="fill-green-600" size="6" padding=""/>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                        class="inline-block w-6 h-6 fill-green-600 mb-1"
+                    >
+                        <path
+                            d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336l24 0 0-64-24 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l48 0c13.3 0 24 10.7 24 24l0 88 8 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-80 0c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
+                    </svg>
                     calendar creation and update
                 </x-slot:subtitle>
             </x-title>
