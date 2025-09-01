@@ -4,8 +4,8 @@
             console.log('messages blade file loaded')
             console.log(Echo.socketId())
             const roomId = {{ $room->id }};
-            // const user = '{{ auth()->user()->name }}';
-            // let users = {{ Js::from($room->users()->get(['id', 'name'])) }};
+            {{--const user = ] `{{ auth()->user()->name }}`;--}}
+            {{--let users = {{ Js::from($room->users()->get(['id', 'name'])) }};--}}
             console.log('room is ' + `chat-${roomId}`)
             console.log(`chat.${roomId}`);
 
