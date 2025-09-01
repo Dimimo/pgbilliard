@@ -20,13 +20,10 @@ class FolioServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Folio::path(resource_path('views/pages/admin'))->uri('/admin')->middleware([
-            '*' => [
+        Folio::path(resource_path('views/pages'))->middleware([
+            'admin/*' => [
                 'auth',
             ],
-        ]);
-        Folio::path(resource_path('views/pages'))->middleware([
-            '*' => [],
         ]);
     }
 }
