@@ -2,7 +2,7 @@
 
 use function Laravel\Folio\name;
 
-name('seasons.all');
+name('seasons');
 ?>
 <x-layout>
     @volt

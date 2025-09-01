@@ -26,7 +26,7 @@ class CycleSelect extends Component
     public function changeCycle(int $id): void
     {
         if ($id === 0) {
-            $this->redirect(route('seasons.all'), navigate: true);
+            $this->redirect(route('seasons'), navigate: true);
         } else {
             $season = Season::findOrFail($id);
             session()->put('cycle', $season->cycle);
