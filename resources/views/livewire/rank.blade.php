@@ -145,7 +145,7 @@
                 </td>
                 <td class="bg-indigo-50 text-center">{{ $result->percentage }}%</td>
                 <td class="bg-blue-100 p-2 text-left font-bold">
-                    <a class="link" href="{{ route('player.show', ['player' => $result->player->id]) }}" wire:navigate>
+                    <a class="link" href="{{ route('players.show', ['player' => $result->player->id]) }}" wire:navigate>
                         {{ $result->user->name }}
                     </a>
                 </td>

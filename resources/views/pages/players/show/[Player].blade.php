@@ -2,7 +2,7 @@
 use function Laravel\Folio\name;
 use function Livewire\Volt\state;
 
-name('player.show');
+name('players.show');
 state('player');
 ?>
 
