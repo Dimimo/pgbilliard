@@ -104,7 +104,7 @@ class Date extends Model
      * and include the admins as well
      * make it unique for not sending double mails
      */
-    public function players()
+    public function players(): Collection
     {
         return
             $this->events
