@@ -7,19 +7,17 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /** @mixin Date */
-class datesResource extends JsonResource
+class DatesResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
         return [
             'id' => $this->id,
-            'date' => $this->date,
+            'date' => $this->date->format('d-m-Y'),
+            'season' => new SeasonResource($this->whenLoaded('season')),
             'regular' => $this->regular,
             'title' => $this->title,
-            'season' => $this->season,
-            'remark' => $this->remark,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'events' => new EventSimpleCollection(new EventSimpleResource($this->events)),
         ];
     }
 }
