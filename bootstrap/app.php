@@ -18,7 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->api(append: [
-            \App\Http\Middleware\PoolCycle::class,
+            \App\Http\Middleware\PoolCycleApi::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
