@@ -27,13 +27,15 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ secure_asset('favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ secure_asset('favicon-96x96.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ secure_asset('favicon-16x16.png') }}">
-    <link rel="manifest" href="{{ secure_asset('manifest.json') }}">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#6cc497">
+    {{--<link rel="manifest" href="{{ secure_asset('manifest.json') }}">
+    <meta name="theme-color" content="#0cc716">--}}
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="robots" content="noindex,nofollow">
+
+    @PwaHead
 
     <title>{{ isset($title) ? $title . ' | ' : '' }}Puerto Galera Pool League</title>
 
@@ -80,5 +82,6 @@
 {{-- End script --}}
 
 @livewire('wire-elements-modal')
+@RegisterServiceWorkerScript
 </body>
 </html>
