@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-z5e-N5fy.css",
+    "file": "assets/app-DQao-WDY.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "names": [
@@ -8,7 +8,7 @@
     ]
   },
   "resources/js/ably.js": {
-    "file": "assets/ably-B9idqHHT.js",
+    "file": "assets/ably-DJZseJwe.js",
     "name": "ably",
     "src": "resources/js/ably.js",
     "isEntry": true
