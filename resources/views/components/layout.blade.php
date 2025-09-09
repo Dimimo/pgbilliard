@@ -35,7 +35,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="robots" content="noindex,nofollow">
 
-    {{--@PwaHead--}}
+    @PwaHead
 
     <title>{{ isset($title) ? $title . ' | ' : '' }}Puerto Galera Pool League</title>
 
@@ -82,6 +82,6 @@
 {{-- End script --}}
 
 @livewire('wire-elements-modal')
-{{--@RegisterServiceWorkerScript--}}
+@RegisterServiceWorkerScript
 </body>
 </html>
