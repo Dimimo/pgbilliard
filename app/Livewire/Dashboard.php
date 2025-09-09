@@ -20,7 +20,7 @@ class Dashboard extends Component
     public ?Player $player = null;
     public ?int $rank = null;
     public Collection $teams;
-    public Collection $rooms;
+    // public Collection $rooms;
 
     public function mount(): void
     {
@@ -36,13 +36,13 @@ class Dashboard extends Component
         if ($this->user->venue) {
             $this->teams = $this->user->venue->teams()->tap(new Cycle())->get();
         }
-        $this->rooms = $this->user->chatRooms()
+        /*$this->rooms = $this->user->chatRooms()
             ->has('users', '=', 1, 'and', fn ($q) => $q->where('user_id', $this->user->id))
             ->with('users')
             ->get()
             ->merge(
                 ChatRoom::where('id', 1)->get()
-            )->sortBy('id');
+            )->sortBy('id');*/
     }
 
     public function render(): \Illuminate\View\View

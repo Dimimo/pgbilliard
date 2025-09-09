@@ -20,13 +20,13 @@
             {{__('Teams')}}
         </x-forms.nav-link>
     </div>
-    @auth()
+    {{--@auth()
         <div class="hidden space-x-4 sm:-my-px sm:ml-4 sm:flex">
             <x-forms.nav-link href="{{ route('chat.index') }}" :active="request()->routeIs('chat.*')" wire:navigate>
                 {{__('Chat')}}
             </x-forms.nav-link>
         </div>
-    @endauth
+    @endauth--}}
     <div class="hidden space-x-4 sm:-my-px sm:ml-4 sm:flex">
         <x-forms.nav-link href="{{ route('forum.posts.index') }}" :active="request()->routeIs('forum.posts.*')" wire:navigate>
             {{__('Forum')}}

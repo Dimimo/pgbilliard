@@ -18,13 +18,15 @@ name('chat.index');
             </x-slot:subtitle>
         </x-title>
 
-        <x-chat.warning/>
+        <x-chat.disabled/>
+
+        {{--<x-chat.warning/>
 
         @can('create', App\Models\Chat\ChatRoom::class)
             <livewire:chat.index/>
         @else
             <x-chat.no-access/>
-        @endcan
+        @endcan--}}
     </section>
     @endvolt
 </x-layout>

@@ -85,7 +85,7 @@
         </ul>
     </div>
 
-    <div class="mb-4 rounded-lg border-2 border-gray-500 p-2">
+    {{--<div class="mb-4 rounded-lg border-2 border-gray-500 p-2">
         <div class="mb-4 border-b border-gray-500 pl-4 text-xl">
             {{__('Chat rooms')}}
         </div>
@@ -116,5 +116,5 @@
                 </div>
             @endforeach
         </div>
-    </div>
+    </div>--}}
 </div>

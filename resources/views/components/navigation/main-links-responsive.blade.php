@@ -37,7 +37,7 @@
         {{__('Teams')}}
     </x-forms.responsive-nav-link>
 </div>
-@auth()
+{{--@auth()
     <div class="pt-2 pb-3 space-y-1">
         <x-forms.responsive-nav-link href="{{ route('chat.index') }}" :active="request()->routeIs(['chat', 'chat.*'])" wire:navigate>
             <svg
@@ -51,7 +51,7 @@
             {{__('Chat')}}
         </x-forms.responsive-nav-link>
     </div>
-@endauth
+@endauth--}}
 <div class="pt-2 pb-3 space-y-1">
     <x-forms.responsive-nav-link href="{{ route('forum.posts.index') }}" :active="request()->routeIs('forum.posts.*')" wire:navigate>
         <svg
