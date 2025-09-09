@@ -16,7 +16,12 @@
             Reviewed Day schedule PDF download
         </a>
     </div>
-    <div class="mb-4">Designed for the Puerto Galera Billiard League</div>
+    <div class="mb-1">Designed for the Puerto Galera Billiard League</div>
+    <div class="mb-4">
+        <a href="{{ route('privacy-policy') }}" class="inline-block text-blue-800 link" wire:navigate>
+            <x-svg.key-solid color="fill-green-600" size="4"/> Privacy Policy
+        </a>
+    </div>
     <div class="text-xs">
         This is an open source project build on Laravel, Livewire, Reverb and Tailwind
     </div>

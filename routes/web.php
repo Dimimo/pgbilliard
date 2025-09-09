@@ -10,6 +10,7 @@ Route::get('rank', fn() => view('pages.rank'))->name('rank');
 Route::get('calendar', fn() => view('pages.calendar'))->name('calendar');
 Route::get('seasons', fn() => view('pages.seasons.all'))->name('seasons');
 Route::get('logs', fn() => view('pages.logs'))->name('logs');
+Route::get('privacy-policy', fn() => view('pages.privacy-policy'))->name('privacy-policy');
 
 Route::get('teams', fn() => view('pages.teams.index'))->name('teams.index');
 Route::get('teams/show/{team}', fn($team) => view('pages.teams.show.[Team]', [

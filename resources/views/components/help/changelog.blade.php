@@ -55,7 +55,13 @@
         <li>Set the experimental individual ranking to the original idea</li>
         <li>The one female rule has been dropped (Captains Meeting agreement on the 2nd of June 2025)</li>
         <li>Aug 10, 2025: finally fixed the bug on the day schedule selecting the players</li>
-        <li>Sep 9, 2025: the chat has been disabled; looking to create a Google Play app, a chat complicates the review process.</li>
+        <li>
+            Sep 9, 2025: <span class="font-bold">the chat has been disabled</span>;
+            looking to create a Google Play app, a chat complicates the review process
+        </li>
+        <li>
+            Sep 9, 2025: added the privacy policy as demanded by Google in order to publish a App Package on Google Store
+        </li>
     </ul>
 </div>
 <div class="mt-4">
