@@ -15,7 +15,7 @@ return [
     |--------------------------------------------------------------------------
     | PWA Manifest Configuration
     |--------------------------------------------------------------------------
-    |  php artisan erag:update-manifest
+    |  php artisan erag =>update-manifest
     */
 
     'manifest' => [
@@ -23,6 +23,8 @@ return [
         'short_name' => 'PG billiard',
         'background_color' => '#fafafa',
         'display' => 'fullscreen',
+        'orientation' => 'any',
+        'start_url' => 'https://www.pgparrot.com',
         'description' => 'The official app of the Puerto Galera Billiard League. View live scores, match schedules, team standings, and results. The app is a convenient way for players and fans to follow the competition.',
         'theme_color' => '#0cc716',
         'icons' => [
