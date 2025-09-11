@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection as PlayerList;
 
 /**
  * App\Models\Date
@@ -104,7 +105,7 @@ class Date extends Model
      * and include the admins as well
      * make it unique for not sending double mails
      */
-    public function players(): Collection
+    public function players(): PlayerList
     {
         return
             $this->events
