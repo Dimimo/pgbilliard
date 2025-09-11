@@ -8,15 +8,15 @@
     "start_url": "/",
     "icons": [
         {
-            "36x36": "D:\\Websites\\pgbilliard\\public\\android-icon-36x36.png",
-            "48x48": "D:\\Websites\\pgbilliard\\public\\android-icon-48x48.png",
-            "72x72": "D:\\Websites\\pgbilliard\\public\\android-icon-72x72.png",
-            "96x96": "D:\\Websites\\pgbilliard\\public\\android-icon-96x96.png",
-            "128x128": "D:\\Websites\\pgbilliard\\public\\android-icon-128x128.png",
-            "144x144": "D:\\Websites\\pgbilliard\\public\\android-icon-144x144.png",
-            "192x192": "D:\\Websites\\pgbilliard\\public\\android-icon-192x192.png",
-            "384x384": "D:\\Websites\\pgbilliard\\public\\android-icon-384x384.png",
-            "512x512": "D:\\Websites\\pgbilliard\\public\\android-icon-512x512.png"
+            "36x36": "./android-icon-36x36.png",
+            "48x48": "./android-icon-48x48.png",
+            "72x72": "./android-icon-72x72.png",
+            "96x96": "./android-icon-96x96.png",
+            "128x128": "./android-icon-128x128.png",
+            "144x144": "./android-icon-144x144.png",
+            "192x192": "./android-icon-192x192.png",
+            "384x384": "./android-icon-384x384.png",
+            "512x512": "./android-icon-512x512.png"
         }
     ]
 }
