@@ -1,5 +1,10 @@
 <div class="mt-12 bg-indigo-50 border-t border-t-gray-500 p-2 text-center">
     <div class="text-2xl">&copy; {{ now()->format('Y') }} PG Billiard</div>
+    <div class="my-4" title="Download the Google Play app">
+        <a href="https://play.google.com/store/apps/details?id=com.pgbilliard&pcampaignid=web_share">
+            <x-svg.google-play size="16"/>
+        </a>
+    </div>
     <div class="mb-2 text-lg">
         <a href="{{ route('help.rules') }}" class="inline-block text-blue-800 link" wire:navigate>
             Overview of our PG billiard rules
