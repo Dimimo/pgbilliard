@@ -20,6 +20,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->api(append: [
             \App\Http\Middleware\PoolCycleApi::class,
         ]);
+        $middleware->alias([
+            'detect.android' => \App\Http\Middleware\DetectAndroid::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->report(function (\Exception $e) {
