@@ -1,8 +1,19 @@
 <div class="mt-12 bg-indigo-50 border-t border-t-gray-500 p-2 text-center">
     <div class="text-2xl">&copy; {{ now()->format('Y') }} PG Billiard</div>
-    <div class="my-4" title="Download the Google Play app">
-        <a href="https://play.google.com/store/apps/details?id=com.pgbilliard&pcampaignid=web_share">
+    <div class="my-4">
+        <a
+            title="Download the Google Play app"
+            href="https://play.google.com/store/apps/details?id=com.pgbilliard&pcampaignid=web_share"
+            target="_blank"
+        >
             <x-svg.google-play size="16"/>
+        </a>
+        <a
+            class="inline-block text-green-700 mb-1"
+            href="{{ route('help.google-play') }}"
+            wire:navigate
+        >
+            <x-svg.circle-question-regular color="fill-green-700" size="6"/>
         </a>
     </div>
     <div class="mb-2 text-lg">

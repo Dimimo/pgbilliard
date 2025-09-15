@@ -48,6 +48,9 @@
         {{--<x-forms.dropdown-link :href="route('help.chat')" wire:navigate>
             {{ __('The chat and rooms') }}
         </x-forms.dropdown-link>--}}
+        <x-forms.dropdown-link :href="route('help.google-play')" wire:navigate>
+            👉 {{ __('Google Play App') }}
+        </x-forms.dropdown-link>
         <x-forms.dropdown-link :href="route('logs')" wire:navigate>
             {{ __('Score changes log file') }}
         </x-forms.dropdown-link>
