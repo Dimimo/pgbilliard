@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * A bit of a strange fix to make sure the routes are recognized by the IDE
  */
-Route::get('/', fn() => view('pages.index'))->name('scoreboard');
+Route::middleware('detect.android')->get('/', fn() => view('pages.index'))->name('scoreboard');
 Route::get('rank', fn() => view('pages.rank'))->name('rank');
 Route::get('calendar', fn() => view('pages.calendar'))->name('calendar');
 Route::get('seasons', fn() => view('pages.seasons.all'))->name('seasons');
@@ -62,6 +62,7 @@ Route::prefix('help')->group(function () {
     Route::get('changelog', fn() => view('pages.help.changelog'))->name('help.changelog');
     Route::get('chat', fn() => view('pages.help.chat'))->name('help.chat');
     Route::get('competition-results', fn() => view('pages.help.competition-results'))->name('help.results');
+    Route::get('google-play', fn() => view('pages.help.google-play'))->name('help.google-play');
     Route::get('live-scores', fn() => view('pages.help.live-scores'))->name('help.live-scores');
     Route::get('ranking', fn() => view('pages.help.ranking'))->name('help.ranking');
     Route::get('schedule', fn() => view('pages.help.schedule'))->name('help.schedule');
