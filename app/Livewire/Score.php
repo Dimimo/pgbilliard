@@ -22,6 +22,7 @@ class Score extends Component
     public ?Date $date;
     public ?int $score_id = null;
     public $show_full_table = false;
+    public $isAndroid = false;
 
     public function mount(): void
     {
