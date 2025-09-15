@@ -4,7 +4,7 @@ use function Laravel\Folio\name;
 use function Livewire\Volt\state;
 
 name('scoreboard');
-state(['isAndroid' => !session('is_android', false)]);
+state(['isAndroid' => session('is_android', false)]);
 ?>
 
 <x-layout title="Scoreboard">
