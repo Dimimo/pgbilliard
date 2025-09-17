@@ -29,10 +29,10 @@ trait UpdateRanksTrait
      */
     private function populateData(): void
     {
-        $date_ids = Date::whereSeasonId($this->season->id)->orderBy('date')->pluck('id');
-        $event_ids = Event::whereIn('date_id', $date_ids)->whereNotNull(['score1', 'score2'])->pluck('id');
-        $player_ids = Game::whereIn('event_id', $event_ids)->whereNotNull('player_id')->distinct()->pluck('player_id');
-        $this->players = Player::whereIn('players.id', $player_ids)
+        $date_ids = Date::query()->whereSeasonId($this->season->id)->orderBy('date')->pluck('id');
+        $event_ids = Event::query()->whereIn('date_id', $date_ids)->whereNotNull(['score1', 'score2'])->pluck('id');
+        $player_ids = Game::query()->whereIn('event_id', $event_ids)->whereNotNull('player_id')->distinct()->pluck('player_id');
+        $this->players = Player::query()->whereIn('players.id', $player_ids)
             ->withCount([
                 'games as games_won' => fn (Builder $q) => $q->where('win', true),
                 'games as games_lost' => fn (Builder $q) => $q->whereNotNull('win')->where('win', false),
@@ -75,7 +75,7 @@ trait UpdateRanksTrait
         }
 
         $merged = $merged->sortByDesc('played');
-        Rank::whereSeasonId($this->season->id)->delete();
+        Rank::query()->whereSeasonId($this->season->id)->delete();
 
         foreach ($merged as $data) {
             try {
@@ -85,7 +85,7 @@ trait UpdateRanksTrait
             }
             $data->put('percentage', ($percentage));
 
-            Rank::create($data->toArray());
+            Rank::query()->create($data->toArray());
         }
     }
 }

@@ -9,7 +9,7 @@ class RankSqlSeeder extends Seeder
 {
     public function run(): void
     {
-        Rank::raw(`
+        Rank::query()->raw(`
             INSERT INTO pprotcom_pgpool.ranks (id, season_id, player_id, user_id, max_games, participated, won, lost, played, percentage, created_at, updated_at) VALUES (454, 1, 290, 117, 48, 11, 27, 21, 48, 56, '2025-07-13 11:41:24', '2025-07-13 11:41:24');
             INSERT INTO pprotcom_pgpool.ranks (id, season_id, player_id, user_id, max_games, participated, won, lost, played, percentage, created_at, updated_at) VALUES (455, 1, 276, 4, 48, 11, 24, 23, 47, 51, '2025-07-13 11:41:24', '2025-07-13 11:41:24');
             INSERT INTO pprotcom_pgpool.ranks (id, season_id, player_id, user_id, max_games, participated, won, lost, played, percentage, created_at, updated_at) VALUES (456, 1, 272, 119, 48, 12, 29, 17, 46, 63, '2025-07-13 11:41:24', '2025-07-13 11:41:24');

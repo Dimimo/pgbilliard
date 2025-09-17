@@ -53,7 +53,7 @@ class PostForm extends Form
     public function store(): void
     {
         $values = $this->validate();
-        $this->post = Post::create(array_merge($values, ['slug' => Str::slug($values['title']), 'user_id' => Auth::id()]));
+        $this->post = Post::query()->create(array_merge($values, ['slug' => Str::slug($values['title']), 'user_id' => Auth::id()]));
     }
 
     public function update(): void

@@ -44,7 +44,7 @@ class DateForm extends Form
     {
         $this->validate();
 
-        $this->pool_date = Date::create($this->only(['date', 'regular', 'title', 'remark']));
+        $this->pool_date = Date::query()->create($this->only(['date', 'regular', 'title', 'remark']));
     }
 
     public function update(): void

@@ -53,7 +53,7 @@ class PlayerForm extends Form
     public function store(): void
     {
         $this->validate();
-        Player::create($this->only(['captain', 'active', 'user_id', 'team_id']));
+        Player::query()->create($this->only(['captain', 'active', 'user_id', 'team_id']));
     }
 
     public function update(): void

@@ -48,7 +48,7 @@ class Index extends Component
 
     public function delete($id): void
     {
-        $comment = Comment::find($id);
+        $comment = Comment::query()->find($id);
         $comment->delete();
         $this->getComments();
     }

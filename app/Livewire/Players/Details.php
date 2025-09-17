@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Players;
 
-use App\Models\Event;
 use App\Models\Player;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
@@ -19,7 +18,7 @@ class Details extends Component
     public function mount(Player $player): void
     {
         $this->player = $player;
-        $season = \App\Models\Season::whereCycle(session('cycle'))->first();
+        $season = \App\Models\Season::query()->whereCycle(session('cycle'))->first();
         $ranks = $season->ranks()->orderByDesc('percentage')->pluck('user_id')->toArray();
         $this->rank = array_search($player->user->id, $ranks) + 1;
         $this->games = $this->player->games()->orderBy('id')->get();

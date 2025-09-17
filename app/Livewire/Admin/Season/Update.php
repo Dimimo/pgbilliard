@@ -66,7 +66,7 @@ class Update extends Component
     {
         $validated = $this->validate();
         foreach ($validated['teams'] as $values) {
-            Team::find($values['id'])->update($values);
+            Team::query()->find($values['id'])->update($values);
         }
         session(['success' => count($validated) . ' teams created. Time to create the Calendar!']);
         $this->redirect(route('admin.calendar.create', ['season' => $this->season]), navigate: true);
@@ -85,7 +85,7 @@ class Update extends Component
 
         if ($old_team) {
             $this->dropdown_teams = $this->dropdown_teams->filter(fn ($item) => $item->id !== $old_team->id);
-            $new_team = Team::create([
+            $new_team = Team::query()->create([
                 'name' => $old_team->name,
                 'venue_id' => $old_team->venue_id,
                 'season_id' => $this->season->id,
@@ -93,10 +93,10 @@ class Update extends Component
 
             // copy the players
             foreach ($old_team->players as $player) {
-                Player::create(['user_id' => $player->user_id, 'team_id' => $new_team->id, 'captain' => $player->captain]);
+                Player::query()->create(['user_id' => $player->user_id, 'team_id' => $new_team->id, 'captain' => $player->captain]);
             }
         } else { // a new team is selected, create one with a generic name and BYE as the team
-            $new_team = Team::whereName('BYE')->first()->venue->teams()->create([
+            $new_team = Team::query()->whereName('BYE')->first()->venue->teams()->create([
                 'name' => 'A new team ' . ++$this->i,
                 'season_id' => $this->season->id,
             ]);
@@ -113,7 +113,7 @@ class Update extends Component
     private function getTeams(): void
     {
         $this->fill([
-            'teams' => Team::where('season_id', $this->season->id)->orderBy('name')->get()->each(function (Team $team) {
+            'teams' => Team::query()->where('season_id', $this->season->id)->orderBy('name')->get()->each(function (Team $team) {
                 if (strtoupper($team->name) === 'BYE') {
                     $this->has_bye = true;
                 }
@@ -124,7 +124,7 @@ class Update extends Component
     #[On('remove-team')]
     public function removeTeam($team_id): void
     {
-        $team = Team::find($team_id);
+        $team = Team::query()->find($team_id);
         $this->authorize('delete', $team);
         if (Str::upper($team->name) === 'BYE') {
             $this->has_bye = false;
@@ -143,7 +143,7 @@ class Update extends Component
     #[On('team-added')]
     public function addTeam($team_id): void
     {
-        $team = Team::find($team_id);
+        $team = Team::query()->find($team_id);
         $team->append('user_id');
         $this->teams->push($team);
         $this->teams->sortBy('name', SORT_NATURAL);
@@ -156,9 +156,9 @@ class Update extends Component
         $this->has_bye = true;
         session(['has_bye' => true]);
 
-        $new_team = Team::create([
+        $new_team = Team::query()->create([
             'name' => 'BYE',
-            'venue_id' => Venue::whereName('BYE')->first()->id,
+            'venue_id' => Venue::query()->whereName('BYE')->first()->id,
             'season_id' => $this->season->id,
         ]);
         $this->pushAndSortTeams($new_team);

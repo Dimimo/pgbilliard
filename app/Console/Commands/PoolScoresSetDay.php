@@ -39,7 +39,7 @@ class PoolScoresSetDay extends Command
     public function handle(): void
     {
         $today = Carbon::now()->appTimezone()->format('Y-m-d');
-        $dates = Date::where('date', $today)->get();
+        $dates = Date::query()->where('date', $today)->get();
         foreach ($dates as $date) {
             PoolSetDayScores::dispatch($date);
         }

@@ -76,7 +76,7 @@ class SendEmails extends Component
 
     private function getPlayers(): void
     {
-        $this->teams = Team::tap(new Cycle())
+        $this->teams = Team::query()->tap(new Cycle())
             ->with(['players' => fn ($q) => $q->with('user')])
             ->get();
 
@@ -85,7 +85,7 @@ class SendEmails extends Component
 
     private function getCaptains(): void
     {
-        $this->teams = Team::tap(new Cycle())
+        $this->teams = Team::query()->tap(new Cycle())
             ->with(['players' => fn ($q) => $q->whereCaptain(true)->with('user')])
             ->get();
 
@@ -94,7 +94,7 @@ class SendEmails extends Component
 
     private function getAdmins(): void
     {
-        $this->users = User::has('admin')->orderBy('name')->get();
+        $this->users = User::query()->has('admin')->orderBy('name')->get();
     }
 
     private function getUsers(): void

@@ -59,7 +59,7 @@ class EventForm extends Form
 
     public function store(): void
     {
-        $this->event = Event::create($this->validate());
+        $this->event = Event::query()->create($this->validate());
     }
 
     public function update(): void

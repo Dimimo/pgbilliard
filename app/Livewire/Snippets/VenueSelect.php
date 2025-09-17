@@ -13,7 +13,7 @@ class VenueSelect extends Component
 
     public function mount(): void
     {
-        $this->venues = Venue::orderBy('name')->get();
+        $this->venues = Venue::query()->orderBy('name')->get();
     }
 
     public function render(): View

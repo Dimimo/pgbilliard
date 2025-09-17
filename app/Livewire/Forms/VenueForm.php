@@ -3,7 +3,6 @@
 namespace App\Livewire\Forms;
 
 use App\Constants;
-use App\Models\User;
 use App\Models\Venue;
 use Illuminate\Validation\Rule;
 use Livewire\Form;

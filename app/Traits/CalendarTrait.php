@@ -14,7 +14,7 @@ trait CalendarTrait
      */
     private function getCalendar(): Collection
     {
-        return Date::tap(new Cycle())->with([
+        return Date::query()->tap(new Cycle())->with([
             'events' => function (Relation $q) {
                 return $q->with(['date', 'team_1', 'team_2']);
             },

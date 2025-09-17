@@ -11,7 +11,7 @@ class UpdateUsersLastPlayedDate
      */
     public function handle(): void
     {
-        $users = User::select(['id', 'last_game'])->get();
+        $users = User::query()->select(['id', 'last_game'])->get();
         foreach ($users as $user) {
             $player = $user->players()->latest()->get()->first();
             if ($player) {

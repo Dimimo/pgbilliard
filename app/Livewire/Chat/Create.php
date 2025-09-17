@@ -48,10 +48,10 @@ class Create extends Component
     {
         $this->authorize('create', ChatRoom::class);
         $date = array_merge($this->validate(), ['user_id' => Auth::id()]);
-        $this->room = ChatRoom::create($date);
+        $this->room = ChatRoom::query()->create($date);
         $this->dispatch('room-created');
         auth()->user()->chatRooms()->attach($this->room->id);
-        ChatMessage::create([
+        ChatMessage::query()->create([
             'message' => 'Welcome to the "'.$this->room->name.'" chat',
             'user_id' => $this->room->user_id,
             'chat_room_id' => $this->room->id,

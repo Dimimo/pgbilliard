@@ -28,7 +28,7 @@ class CycleSelect extends Component
         if ($id === 0) {
             $this->redirect(route('seasons'), navigate: true);
         } else {
-            $season = Season::findOrFail($id);
+            $season = Season::query()->findOrFail($id);
             session()->put('cycle', $season->cycle);
             $this->redirect(route('scoreboard'));
         }

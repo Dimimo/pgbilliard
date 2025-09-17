@@ -18,7 +18,7 @@ trait WithUsersSelect
     private function loadUsersList(): void
     {
         $date_filter = Carbon::now()->sub($this->carbon_sub);
-        $this->users = User::where('last_game', '>', $date_filter)
+        $this->users = User::query()->where('last_game', '>', $date_filter)
             ->orderBy('name')
             ->whereNotIn('id', [1]) //get rid of the administrator
             ->get(['id', 'name', 'last_game'])

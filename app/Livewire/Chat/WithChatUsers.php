@@ -38,12 +38,12 @@ trait WithChatUsers
     {
         $this->getIds();
         if ($this->search) {
-            $this->list_users = User::whereNotIn('id', $this->ids)
+            $this->list_users = User::query()->whereNotIn('id', $this->ids)
                 ->where('name', 'LIKE', "%$this->search%")
                 ->orderBy('name')
                 ->get(['id', 'name']);
         } else {
-            $this->list_users = User::whereNotIn('id', $this->ids)
+            $this->list_users = User::query()->whereNotIn('id', $this->ids)
                 ->orderBy('name')
                 ->get(['id', 'name']);
         }

@@ -19,7 +19,7 @@ class Rank extends Component
 
     public function mount(): void
     {
-        $this->season = Season::where('cycle', session('cycle'))->first();
+        $this->season = Season::query()->where('cycle', session('cycle'))->first();
         $this->getResults();
         $this->median = $this->count = round($this->results->median('played'));
     }

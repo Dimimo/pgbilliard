@@ -17,7 +17,7 @@ class CycleAll extends Component
 
     public function selectedSeason($id): void
     {
-        $season = Season::findOrFail($id);
+        $season = Season::query()->findOrFail($id);
         session()->put('cycle', $season->cycle);
         $this->redirect(route('scoreboard'), navigate: true);
     }

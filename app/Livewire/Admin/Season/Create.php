@@ -40,8 +40,8 @@ class Create extends Component
     public function save(): void
     {
         $validated = $this->validate($this->getValidation(), $this->getAlerts());
-        $season = Season::create($validated);
-        Date::create([
+        $season = Season::query()->create($validated);
+        Date::query()->create([
             'season_id' => $season->id,
             'date' => Carbon::createFromFormat('Y-m-d', $this->starting_date),
         ]);

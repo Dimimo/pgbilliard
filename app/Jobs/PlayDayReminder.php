@@ -43,11 +43,11 @@ class PlayDayReminder
     }
 
     //first check if the date tomorrow exists, if not, it returns null
-    private function getDate()
+    private function getDate(): ?Date
     {
         $date = now()->appTimezone()->addDay()->format('Y-m-d');
 
-        return Date::where('date', $date)->first();
+        return Date::query()->where('date', $date)->first();
 
     }
 }

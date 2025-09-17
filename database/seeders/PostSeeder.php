@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Forum\Comment;
 use App\Models\Forum\Post;
 use App\Models\Forum\Tag;
-use App\Models\Forum\Visit;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 

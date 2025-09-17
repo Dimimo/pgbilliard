@@ -36,14 +36,14 @@ class Overview extends Component
 
     public function updatedUserId($admin_user_id): void
     {
-        Admin::create(['user_id' => $admin_user_id, 'assigned_by' => Auth::id()]);
+        Admin::query()->create(['user_id' => $admin_user_id, 'assigned_by' => Auth::id()]);
         $this->dispatch('admin-added');
         $this->loadVars();
     }
 
     public function removeAdmin($remove_id): void
     {
-        Admin::whereUserId($remove_id)->first()->delete();
+        Admin::query()->whereUserId($remove_id)->first()->delete();
         $this->dispatch('admin-removed');
         $this->loadVars();
     }

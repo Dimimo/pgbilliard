@@ -31,19 +31,19 @@ class Index extends Component
 
     public function toggle_sticky($id): void
     {
-        $post = Post::find($id);
+        $post = Post::query()->find($id);
         $post->withoutTimestamps(fn () => $post->update(['is_sticky' => ! $post->is_sticky]));
     }
 
     public function toggle_locked($id): void
     {
-        $post = Post::find($id);
+        $post = Post::query()->find($id);
         $post->withoutTimestamps(fn () => $post->update(['is_locked' => ! $post->is_locked]));
     }
 
     public function delete($id): void
     {
-        $post = Post::find($id);
+        $post = Post::query()->find($id);
         $this->authorize('delete', $post);
         $post->comments()->delete();
         $post->tags()->detach();

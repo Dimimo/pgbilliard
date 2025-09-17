@@ -3,13 +3,14 @@
 namespace App\Livewire\Admin\Schedule;
 
 use App\Models\Format;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Create extends Component
 {
     public Format $format;
-    public $table;
+    public Collection $table;
     #[Validate(['required', 'min:4', 'max:20', 'unique:formats,name'])]
     public ?string $name = null;
     #[Validate(['nullable', 'max:256'])]

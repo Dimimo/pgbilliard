@@ -20,8 +20,8 @@ class GameFactory extends Factory
             'win' => $this->faker->boolean(),
 
             'event_id' => $this->faker->numberBetween(1061, 1071),
-            'schedule_id' => Schedule::inRandomOrder()->first()->id,
-            'player_id' => Player::inRandomOrder()->first()->id,
+            'schedule_id' => Schedule::query()->inRandomOrder()->first()->id,
+            'player_id' => Player::query()->inRandomOrder()->first()->id,
         ];
     }
 }

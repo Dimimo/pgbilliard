@@ -25,7 +25,7 @@ class Dashboard extends Component
     public function mount(): void
     {
         $this->user = auth()->user();
-        $this->team = Team::tap(new Cycle())
+        $this->team = Team::query()->tap(new Cycle())
             ->has('players', '=', 1, 'and', fn ($q) => $q->where([['user_id', $this->user->id], ['active', true]]))
             ->first();
         $this->player = $this->team
@@ -53,7 +53,7 @@ class Dashboard extends Component
     #[Computed]
     public function newPosts(): Collection
     {
-        return Post::where('updated_at', '>', session('last_login', $this->user->updated_at))->get();
+        return Post::query()->where('updated_at', '>', session('last_login', $this->user->updated_at))->get();
     }
 
     private function getPlayerIndividualRank(): ?int
@@ -61,7 +61,7 @@ class Dashboard extends Component
         if (!$this->player) {
             return null;
         }
-        $season = Season::whereCycle(session('cycle'))->first();
+        $season = Season::query()->whereCycle(session('cycle'))->first();
         $ranks = $season->ranks()->orderByDesc('percentage')->pluck('user_id')->toArray();
         $key = array_search($this->user->id, $ranks);
         return $key ? ++$key : 0;

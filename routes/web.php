@@ -14,29 +14,29 @@ Route::get('privacy-policy', fn () => view('pages.privacy-policy'))->name('priva
 
 Route::get('teams', fn () => view('pages.teams.index'))->name('teams.index');
 Route::get('teams/show/{team}', fn ($team) => view('pages.teams.show.[Team]', [
-    'team' => \App\Models\Team::find($team)
+    'team' => \App\Models\Team::query()->find($team)
 ]))->name('teams.show');
 Route::get('teams/edit/{team}', fn ($team) => view('pages.teams.edit.[Team]', [
-    'team' => \App\Models\Team::find($team)
+    'team' => \App\Models\Team::query()->find($team)
 ]))->name('teams.edit');
 
 Route::get('venues/show/{venue}', fn ($venue) => view('pages.venues.show.[Venue]', [
-    'venue' => \App\Models\Venue::find($venue)
+    'venue' => \App\Models\Venue::query()->find($venue)
 ]))->name('venues.show');
 Route::get('venues/edit/{venue}', fn ($venue) => view('pages.venues.edit.[Venue]', [
-    'venue' => \App\Models\Venue::find($venue)
+    'venue' => \App\Models\Venue::query()->find($venue)
 ]))->name('venues.edit');
 
 Route::get('dates/show/{date}', fn ($date) => view('pages.dates.show.[Date]', [
-    'date' => \App\Models\Date::find($date)
+    'date' => \App\Models\Date::query()->find($date)
 ]))->name('dates.show');
 
 Route::get('players/show/{player}', fn ($player) => view('pages.players.show.[Player]', [
-    'player' => \App\Models\Player::find($player)
+    'player' => \App\Models\Player::query()->find($player)
 ]))->name('players.show');
 
 Route::get('schedule/event/{event}', fn ($event) => view('pages.schedule.event.[Event]', [
-    'event' => \App\Models\Event::find($event)
+    'event' => \App\Models\Event::query()->find($event)
 ]))->name('schedule.event');
 
 Route::middleware('auth')->group(function () {
@@ -83,18 +83,18 @@ Route::prefix('admin/help')->group(function () {
  */
 Route::prefix('mailable')->group(function () {
     Route::get('date/{date}', function ($date) {
-        $date = \App\Models\Date::find($date);
+        $date = \App\Models\Date::query()->find($date);
         return new \App\Mail\DayScoresConfirmed($date);
     });
 
     Route::get('date/{date}/admin', function ($date) {
-        $date = \App\Models\Date::find($date);
+        $date = \App\Models\Date::query()->find($date);
         $send_to = ['Joe Doe', 'Jane Doe'];
         return new \App\Mail\DayScoresToAdmin($date, \Arr::sort($send_to));
     });
 
     Route::get('account-claimed/{user}', function ($user) {
-        $user = \App\Models\User::find($user);
+        $user = \App\Models\User::query()->find($user);
         return new \App\Mail\AccountClaimed($user, "The email has been changed");
     });
 
@@ -103,7 +103,7 @@ Route::prefix('mailable')->group(function () {
     });
 
     Route::get('captain-reminder/{user}', function ($user) {
-        $user = \App\Models\User::find($user);
+        $user = \App\Models\User::query()->find($user);
         return new \App\Mail\RemindCaptainOfNewUser($user);
     });
 
@@ -115,8 +115,8 @@ Route::prefix('mailable')->group(function () {
 
     // try with /mailable/game-reminder/300/240
     Route::get('game-reminder/{date}/{team}', function ($date, $team) {
-        $date = \App\Models\Date::find($date);
-        $team = \App\Models\Team::find($team);
+        $date = \App\Models\Date::query()->find($date);
+        $team = \App\Models\Team::query()->find($team);
         return new \App\Mail\PlayDayEmailReminder($date, $team);
     });
 });

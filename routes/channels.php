@@ -33,7 +33,7 @@ Broadcast::channel('chat.{roomId}', function (\App\Models\User $user, int $roomI
     Log::debug($user->toJson());
     //$message = \App\Models\Chat\ChatMessage::find($messageId);
     if ($user->canJoinRoom($roomId)) {
-        $room = \App\Models\Chat\ChatRoom::find($roomId);
+        $room = \App\Models\Chat\ChatRoom::query()->find($roomId);
         return [
             'id' => $user->id,
             'name' => $user->name,

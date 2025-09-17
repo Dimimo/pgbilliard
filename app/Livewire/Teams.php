@@ -21,7 +21,7 @@ class Teams extends Component
     public function mount(): void
     {
         $this->teams = $this->getTeams();
-        $this->date = Season::whereCycle(session('cycle'))->first()->dates()->latest()->first();
+        $this->date = Season::query()->whereCycle(session('cycle'))->first()->dates()->latest()->first();
     }
 
     public function render(): View
@@ -31,7 +31,7 @@ class Teams extends Component
 
     private function getTeams(): Collection
     {
-        return Team::tap(new Cycle())
+        return Team::query()->tap(new Cycle())
             ->where('name', '<>', 'BYE')
             ->with(['players', 'venue'])
             ->orderBy('name')
@@ -40,7 +40,7 @@ class Teams extends Component
 
     public function deleteTeam($id): void
     {
-        $team = Team::find($id);
+        $team = Team::query()->find($id);
         $this->authorize('delete', $team);
         if ($team->hasGames()) {
             return;

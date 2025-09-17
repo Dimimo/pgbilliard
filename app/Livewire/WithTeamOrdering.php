@@ -25,10 +25,10 @@ trait WithTeamOrdering
 
     private function getDropdownTeams(): Collection
     {
-        $season_ids = Season::orderByDesc('cycle')->skip(1)->take(2)->pluck('id')->toArray();
-        $new_team_names = Team::where('season_id', $this->season->id)->pluck('name')->toArray();
+        $season_ids = Season::query()->orderByDesc('cycle')->skip(1)->take(2)->pluck('id')->toArray();
+        $new_team_names = Team::query()->where('season_id', $this->season->id)->pluck('name')->toArray();
 
-        return Team::whereIn('season_id', $season_ids)->whereNotIn('name', $new_team_names)->orderBy('name')->orderByDesc('season_id')->get()->unique('name');
+        return Team::query()->whereIn('season_id', $season_ids)->whereNotIn('name', $new_team_names)->orderBy('name')->orderByDesc('season_id')->get()->unique('name');
     }
 
     private function changeNumberOfTeams(bool $add = true): void

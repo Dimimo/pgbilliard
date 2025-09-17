@@ -10,7 +10,7 @@ class Index extends Component
     public function render(): \Illuminate\View\View
     {
         return view('livewire.admin.schedule.index')->with([
-            'formats' => Format::orderBy('name')->withCount('schedules')->get(),
+            'formats' => Format::query()->orderBy('name')->withCount('schedules')->get(),
         ]);
     }
 }

@@ -14,7 +14,7 @@ use Livewire\Component;
 
 class Messages extends Component
 {
-    public $showNewOrderNotification = false;
+    public bool $showNewOrderNotification = false;
     public ChatRoom $room;
     public Collection $chats;
     #[Validate([
@@ -91,7 +91,7 @@ class Messages extends Component
 
     public function deleteMessage($message): void
     {
-        $message = ChatMessage::find($message);
+        $message = ChatMessage::query()->find($message);
         $this->authorize('delete', $message);
         $message->delete();
         $this->chatMessages();

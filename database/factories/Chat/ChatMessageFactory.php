@@ -14,13 +14,13 @@ class ChatMessageFactory extends Factory
 
     public function definition(): array
     {
-        $user_ids = User::whereKeyNot(1)
+        $user_ids = User::query()->whereKeyNot(1)
             ->whereNotNull('last_game')
             ->get()
             ->pluck('id')
             ->toArray();
 
-        $chat_room_ids = ChatRoom::inRandomOrder('id')
+        $chat_room_ids = ChatRoom::query()->inRandomOrder('id')
             ->get()
             ->pluck('id')
             ->toArray();

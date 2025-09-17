@@ -6,7 +6,7 @@ use LivewireUI\Modal\ModalComponent;
 
 class Schedule extends ModalComponent
 {
-    public $help = "The Day Schedule";
+    public string $help = "The Day Schedule";
     public function render(): \Illuminate\View\View
     {
         return view('livewire.help.schedule');

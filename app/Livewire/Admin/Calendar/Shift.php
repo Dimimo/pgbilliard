@@ -29,7 +29,7 @@ class Shift extends Component
 
     private function getLastPlayedDate(): void
     {
-        $this->dates = Date::whereSeasonId($this->season->id)
+        $this->dates = Date::query()->whereSeasonId($this->season->id)
             ->withCount(['events' => fn ($event) => $event->where('confirmed', 1)])
             ->orderBy('date')
             ->get();
@@ -43,7 +43,7 @@ class Shift extends Component
 
     public function changeDate(int $date_id, $diff): void
     {
-        $date = Date::find($date_id);
+        $date = Date::query()->find($date_id);
         $new_date = $date->date->addDays($diff);
         $overlaps = $this->dates->filter(fn (Date $exists) => $exists->date == $new_date)->count() === 1;
         if ($overlaps) {

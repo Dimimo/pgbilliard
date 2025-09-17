@@ -21,8 +21,8 @@ class Score extends Component
     public int $week = 0;
     public ?Date $date;
     public ?int $score_id = null;
-    public $show_full_table = false;
-    public $isAndroid = false;
+    public bool $show_full_table = false;
+    public bool $isAndroid = false;
 
     public function mount(): void
     {
@@ -66,7 +66,7 @@ class Score extends Component
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores(array $response): void
     {
-        $event = Event::find($response['event']['id']);
+        $event = Event::query()->find($response['event']['id']);
         if ($event->date->season->cycle === session('cycle')) {
             $this->scores = $this->getResults();
             $this->score_id = $event->id;

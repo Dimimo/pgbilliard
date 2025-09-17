@@ -18,7 +18,7 @@ class AdminFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'assigned_by' => fn () => User::inRandomOrder()->first()->id,
+            'assigned_by' => fn () => User::query()->inRandomOrder()->first()->id,
             'super_admin' => $this->faker->boolean(20),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),

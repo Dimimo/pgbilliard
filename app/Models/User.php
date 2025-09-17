@@ -124,7 +124,7 @@ class User extends Authenticatable
 
     public function isSuperAdmin(): bool
     {
-        return Admin::whereUserId($this->id)->whereSuperAdmin(1)->exists();
+        return Admin::query()->whereUserId($this->id)->whereSuperAdmin(1)->exists();
     }
 
     /**

@@ -138,7 +138,7 @@ class Player extends Model
 
     public function getParticipationAttribute(): int
     {
-        return Game::select('event_id')
+        return Game::query()->select('event_id')
             ->where('user_id', $this->user_id)
             ->distinct()
             ->count('event_id');
@@ -146,7 +146,7 @@ class Player extends Model
 
     public function participation(): int
     {
-        return Game::select('event_id')
+        return Game::query()->select('event_id')
             ->where('player_id', $this->id)
             ->whereNotNull('win')
             ->distinct()

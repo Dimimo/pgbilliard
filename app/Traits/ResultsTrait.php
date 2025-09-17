@@ -34,7 +34,7 @@ trait ResultsTrait
         $max_games = $this->getPlayedWeeks();
         foreach ($this->teams as $team_id => $events) {
             $result = $this->startCollection();
-            $result->put('team', Team::find($team_id));
+            $result->put('team', Team::query()->find($team_id));
             foreach ($events as $event) {
                 if (!is_null($event->score1) && !is_null($event->score2) && $event->team_2->name !== 'BYE') {
                     $result->put('id', $event->id);
@@ -125,7 +125,7 @@ trait ResultsTrait
      */
     private function getTeamsArray(): void
     {
-        $this->teams_array = Team::tap(new Cycle())->where('name', '<>', 'BYE')->orderBy('name')->get('id')->pluck('id')->toArray();
+        $this->teams_array = Team::query()->tap(new Cycle())->where('name', '<>', 'BYE')->orderBy('name')->get('id')->pluck('id')->toArray();
         $this->teams = array_flip($this->teams_array);
         foreach ($this->teams as $id => $team) {
             $this->teams[$id] = [];
@@ -137,7 +137,7 @@ trait ResultsTrait
      */
     private function getEvents(): void
     {
-        $dates = Date::tap(new Cycle())->with('events.date')->get();
+        $dates = Date::query()->tap(new Cycle())->with('events.date')->get();
         $dates->each(function (Date $date) {
             $date->events->each(function ($event) {
                 if (in_array($event->team_1->id, $this->teams_array)) {
@@ -156,7 +156,7 @@ trait ResultsTrait
      */
     private function getPlayedWeeks(): int
     {
-        $dates = Date::tap(new Cycle())->with([
+        $dates = Date::query()->tap(new Cycle())->with([
             'events' => function (Relation $q) {
                 return $q->with(['venue', 'date', 'team_1', 'team_2']);
             },

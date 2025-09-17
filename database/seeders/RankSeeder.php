@@ -12,7 +12,7 @@ class RankSeeder extends Seeder
 {
     public function run(): void
     {
-        $season = Season::find(1);
+        $season = Season::query()->find(1);
 
         // we create 6 teams with each 4 players
         for ($i = 1; $i <= 6; $i++) {

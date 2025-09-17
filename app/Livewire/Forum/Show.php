@@ -16,7 +16,7 @@ class Show extends Component
     {
         $this->post = $post;
         if (Auth::check()) {
-            Visit::updateOrCreate(['post_id' => $post->id, 'user_id' => Auth::id()], ['updated_at' => now()]);
+            Visit::query()->updateOrCreate(['post_id' => $post->id, 'user_id' => Auth::id()], ['updated_at' => now()]);
         }
     }
 

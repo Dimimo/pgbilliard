@@ -23,7 +23,7 @@ class UserForm extends Form
         'name.max' => 'A name can not be longer than '.Constants::USERCHARS.' characters',
         'name.unique' => 'This name already exists',
     ])]
-    public $name = '';
+    public ?string $name = '';
 
     #[Validate([
         'required',
@@ -35,7 +35,7 @@ class UserForm extends Form
         'email.email' => 'A valid email address is required',
         'email.unique' => 'The email has to be unique',
     ])]
-    public $email = '';
+    public ?string $email = '';
 
     #[Validate(['nullable', 'max:'.Constants::PHONECHARS])]
     public ?string $contact_nr;
@@ -44,13 +44,13 @@ class UserForm extends Form
     public ?string $gender;
 
     #[Validate(['nullable', 'date'])]
-    public $email_verified_at;
+    public ?string $email_verified_at;
 
     #[Validate(['nullable', 'date'])]
-    public $last_game;
+    public ?string $last_game;
 
     #[Validate(['sometimes'])]
-    public $password;
+    public ?string $password;
 
     public function setUser(User $user): void
     {
@@ -68,7 +68,7 @@ class UserForm extends Form
     {
         $this->validate();
         $this->user->makeVisible(['password']);
-        $user = User::create($this->user->toArray());
+        $user = User::query()->create($this->user->toArray());
         $this->user->makeHidden(['password']);
 
         return $user;

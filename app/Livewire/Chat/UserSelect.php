@@ -25,7 +25,7 @@ class UserSelect extends Component
         return view('livewire.chat.user-select');
     }
 
-    public function updatedSearch($search, $v): void
+    public function updatedSearch($search): void
     {
         $this->search = $search;
         $this->getListUsers();

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
@@ -17,6 +18,10 @@ class ExtractLangText extends Command
     protected $description = 'Extract all text within the __() helper and output to the /lang/{locale}.json file or a custom path';
 
     // Execute the command
+
+    /**
+     * @throws FileNotFoundException
+     */
     public function handle(): void
     {
         // Get the locale and optional output path from the command arguments

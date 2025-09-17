@@ -17,7 +17,7 @@ class Edit extends Component
     public function mount(Team $team): void
     {
         $this->team_form->setTeam($team);
-        $this->venues = Venue::where('name', '<>', 'BYE')->get();
+        $this->venues = Venue::query()->where('name', '<>', 'BYE')->get();
     }
 
     public function render(): View

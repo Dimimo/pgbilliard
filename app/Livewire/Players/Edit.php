@@ -85,20 +85,20 @@ class Edit extends Component
 
     private function getPlayersActiveInCurrentSeason(): void
     {
-        $teams = Team::tap(new Cycle())
+        $teams = Team::query()->tap(new Cycle())
             ->pluck('id')
             ->toArray();
-        $players = Player::whereIn('team_id', $teams)
+        $players = Player::query()->whereIn('team_id', $teams)
             ->whereActive(true)
             ->pluck('user_id')
             ->toArray();
-        $this->occupied_players = User::whereIn('id', $players)->pluck('name')->toArray();
+        $this->occupied_players = User::query()->whereIn('id', $players)->pluck('name')->toArray();
     }
 
     private function setPlayerForm(?int $user_id = null): bool
     {
         // if the player exists in the team but has been set to inactive, reactivate the player
-        if ($user_id && $player = Player::whereUserId($user_id)->whereTeamId($this->team->id)->first()) {
+        if ($user_id && $player = Player::query()->whereUserId($user_id)->whereTeamId($this->team->id)->first()) {
             $player->active = 1;
             $player->update();
             $this->setPlayerForm($player->id);
@@ -116,7 +116,7 @@ class Edit extends Component
 
     public function editUser(int $user_id): void
     {
-        $user = User::find($user_id);
+        $user = User::query()->find($user_id);
         $this->setUserForm($user);
         $this->show_new_player_form = !$this->show_new_player_form;
     }
@@ -138,7 +138,7 @@ class Edit extends Component
 
     public function toggleCaptain(int $user_id): void
     {
-        $player = Player::find($user_id);
+        $player = Player::query()->find($user_id);
         $player->captain = !$player->captain;
         $player->save();
         $this->getPlayers();
@@ -185,7 +185,7 @@ class Edit extends Component
 
     public function removePlayer($player_id): void
     {
-        $player = Player::find($player_id);
+        $player = Player::query()->find($player_id);
         $player->update(['active' => false]);
         $this->getPlayersActiveInCurrentSeason();
         $this->getPlayers();

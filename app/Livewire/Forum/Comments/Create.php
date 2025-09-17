@@ -27,7 +27,7 @@ class Create extends Component
 
     public function returnPost($post_id): Post
     {
-        return Post::find($post_id);
+        return Post::query()->find($post_id);
     }
 
     public function create(): void

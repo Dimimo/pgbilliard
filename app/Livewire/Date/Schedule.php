@@ -84,7 +84,7 @@ class Schedule extends Component
 
     public function formatChosen(int $id): void
     {
-        $this->format = Format::find($id);
+        $this->format = Format::query()->find($id);
         $this->choose_format = false;
         $this->checkThirdGame();
         $this->recreateMatrix();
@@ -101,7 +101,7 @@ class Schedule extends Component
         $score_is_true = $game->win === true;
 
         // set the home or away player(s) to reverse the previous $score_is_true value
-        Game::where([
+        Game::query()->where([
             ['event_id', $game->event_id],
             ['position', $game->position],
             ['home', $game->home]
@@ -109,7 +109,7 @@ class Schedule extends Component
 
         // then reverse the score to the other players, mind the reversed "! $game->home" status
         // but a score to true can be set to false without changing the other score
-        Game::where([
+        Game::query()->where([
             ['event_id', $game->event_id],
             ['position', $game->position],
             ['home', !$game->home]
@@ -144,13 +144,13 @@ class Schedule extends Component
 
     public function playerSelected(int $player_id, int $position, string $place, ?int $previous_player_id = null): void
     {
-        Position::where([
+        Position::query()->where([
             'event_id' => $this->event->id,
             'rank' => $position,
             'home' => $place === 'home',
         ])->delete();
-        if ($player = Player::find($player_id)) {
-            Position::updateOrCreate([
+        if ($player = Player::query()->find($player_id)) {
+            Position::query()->updateOrCreate([
                 'event_id' => $this->event->id,
                 'rank' => $position,
                 'home' => $place === 'home',
@@ -164,7 +164,7 @@ class Schedule extends Component
             }
         }
 
-        $schedules = Matrix::where([
+        $schedules = Matrix::query()->where([
             ['format_id', $this->format->id],
             ['player', $position],
             ['home', $place === 'home']
@@ -207,7 +207,7 @@ class Schedule extends Component
 
     public function playerChanged(int $player_id, int $game_id): void
     {
-        Game::whereId($game_id)->update(['player_id' => $player_id]);
+        Game::query()->whereId($game_id)->update(['player_id' => $player_id]);
         broadcast(new ScoreEvent($this->event))->toOthers();
     }
 
@@ -215,7 +215,7 @@ class Schedule extends Component
     {
         $plays_home = $home === 'home';
         $this->event->games()->where('home', $plays_home)->delete();
-        Position::where([['event_id', $this->event->id], ['home', $plays_home]])->delete();
+        Position::query()->where([['event_id', $this->event->id], ['home', $plays_home]])->delete();
         $this->event->games()->where('position', 15)->delete();
         $this->recreateMatrix();
         $this->getPlayersFromUnfinishedGame();
@@ -267,7 +267,7 @@ class Schedule extends Component
             ->get()
             ->pluck('player_id')
             ->toArray();
-        return Player::whereIn('id', $player_ids)->get();
+        return Player::query()->whereIn('id', $player_ids)->get();
     }
 
     private function getPlayersFromUnfinishedGame(): void
@@ -305,8 +305,8 @@ class Schedule extends Component
         if ($this->event->id === $response['event']['id']) {
             $this->event->refresh();
             $this->checkIfPlayersCanBeUpdated();
-            $this->game_win_id = Game::whereWin(true)->orderByDesc('updated_at')->first()?->id;
-            $this->game_lost_id = Game::whereWin(false)->orderByDesc('updated_at')->first()?->id;
+            $this->game_win_id = Game::query()->whereWin(true)->orderByDesc('updated_at')->first()?->id;
+            $this->game_lost_id = Game::query()->whereWin(false)->orderByDesc('updated_at')->first()?->id;
             $this->dispatch('refresh-list');
         }
     }

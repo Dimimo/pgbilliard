@@ -65,7 +65,7 @@ class TeamForm extends Form
             ?->user_id;
 
         $this->users = $this->getUsersNotOccupiedExceptOwnCaptain();
-        $this->venues = Venue::orderBy('name')->get(['id', 'name']);
+        $this->venues = Venue::query()->orderBy('name')->get(['id', 'name']);
     }
 
     public function checkAndSetValues($name, $value): void
@@ -89,9 +89,9 @@ class TeamForm extends Form
     public function store(): Team
     {
         $validated = $this->validate();
-        $team = Team::create($validated);
+        $team = Team::query()->create($validated);
         if ($validated['captain_id']) {
-            Player::create(['user_id' => $validated['captain_id'], 'team_id' => $team->id, 'captain' => 1]);
+            Player::query()->create(['user_id' => $validated['captain_id'], 'team_id' => $team->id, 'captain' => 1]);
         }
         $this->reset(['name', 'venue_id', 'remark', 'captain_id']);
         $this->resetValidation();
@@ -112,13 +112,13 @@ class TeamForm extends Form
     // also, omit your own team, you can be selected as a member of the team you play for
     private function getUsersNotOccupiedExceptOwnCaptain(): Collection
     {
-        $teams = Team::tap(new Cycle())->where('id', '<>', $this->team->id)->pluck('id')->toArray();
-        $players = Player::whereIn('team_id', $teams)
+        $teams = Team::query()->tap(new Cycle())->where('id', '<>', $this->team->id)->pluck('id')->toArray();
+        $players = Player::query()->whereIn('team_id', $teams)
             ->pluck('user_id')
             ->toArray();
         $players = array_diff($players, \Arr::wrap($this->captain_id));
-        $occupied_players = User::whereIn('id', $players)->pluck('id')->toArray();
+        $occupied_players = User::query()->whereIn('id', $players)->pluck('id')->toArray();
 
-        return User::whereNotIn('id', $occupied_players)->orderBy('name')->get(['id', 'name']);
+        return User::query()->whereNotIn('id', $occupied_players)->orderBy('name')->get(['id', 'name']);
     }
 }

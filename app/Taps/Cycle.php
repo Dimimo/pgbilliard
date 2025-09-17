@@ -9,7 +9,7 @@ final readonly class Cycle
 {
     public function __invoke(Builder $builder): Builder
     {
-        $season = Season::whereCycle(session('cycle'))->first();
+        $season = Season::query()->whereCycle(session('cycle'))->first();
 
         return $builder->where('season_id', $season?->id);
     }
