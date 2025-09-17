@@ -10,12 +10,12 @@ it('renders successfully', function () {
 
 it('shows the correct component', function () {
     $this->seed(\Database\Seeders\EventSeeder::class);
-    $expected = "(" . \App\Models\Event::count() . " games, " . \App\Models\Team::count() . " Teams)";
+    $expected = "(" . \App\Models\Event::query()->count() . " games, " . \App\Models\Team::query()->count() . " Teams)";
 
     $response = $this->get('/seasons/all');
     $response
         ->assertOk()
         ->assertSeeVolt('cycle-all')
-        ->assertSee(\App\Models\Season::first()->cycle)
+        ->assertSee(\App\Models\Season::query()->first()->cycle)
         ->assertSee($expected);
 });

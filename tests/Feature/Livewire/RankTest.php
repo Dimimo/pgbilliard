@@ -16,9 +16,9 @@ it('renders successfully', function () {
 
 it('tests the ranking order and names', function () {
     $this->seed(\Database\Seeders\RankSeeder::class);
-    $first = \App\Models\Rank::orderByDesc('percentage')->first();
-    $last = \App\Models\Rank::orderBy('played')->first();
-    $playerCount = \App\Models\Player::count();
+    $first = \App\Models\Rank::query()->orderByDesc('percentage')->first();
+    $last = \App\Models\Rank::query()->orderBy('played')->first();
+    $playerCount = \App\Models\Player::query()->count();
 
     Livewire::test(Rank::class)
         ->assertDontSee($last->user->name)

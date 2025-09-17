@@ -36,10 +36,10 @@ it('can create a new venue', function () {
         ->set('venue_form.contact_nr', '0123456789')
         ->call('save')
         ->assertHasNoErrors()
-        ->assertRedirect(route('venues.show', ['venue' => \App\Models\Venue::first()]))
+        ->assertRedirect(route('venues.show', ['venue' => \App\Models\Venue::query()->first()]))
         ->assertOk();
 
-    $this->assertEquals(\App\Models\Venue::count(), 1);
+    $this->assertEquals(\App\Models\Venue::query()->count(), 1);
 });
 
 it('can update an existing venue', function () {

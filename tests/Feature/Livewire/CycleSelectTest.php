@@ -29,7 +29,7 @@ it('shows all cycles in the right order', function () {
 });
 
 it('redirects if a season is chosen', function () {
-    $season = \App\Models\Season::find(1);
+    $season = \App\Models\Season::query()->find(1);
     $this->component
         ->call('changeCycle', 1)
         ->assertSessionHas('cycle', $season->cycle)

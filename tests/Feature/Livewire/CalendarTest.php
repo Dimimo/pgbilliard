@@ -5,7 +5,7 @@ use Livewire\Livewire;
 
 beforeEach(function () {
     $this->seed(\Database\Seeders\EventSeeder::class);
-    $season = \App\Models\Season::first();
+    $season = \App\Models\Season::query()->first();
     session()->put('cycle', $season->cycle);
     $this->component = Livewire::test(Calendar::class);
 });

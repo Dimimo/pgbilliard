@@ -5,7 +5,7 @@ use Livewire\Livewire;
 
 it('renders successfully', function () {
     $this->seed(\Database\Seeders\EventSeeder::class);
-    session()->put('cycle', \App\Models\Season::first()->cycle);
+    session()->put('cycle', \App\Models\Season::query()->first()->cycle);
 
     Livewire::test(Score::class)
         ->assertStatus(200)
@@ -14,7 +14,7 @@ it('renders successfully', function () {
 
 it('loads the score and rank components', function () {
     $this->seed(\Database\Seeders\EventSeeder::class);
-    session()->put('cycle', \App\Models\Season::first()->cycle);
+    session()->put('cycle', \App\Models\Season::query()->first()->cycle);
 
     $response = $this->get('/');
 
@@ -28,8 +28,8 @@ it('loads the score and rank components', function () {
 
 it('shows the score board of a full Season in the correct order', function () {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
-    session()->put('cycle', \App\Models\Season::first()->cycle);
-    $team_names = \App\Models\Team::where('name', '<>', 'BYE')
+    session()->put('cycle', \App\Models\Season::query()->first()->cycle);
+    $team_names = \App\Models\Team::query()->where('name', '<>', 'BYE')
         ->orderBy('name')
         ->get()
         ->pluck('name')

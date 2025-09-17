@@ -5,7 +5,7 @@ use Livewire\Livewire;
 
 it('renders successfully', function () {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
-    $team = \App\Models\Team::find(1);
+    $team = \App\Models\Team::query()->find(1);
 
     Livewire::test(Overview::class, ['team' => $team])
         ->assertStatus(200)
@@ -15,7 +15,7 @@ it('renders successfully', function () {
 
 it('shows player names', function () {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
-    $team = \App\Models\Team::find(1);
+    $team = \App\Models\Team::query()->find(1);
     Livewire::test(Overview::class, ['team' => $team])
         ->assertSee('user 1 team 1');
 });

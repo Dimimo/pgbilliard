@@ -5,7 +5,7 @@ use Livewire\Livewire;
 
 it('renders successfully', function () {
     \App\Models\Season::factory()->create();
-    $player = \App\Models\Player::factory()->create();
+    \App\Models\Player::factory()->create();
 
     $response = $this->get('players/accounts');
 

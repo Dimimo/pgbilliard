@@ -6,7 +6,7 @@ use Livewire\Livewire;
 beforeEach(function () {
     $this->member = \App\Models\User::factory()->create();
     $this->seed(\Database\Seeders\EventSeeder::class);
-    $this->game = \App\Models\Event::find(2);
+    $this->game = \App\Models\Event::query()->find(2);
     session(['is_admin' => false]);
 });
 

@@ -15,7 +15,7 @@ beforeEach(function () {
     $this->schedule = Schedule::query()->find(1);
     $this->event = Event::query()->with('team_1.players')->find(1);
 
-    Game::create([
+    Game::query()->create([
         'schedule_id' => $this->schedule->id,
         'event_id' => $this->event->id,
         'team_id' => $this->event->team_1->id,
@@ -36,7 +36,7 @@ test('can create a game', function () {
     assertEquals($game->player, $player);
     assertTrue($game->home);
     assertNull($game->win);
-    assertEquals(Game::wherePlayerId($player->id)->first()->id, $game->id);
+    assertEquals(Game::query()->wherePlayerId($player->id)->first()->id, $game->id);
 });
 
 test('can update a game', function () {

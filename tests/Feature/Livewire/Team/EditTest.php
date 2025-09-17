@@ -5,7 +5,7 @@ use Livewire\Livewire;
 
 beforeEach(function () {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
-    $this->team = \App\Models\Team::find(1);
+    $this->team = \App\Models\Team::query()->find(1);
     session(['is_admin' => false]);
 });
 

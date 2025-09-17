@@ -5,7 +5,7 @@ use Livewire\Livewire;
 
 it('renders successfully', function () {
     $this->seed(\Database\Seeders\EventSeeder::class);
-    $season = \App\Models\Season::find(1);
+    $season = \App\Models\Season::query()->find(1);
     Livewire::test(Shift::class, ['season' => $season])
         ->assertStatus(200)
         ->assertSet('season', $season)
@@ -14,7 +14,7 @@ it('renders successfully', function () {
 
 it('has dates', function () {
     $this->seed(\Database\Seeders\EventSeeder::class);
-    $dates = \App\Models\Date::where('season_id', 1)
+    $dates = \App\Models\Date::query()->where('season_id', 1)
         ->withCount(['events' => fn ($event) => $event->where('confirmed', 1)])
         ->orderBy('date')
         ->get();
@@ -30,7 +30,7 @@ it('has dates', function () {
 
 it('can shift a date and checks for overlap', function () {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
-    $season = \App\Models\Season::first();
+    $season = \App\Models\Season::query()->first();
     $admin = \App\Models\User::factory()->create(['name' => 'admin']);
     \App\Models\Admin::factory()->create(['user_id' => $admin->id]);
     $last_played_date = $season->dates->last();

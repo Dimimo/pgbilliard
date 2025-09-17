@@ -12,6 +12,6 @@ it('renders successfully', function () {
 test('can create a season in the database', function () {
     Season::factory()->create();
 
-    $current_season = Season::count();
+    $current_season = Season::query()->count();
     expect($current_season)->toBe(1);
 });

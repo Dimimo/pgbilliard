@@ -5,12 +5,12 @@ use Livewire\Livewire;
 
 beforeEach(function () {
     $this->seed(\Database\Seeders\EventSeeder::class);
-    $this->team = \App\Models\Team::find(1);
+    $this->team = \App\Models\Team::query()->find(1);
     $this->player = \App\Models\Player::factory()->create(['team_id' => $this->team->id, 'captain' => false]);
     $this->captain = \App\Models\Player::factory()->create(['team_id' => $this->team->id, 'captain' => true]);
     $this->owner = \App\Models\User::factory()->create();
-    \App\Models\Venue::find(1)->update(['user_id' => $this->owner->id]);
-    session()->put('cycle', \App\Models\Season::first()->cycle);
+    \App\Models\Venue::query()->find(1)->update(['user_id' => $this->owner->id]);
+    session()->put('cycle', \App\Models\Season::query()->first()->cycle);
     session(['is_admin' => false]);
 });
 

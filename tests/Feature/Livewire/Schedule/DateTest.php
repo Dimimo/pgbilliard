@@ -21,7 +21,7 @@ it('if a day schedule can be loaded but not edited', function () {
 });
 
 it('checks if the schedule can be selected, admin login to bypass the time test', function () {
-    $event = \App\Models\Event::find(1);
+    $event = \App\Models\Event::query()->find(1);
     $event->update(['confirmed' => false]);
     \App\Models\Format::factory()->create(['name' => 'Format 2', 'details' => 'The format 2 details', 'user_id' => $this->player->user->id]);
     $admin = \App\Models\User::factory()->create(['name' => 'admin']);
@@ -45,7 +45,7 @@ it('checks if the schedule can be selected, admin login to bypass the time test'
 });
 
 it('checks if the players can be selected for the matrix overview', function () {
-    $event = \App\Models\Event::find(1);
+    $event = \App\Models\Event::query()->find(1);
     $event->update(['confirmed' => false]);
     $admin = \App\Models\User::factory()->create(['name' => 'admin']);
     \App\Models\Admin::factory()->create(['user_id' => $admin->id]);
