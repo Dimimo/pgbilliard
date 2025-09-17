@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Would you like the install button to appear on all pages?
+    | Would you like the installation button to appear on all pages?
       Set true/false
     |--------------------------------------------------------------------------
     */

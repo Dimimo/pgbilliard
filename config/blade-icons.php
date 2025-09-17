@@ -24,7 +24,7 @@ return [
         //     |
         //     | Provide the relative path from your app root to your SVG icons
         //     | directory. Icons are loaded recursively so there's no need to
-        //     | list every sub-directory.
+        //     | list every subdirectory.
         //     |
         //     | Relative to the disk root when the disk option is set.
         //     |
