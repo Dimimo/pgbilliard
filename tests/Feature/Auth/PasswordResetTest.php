@@ -27,7 +27,8 @@ test('reset password link can be requested', function () {
 
     try {
         Notification::assertSentTo($user, ResetPassword::class);
-    } catch (\Exception) {}
+    } catch (\Exception) {
+    }
 });
 
 test('reset password screen can be rendered', function () {
@@ -50,7 +51,8 @@ test('reset password screen can be rendered', function () {
 
             return true;
         });
-    } catch (\Exception) {}
+    } catch (\Exception) {
+    }
 });
 
 test('password can be reset with valid token', function () {
@@ -77,5 +79,6 @@ test('password can be reset with valid token', function () {
 
             return true;
         });
-    } catch (\Exception) {}
+    } catch (\Exception) {
+    }
 });
