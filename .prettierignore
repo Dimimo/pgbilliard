@@ -1,0 +1,11 @@
+node_modules
+dist
+.env*
+vendor/
+/vendor
+resources/views/vendor/
+public/
+.git
+**/.git
+package-lock.json
+composer.lock
