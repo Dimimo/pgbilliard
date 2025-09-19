@@ -4,11 +4,15 @@
     <label for="{{ $scoreNr }}">
         {{ $slot }}
     </label>
-    <div class="relative flex items-stretch w-full">
+    <div class="relative flex w-full items-stretch">
         <input
-            class="block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border border-gray-500 rounded"
-            type="text" id="{{ $scoreNr }}" wire:model="event.{{ $scoreNr }}">
+            class="mb-1 block w-full appearance-none rounded border border-gray-500 bg-white px-2 py-1 text-base leading-normal text-gray-800"
+            type="text"
+            id="{{ $scoreNr }}"
+            wire:model="event.{{ $scoreNr }}"
+        />
     </div>
     @error('event.'.$scoreNr)
-    <div class="text-sm text-red-600 space-y-1">{{ $message }}</div> @enderror
+        <div class="space-y-1 text-sm text-red-600">{{ $message }}</div>
+    @enderror
 </div>

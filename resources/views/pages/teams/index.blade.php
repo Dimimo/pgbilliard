@@ -7,8 +7,8 @@ name('teams.index');
 
 <x-layout>
     @volt
-    <div>
-        <livewire:teams/>
-    </div>
+        <div>
+            <livewire:teams />
+        </div>
     @endvolt
 </x-layout>

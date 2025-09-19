@@ -9,12 +9,14 @@ state('season');
 
 <x-layout>
     @volt
-    <section>
-        @can('update', $season)
-            <livewire:admin.season.update :season="$season"/>
-        @else
-            <div class="text-red-700 text-xl">{{__("You don't have access to this page")}}</div>
-        @endcan
-    </section>
+        <section>
+            @can('update', $season)
+                <livewire:admin.season.update :season="$season" />
+            @else
+                <div class="text-xl text-red-700">
+                    {{ __("You don't have access to this page") }}
+                </div>
+            @endcan
+        </section>
     @endvolt
 </x-layout>

@@ -14,35 +14,33 @@ $logout = function () {
 };
 ?>
 
-<nav x-data="{ open: false }" class="bg-gradient-to-b from-blue-200 pt-2 pb-4">
+<nav x-data="{ open: false }" class="bg-gradient-to-b from-blue-200 pb-4 pt-2">
     <div class="container mx-auto flex-grow sm:px-4 md:px-12 lg:px-24">
         <!-- Primary Navigation Menu -->
         <div class="mx-auto max-w-7xl px-2 md:px-4 lg:px-6">
             <div class="flex h-16 justify-between">
-                <div class="flex h-16 grow justify-between items-center">
-
-                    <x-navigation.main-links-expanded/>
+                <div class="flex h-16 grow items-center justify-between">
+                    <x-navigation.main-links-expanded />
 
                     <!-- Settings Dropdown -->
                     @auth()
-                        <div class="hidden sm:space-x-2 sm:ml-6 sm:flex sm:flex-row sm:items-center">
+                        <div
+                            class="hidden sm:ml-6 sm:flex sm:flex-row sm:items-center sm:space-x-2"
+                        >
                             <!-- Admin Dropdown -->
-                            @if(session('is_admin'))
-
-                                <x-navigation.admin-dropdown-expanded :season="$season"/>
-
+                            @if (session('is_admin'))
+                                <x-navigation.admin-dropdown-expanded :season="$season" />
                             @endif
 
                             <!-- User logged in Dropdown -->
-                            <x-navigation.users-logged-in-expanded/>
-
+                            <x-navigation.users-logged-in-expanded />
                         </div>
                     @else
                         <!-- Visitors Dropdown -->
-                        <div class="hidden sm:space-x-2 sm:ml-6 sm:flex sm:flex-row sm:items-center">
-
-                            <x-navigation.visitors-expanded/>
-
+                        <div
+                            class="hidden sm:ml-6 sm:flex sm:flex-row sm:items-center sm:space-x-2"
+                        >
+                            <x-navigation.visitors-expanded />
                         </div>
                     @endauth
 
@@ -56,7 +54,11 @@ $logout = function () {
                                 <div x-show="! open">Open Menu</div>
                                 <div x-show="open">Close</div>
                             </div>
-                            <svg class="h-6 w-6 bg-transparent" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg
+                                class="h-6 w-6 bg-transparent"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
                                 <path
                                     :class="{'hidden': open, 'inline-flex': ! open }"
                                     class="inline-flex"
@@ -78,27 +80,22 @@ $logout = function () {
                     </div>
                 </div>
 
-                <div class="mt-1 ml-6 flex flex-none flex-row items-center space-x-2">
-                    <x-navigation.help-files-expanded/>
+                <div class="ml-6 mt-1 flex flex-none flex-row items-center space-x-2">
+                    <x-navigation.help-files-expanded />
                 </div>
             </div>
         </div>
 
         <!-- Responsive Navigation Menu -->
-        <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-white">
-
-            <x-navigation.main-links-responsive/>
+        <div :class="{'block': open, 'hidden': ! open}" class="hidden bg-white sm:hidden">
+            <x-navigation.main-links-responsive />
 
             @auth()
-
                 <!-- Responsive Settings Options -->
-                <x-navigation.users-logged-in-responsive/>
-
+                <x-navigation.users-logged-in-responsive />
             @else
-
                 <!-- Responsive Log in Options -->
-                <x-navigation.visitors-responsive/>
-
+                <x-navigation.visitors-responsive />
             @endauth
         </div>
     </div>

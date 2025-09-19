@@ -7,8 +7,8 @@ name('calendar');
 
 <x-layout>
     @volt
-    <div>
-        <livewire:calendar/>
-    </div>
+        <div>
+            <livewire:calendar />
+        </div>
     @endvolt
 </x-layout>

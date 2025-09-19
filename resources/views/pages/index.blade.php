@@ -9,9 +9,9 @@ state(['isAndroid' => session('is_android', false)]);
 
 <x-layout title="Scoreboard">
     @volt
-    <div>
-        <livewire:score :is-android="$isAndroid"/>
-        <livewire:rank/>
-    </div>
+        <div>
+            <livewire:score :is-android="$isAndroid" />
+            <livewire:rank />
+        </div>
     @endvolt
 </x-layout>

@@ -9,17 +9,17 @@ name('teams.show');
 
 <x-layout>
     @volt
-    <section>
-        <x-title title="{{__('Details of')}} <strong>{{ $team->name }}</strong>"/>
-        <livewire:venue :venue="$team->venue"/>
+        <section>
+            <x-title title="{{__('Details of')}} <strong>{{ $team->name }}</strong>" />
+            <livewire:venue :venue="$team->venue" />
 
-        <x-forms.sub-title title="Players">
-            <livewire:players.overview :team="$team"/>
-        </x-forms.sub-title>
+            <x-forms.sub-title title="Players">
+                <livewire:players.overview :team="$team" />
+            </x-forms.sub-title>
 
-        <x-forms.sub-title title="The playing schedule of {{ $team->name }}">
-            <livewire:players.schedule :team="$team"/>
-        </x-forms.sub-title>
-    </section>
+            <x-forms.sub-title title="The playing schedule of {{ $team->name }}">
+                <livewire:players.schedule :team="$team" />
+            </x-forms.sub-title>
+        </section>
     @endvolt
 </x-layout>

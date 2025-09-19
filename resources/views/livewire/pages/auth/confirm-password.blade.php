@@ -35,19 +35,22 @@ $confirmPassword = function () {
     <form wire:submit="confirmPassword" class="flex flex-col items-center">
         <!-- Password -->
         <div>
-            <x-forms.input-label for="password" :value="__('Password')"/>
+            <x-forms.input-label for="password" :value="__('Password')" />
 
-            <x-forms.text-input wire:model="password"
-                                id="password"
-                                class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password"/>
+            <x-forms.text-input
+                wire:model="password"
+                id="password"
+                class="mt-1 block w-full"
+                type="password"
+                name="password"
+                required
+                autocomplete="current-password"
+            />
 
-            <x-forms.input-error :messages="$errors->get('password')" class="mt-2"/>
+            <x-forms.input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-        <div class="flex justify-end mt-4">
+        <div class="mt-4 flex justify-end">
             <x-forms.primary-button>
                 {{ __('Confirm') }}
             </x-forms.primary-button>

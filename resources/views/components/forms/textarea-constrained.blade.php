@@ -6,7 +6,7 @@
         limit: {{ $limit }},
         get remaining() {
             return this.limit - this.content.length
-        }
+        },
     }"
 >
     <label>
@@ -15,7 +15,7 @@
             maxlength="{{ $limit }}"
             id="{{ $for }}"
             rows="8"
-            wire:model="{{$for}}"
+            wire:model="{{ $for }}"
             {{ $attributes->merge(['class' => "mx-auto mb-2 block w-full rounded-lg border-2 border-indigo-800 p-4 focus:border-transparent" . $css_error]) }}
         ></textarea>
     </label>
@@ -23,12 +23,12 @@
     <div class="-mt-2 flex justify-between text-sm">
         <div>
             @error($for)
-            <div class="text-red-600">{{ $message }}</div>
+                <div class="text-red-600">{{ $message }}</div>
             @enderror
         </div>
         <div class="italic text-gray-700">
-            <span x-text="remaining"></span> characters remaining
+            <span x-text="remaining"></span>
+            characters remaining
         </div>
     </div>
 </div>
-

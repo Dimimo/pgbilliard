@@ -1,4 +1,4 @@
-<div class="border-t border-gray-200 pt-4 pb-1">
+<div class="border-t border-gray-200 pb-1 pt-4">
     <div class="px-4">
         <div class="text-sm font-medium text-gray-800">Log In / Register</div>
     </div>

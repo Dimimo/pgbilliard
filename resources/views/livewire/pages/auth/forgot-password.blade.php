@@ -28,16 +28,23 @@ $sendPasswordResetLink = function () {
 ?>
 
 <div class="flex flex-col justify-center">
-
     <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')"/>
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form wire:submit="sendPasswordResetLink" class="flex flex-col items-center">
         <!-- Email Address -->
         <div>
-            <x-forms.input-label for="email" :value="__('Email')"/>
-            <x-forms.text-input wire:model="email" id="email" class="mt-1 block w-full" type="email" name="email" required autofocus/>
-            <x-forms.input-error :messages="$errors->get('email')" class="mt-2"/>
+            <x-forms.input-label for="email" :value="__('Email')" />
+            <x-forms.text-input
+                wire:model="email"
+                id="email"
+                class="mt-1 block w-full"
+                type="email"
+                name="email"
+                required
+                autofocus
+            />
+            <x-forms.input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
         <div class="mt-4 flex items-center justify-end">

@@ -7,6 +7,6 @@ name('players.accounts');
 
 <x-layout>
     @volt
-    <livewire:players.accounts/>
+        <livewire:players.accounts />
     @endvolt
 </x-layout>

@@ -11,13 +11,15 @@ state('team');
 
 <x-layout>
     @volt
-    <div>
-        <x-title title="Create a new Team"/>
-        @can('create', Team::class)
-            <livewire:admin.teams.create/>
-        @else
-            <div class="text-red-700 text-xl">{{__("You don't have access to this page")}}</div>
-        @endcan
-    </div>
+        <div>
+            <x-title title="Create a new Team" />
+            @can('create', Team::class)
+                <livewire:admin.teams.create />
+            @else
+                <div class="text-xl text-red-700">
+                    {{ __("You don't have access to this page") }}
+                </div>
+            @endcan
+        </div>
     @endvolt
 </x-layout>

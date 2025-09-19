@@ -16,15 +16,15 @@ name('forum.comments.edit');
             :subtitle="$comment->post->title"
         />
 
-        <x-forum.back-to-post :post="$comment->post"/>
+        <x-forum.back-to-post :post="$comment->post" />
 
         @can('update', $comment)
-
             <livewire:forum.comments.create :comment="$comment"/>
-
-        @else
-            <div class="text-red-700 text-xl">{{__("You don't have access to this page")}}</div>
         @endcan
+
+        @cannot('update', $comment)
+            <div class="text-red-700 text-xl">{{__("You don't have access to this page")}}</div>
+        @endcannot
 
         @endvolt
     </section>

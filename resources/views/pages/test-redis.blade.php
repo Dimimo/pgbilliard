@@ -20,11 +20,8 @@ state(['result' => function () {
 
 <x-layout>
     @volt
-    <section>
-        <p>result is : {{ $result }}</p>
-
-    </section>
+        <section>
+            <p>result is : {{ $result }}</p>
+        </section>
     @endvolt
 </x-layout>
-
-

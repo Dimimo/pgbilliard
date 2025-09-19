@@ -11,25 +11,24 @@ name('forum.comments.update');
 
 <x-layout>
     @volt
-    <section>
-        <x-title
-            title="Write a comment"
-            :subtitle="$post->title"
-        />
+        <section>
+            <x-title title="Write a comment" :subtitle="$post->title" />
 
-        <x-forum.back-to-post :post="$post"/>
-        <x-forum.back-to-posts/>
+            <x-forum.back-to-post :post="$post" />
+            <x-forum.back-to-posts />
 
-        @can('update', Comment::class)
+            @can('create', Comment::class)
+                <livewire:forum.comments.create
+                    :comment="new \App\Models\Forum\Comment(['post_id' => $post->id])"
+                    :post="$post"
+                />
+            @endcan
 
-            <livewire:forum.comments.create :comment="new \App\Models\Forum\Comment(['post_id' => $post->id])" :post="$post"/>
-
-        @else
-            <div class="text-red-700 text-xl">{{__("You don't have access to this page")}}</div>
-        @endcan
-
-        @endvolt
-    </section>
+            @cannot('create', Comment::class)
+                <div class="text-xl text-red-700">
+                    {{ __("You don't have access to this page") }}
+                </div>
+            @endcannot
+        </section>
+    @endvolt
 </x-layout>
-
-

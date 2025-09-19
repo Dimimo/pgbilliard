@@ -7,8 +7,8 @@ name('forum.posts.index');
 
 <x-layout>
     @volt()
-    <section>
-        <livewire:forum.posts.index/>
-    </section>
+        <section>
+            <livewire:forum.posts.index />
+        </section>
     @endvolt
 </x-layout>

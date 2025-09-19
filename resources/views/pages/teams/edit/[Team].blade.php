@@ -11,25 +11,26 @@ name('teams.edit');
 
 <x-layout>
     @volt
-    <section>
-        <x-title
-            title="{{__('Edit the team')}} <strong>{{$team->name}}</strong>"
-            subtitle="{{__('Season')}} {{ session('cycle') }}"
-            help="teams"
-        />
+        <section>
+            <x-title
+                title="{{__('Edit the team')}} <strong>{{$team->name}}</strong>"
+                subtitle="{{__('Season')}} {{ session('cycle') }}"
+                help="teams"
+            />
 
-        @can('update', $team)
-            @can('create', $team)
-                <livewire:team.edit :team="$team"/>
+            @can('update', $team)
+                @can('create', $team)
+                    <livewire:team.edit :team="$team" />
+                @else
+                    <livewire:venue :venue="$team->venue" />
+                @endcan
+
+                <livewire:players.edit :team="$team" />
             @else
-                <livewire:venue :venue="$team->venue"/>
+                <div class="text-xl text-red-700">
+                    {{ __("You don't have access to this page") }}
+                </div>
             @endcan
-
-            <livewire:players.edit :team="$team"/>
-        @else
-            <div class="text-red-700 text-xl">{{__("You don't have access to this page")}}</div>
-        @endcan
-
-    </section>
+        </section>
     @endvolt
 </x-layout>

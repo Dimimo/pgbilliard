@@ -1,64 +1,73 @@
-@php use Illuminate\Support\Carbon; @endphp
+@php
+    use Illuminate\Support\Carbon;
+@endphp
+
 <div>
     <div class="m-2 rounded-lg border border-green-500 bg-green-100 p-4">
         <ul class="list-disc px-4">
             <li>
-                <u><span class="font-bold">Important</span></u>:
-                If a new venue is introduced, please
+                <u><span class="font-bold">Important</span></u>
+                : If a new venue is introduced, please
                 <a
-                    class="inline-block font-bold text-blue-800 link"
+                    class="link inline-block font-bold text-blue-800"
                     href="{{ route('admin.venues.create') }}"
                     wire:navigate
                 >
                     create the venue first
                 </a>
             </li>
+            <li>The BYE option will automatically be checked if the number of teams is uneven</li>
             <li>
-                The BYE option will automatically be checked if the number of teams is uneven
+                The first playing date will be created as a starting point to publish the calendar,
+                the date can still be updated
             </li>
             <li>
-                The first playing date will be created as a starting point to publish the calendar, the date can still be updated
+                After creating the new season, you will be invited to chose
+                <span class="font-bold">the participating teams</span>
+                , before the calendar part
             </li>
             <li>
-                After creating the new season, you will be invited to chose <span class="font-bold">the participating teams</span>, before the
-                calendar part
+                On the other hand,
+                <span class="font-bold">you will be able</span>
+                to change the number of teams participating and the BYE option later on
             </li>
             <li>
-                On the other hand, <span class="font-bold">you will be able</span> to change the number of teams participating and the BYE option
-                later on
+                Last but not least,
+                <span class="font-bold">you won't be able to change</span>
+                the Season {{ $cycle }} setting
             </li>
             <li>
-                Last but not least, <span class="font-bold">you won't be able to change</span> the Season {{ $cycle }} setting
-            </li>
-            <li>
-                But <span class="font-bold">you can delete a season of the only date is empty</span>, in other words, right after creation
+                But
+                <span class="font-bold">you can delete a season of the only date is empty</span>
+                , in other words, right after creation
             </li>
         </ul>
     </div>
     <form wire:submit="save">
         <div class="grid grid-cols-2 gap-4">
             <div class="mt-1 p-2 text-right text-xl">
-                <x-forms.input-label value="Season"/>
+                <x-forms.input-label value="Season" />
             </div>
             <div class="p-2">
-                <x-forms.text-input id="cycle" wire:model.live.debounce.500ms="cycle"/>
+                <x-forms.text-input id="cycle" wire:model.live.debounce.500ms="cycle" />
                 <a class="cursor-pointer" wire:click="addMonth">
-                    <x-svg.square-plus-solid color="fill-green-600" size="5" padding="mb-1"/>
+                    <x-svg.square-plus-solid color="fill-green-600" size="5" padding="mb-1" />
                 </a>
-                @if(Carbon::createFromFormat('Y/m', $cycle)->subMonth()->format('Ym') >= Carbon::now()->format('Ym'))
+                @if (Carbon::createFromFormat('Y/m', $cycle)->subMonth()->format('Ym') >= Carbon::now()->format('Ym'))
                     <a class="cursor-pointer" wire:click="subMonth">
-                        <x-svg.square-minus-solid color="fill-orange-500" size="5" padding="mb-1"/>
+                        <x-svg.square-minus-solid color="fill-orange-500" size="5" padding="mb-1" />
                     </a>
                 @endif
+
                 <div>
-                    @error('cycle') <span class="text-red-700">{{ $message }}</span> @enderror
+                    @error('cycle')
+                        <span class="text-red-700">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
 
             <div class="mt-1 p-2 text-right text-xl">
-                <label for="number_of_teams">
-                    Number of teams
-                </label>
+                <label for="number_of_teams">Number of teams</label>
             </div>
             <div class="p-2">
                 <select id="number_of_teams" wire:model.live="number_of_teams">
@@ -69,9 +78,7 @@
             </div>
 
             <div class="mt-1 p-2 text-right text-xl">
-                <label for="players">
-                    Max number of players allowed in a team
-                </label>
+                <label for="players">Max number of players allowed in a team</label>
             </div>
             <div class="p-2">
                 <select id="players" wire:model="players">
@@ -82,18 +89,14 @@
             </div>
 
             <div class="p-2 text-right text-xl">
-                <label for="has_bye">
-                    Is a BYE needed?
-                </label>
+                <label for="has_bye">Is a BYE needed?</label>
             </div>
             <div class="p-2">
-                <input id="has_bye" type="checkbox" wire:model="has_bye">
+                <input id="has_bye" type="checkbox" wire:model="has_bye" />
             </div>
 
             <div class="mt-1 p-2 text-right text-xl">
-                <label for="day_of_week">
-                    The weekday we are playing
-                </label>
+                <label for="day_of_week">The weekday we are playing</label>
             </div>
             <div class="p-2">
                 <select id="day_of_week" wire:model.live="day_of_week">
@@ -108,18 +111,20 @@
             </div>
 
             <div class="mt-1 p-2 text-right text-xl">
-                <label for="starting_date">
-                    The next Season starts at
-                </label>
+                <label for="starting_date">The next Season starts at</label>
             </div>
             <div class="p-2">
-                <x-forms.text-input type="date" id="starting_date" wire:model.live="starting_date"/>
+                <x-forms.text-input
+                    type="date"
+                    id="starting_date"
+                    wire:model.live="starting_date"
+                />
                 <a class="cursor-pointer" wire:click="addWeek">
-                    <x-svg.square-plus-solid color="fill-green-600" size="5" padding="mb-1"/>
+                    <x-svg.square-plus-solid color="fill-green-600" size="5" padding="mb-1" />
                 </a>
-                @if(Carbon::createFromFormat('Y-m-d', $starting_date)->subWeek() > Carbon::now())
+                @if (Carbon::createFromFormat('Y-m-d', $starting_date)->subWeek() > Carbon::now())
                     <a class="cursor-pointer" wire:click="subWeek">
-                        <x-svg.square-minus-solid color="fill-orange-500" size="5" padding="mb-1"/>
+                        <x-svg.square-minus-solid color="fill-orange-500" size="5" padding="mb-1" />
                     </a>
                 @endif
             </div>
@@ -127,7 +132,7 @@
             <div class="col-span-2 p-2">
                 <div class="flex justify-center gap-4">
                     <x-forms.primary-button>Create</x-forms.primary-button>
-                    <x-forms.spinner target="save"/>
+                    <x-forms.spinner target="save" />
                     <x-forms.action-message class="mx-3" on="season-created">
                         Saved!
                     </x-forms.action-message>

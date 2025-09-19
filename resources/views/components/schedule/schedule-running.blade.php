@@ -5,24 +5,21 @@
         <div>
             <a
                 href="{{ route('schedule.event', ['event' => $event]) }}"
-                class="text-blue-800 link"
+                class="link text-blue-800"
                 wire:navigate
             >
                 {{ $event->team_1->name }} - {{ $event->team_2->name }}
             </a>
         </div>
     @else
-        <div>
-            {{ $event->team_1->name }} - {{ $event->team_2->name }}
-        </div>
+        <div>{{ $event->team_1->name }} - {{ $event->team_2->name }}</div>
     @endif
+
     @if ($available)
         <div class="italic text-gray-600">
             ({{ trans_choice('plural.day-games', $event->games()->where('win', true)->distinct('position')->count()) }})
         </div>
     @else
-        <div class="italic text-gray-600">
-            ({{__('no daily scores yet')}})
-        </div>
+        <div class="italic text-gray-600">({{ __('no daily scores yet') }})</div>
     @endif
 </div>
