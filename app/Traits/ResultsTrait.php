@@ -210,6 +210,6 @@ trait ResultsTrait
             $result->get('last_game_won') ? $factor = 1.3 : $factor = 1.15;
         }
 
-        return (int)number_format(round(((($result->get('won') / $result->get('max_games')) * 100) + ($result->get('for') / ($result->get('max_games') * 15)) * 100) / 2 * $factor));
+        return (int)number_format(floor(((($result->get('won') / $result->get('max_games')) * 100) + ($result->get('for') / ($result->get('max_games') * 15)) * 100) / 2 * $factor));
     }
 }

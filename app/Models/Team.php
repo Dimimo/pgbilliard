@@ -94,7 +94,7 @@ class Team extends Model
      */
     public function percentage(array $result): float
     {
-        return round(((($result['won'] / $result['max_games']) * 100) + (($result['for'] / (($result['max_games']) * 15)) * 100)) / 2);
+        return floor(((($result['won'] / $result['max_games']) * 100) + (($result['for'] / (($result['max_games']) * 15)) * 100)) / 2);
     }
 
     public function getUserIdAttribute()

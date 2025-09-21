@@ -21,7 +21,7 @@ class Rank extends Component
     {
         $this->season = Season::query()->where('cycle', session('cycle'))->first();
         $this->getResults();
-        $this->median = $this->count = round($this->results->median('played'));
+        $this->median = $this->count = floor($this->results->median('played'));
     }
 
     public function render(): \Illuminate\View\View
@@ -32,7 +32,7 @@ class Rank extends Component
     public function toggleMedian(): void
     {
         $this->show_all_results = ! $this->show_all_results;
-        $this->count = $this->show_all_results ? $this->results->count() : round($this->results->median('played'));
+        $this->count = $this->show_all_results ? $this->results->count() : floor($this->results->median('played'));
         $this->dispatch('changed-median');
         $this->dispatch('refresh-request')->self();
     }
