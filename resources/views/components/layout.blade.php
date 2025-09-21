@@ -96,7 +96,9 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <meta name="robots" content="noindex,nofollow" />
 
-        @PwaHead
+        @if (app()->environment() === 'production')
+            @PwaHead
+        @endif
 
         <title>{{ isset($title) ? $title . ' | ' : '' }}Puerto Galera Pool League</title>
     </head>
@@ -144,6 +146,9 @@
         {{-- End script --}}
 
         @livewire('wire-elements-modal')
-        @RegisterServiceWorkerScript
+
+        @if(app()->environment() === 'production')
+            @RegisterServiceWorkerScript
+        @endif
     </body>
 </html>
