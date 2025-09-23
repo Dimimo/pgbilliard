@@ -6,8 +6,7 @@
         >
             {{ $season->cycle }}
             <span class="text-sm text-gray-600">
-                ({{ $season->dates_count }} {{ __('games') }}, {{ $season->teams_count }}
-                {{ __('Teams') }})
+                ({{ $season->dates_count }} {{ __('games') }}, {{ $season->teams_count }} {{ __('Teams') }})
             </span>
         </div>
     @endforeach
