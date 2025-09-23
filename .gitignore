@@ -30,4 +30,4 @@ phpstan-baseline.neon
 /_ide_helper_models.php
 /storage/
 .ftpquota
-dump.rbd
+dump.rdb
