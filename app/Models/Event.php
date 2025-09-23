@@ -88,6 +88,7 @@ class Event extends Model
         'score2',
         'confirmed',
         'remark',
+        'games',
     ];
 
     /**
