@@ -4,6 +4,7 @@ dist
 vendor/
 /vendor
 resources/views/vendor/
+resources/views/mail/
 public/
 .git
 **/.git

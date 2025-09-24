@@ -1,9 +1,9 @@
 <x-mail::message>
-    # {{ $title }}
+# {{ $title }}
 
-    {!! nl2br($body) !!}
+{!! nl2br($body) !!}
 
-    Thanks for your attention,
-    <br />
-    The Puerto Galera Billiard League
+Thanks for your attention,
+<br />
+The Puerto Galera Billiard League
 </x-mail::message>

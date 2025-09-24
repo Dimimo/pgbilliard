@@ -1,10 +1,10 @@
 <x-mail::message>
-    # Your email has been changed This is a confirmation. If you requested the change all is good!
-    Don't forget to change your password too if you claimed your account.
+# Your email has been changed This is a confirmation. If you requested the change all is good!
+Don't forget to change your password too if you claimed your account.
 
-    <x-mail::button :url="'/profile'">Your profile</x-mail::button>
+<x-mail::button :url="'/profile'">Your profile</x-mail::button>
 
-    Thanks,
-    <br />
-    The Puerto Galera Billiard League
+Thanks,
+<br />
+The Puerto Galera Billiard League
 </x-mail::message>
