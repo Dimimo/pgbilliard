@@ -2,6 +2,7 @@
     <div class="mr-4 mt-1">{{ __('Select another Season') }}</div>
     <label>
         <select
+            id="season_select_dropdown"
             class="mb-1 mr-4 block w-auto appearance-none rounded border border-gray-500 bg-white py-1 pl-4 pr-8 text-base leading-normal text-gray-800"
             title="{{ __('Select another Season') }}"
             wire:change="changeCycle($event.target.value)"
