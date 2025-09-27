@@ -29,6 +29,7 @@ return [
         'theme_color' => '#0cc716',
         'icons' => [
             [
+                'src' => public_path('ms-icon-310x310.png'),
                 '36x36' => public_path('android-icon-36x36.png'),
                 '48x48' => public_path('android-icon-48x48.png'),
                 '72x72' => public_path('android-icon-72x72.png'),
