@@ -19,8 +19,11 @@
             <div class="grow">
                 <div class="text-center text-4xl text-green-900">{!! $title !!}</div>
             </div>
-            <div class="flex-none text-right" title="Get help for the {{ $help }}">
-                <button wire:click="$dispatch('openModal', { component: 'help.{{ $help }}' })">
+            <div class="flex-none text-right">
+                <button
+                    title="Get help for the {{ $help }}"
+                    wire:click="$dispatch('openModal', { component: 'help.{{ $help }}' })"
+                >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 512"
