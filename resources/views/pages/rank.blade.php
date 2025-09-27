@@ -5,7 +5,7 @@ use function Laravel\Folio\name;
 name('rank');
 ?>
 
-<x-layout>
+<x-layout title="Individual Ranking">
     @volt
         <div>
             <x-title
@@ -13,7 +13,7 @@ name('rank');
                 subtitle="{{__('Season')}} {{ session('cycle') }}"
                 help="ranking"
             />
-            <livewire:rank />
+            <livewire:rank lazy />
         </div>
     @endvolt
 </x-layout>
