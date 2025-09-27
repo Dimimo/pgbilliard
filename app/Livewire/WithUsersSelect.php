@@ -7,7 +7,7 @@ use Illuminate\Support\Carbon;
 
 trait WithUsersSelect
 {
-    public /*array*/ $users;
+    /*array*/ public $users;
     public string $carbon_sub = '20 years';
 
     public function MountWithUsersSelect(): void
@@ -23,7 +23,7 @@ trait WithUsersSelect
             ->orderBy('name')
             ->whereNotIn('id', [1]) //get rid of the administrator
             ->get(['id', 'name', 'last_game'])
-            ->each(fn($q) => $q->name .= " ({$q->last_game->diffForHumans()})")
+            ->each(fn ($q) => $q->name .= " ({$q->last_game->diffForHumans()})")
             ->pluck('name', 'id')
             ->toArray();
     }
