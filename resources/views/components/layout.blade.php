@@ -11,29 +11,11 @@
     <meta name="copyright" content="&copy; &reg; {{ date("Y") }} Puerto Galera Pool League"/>
     <meta name="description" content="Puerto Galera Pool League"/>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
     @vite('resources/css/app.css')
-
-    <link
-        rel="preload"
-        href="{{ secure_asset('webfonts/roboto/roboto.css') }}"
-        as="style"
-    />
-    <link
-        rel="stylesheet"
-        href="{{ secure_asset('webfonts/roboto/roboto.css') }}"
-        data-navigate-track="reload"
-    />
-    <link
-        rel="preload"
-        href="{{ secure_asset('webfonts/roboto/Roboto-Regular.ttf') }}"
-        as="style"
-    />
-    <link
-        rel="stylesheet"
-        href="{{ secure_asset('webfonts/roboto/Roboto-Regular.ttf') }}"
-        data-navigate-track="reload"
-    />
-
     @stack('css')
 
     <link
@@ -107,10 +89,6 @@
     />
     <meta name="msapplication-TileColor" content="#ffffff"/>
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"/>
-    {{--
-        <link rel="manifest" href="{{ secure_asset('manifest.json') }}">
-        <meta name="theme-color" content="#0cc716">
-    --}}
 
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta name="robots" content="noindex,nofollow"/>
@@ -124,7 +102,7 @@
 
 <body class="flex min-h-screen flex-col font-sans antialiased">
 <header class="sticky top-0 z-10 block h-20 bg-white">
-    <livewire:layout.navigation/>
+    <livewire:layout.navigation lazy />
 </header>
 
 <main class="container relative mx-auto grow sm:px-4 md:px-8 lg:px-20">
