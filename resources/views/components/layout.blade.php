@@ -23,6 +23,16 @@
         href="{{ secure_asset('webfonts/roboto/roboto.css') }}"
         data-navigate-track="reload"
     />
+    <link
+        rel="preload"
+        href="{{ secure_asset('webfonts/roboto/Roboto-Regular.ttf') }}"
+        as="style"
+    />
+    <link
+        rel="stylesheet"
+        href="{{ secure_asset('webfonts/roboto/Roboto-Regular.ttf') }}"
+        data-navigate-track="reload"
+    />
 
     @stack('css')
 
