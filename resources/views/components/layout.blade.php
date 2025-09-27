@@ -105,7 +105,7 @@
 
 <body class="flex min-h-screen flex-col font-sans antialiased">
 <header class="sticky top-0 z-10 block h-20 bg-white">
-    <livewire:layout.navigation lazy/>
+    <livewire:layout.navigation/>
 </header>
 
 <main class="container relative mx-auto grow sm:px-4 md:px-8 lg:px-20">
@@ -140,16 +140,10 @@
 </footer>
 
 {{-- Begin script --}}
-@if (app()->environment() === 'production')
-    @vite(['resources/js/app.js', 'resources/js/ably.js'])
-    @RegisterServiceWorkerScript
-@else
-    @vite(['resources/js/app.js'])
-@endif
-
+@vite(['resources/js/app.js', 'resources/js/ably.js'])
 @stack('js')
-{{-- End script --}}
-
 @livewire('wire-elements-modal')
+@RegisterServiceWorkerScript
+{{-- End script --}}
 </body>
 </html>
