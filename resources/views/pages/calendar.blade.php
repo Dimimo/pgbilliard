@@ -5,10 +5,10 @@ use function Laravel\Folio\name;
 name('calendar');
 ?>
 
-<x-layout>
+<x-layout title="The Calendar and Schedule">
     @volt
-        <div>
-            <livewire:calendar />
-        </div>
+    <div>
+        <livewire:calendar lazy/>
+    </div>
     @endvolt
 </x-layout>

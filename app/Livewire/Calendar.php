@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Event;
+use App\Skeletons\CalendarSkeleton;
 use App\Traits\CalendarTrait;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
@@ -29,6 +30,11 @@ class Calendar extends Component
     public function render(): View
     {
         return view('livewire.calendar');
+    }
+
+    public function placeholder(): string
+    {
+        return CalendarSkeleton::html();
     }
 
     #[On('echo:live-score,ScoreEvent')]
