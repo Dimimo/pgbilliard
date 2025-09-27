@@ -8,7 +8,7 @@
         content="width=device-width, initial-scale=1.0, minimum-scale=0.1, maximum-scale=3.0, user-scalable=yes"
     />
     <meta name="author" content="Dimitri Mostrey (www.pgbilliard.com)"/>
-    <meta name="copyright" content="&copy; &reg; {{ date("Y") }} Puerto Galera Pool League"/>
+    <meta name="copyright" content="&copy; &reg; {{ date("Y") }} Puerto Galera Billiard League"/>
     <meta name="description" content="Puerto Galera Pool League"/>
 
     <link
@@ -20,47 +20,8 @@
 
     @vite('resources/css/app.css')
     @stack('css')
+    @PwaHead
 
-    <link
-        rel="apple-touch-icon"
-        sizes="57x57"
-        href="{{ secure_asset('apple-icon-57x57.png') }}"
-    />
-    <link
-        rel="apple-touch-icon"
-        sizes="60x60"
-        href="{{ secure_asset('apple-icon-60x60.png') }}"
-    />
-    <link
-        rel="apple-touch-icon"
-        sizes="72x72"
-        href="{{ secure_asset('apple-icon-72x72.png') }}"
-    />
-    <link
-        rel="apple-touch-icon"
-        sizes="76x76"
-        href="{{ secure_asset('apple-icon-76x76.png') }}"
-    />
-    <link
-        rel="apple-touch-icon"
-        sizes="114x114"
-        href="{{ secure_asset('apple-icon-114x114.png') }}"
-    />
-    <link
-        rel="apple-touch-icon"
-        sizes="120x120"
-        href="{{ secure_asset('apple-icon-120x120.png') }}"
-    />
-    <link
-        rel="apple-touch-icon"
-        sizes="144x144"
-        href="{{ secure_asset('apple-icon-144x144.png') }}"
-    />
-    <link
-        rel="apple-touch-icon"
-        sizes="152x152"
-        href="{{ secure_asset('apple-icon-152x152.png') }}"
-    />
     <link
         rel="apple-touch-icon"
         sizes="180x180"
@@ -75,14 +36,14 @@
     <link
         rel="icon"
         type="image/png"
-        sizes="32x32"
-        href="{{ secure_asset('favicon-32x32.png') }}"
+        sizes="96x96"
+        href="{{ secure_asset('favicon-96x96.png') }}"
     />
     <link
         rel="icon"
         type="image/png"
-        sizes="96x96"
-        href="{{ secure_asset('favicon-96x96.png') }}"
+        sizes="32x32"
+        href="{{ secure_asset('favicon-32x32.png') }}"
     />
     <link
         rel="icon"
@@ -92,13 +53,8 @@
     />
     <meta name="msapplication-TileColor" content="#ffffff"/>
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"/>
-
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <meta name="robots" content="noindex,nofollow"/>
-
-    @if (app()->environment() === 'production')
-        @PwaHead
-    @endif
 
     <title>{{ isset($title) ? $title . ' | ' : '' }}Puerto Galera Pool League</title>
 </head>
@@ -131,7 +87,7 @@
     </div>
 
     @if (request()->routeIs(['index', 'scoreboard', 'calendar', 'teams.index', 'dashboard']))
-        <livewire:cycle-select lazy/>
+        <livewire:cycle-select/>
     @endif
 </main>
 
