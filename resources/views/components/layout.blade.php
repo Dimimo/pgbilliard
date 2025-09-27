@@ -11,9 +11,12 @@
     <meta name="copyright" content="&copy; &reg; {{ date("Y") }} Puerto Galera Pool League"/>
     <meta name="description" content="Puerto Galera Pool League"/>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link
+        rel="preload"
+        href="{{ secure_asset('webfonts/roboto/roboto.css') }}"
+        onload="this.onload=null;this.rel='stylesheet';this.removeAttribute('as')"
+        as="style"
+    >
 
     @vite('resources/css/app.css')
     @stack('css')
@@ -102,7 +105,7 @@
 
 <body class="flex min-h-screen flex-col font-sans antialiased">
 <header class="sticky top-0 z-10 block h-20 bg-white">
-    <livewire:layout.navigation lazy />
+    <livewire:layout.navigation lazy/>
 </header>
 
 <main class="container relative mx-auto grow sm:px-4 md:px-8 lg:px-20">
@@ -128,7 +131,7 @@
     </div>
 
     @if (request()->routeIs(['index', 'scoreboard', 'calendar', 'teams.index', 'dashboard']))
-        <livewire:cycle-select lazy />
+        <livewire:cycle-select lazy/>
     @endif
 </main>
 
