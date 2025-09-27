@@ -15,7 +15,6 @@ class TeamResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'remark' => $this->whenNotNull($this->remark),
-            //'user_id' => $this->user_id,
             'players_count' => $this->whenNotNull($this->activePlayers()->count()),
 
             'venue_id' => $this->venue_id,
@@ -24,7 +23,7 @@ class TeamResource extends JsonResource
             'season' => $this->season->cycle,
             'venue' => new VenueResource($this->whenLoaded('venue')),
 
-            'players' => $this->whenLoaded('players', PlayerResource::collection($this->activePlayers()->sortBy('name'))),
+            'players' => $this->whenLoaded('players', PlayerResource::collection($this->activePlayers())),
         ];
     }
 }
