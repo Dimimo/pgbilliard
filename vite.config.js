@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import preload from "vite-plugin-preload";
 
 export default defineConfig({
     plugins: [
@@ -16,5 +17,6 @@ export default defineConfig({
             ],
             detectTls: 'pgbilliard.test',
         }),
+        preload(),
     ],
 });
