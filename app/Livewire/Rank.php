@@ -29,6 +29,13 @@ class Rank extends Component
         return view('livewire.rank');
     }
 
+    public function placeholder(): string
+    {
+        return <<<'HTML'
+        <div></div>
+        HTML;
+    }
+
     public function toggleMedian(): void
     {
         $this->show_all_results = ! $this->show_all_results;

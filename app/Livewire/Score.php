@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Date;
 use App\Models\Event;
+use App\Skeletons\ScoreSkeleton;
 use App\Traits\CalendarTrait;
 use App\Traits\ResultsTrait;
 use Illuminate\Contracts\View\View;
@@ -33,6 +34,11 @@ class Score extends Component
     public function render(): View
     {
         return view('livewire.score');
+    }
+
+    public function placeholder(): string
+    {
+        return ScoreSkeleton::html();
     }
 
     public function toggleShowFullTable(): void
