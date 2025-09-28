@@ -35,7 +35,7 @@ it('shows the score board of a full Season in the correct order', function () {
         ->pluck('name')
         ->toArray();
 
-    $response = $this->get('/');
-
-    $response->assertSeeInOrder($team_names);
+    Livewire::withoutLazyLoading()
+        ->test(Score::class)
+        ->assertSeeInOrder($team_names);
 });
