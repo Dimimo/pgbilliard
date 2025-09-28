@@ -40,17 +40,18 @@ trait UpdateRanksTrait
             ])
             ->with(['user', 'team'])
             ->orderByDesc('user_id')
-            ->get()
-            ->each(fn ($player) => $player->participation = $player->participation());
+            ->get();
     }
 
     private function updateRankTable(): void
     {
         $max_played_games = $this->players->sortByDesc('games_played')->first()->games_played;
+        $max_played_dates = $this->players->sortByDesc('participated')->first()->participated;
 
         $insert = [
             'season_id' => $this->season->id,
-            'max_games' => $max_played_games
+            'max_games' => $max_played_games,
+            'max_days' => $max_played_dates,
         ];
 
         // first we group by user_id and then sum the won, lost, participated and played games
@@ -64,7 +65,7 @@ trait UpdateRanksTrait
                     'player_id' => $player->where('active', true)->first()?->id
                         ?: $player->first()->id,
                     'user_id' => $player->first()->user_id,
-                    'participated' => $player->first()->participation(),
+                    'participated' => $player->first()->participated,
                     'won' => $player->sum('games_won'),
                     'lost' => $player->sum('games_lost'),
                     'played' => $player->sum('games_played'),

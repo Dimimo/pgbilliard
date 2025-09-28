@@ -19,12 +19,12 @@ use Illuminate\Support\Carbon;
  * @property int|null $team_id
  * @property bool $captain
  * @property bool $active
- * @property int|null $games_lost
- * @property int|null $games_played
- * @property int|null $games_won
- * @property int|null $participation
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read int|null $games_lost
+ * @property-read int|null $games_played
+ * @property-read int|null $games_won
+ * @property-read int|null $participated
  * @property-read string $contact_nr
  * @property-read string $email
  * @property-read string $gender
@@ -95,10 +95,9 @@ class Player extends Model
     protected $appends = [
         'name',
         'phone',
-        'participation',
-        /*'games_won',
-        'games_lost',
-        'games_played',*/
+        'email',
+        'gender',
+        'participated',
     ];
 
     protected function name(): Attribute
@@ -108,7 +107,15 @@ class Player extends Model
 
     protected function phone(): Attribute
     {
-        return Attribute::make(get: fn () => $this->user?->contact_nr);
+        return Attribute::make(get: function () {
+            if (!$this->user?->contact_nr) {
+                return null;
+            }
+            if (!auth()->check()) {
+                return __('hidden');
+            }
+            return $this->user->contact_nr;
+        });
     }
 
     protected function gender(): Attribute
@@ -121,42 +128,24 @@ class Player extends Model
         return Attribute::make(get: fn () => $this->user?->email);
     }
 
-    /*public function getGamesWonAttribute()
+    protected function participated(): Attribute
     {
-        return Attribute::make(get: fn() => $this->games_won);
-    }
-
-    public function getGamesLostAttribute()
-    {
-        return Attribute::make(get: fn() => $this->games_lost);
-    }
-
-    public function getGamesPlayedAttribute()
-    {
-        return Attribute::make(get: fn() => $this->games_played);
-    }*/
-
-    public function getParticipationAttribute(): int
-    {
-        return Game::query()->select('event_id')
-            ->where('user_id', $this->user_id)
-            ->distinct()
-            ->count('event_id');
-    }
-
-    public function participation(): int
-    {
-        return Game::query()->select('event_id')
-            ->where('player_id', $this->id)
-            ->whereNotNull('win')
-            ->distinct()
-            ->count('event_id');
+        return Attribute::make(get: function () {
+            return Game::query()
+                ->select('event_id')
+                ->where('player_id', $this->id)
+                ->whereNotNull('win')
+                ->distinct()
+                ->count('event_id');
+        });
     }
 
     /*public function getParticipationAttribute(): int
     {
-        return Game::select('event_id')
-            ->where('user_id', $this->user_id)
+        return Game::query()
+            ->select('event_id')
+            ->where('player_id', $this->id)
+            ->whereNotNull('win')
             ->distinct()
             ->count('event_id');
     }*/

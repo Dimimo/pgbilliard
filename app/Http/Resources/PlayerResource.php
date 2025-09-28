@@ -19,7 +19,7 @@ class PlayerResource extends JsonResource
             'games_lost' => $this->whenNotNull($this->games_lost),
             'games_played' => $this->whenNotNull($this->games_played),
             'games_won' => $this->whenNotNull($this->games_won),
-            'participation' => $this->participation,
+            'participated' => $this->participated,
             'games_count' => $this->whenNotNull($this->games_count),
             'rank_count' => $this->whenNotNull($this->rank_count),
             'position_count' => $this->whenNotNull($this->position_count),
