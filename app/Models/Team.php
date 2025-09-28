@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Database\Factories\TeamFactory;
 use Eloquent;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -31,6 +33,9 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, Event> $team_2
  * @property-read int|null $team_2_count
  * @property-read Venue $venue
+ * @property-read Collection<int, Player> activePlayers()
+ * @property-read ?Player captain()
+ * @property-read string captain_name
  *
  * @method static TeamFactory factory($count = null, $state = [])
  * @method static Builder|Team newModelQuery()
@@ -88,6 +93,8 @@ class Team extends Model
 
     protected $with = [];
 
+    protected $appends = [];
+
     /**
      * Calculates the percentages of a given score table of a team
      * The results are to be found in App\Traits\ResultsTrait
@@ -107,7 +114,23 @@ class Team extends Model
      */
     public function captain(): ?Player
     {
-        return $this->players()->where('captain', '1')->first();
+        return $this->players()->where([
+            ['active', true],
+            ['captain', true]
+        ])->first();
+    }
+
+    public function getCaptainNameAttribute(): string
+    {
+        return $this->captain()?->name ?: '(unknown)';
+    }
+
+    public function getContactNrAttribute(): string
+    {
+        if (!auth()->check()) {
+            return __('hidden');
+        }
+        return $this->captain()?->phone ?: $this->venue->contact_nr;
     }
 
     public function hasGames(): bool
@@ -117,7 +140,7 @@ class Team extends Model
 
     public function activePlayers(): Collection
     {
-        return $this->players->filter(fn ($player) => $player->active === true);
+        return $this->players()->whereActive(true)->get()->sortBy('name')->sortByDesc('captain');
     }
 
     /**************************************
@@ -126,17 +149,17 @@ class Team extends Model
      *
      **************************************/
 
-    public function players(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function players(): HasMany
     {
         return $this->hasMany(Player::class);
     }
 
-    public function team_1(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function team_1(): HasMany
     {
         return $this->hasMany(Event::class, 'team1', 'id');
     }
 
-    public function team_2(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function team_2(): HasMany
     {
         return $this->hasMany(Event::class, 'team2', 'id');
     }
@@ -151,7 +174,7 @@ class Team extends Model
         return $this->belongsTo(Venue::class, 'venue_id');
     }
 
-    public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function games(): HasMany
     {
         return $this->hasMany(Game::class);
     }
