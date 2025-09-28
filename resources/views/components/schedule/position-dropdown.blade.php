@@ -7,6 +7,7 @@
                     ['games.home', $home]
                 ])
         ->join('schedules', 'games.schedule_id', '=', 'schedules.id')
+        ->with('player.user')
         ->select('games.*', 'schedules.player as player_position')
         ->orderBy('games.position')
         ->get();
@@ -79,14 +80,14 @@
                 @if (($loop->last && $home) || ($loop->first && !$home))
                     @if ($event->confirmed || auth()->guest() || auth()->user()->cannot('update', $game->event))
                         @if ($game->win)
-                            <x-svg.check-solid color="fill-green-600" size="5" />
+                            <x-svg.check-solid color="fill-green-600" size="5"/>
                         @else
                             <span class="h-5 w-5"></span>
                         @endif
                     @else
                         @php
                             // this check is needed to enable the win checkbox for the final game, only if all 4 players are selected
-                                                        $has_complete_final_game = $event->games()->wherePosition(15)->has('player')->count() === 4;
+                            $has_complete_final_game = $event->games()->wherePosition(15)->has('player')->count() === 4;
                         @endphp
 
                         <div class="mx-3">
