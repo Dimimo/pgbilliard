@@ -1,3 +1,1 @@
-<div class="text-center mt-12 text-xl text-gray-700">
-    ... loading ...
-</div>
+<div class="mt-12 text-center text-xl text-gray-700">... loading ...</div>

@@ -22,14 +22,14 @@
             href="https://play.google.com/store/apps/details?id=com.pgbilliard&pcampaignid=web_share"
             class="link inline-block text-blue-800"
         >
-            <x-svg.circle-arrow-right-solid color="fill-sky-600" size="4"/>
-            Help us getting the Puerto Galera Billiard League app from Google Store accepted
-            to production
-            <x-svg.circle-arrow-left-solid color="fill-sky-600" size="4"/>
+            <x-svg.circle-arrow-right-solid color="fill-sky-600" size="4" />
+            Help us getting the Puerto Galera Billiard League app from Google Store accepted to
+            production
+            <x-svg.circle-arrow-left-solid color="fill-sky-600" size="4" />
         </a>
     </div>
     <div>
-        <x-svg.circle-info-solid color="fill-green-700" size="4"/>
+        <x-svg.circle-info-solid color="fill-green-700" size="4" />
         The app is currently in
         <a
             href="https://support.google.com/googleplay/android-developer/answer/9845334"
@@ -37,7 +37,7 @@
             target="_blank"
         >
             <span class="italic">closed testing mode</span>
-            <x-svg.up-right-from-square-solid color="fill-gray-400" size="3"/>
+            <x-svg.up-right-from-square-solid color="fill-gray-400" size="3" />
         </a>
         as requested by creating a new Google Play app
     </div>

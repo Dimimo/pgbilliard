@@ -13,13 +13,11 @@
         ->get();
 @endphp
 
-<div
-    @class([
-    'flex',
-    'justify-end' => $home,
-    'justify-start' => !$home,
-    ])
->
+<div @class([
+'flex',
+'justify-end' => $home,
+'justify-start' => !$home,
+])>
     <div class="flex flex-col space-y-2 md:flex-row md:flex-nowrap md:space-y-0">
         @foreach ($games as $game)
             <div
@@ -80,7 +78,7 @@
                 @if (($loop->last && $home) || ($loop->first && !$home))
                     @if ($event->confirmed || auth()->guest() || auth()->user()->cannot('update', $game->event))
                         @if ($game->win)
-                            <x-svg.check-solid color="fill-green-600" size="5"/>
+                            <x-svg.check-solid color="fill-green-600" size="5" />
                         @else
                             <span class="h-5 w-5"></span>
                         @endif
@@ -99,7 +97,7 @@
                                     wire:target="scoreGiven({{ $game->id }})"
                                     @class([
                                     'h-6 w-6',
-                                    'mt-4 md:mt-0' => $i%5 !== 0 && $game->win === null,
+                                    'mt-4 md:mt-0' => $i % 5 !== 0 && $game->win === null,
                                     'cursor-pointer' => $game->position === 15 && $has_complete_final_game,
                                     'cursor-not-allowed bg-indigo-100' => $game->position === 15 && !$has_complete_final_game,
                                     'text-green-600' => $game->win,

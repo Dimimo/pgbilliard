@@ -77,12 +77,12 @@
 
             @foreach ($rounds as $i => $round)
                 @php
-                    $j = $i+5;
-                                        $pg = $event->score1 + $event->score2;
+                    $j = $i + 5;
+                    $pg = $event->score1 + $event->score2;
                 @endphp
 
                 @for ($i;$i<$j;$i++)
-                    @if ($i%5)
+                    @if ($i % 5)
                         @if (in_array($i, [1,6,11]))
                             <div
                                 class="col-span-8 h-12 w-full bg-green-100 pt-2 text-center text-xl"
@@ -103,7 +103,7 @@
                     <div
                         @class([
                         'col-span-4 w-full p-1 text-right',
-                        'rounded-lg border border-neutral-400 bg-neutral-100' => $i%2 === 1 && ! $confirmed && $i > $pg,
+                        'rounded-lg border border-neutral-400 bg-neutral-100' => $i % 2 === 1 && ! $confirmed && $i > $pg,
                         ])
                     >
                         <x-schedule.position-dropdown
@@ -119,7 +119,7 @@
                     <div
                         @class([
                         'col-span-4 w-full p-1',
-                        'rounded-lg border border-neutral-700 bg-neutral-100' => $i%2 === 0 && ! $confirmed && $i > $pg,
+                        'rounded-lg border border-neutral-700 bg-neutral-100' => $i % 2 === 0 && ! $confirmed && $i > $pg,
                         ])
                     >
                         <div>
