@@ -4,7 +4,7 @@
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-import axios from "axios";
+import axios from 'axios';
 // import Echo from "laravel-echo";
 // import * as Ably from "ably";
 
@@ -15,8 +15,9 @@ window.axios = axios;
 //     authEndpoint: '/broadcasting/auth'
 // });
 
-window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
-
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.withCredentials = true;
+window.axios.defaults.withXSRFToken = true;
 /* Ably */
 // window.Echo.connector.ably.connection.on((stateChange) => {
 //     console.log("LOGGER:: Connection event :: ", stateChange);
