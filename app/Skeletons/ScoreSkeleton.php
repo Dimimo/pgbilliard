@@ -35,62 +35,22 @@ class ScoreSkeleton
                 </tr>
                 </thead>
                 <tbody class="whitespace-nowrap">
-                <tr class="h-12">
-                    <td class="bg-gray-200 p-2 text-center text-gray-900 animate-pulse font-bold">
-                        1
-                    </td>
-                    <td class="p-2 bg-blue-100 animate-pulse">
-                        <div class="h-4 w-32 bg-gray-300"></div>
-                    </td>
-                    <td class="bg-amber-200 p-2 text-gray-900 animate-pulse">
-                        <div class="h-4 w-32 bg-gray-300"></div>
-                    </td>
-                    <td class="p-2 text-center">
-                        <div class="h-4 w-32 bg-gray-300"></div>
-                    </td>
-                </tr>
-                <tr class="h-12">
-                    <td class="bg-gray-200 p-2 text-center text-gray-900 animate-pulse font-bold">
-                        2
-                    </td>
-                    <td class="p-2 bg-gray-200 animate-pulse">
-                        <div class="h-4 w-32 bg-gray-300"></div>
-                    </td>
-                    <td class="bg-gray-200 p-2 text-gray-900 animate-pulse">
-                        <div class="h-4 w-32 bg-gray-300"></div>
-                    </td>
-                    <td class="p-2 text-center">
-                        <div class="h-4 w-32 bg-gray-300"></div>
-                    </td>
-                </tr>
-                <tr class="h-12">
-                    <td class="bg-gray-200 p-2 text-center text-gray-900 animate-pulse font-bold">
-                        3
-                    </td>
-                    <td class="p-2 bg-gray-200 animate-pulse">
-                        <div class="h-4 w-32 bg-gray-300"></div>
-                    </td>
-                    <td class="bg-gray-200 p-2 text-gray-900 animate-pulse">
-                        <div class="h-4 w-32 bg-gray-300"></div>
-                    </td>
-                    <td class="p-2 text-center">
-                        <div class="h-4 w-32 bg-gray-300"></div>
-                    </td>
-                </tr>
-                <tr class="h-12">
-                    <td class="bg-gray-200 p-2 text-center text-gray-900 animate-pulse font-bold">
-                        4
-                    </td>
-                    <td class="p-2 bg-gray-200 animate-pulse">
-                        <div class="h-4 w-32 bg-gray-300"></div>
-                    </td>
-                    <td class="bg-gray-200 p-2 text-gray-900 animate-pulse">
-                        <div class="h-4 w-32 bg-gray-300"></div>
-                    </td>
-                    <td class="p-2 text-center">
-                        <div class="h-4 w-32 bg-gray-300"></div>
-                    </td>
-                </tr>
+                @for($i=0;$i<4;$i++)
+                    <tr class="h-12">
+                        <td class="bg-gray-200 p-2 text-center text-gray-900 animate-pulse font-bold">
+                            1
+                        </td>
+                        <td class="p-2 bg-blue-100 animate-pulse">
+                            <div class="h-4 w-32 bg-gray-300"></div>
+                        </td>
+                        <td class="bg-amber-200 p-2 text-gray-900 animate-pulse">
+                            <div class="h-4 w-32 bg-gray-300"></div>
+                        </td>
+                        <td class="p-2 text-center">
+                            <div class="h-4 w-32 bg-gray-300"></div>
+                        </td>
+                    </tr>
+                @endfor
                 </tbody>
             </table>
            </div>
