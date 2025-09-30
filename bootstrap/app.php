@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\CheckIfAdmin::class,
             \App\Http\Middleware\PoolCycle::class,
+            \App\Http\Middleware\TeamOfLoggedInUserMiddleware::class,
         ]);
 
         $middleware->api(append: [
