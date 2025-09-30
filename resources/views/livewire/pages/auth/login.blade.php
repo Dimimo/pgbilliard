@@ -42,6 +42,7 @@ $login = function () {
     RateLimiter::clear($throttleKey);
     session()->regenerate();
     session(['last_login' => auth()->user()->updated_at]);
+    session()->forget('my_team');
     auth()->user()->touch('updated_at');
     $this->redirect(session('url.intended', RouteServiceProvider::HOME));
 };
@@ -82,7 +83,6 @@ $toggle_password = function () {
                 class="mt-1 block w-full"
                 type="{{$show_password ? 'text' : 'password'}}"
                 name="password"
-                data-np-uuid="whatever-text-you-want-here"
                 required
                 autocomplete="current-password"
             />
