@@ -64,9 +64,9 @@
     <div class="flex justify-center">
         <x-forms.primary-button wire:click="toggleMedian">
             @if ($show_all_results)
-                Show only the {{ $median }} most active players
+                {{ str(__('Show only the ###median### most active players'))->replace('###median###', $median) }}
             @else
-                    Show the list of ALL players
+                {{ __('Show the list of ALL players') }}
             @endif
         </x-forms.primary-button>
     </div>
@@ -168,16 +168,37 @@
                         <span class="font-bold">{{ $rank++ }}</span>
                     </td>
                     <td class="bg-indigo-50 text-center">{{ $result->percentage }}%</td>
-                    <td class="bg-blue-100 p-2 text-left font-bold">
+                    <td class="bg-blue-100 py-2">
+                        <div class="ml-2 flex flex-row">
+                            <div class="grow font-bold">
+                                <a
+                                    class="link"
+                                    href="{{ route('players.show', ['player' => $result->player->id]) }}"
+                                    wire:navigate
+                                >
+                                    {{ $result->user->name }}
+                                </a>
+                            </div>
+                            <div class="w-8 flex-none">
+                                <a
+                                    class="link"
+                                    href="{{ route('players.show', ['player' => $result->player->id]) }}"
+                                    wire:navigate
+                                >
+                                    <x-svg.user-detail color="fill-green-700" />
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="bg-gray-50 p-2 text-left">
                         <a
+                            href="{{ route('teams.show', ['team' => $result->player->team]) }}"
                             class="link"
-                            href="{{ route('players.show', ['player' => $result->player->id]) }}"
                             wire:navigate
                         >
-                            {{ $result->user->name }}
+                            {{ $result->player->team->name }}
                         </a>
                     </td>
-                    <td class="bg-gray-50 p-2 text-left">{{ $result->player->team->name }}</td>
                     <td class="bg-green-100 text-center">{{ $result->won }}</td>
                     <td class="bg-red-100 text-center">{{ $result->lost }}</td>
                     <td class="bg-blue-50 text-center">{{ $result->played }}</td>
