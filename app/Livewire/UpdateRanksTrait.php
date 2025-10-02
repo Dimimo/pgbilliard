@@ -40,8 +40,7 @@ trait UpdateRanksTrait
             ])
             ->with(['user', 'team'])
             ->orderByDesc('user_id')
-            ->get()
-            ->groupBy('user_id');
+            ->get();
     }
 
     private function updateRankTable(): void
@@ -59,7 +58,7 @@ trait UpdateRanksTrait
         // users can go in and out teams, leaving them with possibly several 'player' ids
         $merged = collect();
 
-        foreach ($this->players as $player) {
+        foreach ($this->players->groupBy('user_id') as $player) {
             $user_id = $player->first()->user_id;
             $data = collect(
                 array_merge($insert, [
