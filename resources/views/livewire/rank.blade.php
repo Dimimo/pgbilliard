@@ -37,9 +37,11 @@
         <div class="mb-4">
             Optionally, you can see the list of all players.
             <br />
-            Either way, the calculation of the percentage is strait forward:
+            Either way, the calculation of the percentage as following:
             <br />
-            <span class="font-mono">(Games Won / Total Games) * 100</span>
+            <span class="font-mono">
+                (Games Won / Total Games) * (Days Participated / Max Playing Days) * 100
+            </span>
         </div>
         <div class="mb-4">
             {{ __('New') }}: {{ __('click on a name to see the game details') }}
@@ -62,9 +64,9 @@
     <div class="flex justify-center">
         <x-forms.primary-button wire:click="toggleMedian">
             @if ($show_all_results)
-                Show only the {{ $median }} best players (median #)
+                Show only the {{ $median }} most active players
             @else
-                    Show the list of ALL players (not accurate)
+                    Show the list of ALL players
             @endif
         </x-forms.primary-button>
     </div>

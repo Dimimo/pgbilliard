@@ -40,7 +40,8 @@ trait UpdateRanksTrait
             ])
             ->with(['user', 'team'])
             ->orderByDesc('user_id')
-            ->get();
+            ->get()
+            ->groupBy('user_id');
     }
 
     private function updateRankTable(): void
@@ -56,19 +57,19 @@ trait UpdateRanksTrait
 
         // first we group by user_id and then sum the won, lost, participated and played games
         // users can go in and out teams, leaving them with possibly several 'player' ids
-        $players = $this->players->groupBy('user_id');
         $merged = collect();
 
-        foreach ($players as $player) {
+        foreach ($this->players as $player) {
+            $user_id = $player->first()->user_id;
             $data = collect(
                 array_merge($insert, [
                     'player_id' => $player->where('active', true)->first()?->id
                         ?: $player->first()->id,
                     'user_id' => $player->first()->user_id,
-                    'participated' => $player->first()->participated,
-                    'won' => $player->sum('games_won'),
-                    'lost' => $player->sum('games_lost'),
-                    'played' => $player->sum('games_played'),
+                    'participated' => $this->players->flatten()->where('user_id', $user_id)->sum('participated'),
+                    'won' => $this->players->flatten()->where('user_id', $user_id)->sum('games_won'),
+                    'lost' => $this->players->flatten()->where('user_id', $user_id)->sum('games_lost'),
+                    'played' => $this->players->flatten()->where('user_id', $user_id)->sum('games_played'),
                 ])
             );
 
@@ -81,6 +82,10 @@ trait UpdateRanksTrait
         foreach ($merged as $data) {
             try {
                 $percentage = ($data->get('won') / $data->get('played')) * 100;
+
+                // add the played days multiplier
+                $percentage = $percentage * ($data->get('participated') / $max_played_dates);
+                $percentage = ceil($percentage);
             } catch (\DivisionByZeroError) {
                 $percentage = 0;
             }

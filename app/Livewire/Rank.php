@@ -32,7 +32,7 @@ class Rank extends Component
     public function placeholder(): string
     {
         return <<<'HTML'
-        <div></div>
+        <div class="mt-8 text-center text-xl">... loading ...</div>
         HTML;
     }
 
