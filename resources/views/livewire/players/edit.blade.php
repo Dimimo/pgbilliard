@@ -137,7 +137,7 @@
                 <div class="p-2">
                     <select id="user_id" wire:model.change="user_id">
                         <option>-- select --</option>
-                        @foreach (rray_diff($users, $occupied_players) as $id => $name)
+                        @foreach (array_diff($users, $occupied_players) as $id => $name)
                             <option wire:key="add-{{ $id }}" value="{{ $id }}">
                                 {{ $name }}
                             </option>
