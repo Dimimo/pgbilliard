@@ -21,6 +21,8 @@ class UpdateUsersLastPlayedDate
                     if ($date) {
                         $user->update(['last_game' => $date]);
                     }
+                } else {
+                    $user->update(['last_game' => $player->team->season->dates()->first()->date]);
                 }
             }
         }
