@@ -47,11 +47,7 @@ class Login extends Component
         }
         if (!auth()->attempt($this->only(['email', 'password']), $this->remember)) {
             RateLimiter::hit($throttleKey);
-            //$this->addError('credentials', 'Your credentials don\'t match our records');
             session()->flash('status', 'Your credentials don\'t match our records');
-            //            throw ValidationException::withMessages([
-            //                'email' => trans('auth.failed'),
-            //            ]);
         } else {
             RateLimiter::clear($throttleKey);
             session()->regenerate();
