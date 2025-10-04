@@ -18,14 +18,14 @@ Route::get('teams/show/{team}', fn ($team) => view('pages.teams.show.[Team]', [
 ]))->name('teams.show');
 Route::get('teams/edit/{team}', fn ($team) => view('pages.teams.edit.[Team]', [
     'team' => \App\Models\Team::query()->find($team)
-]))->name('teams.edit');
+]))->name('teams.edit')->can('update', 'team');
 
 Route::get('venues/show/{venue}', fn ($venue) => view('pages.venues.show.[Venue]', [
     'venue' => \App\Models\Venue::query()->find($venue)
 ]))->name('venues.show');
 Route::get('venues/edit/{venue}', fn ($venue) => view('pages.venues.edit.[Venue]', [
     'venue' => \App\Models\Venue::query()->find($venue)
-]))->name('venues.edit');
+]))->name('venues.edit')->can('update', 'venue');
 
 Route::get('dates/show/{date}', fn ($date) => view('pages.dates.show.[Date]', [
     'date' => \App\Models\Date::query()->find($date)
@@ -40,10 +40,13 @@ Route::get('schedule/event/{event}', fn ($event) => view('pages.schedule.event.[
 ]))->name('schedule.event');
 
 Route::middleware('auth')->group(function () {
-    Route::view('dashboard', 'dashboard')
-        ->name('dashboard');
-    Route::view('profile', 'profile')
-        ->name('profile');
+    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::view('profile', 'profile')->name('profile');
+});
+
+// authentification
+Route::middleware('guest')->group(function () {
+    Route::get('login', fn () => view('pages.auth.login'))->name('login');
 });
 
 /**
@@ -69,14 +72,13 @@ Route::prefix('help')->group(function () {
     Route::get('teams', fn () => view('pages.help.teams'))->name('help.teams');
 });
 
-Route::prefix('admin/help')->group(function () {
+Route::prefix('admin/help')->middleware('auth')->group(function () {
     Route::get('calendar', fn () => view('pages.admin.help.calendar'))->name('admin.help.calendar');
     Route::get('overview', fn () => view('pages.admin.help.overview'))->name('admin.help.overview');
     Route::get('schedule', fn () => view('pages.admin.help.schedule'))->name('admin.help.schedule');
     Route::get('season-structure', fn () => view('pages.admin.help.season-structure'))->name('admin.help.structure');
     Route::get('players', fn () => view('pages.admin.help.players'))->name('admin.help.players');
 });
-
 
 
 /**
