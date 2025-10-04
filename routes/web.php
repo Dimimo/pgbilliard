@@ -74,6 +74,7 @@ Route::prefix('admin/help')->group(function () {
     Route::get('overview', fn () => view('pages.admin.help.overview'))->name('admin.help.overview');
     Route::get('schedule', fn () => view('pages.admin.help.schedule'))->name('admin.help.schedule');
     Route::get('season-structure', fn () => view('pages.admin.help.season-structure'))->name('admin.help.structure');
+    Route::get('players', fn () => view('pages.admin.help.players'))->name('admin.help.players');
 });
 
 

@@ -78,6 +78,9 @@
             <x-forms.dropdown-link :href="route('admin.help.schedule')" wire:navigate>
                 {{ __('Day Schedule blueprint') }}
             </x-forms.dropdown-link>
+            <x-forms.dropdown-link :href="route('admin.help.players')" wire:navigate>
+                {{ __('Overview of all users') }}
+            </x-forms.dropdown-link>
         @endif
     </x-slot>
 </x-forms.dropdown>
