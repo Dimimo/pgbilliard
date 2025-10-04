@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function () {
 // authentification
 Route::middleware('guest')->group(function () {
     Route::get('login', fn () => view('pages.auth.login'))->name('login');
+    Route::get('register', fn () => view('pages.auth.register'))->name('register');
+    Route::get('players/accounts', fn () => view('pages.players.accounts'))->name('players.accounts');
 });
 
 /**
