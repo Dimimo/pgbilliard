@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('guest')->group(function () {
     Route::get('login', fn () => view('pages.auth.login'))->name('login');
     Route::get('register', fn () => view('pages.auth.register'))->name('register');
+    Route::get('forgot-password', fn () => view('pages.auth.forgot-password'))->name('password.request');
     Route::get('players/accounts', fn () => view('pages.players.accounts'))->name('players.accounts');
 });
 
