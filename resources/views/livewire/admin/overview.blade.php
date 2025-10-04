@@ -58,7 +58,7 @@
                 <label for="user_id"></label>
                 <select id="user_id" wire:model.change="user_id">
                     <option>-- admin select --</option>
-                    @foreach (rray_diff_key($users, array_flip($adminIds)) as $id => $name)
+                    @foreach (array_diff_key($users, array_flip($adminIds)) as $id => $name)
                         <option value="{{ $id }}">{{ $name }}</option>
                     @endforeach
                 </select>
