@@ -1,7 +1,7 @@
 @props(['new', 'dates'])
 
 <div class="text-justify">
-    @if ($new === true)
+    @if ($new)
         <div class="text-2xl">How does it work?</div>
         <div class="my-2">
             When you created a new Season with a starting date and day of the week, the first date
@@ -70,7 +70,7 @@
         season (in this case Season {{ $dates->first()->season->cycle }}).
     </div>
 
-    @if ($new === true)
+    @if ($new)
         <div class="mt-3 text-2xl">Conclude to the Overview</div>
         <div class="my-2">
             The results (scores) can be added later on the
