@@ -44,8 +44,8 @@ class Overview extends Component
             ->where('last_game', '<', $date_filter)
             ->withCount(['games', 'players'])
             ->with([
-                'players' => fn (HasMany $q) => $q->orderByDesc('team_id')
-                    ->with(['team' => fn ($t) => $t->select(['id', 'name'])])
+                'players' => fn(HasMany $q) => $q->orderByDesc('team_id')
+                    ->with(['team' => fn($t) => $t->select(['id', 'name'])])
                     ->take(1)
             ])
             ->orderBy($this->orderBy, $this->asc ? 'asc' : 'desc')
@@ -80,10 +80,10 @@ class Overview extends Component
                 $q->rank()->delete();
             });
             $user->players()->delete();
-            $user->venue()->count() ?? $user->venue()->update(['user_id' => null]);
+                $user->venue()->count() ?? $user->venue()->update(['user_id' => null]);
             $user->visits()->delete();
             $user->comments()->delete();
-            $user->posts()->count() ?? $user->posts()->each(fn (Post $q) => $q->update(['user_id' => 1]));
+                $user->posts()->count() ?? $user->posts()->each(fn(Post $q) => $q->update(['user_id' => 1]));
             $user->chatMessages()->delete();
             $user->chatRooms()->delete();
             $user->delete();
