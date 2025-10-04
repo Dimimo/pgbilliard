@@ -63,4 +63,12 @@ class Overview extends Component
         $this->orderBy = $orderBy;
         $this->loadUsersList();
     }
+
+    public function deleteUser(int $id)
+    {
+        $user = User::findOrFail($id);
+        if ($user->has('games')) {
+
+        }
+    }
 }

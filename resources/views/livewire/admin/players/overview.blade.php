@@ -107,7 +107,23 @@
                     <td class="p-2 text-center">
                         {{ $user->games_count }}
                     </td>
-                    <td class="p-2 text-center">###</td>
+                    <td class="p-2 text-center">
+                        @if ($user->games_count)
+                            <x-svg.user-check-solid
+                                class="cursor-not-allowed"
+                                color="fill-green-700"
+                                size="6"
+                            />
+                        @else
+                            <x-svg.user-minus-solid
+                                class="cursor-pointer"
+                                color="fill-red-700"
+                                size="6"
+                                wire:click="deleteUser({{ $user->id  }})"
+                                wire:confirm="Delete {{ $user->name }}? This can't be undone."
+                            />
+                        @endif
+                    </td>
                 </tr>
             @endforeach
         </tbody>
