@@ -3,22 +3,27 @@
 namespace App\Livewire\Admin\Players;
 
 use App\Models\Admin;
+use App\Models\Forum\Post;
+use App\Models\Player;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Component;
+use Masmerise\Toaster\Toaster;
 
 class Overview extends Component
 {
     public Collection $users;
+    public bool $show_email = false;
     public string $carbon_sub = 'now';
     public string $orderBy = 'name';
     public bool $asc = true;
 
     public function mount(): void
     {
+        $this->show_email = auth()->user()->isSuperAdmin();
         $this->loadUsersList();
     }
 
@@ -64,11 +69,27 @@ class Overview extends Component
         $this->loadUsersList();
     }
 
-    public function deleteUser(int $id)
+    public function deleteUser(int $id): void
     {
         $user = User::findOrFail($id);
-        if ($user->has('games')) {
+        if ($user->games()->count()) {
+            Toaster::error($user->name . ' has registered games and can not be deleted');
+        } else {
+            $user->players()->each(function (Player $q) {
+                $q->position()->delete();
+                $q->rank()->delete();
+            });
+            $user->players()->delete();
+            $user->venue()->count() ?? $user->venue()->update(['user_id' => null]);
+            $user->visits()->delete();
+            $user->comments()->delete();
+            $user->posts()->count() ?? $user->posts()->each(fn (Post $q) => $q->update(['user_id' => 1]));
+            $user->chatMessages()->delete();
+            $user->chatRooms()->delete();
+            $user->delete();
 
+            Toaster::success($user->name . ' has been deleted');
+            $this->loadUsersList();
         }
     }
 }
