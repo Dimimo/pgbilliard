@@ -18,14 +18,14 @@ Route::get('teams/show/{team}', fn ($team) => view('pages.teams.show.[Team]', [
 ]))->name('teams.show');
 Route::get('teams/edit/{team}', fn ($team) => view('pages.teams.edit.[Team]', [
     'team' => \App\Models\Team::query()->find($team)
-]))->name('teams.edit')->can('update', 'team');
+]))->name('teams.edit');
 
 Route::get('venues/show/{venue}', fn ($venue) => view('pages.venues.show.[Venue]', [
     'venue' => \App\Models\Venue::query()->find($venue)
 ]))->name('venues.show');
 Route::get('venues/edit/{venue}', fn ($venue) => view('pages.venues.edit.[Venue]', [
     'venue' => \App\Models\Venue::query()->find($venue)
-]))->name('venues.edit')->can('update', 'venue');
+]))->name('venues.edit');
 
 Route::get('dates/show/{date}', fn ($date) => view('pages.dates.show.[Date]', [
     'date' => \App\Models\Date::query()->find($date)
