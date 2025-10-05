@@ -37,7 +37,7 @@ class Overview extends Component
     private function loadUsersList(): void
     {
         $date_filter = Carbon::now()->sub($this->carbon_sub);
-        $admin_ids = Admin::all()->pluck('id')->toArray();
+        $admin_ids = Admin::all()->pluck('user_id')->toArray();
         $this->users = User::query()
             ->select(['id', 'name', 'email', 'contact_nr', 'last_game'])
             ->whereNotIn('id', $admin_ids)
