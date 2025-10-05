@@ -46,7 +46,7 @@ $resetPassword = function () {
         return;
     }
     session()->flash('status', __($status));
-    $this->redirectRoute('login', navigate: true);
+    $this->redirectRoute('login');
 };
 ?>
 
