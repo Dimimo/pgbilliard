@@ -7,6 +7,7 @@ module.exports = {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        './vendor/masmerise/livewire-toaster/resources/views/*.blade.php',
     ],
     safelist: [
         'justify-end',
@@ -19,8 +20,8 @@ module.exports = {
         'border-neutral-700',
         {
             pattern: /max-w-(sm|md|lg|xl|2xl)/,
-            variants: ['sm', 'md']
-        }
+            variants: ['sm', 'md'],
+        },
     ],
     theme: {
         extend: {
