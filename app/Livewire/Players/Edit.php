@@ -5,7 +5,7 @@ namespace App\Livewire\Players;
 use App\Jobs\CaptainCreatedNewUser;
 use App\Livewire\Forms\PlayerForm;
 use App\Livewire\Forms\UserForm;
-use App\Livewire\WithUsersSelect;
+use App\Livewire\WithLoadUsersList;
 use App\Models\Player;
 use App\Models\Team;
 use App\Models\User;
@@ -18,13 +18,14 @@ use Livewire\Component;
 
 class Edit extends Component
 {
-    use WithUsersSelect;
+    use WithLoadUsersList;
 
     public PlayerForm $player_form;
     public UserForm $user_form;
     public Team $team;
     public Collection $players;
     public array $occupied_players = [];
+    public Collection $available_players;
     public ?int $user_id = null;
     public int $max_players;
     public bool $max_reached = false;
@@ -83,16 +84,35 @@ class Edit extends Component
             ->sortByDesc('captain');
     }
 
-    private function getPlayersActiveInCurrentSeason(): void
+    public function getPlayersActiveInCurrentSeason(): void
     {
         $teams = Team::query()->tap(new Cycle())
             ->pluck('id')
             ->toArray();
-        $players = Player::query()->whereIn('team_id', $teams)
+        $players = Player::query()
+            ->whereIn('team_id', $teams)
             ->whereActive(true)
             ->pluck('user_id')
             ->toArray();
-        $this->occupied_players = User::query()->whereIn('id', $players)->pluck('name')->toArray();
+        $this->occupied_players = User::query()
+            ->whereIn('id', $players)
+            ->pluck('name', 'id')
+            ->toArray();
+        $this->available_players = $this->loadUsersCollection(array_keys($this->occupied_players));
+        // add the name of the last team and last played game in the dropdown list
+        $this->available_players->each(
+            function (User $q) {
+                $player = Player::query()
+                    ->where('user_id', $q->id)
+                    ->with('team')
+                    ->orderByDesc('id')
+                    ->first();
+                $name = $q->name . ' (';
+                $name .= $player ? $player->team?->name : 'none';
+                $name .= ' - ' . $q->last_game->diffForHumans() . ')';
+                $q->setAttribute('name', $name);
+            }
+        );
     }
 
     private function setPlayerForm(?int $user_id = null): bool
@@ -103,15 +123,14 @@ class Edit extends Component
             $player->update();
             $this->setPlayerForm($player->id);
             return true;
-        } else {
-            $this->player_form->setPlayer(new Player([
-                'captain' => 0,
-                'active' => 1,
-                'user_id' => $user_id,
-                'team_id' => $this->team->id,
-            ]));
-            return false;
         }
+        $this->player_form->setPlayer(new Player([
+            'captain' => 0,
+            'active' => 1,
+            'user_id' => $user_id,
+            'team_id' => $this->team->id,
+        ]));
+        return false;
     }
 
     public function editUser(int $user_id): void
@@ -147,7 +166,7 @@ class Edit extends Component
     public function updatedUserId($user_id): void
     {
         $updated = $this->setPlayerForm($user_id);
-        if (! $updated) {
+        if (!$updated) {
             $this->player_form->player->save();
         }
         $this->getPlayersActiveInCurrentSeason();
