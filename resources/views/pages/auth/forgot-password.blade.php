@@ -7,8 +7,8 @@ name('forgot-password');
 
 <x-layout title="Forgot Password">
     @volt
-    <div>
-        <livewire:auth.forgot-password />
-    </div>
+        <div>
+            <livewire:auth.forgot-password />
+        </div>
     @endvolt
 </x-layout>

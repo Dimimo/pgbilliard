@@ -20,7 +20,8 @@
                     Create or update games happening on the
                     {{ $last_date->date->format('jS \o\f M Y') }}
                 </div>
-            </div>@json($errors->all())
+            </div>
+            @json($errors->all())
 
             <div class="flex flex-wrap p-2">
                 <div class="w-full px-4 lg:w-2/3">
@@ -51,9 +52,7 @@
                                 Create this game
                             </x-forms.primary-button>
 
-                            <x-forms.spinner
-                                target="save, form.team1, form.team2, form.venue_id"
-                            />
+                            <x-forms.spinner target="save, form.team1, form.team2, form.venue_id" />
                             <x-forms.action-message
                                 class="mx-3 inline-block p-2 text-2xl text-green-700"
                                 on="event-created"

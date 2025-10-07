@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
+
 use function Livewire\Volt\layout;
 use function Livewire\Volt\rules;
 use function Livewire\Volt\state;
@@ -14,7 +15,7 @@ layout('components.layout');
 state('token')->locked();
 
 state([
-    'email' => fn() => request()->string('email')->value(),
+    'email' => fn () => request()->string('email')->value(),
     'password' => '',
     'password_confirmation' => ''
 ]);

@@ -7,12 +7,12 @@
     />
 
     @if ($results->count() === 0)
-        @if($season->cycle === App\Models\Season::orderByDesc('cycle')->first()->cycle)
-            <div class="border border-blue-800 bg-blue-100 p-4 text-center text-xl rounded-xl">
+        @if ($season->cycle === App\Models\Season::orderByDesc('cycle')->first()->cycle)
+            <div class="rounded-xl border border-blue-800 bg-blue-100 p-4 text-center text-xl">
                 Season {{ $season->cycle }} is new and has no data yet
             </div>
         @else
-            <div class="border border-blue-800 bg-blue-100 p-4 text-center text-xl rounded-xl">
+            <div class="rounded-xl border border-blue-800 bg-blue-100 p-4 text-center text-xl">
                 Season {{ $season->cycle }} has no individual games
             </div>
         @endif

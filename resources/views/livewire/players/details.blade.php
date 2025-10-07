@@ -33,7 +33,7 @@
                             ({{ $game->event->team_1->name }} vs {{ $game->event->team_2->name }})
                         </span>
                         <div class="text-sm text-gray-500">
-                            {{ $player->name }} {{__('played for')}} {{ $game->team->name }}
+                            {{ $player->name }} {{ __('played for') }} {{ $game->team->name }}
                         </div>
                     </div>
                 @endif

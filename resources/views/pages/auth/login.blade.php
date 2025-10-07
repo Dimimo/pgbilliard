@@ -7,8 +7,8 @@ name('login');
 
 <x-layout title="Login">
     @volt
-    <div>
-        <livewire:auth.login />
-    </div>
+        <div>
+            <livewire:auth.login />
+        </div>
     @endvolt
 </x-layout>
