@@ -12,7 +12,9 @@ use Livewire\Form;
 class PlayerForm extends Form
 {
     public Player $player;
+    #[Validate]
     public bool $captain = false;
+    #[Validate]
     public bool $active = true;
     #[Validate]
     public ?int $user_id;
@@ -44,10 +46,7 @@ class PlayerForm extends Form
     public function setPlayer(Player $player): void
     {
         $this->player = $player;
-        $this->captain = $player->captain;
-        $this->active = $player->active;
-        $this->user_id = $player->user_id;
-        $this->team_id = $player->team_id;
+        $this->fill($this->player);
     }
 
     public function store(): void
