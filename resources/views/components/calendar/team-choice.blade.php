@@ -5,7 +5,7 @@
     <select
         class="mb-1 mr-4 w-auto rounded border border-gray-500 py-1 pl-4 pr-8 text-base text-gray-800 focus:border-green-500"
         id="{{ $teamNr }}"
-        wire:model.change="event.{{ $teamNr }}"
+        wire:model.change="form.{{ $teamNr }}"
     >
         <option>-- {{ $slot }}</option>
         @foreach ($teams as $team)
@@ -15,7 +15,7 @@
         @endforeach
     </select>
 
-    @error('event.'.$teamNr)
+    @error('form.'.$teamNr)
         <div class="space-y-1 text-sm text-red-600">{{ $message }}</div>
     @enderror
 </div>

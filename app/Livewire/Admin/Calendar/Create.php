@@ -19,7 +19,7 @@ class Create extends Component
     public Season $season;
     public Collection $dates;
     public Collection $events;
-    public EventForm $event;
+    public EventForm $form;
     public Date $last_date;
     public DateForm $dateForm;
     public Collection $teams;
@@ -48,7 +48,7 @@ class Create extends Component
 
     public function updated($name, $value): void
     {
-        if ($name === 'event.date_id' && $value) {
+        if ($name === 'form.date_id' && $value) {
             $this->setSelectedDate($value);
         } elseif ($name === 'dateForm.regular') {
             $this->dateForm->regular = $value ? 1 : 0;
@@ -58,20 +58,20 @@ class Create extends Component
             $this->dateForm->title = $value;
             $this->dateForm->update();
             $this->last_date->refresh();
-        } elseif ($name === 'event.team1') {
+        } elseif ($name === 'form.team1') {
             $team = Team::query()->find($value);
-            $this->event->venue_id = $team->venue_id;
-            $this->event->validate();
-        } elseif ($name === 'event.team2') {
-            $this->event->validate();
-        } elseif ($name === 'event.venue_id') {
+            $this->form->venue_id = $team->venue_id;
+            $this->form->validate();
+        } elseif ($name === 'form.team2') {
+            $this->form->validate();
+        } elseif ($name === 'form.venue_id') {
             $venue = Venue::query()->find($value);
-            $this->event->venue_id = $venue->id;
-            $this->event->validate();
-            if (Team::query()->find($this->event->team1)->venue_id !== $venue->id) {
-                $this->addError('event.venue_id', "Reminder: the selected bar is not that of the Home Team, is it your intention?");
+            $this->form->venue_id = $venue->id;
+            $this->form->validate();
+            if (Team::query()->find($this->form->team1)->venue_id !== $venue->id) {
+                $this->addError('form.venue_id', "Reminder: the selected bar is not that of the Home Team, is it your intention?");
             } else {
-                $this->resetErrorBag(['event.venue_id']);
+                $this->resetErrorBag(['form.venue_id']);
             }
         }
     }
@@ -86,18 +86,18 @@ class Create extends Component
         $this->last_date = Date::query()->find($date_id);
         $this->dateForm->setDate($this->last_date);
         $this->events = $this->last_date->events;
-        $this->event->reset(['venue_id', 'team1', 'team2']);
-        $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
+        $this->form->reset(['venue_id', 'team1', 'team2']);
+        $this->form->setEvent(new Event(['date_id' => $this->last_date->id]));
     }
 
     public function save(): void
     {
         $this->authorize('create', Event::class);
-        $this->event->store();
+        $this->form->store();
         $this->dispatch('event-created');
         $this->last_date->refresh();
         $this->events = $this->last_date->events;
-        $this->event->reset(['venue_id', 'team1', 'team2']);
+        $this->form->reset(['venue_id', 'team1', 'team2']);
         $this->dates = Date::query()->whereSeasonId($this->season->id)->with('events')->orderBy('date')->get();
     }
 
@@ -112,8 +112,8 @@ class Create extends Component
         $this->dateForm->setDate($this->last_date);
         $this->dates = Date::query()->whereSeasonId($this->season->id)->with('events')->orderBy('date')->get();
         $this->events = $this->last_date->events;
-        $this->event->reset(['venue_id', 'team1', 'team2']);
-        $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
+        $this->form->reset(['venue_id', 'team1', 'team2']);
+        $this->form->setEvent(new Event(['date_id' => $this->last_date->id]));
     }
 
     public function removeEvent($event_id): void
@@ -150,8 +150,8 @@ class Create extends Component
         $this->last_date = $this->dates->last();
         $this->dateForm->setDate($this->last_date);
         $this->events = $this->last_date->events;
-        $this->event->reset(['venue_id', 'team1', 'team2']);
-        $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
+        $this->form->reset(['venue_id', 'team1', 'team2']);
+        $this->form->setEvent(new Event(['date_id' => $this->last_date->id]));
     }
 
     public function concludeSeason(): void
