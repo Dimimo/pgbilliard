@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Forms;
 
-use App\Constants;
+use App\Http\Requests\TeamRequest;
 use App\Models\Player;
 use App\Models\Team;
 use App\Models\User;
@@ -18,40 +18,26 @@ class TeamForm extends Form
     public Collection $users;
     public Collection $venues;
 
-    #[Validate([
-        'required',
-        'min:2',
-        'max:'.Constants::TEAMCHARS,
-    ], message: [
-        'name.required' => 'Please enter a team name',
-        'name.min' => 'A team name must have at least 2 characters',
-        'name.max' => 'A team name can\'t be longer than '.Constants::TEAMCHARS.' characters',
-    ])]
+    #[Validate]
     public string $name = '';
-
-    #[Validate([
-        'required',
-        'exists:App\Models\Venue,id',
-    ], message: [
-        'venue_id.required' => 'A team must have a venue (bar)',
-        'venue_id.exists' => 'The selected venue does not exist',
-    ])]
+    #[Validate]
     public ?int $venue_id = null;
-
-    #[Validate([
-        'required',
-        'exists:App\Models\Season,id',
-    ], message: [
-        'season_id.required' => 'Please select a Season',
-        'season_id.exists' => 'The selected Season does not exist',
-    ])]
+    #[Validate]
     public int $season_id;
-
     #[Validate(['nullable', 'text'])]
     public ?string $remark = '';
-
     #[Validate(['nullable', 'exists:App\Models\User,id'])]
     public ?int $captain_id = null;
+
+    public function rules(): array
+    {
+        return (new TeamRequest())->rules();
+    }
+
+    public function messages(): array
+    {
+        return (new TeamRequest())->messages();
+    }
 
     public function setTeam(Team $team): void
     {
@@ -91,7 +77,12 @@ class TeamForm extends Form
         $validated = $this->validate();
         $team = Team::query()->create($validated);
         if ($validated['captain_id']) {
-            Player::query()->create(['user_id' => $validated['captain_id'], 'team_id' => $team->id, 'captain' => 1]);
+            Player::query()
+                ->create([
+                    'user_id' => $validated['captain_id'],
+                    'team_id' => $team->id,
+                    'captain' => 1
+                ]);
         }
         $this->reset(['name', 'venue_id', 'remark', 'captain_id']);
         $this->resetValidation();
@@ -112,13 +103,24 @@ class TeamForm extends Form
     // also, omit your own team, you can be selected as a member of the team you play for
     private function getUsersNotOccupiedExceptOwnCaptain(): Collection
     {
-        $teams = Team::query()->tap(new Cycle())->where('id', '<>', $this->team->id)->pluck('id')->toArray();
-        $players = Player::query()->whereIn('team_id', $teams)
+        $teams = Team::query()
+            ->tap(new Cycle())
+            ->where('id', '<>', $this->team->id)
+            ->pluck('id')
+            ->toArray();
+        $players = Player::query()
+            ->whereIn('team_id', $teams)
             ->pluck('user_id')
             ->toArray();
         $players = array_diff($players, \Arr::wrap($this->captain_id));
-        $occupied_players = User::query()->whereIn('id', $players)->pluck('id')->toArray();
+        $occupied_players = User::query()
+            ->whereIn('id', $players)
+            ->pluck('id')
+            ->toArray();
 
-        return User::query()->whereNotIn('id', $occupied_players)->orderBy('name')->get(['id', 'name']);
+        return User::query()
+            ->whereNotIn('id', $occupied_players)
+            ->orderBy('name')
+            ->get(['id', 'name']);
     }
 }
