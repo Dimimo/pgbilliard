@@ -9,10 +9,10 @@ class EventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date_id' => ['required', 'exists:dates'],
-            'venue_id' => ['required', 'exists:venues'],
-            'team1' => ['required', 'exists:teams'],
-            'team2' => ['required', 'exists:teams'],
+            'date_id' => ['required', 'exists:dates,id'],
+            'venue_id' => ['required', 'exists:venues,id'],
+            'team1' => ['required', 'exists:teams,id'],
+            'team2' => ['required', 'exists:teams,id'],
             'score1' => [
                 'nullable',
                 'integer',
@@ -24,7 +24,7 @@ class EventRequest extends FormRequest
                 'between:0, 15',
             ],
             'confirmed' => ['boolean'],
-            'remark' => ['nullable|max:1000'],
+            'remark' => ['nullable', 'max:1000'],
         ];
     }
 

@@ -2,49 +2,50 @@
 
 namespace App\Livewire\Forms;
 
-use App\Constants;
-use App\Models\Date;
+use App\Http\Requests\DateRequest;
+use App\Models\Date as PoolDate;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class DateForm extends Form
 {
-    public Date $pool_date;
+    public PoolDate $pool_date;
 
-    #[Validate(['required', 'date'])]
+    #[Validate]
     public Carbon $date;
-
-    #[Validate(['required', 'boolean'])]
+    #[Validate]
+    public int $season_id;
+    #[Validate]
     public bool $regular = false;
-
-    #[Validate([
-        'nullable',
-        'string',
-        'max:20',
-    ], message: [
-        'title.string' => 'Only string values allowed',
-        'title.max' => 'Max '.Constants::DATE_TITLE.' chars',
-    ])]
+    #[Validate]
     public ?string $title;
-
-    #[Validate(['nullable', 'max:100'])]
+    #[Validate]
     public ?string $remark;
 
-    public function setDate(Date $date): void
+    public function rules(): array
     {
-        $this->pool_date = $date;
-        $this->date = $date->date;
-        $this->regular = $date->regular;
-        $this->title = $date->title;
-        $this->remark = $date->remark;
+        return (new DateRequest())->rules();
+    }
+
+    public function messages(): array
+    {
+        return (new DateRequest())->messages();
+    }
+
+    public function setDate(PoolDate $pool_date): void
+    {
+        $this->pool_date = $pool_date;
+        $this->date = $pool_date->date;
+        $this->regular = $pool_date->regular;
+        $this->title = $pool_date->title;
+        $this->remark = $pool_date->remark;
     }
 
     public function store(): void
     {
         $this->validate();
-
-        $this->pool_date = Date::query()->create($this->only(['date', 'regular', 'title', 'remark']));
+        $this->pool_date = PoolDate::query()->create($this->only(['date', 'regular', 'title', 'remark']));
     }
 
     public function update(): void

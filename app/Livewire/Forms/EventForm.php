@@ -13,17 +13,17 @@ class EventForm extends Form
     #[Validate]
     public int $date_id;
     #[Validate]
-    public ?int $venue_id;
+    public ?int $venue_id = null;
     #[Validate]
-    public ?int $team1;
+    public ?int $team1 = null;
     #[Validate]
-    public ?int $team2;
+    public ?int $team2 = null;
     #[Validate]
     public ?int $score1 = null;
     #[Validate]
     public ?int $score2 = null;
     #[Validate]
-    public bool $confirmed;
+    public bool $confirmed = false;
     #[Validate]
     public ?string $remark = null;
 

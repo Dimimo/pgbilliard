@@ -28,7 +28,7 @@ class Create extends Component
     public function mount(Season $season): void
     {
         $this->season = $season;
-        $this->getLastEvent();
+        $this->getLastEventAndPotentiallyDeleteTheSeason();
         $this->getTeams();
         $venue_ids = Team::query()->whereSeasonId($season->id)
             ->get()
@@ -86,21 +86,24 @@ class Create extends Component
         $this->last_date = Date::query()->find($date_id);
         $this->dateForm->setDate($this->last_date);
         $this->events = $this->last_date->events;
+        $this->event->reset(['venue_id', 'team1', 'team2']);
         $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
     }
 
     public function save(): void
     {
+        $this->authorize('create', Event::class);
         $this->event->store();
         $this->dispatch('event-created');
         $this->last_date->refresh();
-        $this->dates = Date::query()->whereSeasonId($this->season->id)->with('events')->orderBy('date')->get();
         $this->events = $this->last_date->events;
-        $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
+        $this->event->reset(['venue_id', 'team1', 'team2']);
+        $this->dates = Date::query()->whereSeasonId($this->season->id)->with('events')->orderBy('date')->get();
     }
 
     public function addNextWeek(): void
     {
+        $this->authorize('create', Date::class);
         // first make sure it is set at the latest day to avoid doubles
         $this->last_date = $this->dates->last();
         // add a week and save it, refresh dates and events
@@ -109,7 +112,7 @@ class Create extends Component
         $this->dateForm->setDate($this->last_date);
         $this->dates = Date::query()->whereSeasonId($this->season->id)->with('events')->orderBy('date')->get();
         $this->events = $this->last_date->events;
-        // prepare the field for the next game
+        $this->event->reset(['venue_id', 'team1', 'team2']);
         $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
     }
 
@@ -128,11 +131,11 @@ class Create extends Component
         $this->authorize('delete', $this->last_date);
         if ($this->last_date->events()->count() == 0) {
             $this->last_date->delete();
-            $this->getLastEvent();
+            $this->getLastEventAndPotentiallyDeleteTheSeason();
         }
     }
 
-    public function getLastEvent(): void
+    public function getLastEventAndPotentiallyDeleteTheSeason(): void
     {
         // check if a season has any dates, if not, just delete the season, teams and players
         if (Date::query()->whereSeasonId($this->season->id)->count() === 0) {
@@ -147,6 +150,7 @@ class Create extends Component
         $this->last_date = $this->dates->last();
         $this->dateForm->setDate($this->last_date);
         $this->events = $this->last_date->events;
+        $this->event->reset(['venue_id', 'team1', 'team2']);
         $this->event->setEvent(new Event(['date_id' => $this->last_date->id]));
     }
 
@@ -172,6 +176,7 @@ class Create extends Component
     // delete the SEASON as it has no more dates
     private function deleteSeason(): void
     {
+        $this->authorize('update', $this->season);
         if ($this->season->teams->count() > 0) {
             foreach ($this->season->teams as $team) {
                 $team->players()->delete();
@@ -179,6 +184,7 @@ class Create extends Component
         }
         $this->season->teams()->delete();
         $this->season->dates()->delete();
+        $this->authorize('delete', $this->season);
         $this->season->delete();
         session()->forget(['cycle', 'alert', 'number_of_teams', 'players', 'has_bye']);
         session()->flash('status', 'The Season has been deleted');
