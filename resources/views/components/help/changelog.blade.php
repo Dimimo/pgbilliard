@@ -112,6 +112,9 @@
             Sep 9, 2025: added the privacy policy as demanded by Google in order to publish a App
             Package on Google Store
         </li>
+        <li>
+            Oct 3, 2025: the individual scoreboard is finally ready and out of beta
+        </li>
     </ul>
 </div>
 <div class="mt-4">
