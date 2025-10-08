@@ -8,8 +8,8 @@ use App\Models\Player;
 use App\Models\Season;
 use App\Models\Team;
 use App\Models\User;
-use App\Taps\Cycle;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Context;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -25,7 +25,8 @@ class Dashboard extends Component
     public function mount(): void
     {
         $this->user = auth()->user();
-        $this->team = Team::query()->tap(new Cycle())
+        $this->team = Team::query()
+            ->where('season_id', Context::getHidden('season_id'))
             ->has('players', '=', 1, 'and', fn ($q) => $q->where([['user_id', $this->user->id], ['active', true]]))
             ->first();
         $this->player = $this->team
@@ -34,7 +35,10 @@ class Dashboard extends Component
             ->first();
         $this->rank = $this->getPlayerIndividualRank();
         if ($this->user->venue) {
-            $this->teams = $this->user->venue->teams()->tap(new Cycle())->get();
+            $this->teams = $this->user
+                ->venue->teams()
+                ->where('season_id', Context::getHidden('season_id'))
+                ->get();
         }
         /*$this->rooms = $this->user->chatRooms()
             ->has('users', '=', 1, 'and', fn ($q) => $q->where('user_id', $this->user->id))

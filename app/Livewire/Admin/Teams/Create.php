@@ -16,7 +16,7 @@ class Create extends ModalComponent
     public function mount(): void
     {
         $this->cycle = $this->getCurrentCycle();
-        $this->season = $this->getCycle();
+        $this->season = $this->getSeason();
         $this->form->setTeam(new Team(['season_id' => $this->season->id]));
     }
 

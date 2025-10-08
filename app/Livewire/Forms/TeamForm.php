@@ -7,8 +7,8 @@ use App\Models\Player;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\Venue;
-use App\Taps\Cycle;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Context;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -104,7 +104,7 @@ class TeamForm extends Form
     private function getUsersNotOccupiedExceptOwnCaptain(): Collection
     {
         $teams = Team::query()
-            ->tap(new Cycle())
+            ->where('season_id', Context::getHidden('season_id'))
             ->where('id', '<>', $this->team->id)
             ->pluck('id')
             ->toArray();

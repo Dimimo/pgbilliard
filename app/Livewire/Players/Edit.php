@@ -9,10 +9,10 @@ use App\Livewire\WithLoadUsersList;
 use App\Models\Player;
 use App\Models\Team;
 use App\Models\User;
-use App\Taps\Cycle;
 use Hash;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Context;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -86,7 +86,8 @@ class Edit extends Component
 
     public function getPlayersActiveInCurrentSeason(): void
     {
-        $teams = Team::query()->tap(new Cycle())
+        $teams = Team::query()
+            ->where('season_id', Context::getHidden('season_id'))
             ->pluck('id')
             ->toArray();
         $players = Player::query()

@@ -3,32 +3,25 @@
 namespace App\Livewire;
 
 use App\Models\Season;
+use Illuminate\Support\Facades\Context;
 
 trait WithCurrentCycle
 {
-    public ?string $cycle = null;
+    public string $cycle = '';
     public Season $season;
 
     public function mountWithCurrentCycle(): void
     {
-        $this->cycle = $this->getCurrentCycle();
-        $this->season = $this->getCycle();
+        $this->cycle = Context::getHidden('cycle');
+        $this->season = $this->getSeason();
     }
 
-    private function getCurrentCycle(): string
+    public function getCycle()
     {
-        if (! session()->exists('cycle') || is_null(session('cycle'))) {
-            //when no cycle is in the session, put the most recent date cycle as a starting point
-            $current_season = Season::query()->orderByDesc('cycle')->first();
-            if ($current_season) {
-                session()->put('cycle', $current_season->cycle);
-            }
-        }
-
-        return session('cycle');
+        return $this->cycle;
     }
 
-    public function getCycle(): Season
+    public function getSeason(): Season
     {
         return Season::query()->whereCycle($this->cycle)->first();
     }

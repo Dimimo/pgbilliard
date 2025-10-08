@@ -4,9 +4,9 @@ namespace App\Traits;
 
 use App\Models\Date;
 use App\Models\Team;
-use App\Taps\Cycle;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Context;
 
 /**
  * Trait ResultsTrait
@@ -125,7 +125,12 @@ trait ResultsTrait
      */
     private function getTeamsArray(): void
     {
-        $this->teams_array = Team::query()->tap(new Cycle())->where('name', '<>', 'BYE')->orderBy('name')->get('id')->pluck('id')->toArray();
+        $this->teams_array = Team::query()
+            ->where('season_id', Context::getHidden('season_id'))
+            ->where('name', '<>', 'BYE')
+            ->orderBy('name')->get('id')
+            ->pluck('id')
+            ->toArray();
         $this->teams = array_flip($this->teams_array);
         foreach ($this->teams as $id => $team) {
             $this->teams[$id] = [];
@@ -137,7 +142,11 @@ trait ResultsTrait
      */
     private function getEvents(): void
     {
-        $dates = Date::query()->tap(new Cycle())->with('events.date')->get();
+        $dates = Date::query()
+            ->where('season_id', Context::getHidden('season_id'))
+            ->with('events.date')
+            ->get();
+
         $dates->each(function (Date $date) {
             $date->events->each(function ($event) {
                 if (in_array($event->team_1->id, $this->teams_array)) {
@@ -156,11 +165,15 @@ trait ResultsTrait
      */
     private function getPlayedWeeks(): int
     {
-        $dates = Date::query()->tap(new Cycle())->with([
-            'events' => function (Relation $q) {
-                return $q->with(['venue', 'date', 'team_1', 'team_2']);
-            },
-        ])->orderBy('date')->get();
+        $dates = Date::query()
+            ->where('season_id', Context::getHidden('season_id'))
+            ->with([
+                'events' => function (Relation $q) {
+                    return $q->with(['venue', 'date', 'team_1', 'team_2']);
+                },
+            ])
+            ->orderBy('date')
+            ->get();
         $week = 0;
         foreach ($dates as $date) {
             if (count($date->events) > 0 && $date->events[0]->score1 !== null) {

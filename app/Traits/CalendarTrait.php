@@ -3,9 +3,9 @@
 namespace App\Traits;
 
 use App\Models\Date;
-use App\Taps\Cycle;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\Context;
 
 trait CalendarTrait
 {
@@ -14,10 +14,14 @@ trait CalendarTrait
      */
     private function getCalendar(): Collection
     {
-        return Date::query()->tap(new Cycle())->with([
-            'events' => function (Relation $q) {
-                return $q->with(['date', 'team_1', 'team_2']);
-            },
-        ])->orderBy('date')->get();
+        return Date::query()
+            ->where('season_id', Context::getHidden('season_id'))
+            ->with([
+                'events' => function (Relation $q) {
+                    return $q->with(['date', 'team_1', 'team_2']);
+                },
+            ])
+            ->orderBy('date')
+            ->get();
     }
 }

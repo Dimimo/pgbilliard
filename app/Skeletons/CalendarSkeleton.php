@@ -19,7 +19,7 @@ class CalendarSkeleton
                             <div class="w-full px-1 md:w-1/2 lg:w-1/3">
                                 <div class="relative grid grid-flow-row justify-items-center auto-rows-max gap-y-2 w-auto py-3 px-6 text-gray-900 rounded-t-lg bg-teal-500">
                                     <div class="text-white text-lg">
-                                        {{ App\Models\Date::query()->tap(new App\Taps\Cycle())->orderBy('date')->first()->date->addWeeks($i)->format('jS \o\f M Y') }}
+                                        {{ \App\Models\Date::query()->where('season_id', \Context::getHidden('season_id'))->orderBy('date')->first()->date->addWeeks($i)->format('jS \o\f M Y') }}
                                     </div>
                                 </div>
                                 <table class="mb-4 w-full">

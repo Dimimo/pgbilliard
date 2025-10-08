@@ -5,8 +5,8 @@ namespace App\Livewire\Admin;
 use App\Constants;
 use App\Models\Team;
 use App\Models\User;
-use App\Taps\Cycle;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Context;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -76,8 +76,11 @@ class SendEmails extends Component
 
     private function getPlayers(): void
     {
-        $this->teams = Team::query()->tap(new Cycle())
-            ->with(['players' => fn ($q) => $q->with('user')])
+        $this->teams = Team::query()
+            ->where('season_id', Context::getHidden('season_id'))
+            ->with([
+                'players' => fn ($q) => $q->with('user')
+            ])
             ->get();
 
         $this->getUsers();
@@ -85,8 +88,11 @@ class SendEmails extends Component
 
     private function getCaptains(): void
     {
-        $this->teams = Team::query()->tap(new Cycle())
-            ->with(['players' => fn ($q) => $q->whereCaptain(true)->with('user')])
+        $this->teams = Team::query()
+            ->where('season_id', Context::getHidden('season_id'))
+            ->with([
+                'players' => fn ($q) => $q->whereCaptain(true)->with('user')
+            ])
             ->get();
 
         $this->getUsers();

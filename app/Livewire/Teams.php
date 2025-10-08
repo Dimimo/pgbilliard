@@ -5,9 +5,9 @@ namespace App\Livewire;
 use App\Models\Date;
 use App\Models\Season;
 use App\Models\Team;
-use App\Taps\Cycle;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Context;
 use Livewire\Component;
 
 class Teams extends Component
@@ -21,7 +21,7 @@ class Teams extends Component
     public function mount(): void
     {
         $this->teams = $this->getTeams();
-        $this->date = Season::query()->whereCycle(session('cycle'))->first()->dates()->latest()->first();
+        $this->date = Season::find(Context::getHidden('season_id'))->dates()->latest()->first();
     }
 
     public function render(): View
@@ -31,7 +31,8 @@ class Teams extends Component
 
     private function getTeams(): Collection
     {
-        return Team::query()->tap(new Cycle())
+        return Team::query()
+            ->where('season_id', Context::getHidden('season_id'))
             ->where('name', '<>', 'BYE')
             ->with(['players', 'venue'])
             ->orderBy('name')

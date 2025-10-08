@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 use App\Models\Date;
-use App\Taps\Cycle;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Context;
 
 class TeamOfLoggedInUserMiddleware
 {
@@ -15,7 +15,10 @@ class TeamOfLoggedInUserMiddleware
             if (!auth()->check()) {
                 $request->session()->put('my_team');
             } elseif (empty($request->session()->get('my_team'))) {
-                $date = Date::query()->tap(new Cycle())->orderBy('dates.date')->first();
+                $date = Date::query()
+                    ->where('season_id', Context::getHidden('season_id'))
+                    ->orderBy('dates.date')
+                    ->first();
                 $team = $date->getTeam(auth()->user());
                 $request->session()->put('my_team', $team?->id);
             }

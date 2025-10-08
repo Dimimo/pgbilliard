@@ -2,7 +2,7 @@
     <div class="overflow-x-auto">
         <x-title title="Competition Results" help="scoreboard">
             <x-slot:subtitle>
-                <div>{{ __('Season') }} {{ session('cycle') }}</div>
+                <div>{{ __('Season') }} {{ Context::getHidden('cycle') }}</div>
                 @if ($date && $date->checkOpenWindowAccess())
                     <x-svg.live-button-bouncing :date="$date" />
                 @endif
