@@ -109,7 +109,7 @@ Route::prefix('forum')->group(function () {
         ]))->name('forum.comments.create');
         Route::get('edit/{comment}', fn ($comment) => view('pages.forum.comments.edit.[.App.Models.Forum.Comment]', [
             'comment' => \App\Models\Forum\Comment::query()->find($comment)
-        ]))->name('forum.posts.edit');
+        ]))->name('forum.comments.edit');
     });
 });
 
