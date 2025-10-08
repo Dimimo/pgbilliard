@@ -21,7 +21,7 @@ class Teams extends Component
     public function mount(): void
     {
         $this->teams = $this->getTeams();
-        $this->date = Season::find(Context::getHidden('season_id'))->dates()->latest()->first();
+        $this->date = Season::query()->find(Context::getHidden('season_id'))->dates()->latest()->first();
     }
 
     public function render(): View

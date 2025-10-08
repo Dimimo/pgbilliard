@@ -71,7 +71,7 @@ class Overview extends Component
 
     public function deleteUser(int $id): void
     {
-        $user = User::findOrFail($id);
+        $user = User::query()->findOrFail($id);
         if ($user->games()->count()) {
             Toaster::error($user->name . ' has registered games and can not be deleted');
         } else {

@@ -37,7 +37,7 @@ class Register extends Component
     {
         $validated = $this->validate();
         $validated['password'] = Hash::make($validated['password']);
-        event(new Registered($user = User::create($validated)));
+        event(new Registered($user = User::query()->create($validated)));
         auth()->login($user);
         $this->redirect(RouteServiceProvider::HOME);
     }
