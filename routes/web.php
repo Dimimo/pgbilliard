@@ -12,21 +12,6 @@ Route::get('seasons', fn () => view('pages.seasons.all'))->name('seasons');
 Route::get('logs', fn () => view('pages.logs'))->name('logs');
 Route::get('privacy-policy', fn () => view('pages.privacy-policy'))->name('privacy-policy');
 
-Route::get('teams', fn () => view('pages.teams.index'))->name('teams.index');
-Route::get('teams/show/{team}', fn ($team) => view('pages.teams.show.[Team]', [
-    'team' => \App\Models\Team::query()->find($team)
-]))->name('teams.show');
-Route::get('teams/edit/{team}', fn ($team) => view('pages.teams.edit.[Team]', [
-    'team' => \App\Models\Team::query()->find($team)
-]))->name('teams.edit');
-
-Route::get('venues/show/{venue}', fn ($venue) => view('pages.venues.show.[Venue]', [
-    'venue' => \App\Models\Venue::query()->find($venue)
-]))->name('venues.show');
-Route::get('venues/edit/{venue}', fn ($venue) => view('pages.venues.edit.[Venue]', [
-    'venue' => \App\Models\Venue::query()->find($venue)
-]))->name('venues.edit');
-
 Route::get('dates/show/{date}', fn ($date) => view('pages.dates.show.[Date]', [
     'date' => \App\Models\Date::query()->find($date)
 ]))->name('dates.show');
@@ -38,6 +23,109 @@ Route::get('players/show/{player}', fn ($player) => view('pages.players.show.[Pl
 Route::get('schedule/event/{event}', fn ($event) => view('pages.schedule.event.[Event]', [
     'event' => \App\Models\Event::query()->find($event)
 ]))->name('schedule.event');
+
+/**
+ * Routes for TEAMS
+ */
+Route::prefix('team')->group(function () {
+    Route::get('/', fn () => view('pages.teams.index'))->name('teams.index');
+    Route::get('show/{team}', fn ($team) => view('pages.teams.show.[Team]', [
+        'team' => \App\Models\Team::query()->find($team)
+    ]))->name('teams.show');
+    Route::get('edit/{team}', fn ($team) => view('pages.teams.edit.[Team]', [
+        'team' => \App\Models\Team::query()->find($team)
+    ]))->name('teams.edit');
+});
+
+/**
+ * Routes for VENUES
+ */
+Route::prefix('venues')->group(function () {
+    Route::get('show/{venue}', fn ($venue) => view('pages.venues.show.[Venue]', [
+        'venue' => \App\Models\Venue::query()->find($venue)
+    ]))->name('venues.show');
+    Route::get('edit/{venue}', fn ($venue) => view('pages.venues.edit.[Venue]', [
+        'venue' => \App\Models\Venue::query()->find($venue)
+    ]))->name('venues.edit');
+});
+
+/**
+ * Routes for ADMIN
+ */
+Route::middleware('auth')->prefix('admin')->group(function () {
+    Route::get('/', fn () => view('pages.admin.index'))->name('admin.index');
+    Route::get('overview', fn () => view('pages.admin.overview'))->name('admin.overview');
+    Route::get('contact', fn () => view('pages.admin.contact'))->name('admin.contact');
+    Route::get('players/overview', fn () => view('pages.admin.players.overview'))->name('admin.players.overview');
+    Route::get('teams/create', fn () => view('pages.admin.teams.create'))->name('admin.teams.create');
+    Route::get('venues/create', fn () => view('pages.admin.venues.create'))->name('admin.venues.create');
+
+    Route::prefix('calendar')->group(function () {
+        Route::get('create/{season}', fn ($season) => view('pages.admin.calendar.create.[Season]', [
+            'season' => \App\Models\Season::query()->find($season)
+        ]))->name('admin.calendar.create');
+        Route::get('update/{season}', fn ($season) => view('pages.admin.calendar.update.[Season]', [
+            'season' => \App\Models\Season::query()->find($season)
+        ]))->name('admin.calendar.update');
+        Route::get('shift/{season}', fn ($season) => view('pages.admin.calendar.shift.[Season]', [
+            'season' => \App\Models\Season::query()->find($season)
+        ]))->name('admin.calendar.shift');
+    });
+
+    Route::prefix('schedule')->group(function () {
+        Route::get('/', fn () => view('pages.admin.schedule.index'))->name('admin.schedule.index');
+        Route::get('create', fn () => view('pages.admin.schedule.create'))->name('admin.schedule.create');
+        Route::get('update/{format}', fn ($format) => view('pages.admin.schedule.update.[Format]', [
+            'format' => \App\Models\Format::query()->find($format)
+        ]))->name('admin.schedule.update');
+    });
+
+    Route::prefix('season')->group(function () {
+        Route::get('create', fn () => view('pages.admin.seasons.create'))->name('admin.seasons.create');
+        Route::get('update/{season}', fn ($season) => view('pages.admin.seasons.update.[Season]', [
+            'season' => \App\Models\Season::query()->find($season)
+        ]))->name('admin.seasons.update');
+    });
+}); // end routes for ADMIN
+
+/**
+ * Routes for FORUM
+ */
+Route::prefix('forum')->group(function () {
+    Route::prefix('posts')->group(function () {
+        Route::get('/', fn () => view('pages.forum.posts.index'))->name('forum.posts.index');
+        Route::get('create', fn () => view('pages.forum.posts.create'))->name('forum.posts.create');
+        Route::get('show/{post}', fn ($post) => view('pages.forum.posts.show.[.App.Models.Forum.Post]', [
+            'post' => \App\Models\Forum\Post::query()->find($post)
+        ]))->name('forum.posts.show');
+        Route::get('edit/{post}', fn ($post) => view('pages.forum.posts.edit.[.App.Models.Forum.Post]', [
+            'post' => \App\Models\Forum\Post::query()->find($post)
+        ]))->name('forum.posts.edit');
+        Route::get('create', fn () => view('pages.forum.posts.create'))->name('forum.posts.create');
+    });
+    Route::prefix('comments')->group(function () {
+        Route::get('create/{post}', fn ($post) => view('pages.forum.comments.create.[.App.Models.Forum.Post]', [
+            'comment' => \App\Models\Forum\Post::query()->find($post)
+        ]))->name('forum.comments.create');
+        Route::get('edit/{comment}', fn ($comment) => view('pages.forum.comments.edit.[.App.Models.Forum.Comment]', [
+            'comment' => \App\Models\Forum\Comment::query()->find($comment)
+        ]))->name('forum.posts.edit');
+    });
+});
+
+/**
+ * Routes for the CHAT
+ */
+Route::prefix('chat')->group(function () {
+    Route::get('/', fn () => view('pages.chat.index'))->name('chat.index');
+    Route::get('create', fn () => view('pages.chat.create'))->name('chat.room.create');
+    Route::get('{room}', fn ($room) => view('pages.chat.[.App.Models.Chat.ChatRoom]', [
+        'room' => \App\Models\Chat\ChatRoom::query()->find($room)
+    ]))->name('chat.room');
+    Route::get('edit/{room}', fn ($room) => view('pages.chat.edit.[.App.Models.Chat.ChatRoom.]', [
+        'room' => \App\Models\Chat\ChatRoom::query()->find($room)
+    ]))->name('chat.room.edit');
+});
 
 Route::middleware('auth')->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
