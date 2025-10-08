@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Admin\Season;
+namespace App\Livewire\Admin\Seasons;
 
 use App\Constants;
 use App\Models\Date;
@@ -34,7 +34,7 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.admin.season.create');
+        return view('livewire.admin.seasons.create');
     }
 
     public function save(): void
@@ -50,7 +50,7 @@ class Create extends Component
         session(['number_of_teams' => $this->number_of_teams]);
         session(['players' => $this->players]);
         session(['has_bye' => $this->has_bye]);
-        $this->redirect(route('admin.season.update', ['season' => $season]), navigate: true);
+        $this->redirect(route('admin.seasons.update', ['season' => $season]), navigate: true);
     }
 
     public function updating($name, $value): void

@@ -44,7 +44,7 @@
         <hr class="w-fill my-2 border-b border-b-indigo-700" />
 
         <x-forms.dropdown-link
-            :href="route('admin.season.update', ['season' => $season])"
+            :href="route('admin.seasons.update', ['season' => $season])"
             wire:navigate
         >
             {{ __('Update Season structure') }}

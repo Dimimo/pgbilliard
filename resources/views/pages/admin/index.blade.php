@@ -62,7 +62,7 @@ uses([WithCurrentCycle::class]);
                 <div class="m-2 w-auto rounded-xl border-2 border-blue-600 p-2">
                     <div class="flex flex-col justify-center">
                         <x-forms.nav-link
-                            :href="route('admin.season.update', ['season' => $season])"
+                            :href="route('admin.seasons.update', ['season' => $season])"
                             class="mx-auto text-center text-xl"
                             :active="false"
                             wire:navigate
@@ -78,7 +78,7 @@ uses([WithCurrentCycle::class]);
                             {{ __('Update the current Calendar') }}
                         </x-forms.nav-link>
                         <x-forms.nav-link
-                            href="{{ route('admin.season.update', ['season' => $season]) }}"
+                            href="{{ route('admin.seasons.update', ['season' => $season]) }}"
                             class="mx-auto text-center text-xl"
                             :active="false"
                             wire:navigate

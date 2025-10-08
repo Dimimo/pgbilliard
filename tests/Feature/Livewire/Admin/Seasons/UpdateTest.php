@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Admin\Season\Update;
+use App\Livewire\Admin\Seasons\Update;
 use Livewire\Livewire;
 
 it('renders successfully', function () {

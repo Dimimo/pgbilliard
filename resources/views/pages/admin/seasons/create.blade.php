@@ -1,22 +1,22 @@
 <?php
 
+use App\Models\Season;
 use function Laravel\Folio\name;
-use function Livewire\Volt\state;
 
-name('admin.season.update');
-state('season');
+name('admin.seasons.create');
 ?>
 
 <x-layout>
     @volt
-        <section>
-            @can('update', $season)
-                <livewire:admin.season.update :season="$season" />
+        <div>
+            <x-title title="Create a new Season" />
+            @can('create', Season::class)
+                <livewire:admin.seasons.create />
             @else
                 <div class="text-xl text-red-700">
                     {{ __("You don't have access to this page") }}
                 </div>
             @endcan
-        </section>
+        </div>
     @endvolt
 </x-layout>

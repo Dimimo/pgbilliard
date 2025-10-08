@@ -1,6 +1,6 @@
 <?php
 
-use App\Livewire\Admin\Season\Create;
+use App\Livewire\Admin\Seasons\Create;
 use App\Models\Season;
 use Livewire\Livewire;
 

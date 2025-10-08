@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Admin\Season;
+namespace App\Livewire\Admin\Seasons;
 
 use App\Constants;
 use App\Livewire\WithTeamOrdering;
@@ -59,7 +59,7 @@ class Update extends Component
 
     public function render(): View
     {
-        return view('livewire.admin.season.update');
+        return view('livewire.admin.seasons.update');
     }
 
     public function submit(): void
