@@ -21,7 +21,6 @@
                     {{ $last_date->date->format('jS \o\f M Y') }}
                 </div>
             </div>
-            @json($errors->all())
 
             <div class="flex flex-wrap p-2">
                 <div class="w-full px-4 lg:w-2/3">
