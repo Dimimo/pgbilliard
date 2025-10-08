@@ -6,7 +6,7 @@ use function Livewire\Volt\state;
 
 state('post');
 
-name('forum.comments.update');
+name('forum.comments.create');
 ?>
 
 <x-layout>
