@@ -76,14 +76,14 @@
             send an email the day before the game about where and who they play as a reminder
             <span class="text-sm italic">(feels like talking to myself)</span>
         </li>
-        <li>more stats and overviews, i.e. for users, players, venues</li>
+        <li class="line-through">more stats and overviews, i.e. for users, players, venues</li>
         <li class="line-through">
             a daily schedule online, instead of on paper as we do now
             <span class="text-sm italic">
                 (Day Schedules, should be done before the next Season)
             </span>
         </li>
-        <li>
+        <li class="line-through">
             detailed statistics for individual players, a top 10 of best performing players
             <span class="text-sm italic">(also linked to Day Schedules)</span>
         </li>
