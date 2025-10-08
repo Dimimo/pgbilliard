@@ -95,19 +95,19 @@ Route::prefix('forum')->group(function () {
     Route::prefix('posts')->group(function () {
         Route::get('/', fn () => view('pages.forum.posts.index'))->name('forum.posts.index');
         Route::get('create', fn () => view('pages.forum.posts.create'))->name('forum.posts.create');
-        Route::get('show/{post}', fn ($post) => view('pages.forum.posts.show.[.App.Models.Forum.Post]', [
+        Route::get('show/{post}', fn ($post) => view('pages.forum.posts.show.[Post]', [
             'post' => \App\Models\Forum\Post::query()->find($post)
         ]))->name('forum.posts.show');
-        Route::get('edit/{post}', fn ($post) => view('pages.forum.posts.edit.[.App.Models.Forum.Post]', [
+        Route::get('edit/{post}', fn ($post) => view('pages.forum.posts.edit.[Post]', [
             'post' => \App\Models\Forum\Post::query()->find($post)
         ]))->name('forum.posts.edit');
         Route::get('create', fn () => view('pages.forum.posts.create'))->name('forum.posts.create');
     });
     Route::prefix('comments')->group(function () {
-        Route::get('create/{post}', fn ($post) => view('pages.forum.comments.create.[.App.Models.Forum.Post]', [
-            'comment' => \App\Models\Forum\Post::query()->find($post)
+        Route::get('create/{post}', fn ($post) => view('pages.forum.comments.create.[Post]', [
+            'post' => \App\Models\Forum\Post::query()->find($post)
         ]))->name('forum.comments.create');
-        Route::get('edit/{comment}', fn ($comment) => view('pages.forum.comments.edit.[.App.Models.Forum.Comment]', [
+        Route::get('edit/{comment}', fn ($comment) => view('pages.forum.comments.edit.[Comment]', [
             'comment' => \App\Models\Forum\Comment::query()->find($comment)
         ]))->name('forum.comments.edit');
     });

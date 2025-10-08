@@ -21,7 +21,7 @@ class PostRequest extends FormRequest
                 'min:2',
                 'max:'.Constants::FORUM_BODY,
             ],
-            'user_id' => ['required', 'exists:users'],
+            'user_id' => ['required', 'exists:users,id'],
             'is_locked' => ['boolean'],
             'is_sticky' => ['boolean'],
         ];

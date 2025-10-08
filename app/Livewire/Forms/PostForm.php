@@ -13,15 +13,16 @@ class PostForm extends Form
 
     #[Validate]
     public string $title = '';
-
+    #[Validate]
+    public string $slug = '';
     #[Validate]
     public string $body = '';
-
     #[Validate]
     public bool $is_locked = false;
-
     #[Validate]
     public bool $is_sticky = false;
+    #[Validate]
+    public int $user_id;
 
     public function rules(): array
     {
