@@ -18,44 +18,41 @@
         @endif
     @else
         <div class="m-auto mb-4 rounded-lg border border-indigo-400 bg-indigo-50 p-2 text-center">
-            <div class="mb-4 font-bold">
-                Please read the help file
-                <button wire:click="$dispatch('openModal', { component: 'help.ranking' })">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
-                        class="mb-1 inline-block h-4 w-4 fill-green-700"
-                    >
-                        <path
-                            d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm169.8-90.7c7.9-22.3 29.1-37.3 52.8-37.3l58.3 0c34.9 0 63.1 28.3 63.1 63.1c0 22.6-12.1 43.5-31.7 54.8L280 264.4c-.2 13-10.9 23.6-24 23.6c-13.3 0-24-10.7-24-24l0-13.5c0-8.6 4.6-16.5 12.1-20.8l44.3-25.4c4.7-2.7 7.6-7.7 7.6-13.1c0-8.4-6.8-15.1-15.1-15.1l-58.3 0c-3.4 0-6.4 2.1-7.5 5.3l-.4 1.2c-4.4 12.5-18.2 19-30.6 14.6s-19-18.2-14.6-30.6l.4-1.2zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"
-                        />
-                    </svg>
-                </button>
-            </div>
-            <div class="mb-4">Some things to consider.</div>
-            <div class="mb-4">
-                At first the list shows
-                <span class="font-bold">the {{ $median }} best players</span>
+            <div>
+                The list shows
+                <span class="font-bold">the {{ $median }} most active players</span>
                 of a total of {{ $results->count() }} players in this Season.
             </div>
+            <div class="mb-4">Optionally, you can see the list of all players.</div>
+            <div class="mb-4">The calculation of the percentage as following:</div>
             <div class="mb-4">
-                How and why?
-                <br />
-                The number is the median of the total games played (
-                <span class="text-lg font-bold text-blue-700">#</span>
-                in the list)
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mrow>
+                        <mo>(</mo>
+                        <mfrac>
+                            <mtext>Games Won</mtext>
+                            <mtext>Total Games</mtext>
+                        </mfrac>
+                        <mo>)</mo>
+                        <mo>
+                            <x-svg.xmark-solid color="fill-black" size="4" padding="mt-1" />
+                        </mo>
+                        <mo>(</mo>
+                        <mfrac>
+                            <mtext>Days Participated</mtext>
+                            <mtext>Max Playing Days</mtext>
+                        </mfrac>
+                        <mo>)</mo>
+                        <mo>
+                            <x-svg.xmark-solid color="fill-black" size="4" padding="mt-1" />
+                        </mo>
+                        <mn>100</mn>
+                    </mrow>
+                </math>
             </div>
             <div class="mb-4">
-                Optionally, you can see the list of all players.
-                <br />
-                Either way, the calculation of the percentage as following:
-                <br />
-                <span class="font-mono">
-                    (Games Won / Total Games) * (Days Participated / Max Playing Days) * 100
-                </span>
-            </div>
-            <div class="mb-4">
-                {{ __('New') }}: {{ __('click on a name to see the game details') }}
+                <span class="font-bold">Hint:</span>
+                {{ __('click on a name to see the game details') }}
             </div>
             @if (session('is_admin'))
                 <div class="text-center">
