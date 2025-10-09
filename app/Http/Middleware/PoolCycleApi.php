@@ -5,24 +5,39 @@ namespace App\Http\Middleware;
 use Closure;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Context;
 
 class PoolCycleApi
 {
     public function handle(Request $request, Closure $next)
     {
-        if ($request->hasHeader('season')) {
-            $cycle = $request->header('season');
+        if ($request->hasHeader('season') || $request->session()->has('cycle')) {
+            $cycle = $request->header('season') ?: $request->session()->has('cycle');
             $season = DB::table('seasons')
                 ->where('cycle', $cycle)
                 ->orderBy('cycle', 'desc')
                 ->firstOrFail();
-            session()->put('cycle', $season->cycle);
+        } else {
+            // probably first visit
+            $season = DB::table('seasons')->orderBy('cycle', 'desc')->first();
+            //what if the DB is empty?
+            if (is_null($season)) {
+                Context::addHidden(['cycle', 'season_id']);
+                $request->session()->forget(['cycle', 'season_id']);
 
-            return $next($request);
+                return $next($request);
+            }
         }
-        $recent_season = DB::table('seasons')->orderBy('cycle', 'desc')->first();
-        $cycle = $recent_season ? $recent_season->cycle : '0000/00';
-        session()->put('cycle', $cycle);
+
+        // set the hidden context
+        $request->session()->put([
+            'cycle' => $season->cycle,
+            'season_id' => $season->id
+        ]);
+        Context::addHidden([
+            'cycle' => $season->cycle,
+            'season_id' => $season->id
+        ]);
 
         return $next($request);
     }
