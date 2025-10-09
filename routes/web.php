@@ -52,7 +52,7 @@ Route::prefix('venues')->group(function () {
 /**
  * Routes for ADMIN
  */
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/', fn () => view('pages.admin.index'))->name('admin.index');
     Route::get('overview', fn () => view('pages.admin.overview'))->name('admin.overview');
     Route::get('contact', fn () => view('pages.admin.contact'))->name('admin.contact');
