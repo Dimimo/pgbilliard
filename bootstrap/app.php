@@ -24,6 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->alias([
             'detect.android' => \App\Http\Middleware\DetectAndroid::class,
+            'admin' => \App\Http\Middleware\IsAdmin::class,
         ]);
         $middleware->statefulApi();
     })

@@ -18,7 +18,7 @@ class CheckIfAdmin
     public function handle(Request $request, Closure $next): Response
     {
         $count = \DB::table('admins')->where('user_id', '=', auth()->id())->count();
-        session()->put('is_admin', $count === 1);
+        $request->session()->put('is_admin', $count === 1);
 
         return $next($request);
     }
