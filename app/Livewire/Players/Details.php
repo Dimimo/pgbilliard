@@ -22,7 +22,7 @@ class Details extends Component
 
     public function mount(Player $player): void
     {
-        $this->player = $player;
+        $this->player = $player->loadMissing(['games', 'user', 'team']);
         $this->season = Season::query()->whereCycle(session('cycle'))->first();
         $ranks = $this->season->ranks()->orderByDesc('percentage')->pluck('user_id')->toArray();
         $this->rank = array_search($player->user->id, $ranks) + 1;
@@ -49,6 +49,7 @@ class Details extends Component
         $this->games = Game::query()
             ->whereIn('event_id', $event_ids)
             ->where('user_id', $this->player->user_id)
+            ->with(['event.venue', 'event.date'])
             ->orderBy('id')
             ->get();
     }

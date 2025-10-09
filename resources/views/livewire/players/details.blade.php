@@ -1,5 +1,5 @@
 <div>
-    <x-player.participation :team="$player->team" :player="$player" :rank="$rank" />
+    <x-player.participation :team="$player->team" :player="$player" :rank="$rank"/>
 
     <x-forms.sub-title title="{{__('Individual Games and Results')}}">
         @foreach ($games as $game)
@@ -15,7 +15,7 @@
                     ->wherePosition($game->position)
                     ->where('team_id', '<>', $game->team_id)
                     ->where('player_id', '<>', $game->player->id)
-                    ->with('player')
+                    ->with('player.user')
                     ->get();
                 $position = $opponents->count() === 2
                     ? ' - double with ' . $game->event->games()->wherePosition($game->position)->where('team_id', $game->team_id)->where('player_id', '<>', $game->player->id)->first()?->player->name
@@ -41,14 +41,14 @@
                 <div class="ml-4 flex items-center justify-start space-x-2">
                     <div class="w-5">
                         @if ($game->win)
-                            <x-svg.check-solid color="fill-green-600" size="5" />
+                            <x-svg.check-solid color="fill-green-600" size="5"/>
                         @else
-                            <x-svg.xmark-solid color="fill-red-600" size="4" />
+                            <x-svg.xmark-solid color="fill-red-600" size="4"/>
                         @endif
                     </div>
 
                     <div>
-                        {{ Arr::join($opponents->pluck('player.name')->toArray(), ' & ') }}
+                        {{ Arr::join($opponents->pluck('player.user.name')->toArray(), ' & ') }}
                     </div>
                     <div class="text-sm">(game {{ $game->position }} {{ $position }})</div>
                 </div>
