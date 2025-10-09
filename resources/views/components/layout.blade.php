@@ -67,15 +67,13 @@
             <livewire:layout.navigation />
         </header>
 
-        <main class="container relative mx-auto grow sm:px-4 md:px-8 lg:px-20">
-            @if (session('status'))
-                <div
-                    class="mb-5 block border-2 border-emerald-700 bg-emerald-100 p-5 text-center text-xl text-gray-900"
-                >
-                    {!! session('status') !!}
-                </div>
+        <section id="session-alerts" class="relative mx-auto mt-4 flex justify-center">
+            @if (session()->hasAny(['status', 'success', 'warning', 'error', 'info']))
+                <x-alerts />
             @endif
+        </section>
 
+        <main class="container relative mx-auto grow sm:px-4 md:px-8 lg:px-20">
             @if (session('is_admin'))
                 <div class="my-5 border border-slate-300 bg-slate-100 p-4 sm:hidden">
                     <span class="font-bold">Note to the admins:</span>
