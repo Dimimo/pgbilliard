@@ -8,9 +8,10 @@ uses([WithCurrentCycle::class]);
 $logout = function () {
     auth()->guard('web')->logout();
     session()->invalidate();
-    session()->forget('is_admin');
+    session()->forget(['cycle', 'season_id', 'is_admin']);
     session()->regenerateToken();
-    $this->redirect('/');
+    Context::forget(['cycle', 'season_id']);
+    $this->redirect(\App\Providers\RouteServiceProvider::HOME);
 };
 ?>
 
