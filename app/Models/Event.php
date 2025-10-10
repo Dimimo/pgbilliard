@@ -96,7 +96,7 @@ class Event extends Model
      *
      * @var array<int, string>
      */
-    protected $with = ['team_1', 'team_2'];
+    protected $with = [];
 
     public function playerBelongsToEvent(User $user): bool
     {
