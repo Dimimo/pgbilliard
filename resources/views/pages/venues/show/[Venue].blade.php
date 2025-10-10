@@ -1,11 +1,9 @@
 <?php
 
-use App\Livewire\WithCurrentCycle;
 use function Laravel\Folio\name;
 use function Livewire\Volt\state;
 use function Livewire\Volt\uses;
 
-uses([WithCurrentCycle::class]);
 state('venue');
 name('venues.show');
 ?>
@@ -15,7 +13,7 @@ name('venues.show');
         <section>
             <x-title
                 title="{{__('Details of the venue')}} <strong>{{ $venue->name }}</strong>"
-                subtitle="{{__('Season')}} {{ $cycle }}"
+                subtitle="{{__('Season')}} {{ Context::getHidden('cycle') }}"
             />
             <livewire:venue :venue="$venue" :title="$venue->name" />
 

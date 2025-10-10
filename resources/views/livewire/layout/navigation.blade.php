@@ -1,9 +1,6 @@
 <?php
 
 use function Livewire\Volt\uses;
-use App\Livewire\WithCurrentCycle;
-
-uses([WithCurrentCycle::class]);
 
 $logout = function () {
     auth()->guard('web')->logout();
@@ -30,7 +27,7 @@ $logout = function () {
                         >
                             <!-- Admin Dropdown -->
                             @if (session('is_admin'))
-                                <x-navigation.admin-dropdown-expanded :season="$season" />
+                                <x-navigation.admin-dropdown-expanded :season="Context::getHidden('season_id')" />
                             @endif
 
                             <!-- User logged in Dropdown -->

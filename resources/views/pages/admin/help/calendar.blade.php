@@ -1,12 +1,9 @@
 <?php
 
-use App\Livewire\WithCurrentCycle;
 use function Laravel\Folio\name;
 use function Livewire\Volt\uses;
 
-uses(WithCurrentCycle::class);
 name('admin.help.calendar');
-
 ?>
 
 <x-layout>
@@ -28,7 +25,7 @@ name('admin.help.calendar');
                         calendar creation and update
                     </x-slot>
                 </x-title>
-                <x-admin.help.calendar :new="true" :dates="$season->dates" />
+                <x-admin.help.calendar :new="true" />
             @endif
         </section>
     @endvolt

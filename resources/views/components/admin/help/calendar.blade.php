@@ -1,12 +1,11 @@
-@props(['new', 'dates'])
+@props(['new'])
 
 <div class="text-justify">
     @if ($new)
         <div class="text-2xl">How does it work?</div>
         <div class="my-2">
             When you created a new Season with a starting date and day of the week, the first date
-            has been created ({{ $dates->first()->date->format('Y-m-d') }}). Your starting point.
-            Here you can fill in the games.
+            has been created. Your starting point. Here you can fill in the games.
         </div>
 
         <div class="text-2xl">Create a game</div>
@@ -47,7 +46,7 @@
         If you want to skip a week (holidays for example), create 2 new dates and delete the holiday
         later.
         <br />
-        If a certain date can't be on a {{ $dates->first()->date->format('l') }}, you can shift it
+        If a certain date can't be on a the chosen weekday, you can shift it
         in the Admin section 'Change a playing date' later on.
     </div>
 
@@ -67,7 +66,7 @@
     <div class="my-2">
         A Season can be deleted if it has no dates. If there is only one date left without games,
         you can delete the season. Just in case you make a mistake with the opening tag of a new
-        season (in this case Season {{ $dates->first()->season->cycle }}).
+        season (in this case Season {{ Context::getHidden('cycle') }}).
     </div>
 
     @if ($new)
@@ -79,9 +78,9 @@
                 class="link inline-block text-lg text-blue-800 hover:text-blue-600"
                 wire:navigate
             >
-                Calendar
+                Calendar.
             </a>
-            . The
+            The
             <strong>first</strong>
             playing date is automatically set to 0-0. The Scoreboard needs
             <i>some</i>
@@ -98,9 +97,8 @@
                 class="text-lg"
                 wire:navigate
             >
-                Calendar
+                Calendar.
             </x-forms.nav-link>
-            .
         </div>
     @endif
 </div>
