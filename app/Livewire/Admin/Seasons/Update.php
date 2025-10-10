@@ -68,7 +68,7 @@ class Update extends Component
         foreach ($validated['teams'] as $values) {
             Team::query()->find($values['id'])->update($values);
         }
-        session(['success' => count($validated) . ' teams created. Time to create the Calendar!']);
+        session()->flash('success', count($validated) . ' team created. Time to create the Calendar!');
         $this->redirect(route('admin.calendar.create', ['season' => $this->season]), navigate: true);
     }
 
