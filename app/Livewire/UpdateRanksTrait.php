@@ -76,7 +76,7 @@ trait UpdateRanksTrait
         }
 
         $merged = $merged->sortByDesc('played');
-        Rank::query()->whereSeasonId($this->season->id)->delete();
+        //Rank::query()->whereSeasonId($this->season->id)->delete();
 
         foreach ($merged as $data) {
             try {
@@ -90,7 +90,11 @@ trait UpdateRanksTrait
             }
             $data->put('percentage', ($percentage));
 
-            Rank::query()->create($data->toArray());
+            Rank::query()
+                ->updateOrInsert(
+                    $data->only(['season_id', 'player_id', 'user_id'])->toArray(),
+                    $data->except(['season_id', 'player_id', 'user_id', 'max_days'])->toArray()
+                );
         }
     }
 }
