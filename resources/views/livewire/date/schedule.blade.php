@@ -78,7 +78,7 @@
             @foreach ($rounds as $i => $round)
                 @php
                     $j = $i + 5;
-                    $pg = $event?->score1 + $event?->score2;
+                    $pg = $event->score1 + $event->score2;
                 @endphp
 
                 @for ($i;$i<$j;$i++)
@@ -137,16 +137,16 @@
                 @endfor
             @endforeach
 
-            @if ($event?->score1 + $event?->score2 === 15
+            @if ($event->score1 + $event->score2 === 15
                  ||
-                 ($event->date->regular && ($score1 === 8 || $score2 === 8)))
+                 ($event->date->regular && ($event->score1 === 8 || $event->score2 === 8)))
                 <div
                     class="col-span-8 mt-8 flex w-min flex-col justify-center space-y-3 whitespace-nowrap rounded-lg border-2 border-green-500 p-2 text-center text-xl"
                 >
                     <div class="text-2xl">{{ __('Final Score') }}:</div>
                     <div>
-                        <span @class(['text-green-700' => $event?->score1 > 7])>
-                            {{ $event->team_1->name }} {{ $event?->score1 }}
+                        <span @class(['text-green-700' => $event->score1 > 7])>
+                            {{ $event->team_1->name }} {{ $event->score1 }}
                         </span>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -157,8 +157,8 @@
                                 d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"
                             />
                         </svg>
-                        <span @class(['text-green-700' => $event?->score2 > 7])>
-                            {{ $event?->score2 }} {{ $event->team_2->name }}
+                        <span @class(['text-green-700' => $event->score2 > 7])>
+                            {{ $event->score2 }} {{ $event->team_2->name }}
                         </span>
                     </div>
                     @if (! $event->confirmed)
@@ -169,7 +169,7 @@
                                     title="Confirm the final score"
                                     class="rounded-lg bg-blue-100 p-2 outline outline-blue-600 hover:bg-green-100 hover:outline-green-600"
                                     wire:click="consolidate()"
-                                    wire:confirm="Final score is {{ $event->team_1->name }} {{ $event?->score1 }} - {{ $event?->score2 }} {{ $event->team_2->name }}\nYou can't change the score after the confirmation."
+                                    wire:confirm="Final score is {{ $event->team_1->name }} {{ $event->score1 }} - {{ $event->score2 }} {{ $event->team_2->name }}\nYou can't change the score after the confirmation."
                                 >
                                     {{ __('Confirm') }}
                                 </button>
@@ -182,8 +182,8 @@
                     <div
                         class="w-min whitespace-nowrap rounded-t-lg border border-blue-800 bg-yellow-100 p-2 text-xl"
                     >
-                        <span @class(['text-green-700' => $event?->score1 > 7])>
-                            {{ $event->team_1->name }} {{ $event?->score1 }}
+                        <span @class(['text-green-700' => $event->score1 > 7])>
+                            {{ $event->team_1->name }} {{ $event->score1 }}
                         </span>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -194,8 +194,8 @@
                                 d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"
                             />
                         </svg>
-                        <span @class(['text-green-700' => $event?->score2 > 7])>
-                            {{ $event?->score2 }} {{ $event->team_2->name }}
+                        <span @class(['text-green-700' => $event->score2 > 7])>
+                            {{ $event->score2 }} {{ $event->team_2->name }}
                         </span>
                     </div>
                 </div>
