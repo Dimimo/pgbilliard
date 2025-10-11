@@ -20,21 +20,31 @@
                 @if ($new_date || $loop->first)
                     <div
                         @class([
-                            "my-2 rounded-lg border p-2 text-center font-bold",
-                            "border-indigo-400 bg-indigo-50" => ! $game->event->date->regular,
-                            "border-green-500 bg-green-50" => $game->event->date->regular,
+                        "my-2 flex flex-col rounded-lg border p-2 text-center font-bold",
+                        "border-indigo-400 bg-indigo-50" => ! $game->event->date->regular,
+                        "border-green-500 bg-green-50" => $game->event->date->regular,
                         ])
                     >
-                        {{ $game->event->date->date->format('jS \o\f M Y') }} @
-                        {{ $game->event->venue->name }}
+                        <div class="flex justify-center">
+                            <a
+                                href="{{ route('schedule.event', ['event' => $game->event]) }}"
+                                class="link text-blue-800"
+                                wire:navigate
+                            >
+                                {{ $game->event->date->date->format('jS \o\f M Y') }} @
+                                {{ $game->event->venue->name }}
+                            </a>
+                        </div>
+                        <div class="text-normal font-normal italic text-gray-500">
+                            {{ $player->name }} {{ __('played for') }} {{ $game->team->name }}
+                        </div>
                         <div class="font-normal">
                             {{ $game->event->team_1->name }} vs {{ $game->event->team_2->name }}
                         </div>
-                        <div class="text-sm text-gray-600">
-                            {{ $player->name }} {{ __('played for') }} {{ $game->team->name }}
-                        </div>
-                        @if($game->event->date->regular)
-                            <di class="mb-2 text-green-700 text-lg">{{ $game->event->date->title }}</di>
+                        @if ($game->event->date->regular)
+                            <di class="mb-2 text-lg text-green-700">
+                                {{ str::apa($game->event->date->title) }}
+                            </di>
                         @endif
                     </div>
                 @endif
