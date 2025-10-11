@@ -183,18 +183,14 @@
                             </td>
                             <td
                                 class="bg-amber-200 p-2 text-gray-900"
-                                title="{{ __('Last played Team') }} ({{ __('week') }} {{ $week }})"
+                                title="{{ __('Last played Team') }} ({{ __('week') }} {{ $played_weeks }})"
                             >
                                 <a
                                     href="{{ route('teams.show', ['team' => $score->get('played')]) }}"
                                     class="link"
                                     wire:navigate
                                 >
-                                    @if ($score->get('max_games') === $score->get('games_played'))
-                                        {{ $score->get('played')->name }}
-                                    @else
-                                        {!! $score->get('played')->name.' <span class="text-gray-600"><i>('.$score->get('games_played').')</i></span>' !!}
-                                    @endif
+                                    {{ $score->get('played')->name }}
                                 </a>
                             </td>
                             <td
@@ -288,6 +284,7 @@
                             <td
                                 @class([
                                 'bg-indigo-100 p-2 text-center text-gray-900',
+                                'font-bold' => $score->get('max_games') === $score->get('games_played'),
                                 'hidden md:table-cell' => ! $show_full_table
                                 ])
                                 title="{{ $score->get('games_played') }} {{ __('games participated') }}"

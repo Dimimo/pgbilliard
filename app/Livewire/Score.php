@@ -8,6 +8,8 @@ use App\Skeletons\ScoreSkeleton;
 use App\Traits\CalendarTrait;
 use App\Traits\ResultsTrait;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Context;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -19,7 +21,7 @@ class Score extends Component
 
     public array $scores;
     public int $i = 1;
-    public int $week = 0;
+    public int $played_weeks = 0;
     public ?Date $date;
     public ?int $score_id = null;
     public bool $show_full_table = false;
@@ -27,8 +29,8 @@ class Score extends Component
 
     public function mount(): void
     {
-        $this->scores = $this->getResults();
         $this->date = $this->getLastWeek();
+        $this->scores = $this->getResults();
     }
 
     public function render(): View
@@ -51,22 +53,25 @@ class Score extends Component
      */
     private function getLastWeek(): ?Date
     {
-        $dates = $this->getCalendar();
-        $returnDate = null;
+        $dates = Date::whereSeasonId(Context::getHidden('season_id'))
+            ->has(
+                'events',
+                '>',
+                0,
+                'and',
+                fn (Builder $q) => $q->whereNotNull(['score1', 'score2'])
+            )
+            ->with('events')
+            ->orderBy('dates.date')
+            ->get();
 
-        /** @var Date $first */
-        $first = $dates->first();
-        if ($first->events()->count() === 0) {
-            return $first;
-        }
-        foreach ($dates as $date) {
-            if (count($date->events) > 0 && $date->events[0]->score1 !== null) {
-                $returnDate = $date;
-                $this->week++;
-            }
+        if ($dates->first()->events()->count() === 0) {
+            return $dates->first();
         }
 
-        return $returnDate;
+        $this->played_weeks = $dates->count();
+
+        return $dates->last();
     }
 
     #[On('echo:live-score,ScoreEvent')]

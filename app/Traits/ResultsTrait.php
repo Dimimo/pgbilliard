@@ -4,7 +4,6 @@ namespace App\Traits;
 
 use App\Models\Date;
 use App\Models\Team;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Context;
 
@@ -19,9 +18,11 @@ trait ResultsTrait
     private array $teams;
 
     /**
-     * the raw values of the teams (natural array)
+     * the raw values of the teams (natural array) which will hold all events
      */
     private array $teams_array;
+
+    private \Illuminate\Database\Eloquent\Collection $team_names;
 
     /**
      * The big one. Calculates all results for each team and each event.
@@ -31,10 +32,11 @@ trait ResultsTrait
         $results = collect();
         $this->getTeamsArray();
         $this->getEvents();
-        $max_games = $this->getPlayedWeeks();
+        $max_games = $this->played_weeks;
+
         foreach ($this->teams as $team_id => $events) {
             $result = $this->startCollection();
-            $result->put('team', Team::query()->find($team_id));
+            $result->put('team', $this->team_names->find($team_id));
             foreach ($events as $event) {
                 if (!is_null($event->score1) && !is_null($event->score2) && $event->team_2->name !== 'BYE') {
                     $result->put('id', $event->id);
@@ -125,13 +127,14 @@ trait ResultsTrait
      */
     private function getTeamsArray(): void
     {
-        $this->teams_array = Team::query()
+        $query = Team::query()
             ->where('season_id', Context::getHidden('season_id'))
             ->where('name', '<>', 'BYE')
-            ->orderBy('name')->get('id')
-            ->pluck('id')
-            ->toArray();
+            ->orderBy('name');
+        $this->team_names = $query->get();
+        $this->teams_array = $query->pluck('id')->toArray();
         $this->teams = array_flip($this->teams_array);
+
         foreach ($this->teams as $id => $team) {
             $this->teams[$id] = [];
         }
@@ -144,7 +147,7 @@ trait ResultsTrait
     {
         $dates = Date::query()
             ->where('season_id', Context::getHidden('season_id'))
-            ->with('events.date')
+            ->with(['events.date', 'events.team_1', 'events.team_2'])
             ->get();
 
         $dates->each(function (Date $date) {
@@ -157,31 +160,6 @@ trait ResultsTrait
                 }
             });
         });
-    }
-
-    /**
-     * Get the number of played weeks, days not played are omitted
-     * This could under-count because of semi and finals, but is fixed in the final calculation
-     */
-    private function getPlayedWeeks(): int
-    {
-        $dates = Date::query()
-            ->where('season_id', Context::getHidden('season_id'))
-            ->with([
-                'events' => function (Relation $q) {
-                    return $q->with(['venue', 'date', 'team_1', 'team_2']);
-                },
-            ])
-            ->orderBy('date')
-            ->get();
-        $week = 0;
-        foreach ($dates as $date) {
-            if (count($date->events) > 0 && $date->events[0]->score1 !== null) {
-                $week++;
-            }
-        }
-
-        return $week;
     }
 
     /**
