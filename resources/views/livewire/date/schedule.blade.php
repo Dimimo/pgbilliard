@@ -137,7 +137,9 @@
                 @endfor
             @endforeach
 
-            @if ($event->score1 + $event->score2 === 15)
+            @if ($event->score1 + $event->score2 === 15
+                 ||
+                 ($event->date->regular && ($score1 === 8 || $score2 === 8)))
                 <div
                     class="col-span-8 mt-8 flex w-min flex-col justify-center space-y-3 whitespace-nowrap rounded-lg border-2 border-green-500 p-2 text-center text-xl"
                 >
