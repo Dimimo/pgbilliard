@@ -17,6 +17,7 @@ class Rank extends Component
     public int|float $count;
     public int|float $median;
     public bool $show_all_results = false;
+    public ?int $player_id = null;
 
     public function mount(): void
     {
@@ -45,7 +46,6 @@ class Rank extends Component
         $this->dispatch('refresh-request')->self();
     }
 
-    #[On('echo:live-score,ScoreEvent')]
     public function requestUpdate(): void
     {
         $this->updateRanks();
@@ -61,5 +61,16 @@ class Rank extends Component
             ->with('player.team')
             ->orderByDesc('percentage')
             ->get();
+    }
+
+    #[On('echo:live-score,ScoreEvent')]
+    public function updateLiveScores(array $response): void
+    {
+        if ($this->season->id === $response['season_id']) {
+            $this->updateRanks();
+            $this->getResults();
+            $this->player_id = $response['player_id'];
+            $this->dispatch('refresh-request')->self();
+        }
     }
 }
