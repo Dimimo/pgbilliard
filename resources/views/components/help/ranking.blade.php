@@ -25,14 +25,31 @@
         <div class="flex-1">
             <div>
                 The percentage is calculated as following
-                <br />
-                (gW = games won, gL = games lost, P = dates participated in, T = total played dates)
             </div>
-            <div class="m-4 font-mono">(gW / (gW + gL)) * (P / T) * 100</div>
-            <div>
-                As you see, it's not perfect. A work in progress. If a player has 1 game every week
-                and wins, it results in 100%. We'll have to find a way to avoid such scenario and
-                yet keep it honest for every player involved. A logarithmic multiplier maybe.
+            <div class="m-4">
+                <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mrow>
+                        <mo>(</mo>
+                        <mfrac>
+                            <mtext>{{__('Games Won')}}</mtext>
+                            <mtext>{{__('Total Games')}}</mtext>
+                        </mfrac>
+                        <mo>)</mo>
+                        <mo>
+                            <x-svg.xmark-solid color="fill-black" size="4" padding="mt-1" />
+                        </mo>
+                        <mo>(</mo>
+                        <mfrac>
+                            <mtext>{{__('Days Participated')}}</mtext>
+                            <mtext>{{__('Max Playing Days')}}</mtext>
+                        </mfrac>
+                        <mo>)</mo>
+                        <mo>
+                            <x-svg.xmark-solid color="fill-black" size="4" padding="mt-1" />
+                        </mo>
+                        <mn>100</mn>
+                    </mrow>
+                </math>
             </div>
         </div>
     </div>
