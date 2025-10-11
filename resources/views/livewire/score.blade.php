@@ -226,9 +226,7 @@
                                         </div>
                                         <div
                                             @class([
-                                            "text-green-700",
-                                            "text-lg",
-                                            "font-semibold" => $score2 > 7,
+                                            'text-lg font-semibold text-green-700' => $score2 > 7,
                                             ])
                                         >
                                             {{ $score2 }}
