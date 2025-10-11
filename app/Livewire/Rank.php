@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Season;
 use Illuminate\Support\Collection;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Rank extends Component
@@ -44,6 +45,7 @@ class Rank extends Component
         $this->dispatch('refresh-request')->self();
     }
 
+    #[On('echo:live-score,ScoreEvent')]
     public function requestUpdate(): void
     {
         $this->updateRanks();
@@ -52,7 +54,7 @@ class Rank extends Component
         $this->dispatch('refresh-request')->self();
     }
 
-    private function getResults(): void
+    public function getResults(): void
     {
         $this->results = $this->season
             ->ranks()
