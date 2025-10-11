@@ -40,7 +40,7 @@ class Calendar extends Component
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores(array $response): void
     {
-        $event = Event::query()->find($response['event']['id']);
+        $event = Event::query()->find($response['event_id']);
         if ($event->date->season->cycle === session('cycle')) {
             $this->dates = $this->getCalendar();
         }

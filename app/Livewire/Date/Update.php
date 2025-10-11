@@ -86,7 +86,7 @@ class Update extends Component
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores(array $response): void
     {
-        if ($this->event->id == $response['event']['id']) {
+        if ($this->event->id == $response['event_id']) {
             $this->event->update();
             $this->updateScores();
             $this->event_id = $this->event->id;

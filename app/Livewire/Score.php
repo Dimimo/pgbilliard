@@ -77,7 +77,7 @@ class Score extends Component
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores(array $response): void
     {
-        $event = Event::query()->find($response['event']['id']);
+        $event = Event::query()->find($response['event_id']);
         if ($event->date->season->cycle === session('cycle')) {
             $this->scores = $this->getResults();
             $this->score_id = $event->id;
