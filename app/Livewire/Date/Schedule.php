@@ -3,6 +3,7 @@
 namespace App\Livewire\Date;
 
 use App\Events\ScoreEvent;
+use App\Jobs\UpdateRanks;
 use App\Livewire\UpdateRanksTrait;
 use App\Livewire\WithCurrentCycle;
 use App\Models\Event;
@@ -129,7 +130,7 @@ class Schedule extends Component
         broadcast(new ScoreEvent($this->event))->toOthers();
 
         // update the individual scores (table: Rank)
-        $this->updateRanks();
+        UpdateRanks::dispatch($this->season);
     }
 
     public function getEventScore(bool $home): int
