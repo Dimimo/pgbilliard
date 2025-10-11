@@ -3,7 +3,6 @@
 namespace App\Livewire\Date;
 
 use App\Events\ScoreEvent;
-use App\Jobs\UpdateRanks;
 use App\Livewire\UpdateRanksTrait;
 use App\Livewire\WithCurrentCycle;
 use App\Models\Event;
@@ -51,14 +50,7 @@ class Schedule extends Component
             $this->can_update_players = false;
         } elseif ($this->event->games()->whereBetween('position', [1, 15])->count() > 0) {
             // the game has started but is not finished yet
-            if ($this->event->games()->whereBetween('position', [1, 15])->whereNotNull('win')->count()) {
-                $this->can_update_players = false;
-            }
-            $this->format = $this->event->games()
-                ->orderBy('position')
-                ->first()
-                ->schedule
-                ->format;
+            $this->checkIfPlayersCanBeUpdated();
             $this->checkThirdGame();
             $this->recreateMatrix();
             $this->getPlayersFromUnfinishedGame();
@@ -96,7 +88,7 @@ class Schedule extends Component
 
     public function scoreGiven(int $game_id): void
     {
-        $game = Game::with('event')->find($game_id);
+        $game = Game::with(['event', 'player'])->find($game_id);
         $this->authorize('update', $game->event);
 
         $score_is_true = $game->win === true;
@@ -127,10 +119,8 @@ class Schedule extends Component
         $this->checkIfPlayersCanBeUpdated();
 
         $this->dispatch('refresh-list');
-        broadcast(new ScoreEvent($this->event))->toOthers();
-
-        // update the individual scores (table: Rank)
-        UpdateRanks::dispatch($this->season);
+        // broadcast the event to Ably
+        broadcast(new ScoreEvent($this->season->id, $this->event->id, $game->player_id))->toOthers();
     }
 
     public function getEventScore(bool $home): int
@@ -150,6 +140,8 @@ class Schedule extends Component
             'rank' => $position,
             'home' => $place === 'home',
         ])->delete();
+        $team = null;
+
         if ($player = Player::query()->find($player_id)) {
             Position::query()->updateOrCreate([
                 'event_id' => $this->event->id,
@@ -157,7 +149,9 @@ class Schedule extends Component
                 'home' => $place === 'home',
             ], ['player_id' => $player_id]);
             $team = $player->team;
-        } else {
+        }
+
+        if (! $team) {
             if ($place === 'home') {
                 $team = $this->event->team_1;
             } else {
@@ -203,13 +197,13 @@ class Schedule extends Component
         $this->checkThirdGame();
         $this->getPlayersFromUnfinishedGame();
         $this->dispatch('refresh-list');
-        broadcast(new ScoreEvent($this->event))->toOthers();
+        broadcast(new ScoreEvent($this->season->id, $this->event->id, $player_id))->toOthers();
     }
 
     public function playerChanged(int $player_id, int $game_id): void
     {
         Game::query()->whereId($game_id)->update(['player_id' => $player_id]);
-        broadcast(new ScoreEvent($this->event))->toOthers();
+        broadcast(new ScoreEvent($this->season->id, $this->event->id, $player_id))->toOthers();
     }
 
     public function scheduleReset(string $home): void
@@ -303,7 +297,7 @@ class Schedule extends Component
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores($response): void
     {
-        if ($this->event->id === $response['event']['id']) {
+        if ($this->event->id === $response['event_id']) {
             $this->event->refresh();
             $this->checkIfPlayersCanBeUpdated();
             $this->game_win_id = Game::query()->whereWin(true)->orderByDesc('updated_at')->first()?->id;
