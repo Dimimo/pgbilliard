@@ -144,7 +144,13 @@
                             <span class="font-bold">{{ $rank++ }}</span>
                         </td>
                         <td class="bg-indigo-50 text-center">{{ $result->percentage }}%</td>
-                        <td class="bg-blue-100 py-2">
+                        <td
+                            @class([
+                            "py-2",
+                            "bg-blue-100 " => $result->player_id !== $player_id,
+                            "bg-yellow-100" => $result->player_id === $player_id,
+                            ])
+                        >
                             <div class="ml-2 flex flex-row">
                                 <div class="grow font-bold">
                                     <a
