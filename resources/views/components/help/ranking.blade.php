@@ -18,7 +18,7 @@
         name.
     </div>
     <div class="mb-4 font-bold">Some explanation:</div>
-    <div class="mb-4 flex">
+    <div class="mb-4">
         <div class="h-12 w-12 flex-none">
             <x-svg.percent-solid color="fill-indigo-500" size="5" />
         </div>
@@ -81,7 +81,7 @@
         </div>
         <div class="flex-1">
             <div class="mb-2">
-                The daily game the players
+                The daily games the players
                 <span class="underline">has participated in.</span>
             </div>
         </div>
