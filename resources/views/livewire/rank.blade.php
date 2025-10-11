@@ -1,11 +1,4 @@
-<div class="mt-12 rounded-lg border-2 border-gray-900 p-4">
-    <x-title
-        title="{{__('The individual ranking overview')}}"
-        subtitle="{{__('Season')}} {{ session('cycle') }}"
-        help="ranking"
-        :gradient="false"
-    />
-
+<div>
     @if ($results->count() === 0)
         @if ($season->cycle === App\Models\Season::orderByDesc('cycle')->first()->cycle)
             <div class="rounded-xl border border-blue-800 bg-blue-100 p-4 text-center text-xl">

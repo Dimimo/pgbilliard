@@ -1,18 +1,11 @@
 <div class="text-justify">
     <div class="mb-4 font-bold">
         <span class="underline">Disclaimer</span>
-        : this feature is still experimental and open to changes.
+        : this feature is finally out of beta phase and considered complete.
     </div>
     <div class="mb-4">
         Since the detailed scoreboard is now recorded in the database, it is possible to outline an
-        individual scoresheet. What you see here is premature as it has limited data to play with.
-        With more games finished, the list will become a better reflection of individual efforts.
-    </div>
-    <div class="mb-4">
-        You may have noticed it only shows the
-        <span class="font-bold">top 10</span>
-        . There are of course more active players in the current Season. For the moment, we limit
-        the list to 10. You can see your personal ranking on the Dashboard.
+        individual scoresheet.
     </div>
     <div class="mb-4">
         <span class="font-bold">A double game</span>
@@ -72,14 +65,7 @@
         <div class="flex-1">
             <div class="mb-2">
                 The daily game the players
-                <span class="underline">has participated in</span>
-                . If for some reason, a player couldn't show up, it will be reflected here. For now,
-                it has a negative influence on your percentage.
-            </div>
-            <div>
-                This may change in the future and be compared to the total games the player has
-                participated in. And lesser the influence the amount of days the player has actually
-                played in.
+                <span class="underline">has participated in.</span>
             </div>
         </div>
     </div>
