@@ -19,16 +19,23 @@
             <div class="p-2">
                 @if ($new_date || $loop->first)
                     <div
-                        class="my-2 rounded-lg border border-indigo-400 bg-indigo-50 p-2 text-center font-bold"
+                        @class([
+                            "my-2 rounded-lg border p-2 text-center font-bold",
+                            "border-indigo-400 bg-indigo-50" => ! $game->event->date->regular,
+                            "border-green-500 bg-green-50" => $game->event->date->regular,
+                        ])
                     >
                         {{ $game->event->date->date->format('jS \o\f M Y') }} @
                         {{ $game->event->venue->name }}
-                        <span class="font-normal">
-                            ({{ $game->event->team_1->name }} vs {{ $game->event->team_2->name }})
-                        </span>
-                        <div class="text-sm text-gray-500">
+                        <div class="font-normal">
+                            {{ $game->event->team_1->name }} vs {{ $game->event->team_2->name }}
+                        </div>
+                        <div class="text-sm text-gray-600">
                             {{ $player->name }} {{ __('played for') }} {{ $game->team->name }}
                         </div>
+                        @if($game->event->date->regular)
+                            <di class="mb-2 text-green-700 text-lg">{{ $game->event->date->title }}</di>
+                        @endif
                     </div>
                 @endif
 
