@@ -18,7 +18,7 @@ class ScoreEvent implements ShouldBroadcastNow
     /**
      * Create the event listener.
      */
-    public function __construct(public Event $event)
+    public function __construct(public int $season_id, public int $event_id, public int $player_id)
     {
     }
 
