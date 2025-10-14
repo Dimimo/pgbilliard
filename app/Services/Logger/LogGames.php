@@ -31,7 +31,7 @@ class LogGames extends Logger
     {
         $message = "["
             . $event->date->date->appTimezone()->format("d/m/Y")
-            . " {$event->team_1->name} - {$event->team_2->name}  ({$event->score1} - {$event->score2})] "
+            . " {$event->team_1->name} - {$event->team_2->name}  ($event->score1 - $event->score2)] "
             . auth()->user()->name
             . " changed $field to "
             . $event->$field;
