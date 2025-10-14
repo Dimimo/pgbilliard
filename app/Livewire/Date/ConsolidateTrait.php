@@ -17,7 +17,7 @@ trait ConsolidateTrait
         $this->confirmed = true;
         $this->dispatch('score-confirmed-'.$this->event->id);
         $this->logConsolidate();
-        broadcast(new ScoreEvent($this->event))->toOthers();
+        broadcast(new ScoreEvent($this->season->id, $this->event->id))->toOthers();
 
         // here we check if all events are confirmed, if so, email all participating players, only in production!
         if ($this->event->date->events->every(fn ($value) => $value->confirmed === true)) {
