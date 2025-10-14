@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Livewire\RankUpdater;
+use App\Services\RankUpdater;
 use App\Models\Season;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -10,7 +10,6 @@ use Illuminate\Foundation\Queue\Queueable;
 class UpdateRanks implements ShouldQueue
 {
     use Queueable;
-    use RankUpdater;
 
     public Season $season;
 
@@ -27,6 +26,7 @@ class UpdateRanks implements ShouldQueue
      */
     public function handle(): void
     {
-        $this->updateRanks();
+        $rankUpdater = new RankUpdater($this->season->id);
+        $rankUpdater->update();
     }
 }
