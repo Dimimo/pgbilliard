@@ -131,24 +131,17 @@ class Player extends Model
     protected function participated(): Attribute
     {
         return Attribute::make(get: function () {
-            return Game::query()
-                ->select('event_id')
-                ->where('player_id', $this->id)
+            return $this->games()
                 ->whereNotNull('win')
                 ->distinct()
                 ->count('event_id');
         });
     }
 
-    /*public function getParticipationAttribute(): int
+    public function events(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return Game::query()
-            ->select('event_id')
-            ->where('player_id', $this->id)
-            ->whereNotNull('win')
-            ->distinct()
-            ->count('event_id');
-    }*/
+        return $this->games()->whereNotNull('win')->select('event_id')->distinct();
+    }
 
     public function team(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
