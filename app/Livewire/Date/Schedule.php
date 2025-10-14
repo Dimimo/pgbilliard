@@ -3,7 +3,6 @@
 namespace App\Livewire\Date;
 
 use App\Events\ScoreEvent;
-use App\Livewire\RankUpdater;
 use App\Livewire\WithCurrentCycle;
 use App\Models\Event;
 use App\Models\Format;
@@ -20,7 +19,6 @@ class Schedule extends Component
     use LogEventsTrait;
     use ConsolidateTrait;
     use WithCurrentCycle;
-    use RankUpdater;
 
     public Event $event;
     public Format $format;
@@ -197,13 +195,13 @@ class Schedule extends Component
         $this->checkThirdGame();
         $this->getPlayersFromUnfinishedGame();
         $this->dispatch('refresh-list');
-        broadcast(new ScoreEvent($this->season->id, $this->event->id, $player_id))->toOthers();
+        broadcast(new ScoreEvent($this->season->id, $this->event->id))->toOthers();
     }
 
     public function playerChanged(int $player_id, int $game_id): void
     {
         Game::query()->whereId($game_id)->update(['player_id' => $player_id]);
-        broadcast(new ScoreEvent($this->season->id, $this->event->id, $player_id))->toOthers();
+        broadcast(new ScoreEvent($this->season->id, $this->event->id))->toOthers();
     }
 
     public function scheduleReset(string $home): void
@@ -297,7 +295,7 @@ class Schedule extends Component
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores($response): void
     {
-        if ($this->event->id === $response['event_id']) {
+        if ($this->event->id === $response['event_id'] && app()->environment() === $response['environment']) {
             $this->event->refresh();
             $this->checkIfPlayersCanBeUpdated();
             $this->game_win_id = Game::query()->whereWin(true)->orderByDesc('updated_at')->first()?->id;

@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\Event;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
@@ -15,11 +14,14 @@ class ScoreEvent implements ShouldBroadcastNow
     use InteractsWithSockets;
     use SerializesModels;
 
+    public string $environment = '';
+
     /**
      * Create the event listener.
      */
-    public function __construct(public int $season_id, public int $event_id, public int $player_id)
+    public function __construct(public int $season_id, public int $event_id, public ?int $player_id = null)
     {
+        $this->environment = app()->environment();
     }
 
     /**

@@ -67,13 +67,14 @@ class Rank extends Component
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores(array $response): void
     {
-        if ($this->season->id === $response['season_id']) {
+        if ($this->season->id === $response['season_id'] && app()->environment() === $response['environment']) {
             $rankUpdater = new RankUpdater($this->season->id);
             $rankUpdater->update();
 
             $this->getResults();
             $this->player_id = $response['player_id'];
             $this->dispatch('refresh-request')->self();
+            \Toaster::success('The individual ranking is update');
         }
     }
 }
