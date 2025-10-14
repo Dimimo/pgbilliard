@@ -10,13 +10,13 @@ use App\Models\Game;
 use App\Models\Player;
 use App\Models\Position;
 use App\Models\Schedule as Matrix;
+use App\Services\Logger\LogGames;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Schedule extends Component
 {
-    use LogEventsTrait;
     use ConsolidateTrait;
     use WithCurrentCycle;
 
@@ -113,7 +113,7 @@ class Schedule extends Component
 
         // finally, update the day score in the event and log the event
         $this->event->update(['score1' => $this->getEventScore(true), 'score2' => $this->getEventScore(false)]);
-        $this->logScheduleChanges($game);
+        (new LogGames())->logGameChanges($game);
         $this->checkIfPlayersCanBeUpdated();
 
         $this->dispatch('refresh-list');

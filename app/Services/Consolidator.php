@@ -3,18 +3,16 @@
 namespace App\Services;
 
 use App\Events\ScoreEvent;
-use App\Livewire\Date\LogEventsTrait;
 use App\Mail\DayScoresConfirmed;
 use App\Mail\DayScoresToAdmin;
 use App\Models\Event;
+use App\Services\Logger\LogConsolidate;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class Consolidator
 {
-    use LogEventsTrait;
-
     public Event $event;
 
     public function __construct(Event $event)
@@ -25,7 +23,7 @@ class Consolidator
     public function consolidate(): bool
     {
         $this->event->update(['confirmed' => true]);
-        $this->logConsolidate();
+        (new LogConsolidate($this->event))->message();
         // let the others know the game is finished with a final score
         broadcast(new ScoreEvent($this->event->date->season_id, $this->event->id))->toOthers();
 
@@ -55,7 +53,8 @@ class Consolidator
             . "] All day scores confirmed, "
             . count($send_to)
             . " emails have been sent";
-        $this->buildLogChannel()->info($message);
+
+        (new LogConsolidate($this->event))->buildLogChannel()->info($message);
 
         date_default_timezone_set(config('app.timezone'));
     }

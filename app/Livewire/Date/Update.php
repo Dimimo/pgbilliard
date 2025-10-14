@@ -4,6 +4,7 @@ namespace App\Livewire\Date;
 
 use App\Events\ScoreEvent;
 use App\Models\Event;
+use App\Services\Logger\LogGames;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
@@ -11,7 +12,6 @@ use Livewire\Component;
 
 class Update extends Component
 {
-    use LogEventsTrait;
     use ConsolidateTrait;
 
     public Event $event;
@@ -54,7 +54,7 @@ class Update extends Component
         $this->event->update([$field => $value]);
         $this->updateScores();
         $this->dispatch('refresh-list');
-        $this->logChanges($field);
+        (new LogGames())->logEventChanges($this->event, $field);
     }
 
     public function change(string $field, string $action = 'increment'): void
@@ -67,7 +67,7 @@ class Update extends Component
         $this->event->$action($field);
         $this->updateScores();
         $this->dispatch('refresh-list');
-        $this->logChanges($field);
+        (new LogGames())->logEventChanges($this->event, $field);
         broadcast(new ScoreEvent($this->event->date->season->id, $this->event->id))->toOthers();
     }
 
