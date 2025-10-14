@@ -3,14 +3,13 @@
 namespace App\Livewire;
 
 use App\Models\Season;
+use App\Services\RankUpdater;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Rank extends Component
 {
-    use UpdateRanksTrait;
-
     public Collection $results;
     public Season $season;
     public int $rank = 1;
@@ -23,7 +22,7 @@ class Rank extends Component
     {
         $this->season = Season::query()->where('cycle', session('cycle'))->first();
         $this->getResults();
-        $this->median = $this->count = floor($this->results->median('played'));
+        $this->median = $this->count = ceil($this->results->median('played'));
     }
 
     public function render(): \Illuminate\View\View
@@ -48,7 +47,9 @@ class Rank extends Component
 
     public function requestUpdate(): void
     {
-        $this->updateRanks();
+        $rankUpdater = new RankUpdater($this->season->id);
+        $rankUpdater->update();
+
         $this->dispatch('updated');
         $this->getResults();
         $this->dispatch('refresh-request')->self();
@@ -67,7 +68,9 @@ class Rank extends Component
     public function updateLiveScores(array $response): void
     {
         if ($this->season->id === $response['season_id']) {
-            $this->updateRanks();
+            $rankUpdater = new RankUpdater($this->season->id);
+            $rankUpdater->update();
+
             $this->getResults();
             $this->player_id = $response['player_id'];
             $this->dispatch('refresh-request')->self();

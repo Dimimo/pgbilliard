@@ -3,7 +3,7 @@
 namespace App\Livewire\Date;
 
 use App\Events\ScoreEvent;
-use App\Livewire\UpdateRanksTrait;
+use App\Livewire\RankUpdater;
 use App\Livewire\WithCurrentCycle;
 use App\Models\Event;
 use App\Models\Format;
@@ -20,7 +20,7 @@ class Schedule extends Component
     use LogEventsTrait;
     use ConsolidateTrait;
     use WithCurrentCycle;
-    use UpdateRanksTrait;
+    use RankUpdater;
 
     public Event $event;
     public Format $format;

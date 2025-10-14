@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Livewire\UpdateRanksTrait;
+use App\Livewire\RankUpdater;
 use App\Models\Season;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -10,7 +10,7 @@ use Illuminate\Foundation\Queue\Queueable;
 class UpdateRanks implements ShouldQueue
 {
     use Queueable;
-    use UpdateRanksTrait;
+    use RankUpdater;
 
     public Season $season;
 
