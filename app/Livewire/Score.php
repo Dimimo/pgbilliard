@@ -53,7 +53,7 @@ class Score extends Component
      */
     private function getLastWeek(): ?Date
     {
-        $dates = Date::whereSeasonId(Context::getHidden('season_id'))
+        $dates = Date::query()->whereSeasonId(Context::getHidden('season_id'))
             ->has(
                 'events',
                 '>',
@@ -77,10 +77,12 @@ class Score extends Component
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores(array $response): void
     {
-        $event = Event::query()->find($response['event_id']);
-        if ($event->date->season->cycle === session('cycle')) {
-            $this->scores = $this->getResults();
-            $this->score_id = $event->id;
+        if (app()->environment() === $response['environment']) {
+            $event = Event::query()->find($response['event_id']);
+            if ($event->date->season->cycle === session('cycle')) {
+                $this->scores = $this->getResults();
+                $this->score_id = $event->id;
+            }
         }
     }
 }
