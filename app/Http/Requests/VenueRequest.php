@@ -10,9 +10,8 @@ use Illuminate\Validation\Rule;
 
 class VenueRequest extends FormRequest
 {
-    public function rules(Venue $venue, ?int $user_id = null): array
+    public function rules(Venue $venue): array
     {
-        // $venue = Venue::find($venue_id);
         return [
             'name' => [
                 'required',
