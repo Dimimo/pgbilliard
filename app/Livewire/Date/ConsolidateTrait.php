@@ -3,47 +3,23 @@
 namespace App\Livewire\Date;
 
 use App\Events\ScoreEvent;
-use App\Mail\DayScoresConfirmed;
-use App\Mail\DayScoresToAdmin;
-use Illuminate\Support\Str;
+use App\Services\Consolidator;
 
 trait ConsolidateTrait
 {
-    use LogEventsTrait;
-
+    /**
+     * consolidate the score, when the game is over the final score is admitted, setting the confirmed switch to true
+     * broadcast the event and if all games are finished for the day, send out the emails with the final scores
+     */
     public function consolidate(): void
     {
-        $this->event->update(['confirmed' => true]);
+        $finishGame = new Consolidator($this->event);
+        $sendEmails = $finishGame->consolidate();
         $this->confirmed = true;
-        $this->dispatch('score-confirmed-'.$this->event->id);
-        $this->logConsolidate();
+        $this->dispatch('score-confirmed-' . $this->event->id);
         broadcast(new ScoreEvent($this->season->id, $this->event->id))->toOthers();
-
-        // here we check if all events are confirmed, if so, email all participating players, only in production!
-        if ($this->event->date->events->every(fn ($value) => $value->confirmed === true)) {
-            if (app()->environment() === 'production') {
-                $send_to = [];
-                $players = $this->event->date->players();
-
-                foreach ($players as $user) {
-                    // avoid players that haven't been claimed yet
-                    if (!Str::contains($user->email, '@pgbilliard.com')) {
-                        \Mail::to($user)->queue(new DayScoresConfirmed($this->event->date));
-                        $send_to = \Arr::add($send_to, $user->id, $user->name);
-                    }
-                }
-
-                \Mail::send(new DayScoresToAdmin($this->event->date, \Arr::sort($send_to)));
-
-                $message = "["
-                    . $this->event->date->date->appTimezone()->format("d/m/Y")
-                    ."] All day scores confirmed, "
-                    . count($send_to)
-                    . " emails have been sent";
-                $this->buildLogChannel()->info($message);
-
-                date_default_timezone_set(config('app.timezone'));
-            }
+        if ($sendEmails) {
+            $finishGame->sendEmails();
         }
     }
 }
