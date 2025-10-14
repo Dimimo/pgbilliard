@@ -8,6 +8,7 @@ use App\Models\Team;
 use App\Models\User;
 use App\Models\Venue;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Context;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -50,7 +51,7 @@ class TeamForm extends Form
             ->first()
             ?->user_id;
 
-        $this->users = $this->getUsersNotOccupiedExceptOwnCaptain();
+        $this->users = $this->getUsersNotOccupiedExceptOwnPlayers();
         $this->venues = Venue::query()->orderBy('name')->get(['id', 'name']);
     }
 
@@ -68,7 +69,7 @@ class TeamForm extends Form
             $this->team->players()->whereCaptain(true)->update(['captain' => false]);
             $this->team->players()->create(['user_id' => $value, 'captain' => true]);
             $this->captain_id = $value;
-            $this->users = $this->getUsersNotOccupiedExceptOwnCaptain();
+            $this->users = $this->getUsersNotOccupiedExceptOwnPlayers();
         }
     }
 
@@ -101,25 +102,26 @@ class TeamForm extends Form
     // only of importance in case of an update, if new, obviously, all users are selectable
     // but allow the captain in the list that is currently selected
     // also, omit your own team, you can be selected as a member of the team you play for
-    private function getUsersNotOccupiedExceptOwnCaptain(): Collection
+    private function getUsersNotOccupiedExceptOwnPlayers(): Collection
     {
-        $teams = Team::query()
-            ->where('season_id', Context::getHidden('season_id'))
-            ->where('id', '<>', $this->team->id)
-            ->pluck('id')
-            ->toArray();
-        $players = Player::query()
-            ->whereIn('team_id', $teams)
+        $teamPlayers = $this->team->players()->pluck('user_id')->toArray();
+        $occupiedPlayers = Player::query()
+            ->has(
+                'team',
+                '=',
+                1,
+                'and',
+                fn (Builder $q) => $q->whereSeasonId(Context::getHidden('season_id'))
+            )
             ->pluck('user_id')
-            ->toArray();
-        $players = array_diff($players, \Arr::wrap($this->captain_id));
-        $occupied_players = User::query()
-            ->whereIn('id', $players)
-            ->pluck('id')
+            ->unique()
             ->toArray();
 
+        $occupiedPlayers = array_diff($occupiedPlayers, $teamPlayers);
+        $occupiedPlayers[] = 1; // omit the administrator
+
         return User::query()
-            ->whereNotIn('id', $occupied_players)
+            ->whereNotIn('id', $occupiedPlayers)
             ->orderBy('name')
             ->get(['id', 'name']);
     }
