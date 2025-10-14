@@ -20,7 +20,7 @@ use Illuminate\Support\Carbon;
  * @property int $team2
  * @property int|null $score1
  * @property int|null $score2
- * @property boolean $confirmed
+ * @property bool $confirmed
  * @property string|null $remark
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
