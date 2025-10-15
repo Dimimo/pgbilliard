@@ -3,6 +3,7 @@
 namespace App\Livewire\Date;
 
 use App\Events\ScoreEvent;
+use App\Jobs\UpdateRanks;
 use App\Livewire\WithCurrentCycle;
 use App\Models\Event;
 use App\Models\Format;
@@ -194,6 +195,8 @@ class Schedule extends Component
         $this->recreateMatrix();
         $this->checkThirdGame();
         $this->getPlayersFromUnfinishedGame();
+
+        UpdateRanks::dispatch($this->season);
         $this->dispatch('refresh-list');
         broadcast(new ScoreEvent($this->season->id, $this->event->id))->toOthers();
     }
