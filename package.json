@@ -16,7 +16,7 @@
         "postcss-nesting": "^13.0",
         "prettier": "3.6.2",
         "prettier-plugin-blade": "^2.1.21",
-        "prettier-plugin-tailwindcss": "^0.6.14",
+        "prettier-plugin-tailwindcss": "^0.7.0",
         "pusher-js": "^8.4.0-rc2",
         "stylelint": "^16.24.0",
         "stylelint-config-standard": "^39.0.0",
