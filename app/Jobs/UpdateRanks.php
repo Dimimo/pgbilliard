@@ -4,10 +4,11 @@ namespace App\Jobs;
 
 use App\Services\RankUpdater;
 use App\Models\Season;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
-class UpdateRanks implements ShouldQueue
+class UpdateRanks implements ShouldQueue, ShouldBeUnique
 {
     use Queueable;
 
@@ -26,7 +27,9 @@ class UpdateRanks implements ShouldQueue
      */
     public function handle(): void
     {
+        \Log::info("Starting rank update for season {$this->season->id}");
         $rankUpdater = new RankUpdater($this->season->id);
         $rankUpdater->update();
+        \Log::info("Completed rank update for season {$this->season->id}");
     }
 }
