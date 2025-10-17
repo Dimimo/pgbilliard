@@ -29,7 +29,7 @@ class CycleSelect extends Component
             $this->redirect(route('seasons'), navigate: true);
         } else {
             $season = Season::query()->findOrFail($id);
-            session()->put('cycle', $season->cycle);
+            session()->put(['cycle' => $season->cycle, 'season_id' => $season->id]);
             $this->redirect(route('scoreboard'));
         }
     }
