@@ -119,12 +119,12 @@ class Team extends Model
         ])->first();
     }
 
-    public function getCaptainNameAttribute(): string
+    public function getCaptainNameAttribute(): ?string
     {
         return $this->captain()?->name ?: '(unknown)';
     }
 
-    public function getContactNrAttribute(): string
+    public function getContactNrAttribute(): ?string
     {
         if (!auth()->check()) {
             return __('hidden');
