@@ -15,7 +15,7 @@ trait ConsolidateTrait
     {
         $finishGame = new Consolidator($this->event);
         $sendEmails = $finishGame->consolidate();
-        $this->confirmed = true;
+        $this->dispatch('update-settings', specific: 'confirmed')->to(Schedule::class);
         $this->dispatch('score-confirmed-' . $this->event->id);
         broadcast(new ScoreEvent($this->season->id, $this->event->id))->toOthers();
         if ($sendEmails) {
