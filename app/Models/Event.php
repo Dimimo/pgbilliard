@@ -109,6 +109,26 @@ class Event extends Model
         return !is_null($this->score1) && !is_null($this->score2) && ($this->score1 != 0 && $this->score2 != 0);
     }
 
+    public function scoreTable(bool $home, int $i): Collection
+    {
+        return $this->games()
+            ->where([
+                ['games.event_id', $this->id],
+                ['games.position', $i],
+                ['games.home', $home]
+            ])
+            ->join('schedules', 'games.schedule_id', '=', 'schedules.id')
+            ->with('player.user')
+            ->select('games.*', 'schedules.player as player_position')
+            ->orderBy('games.position')
+            ->get();
+    }
+
+    public function checkIfAllLastGamePositionsSelected(): bool
+    {
+        return $this->games()->wherePosition(15)->has('player')->count() === 4;
+    }
+
     public function date(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Date::class, 'date_id', 'id');
