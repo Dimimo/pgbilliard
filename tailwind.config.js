@@ -18,6 +18,7 @@ module.exports = {
         'duration-1000',
         'bg-neutral-100',
         'border-neutral-700',
+        'order-last',
         {
             pattern: /max-w-(sm|md|lg|xl|2xl)/,
             variants: ['sm', 'md'],

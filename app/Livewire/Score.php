@@ -35,7 +35,7 @@ class Score extends Component
 
     public function render(): View
     {
-        return view('livewire.score');
+        return view('livewire.score')->with(['scores' => $this->scores]);
     }
 
     public function placeholder(): string
@@ -79,7 +79,7 @@ class Score extends Component
     {
         if (app()->environment() === $response['environment']) {
             $event = Event::query()->find($response['event_id']);
-            if ($event->date->season->cycle === session('cycle')) {
+            if ($event->date->season_id === Context::getHidden('season_id')) {
                 $this->scores = $this->getResults();
                 $this->score_id = $event->id;
             }
