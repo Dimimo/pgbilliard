@@ -1,16 +1,6 @@
-@props(['event', 'matrix', 'i', 'home', 'game_win_id', 'game_lost_id'])
+@props(['event', 'matrix', 'i', 'home', 'switches'])
 @php
-    $games = $event->games()
-        ->where([
-                    ['games.event_id', $event->id],
-                    ['games.position', $i],
-                    ['games.home', $home]
-                ])
-        ->join('schedules', 'games.schedule_id', '=', 'schedules.id')
-        ->with('player.user')
-        ->select('games.*', 'schedules.player as player_position')
-        ->orderBy('games.position')
-        ->get();
+    $games = $event->scoreTable($home, $i);
 @endphp
 
 <div @class([
@@ -24,20 +14,24 @@
                 @class([
                 'flex items-center',
                 'flex-row-reverse' => ! $home,
-                'rounded-lg border border-green-500 bg-green-100 p-1' => $game->id === $game_win_id,
-                'rounded-lg border border-yellow-500 bg-yellow-100 p-1' => $game->id === $game_lost_id,
                 ])
                 wire:key="game-{{ $game->id }}"
             >
                 @if ($event->confirmed || auth()->guest() || auth()->user()->cannot('update', $game->event))
-                    <div class="mx-2">
+                    <div
+                        @class([
+                        'mx-2',
+                        'rounded-lg border border-green-500 bg-green-100 px-2' => $switches->get('games')?->where('position', $game->position)->whereStrict('win', true)->where('player_id', $game->player_id)->count(),
+                        'rounded-lg border border-yellow-500 bg-yellow-100 px-2' => $switches->get('games')?->where('position', $game->position)->whereStrict('win', false)->where('player_id', $game->player_id)->count(),
+                        ])
+                    >
                         {{ $game->player?->user->name }}
                     </div>
                 @else
                     @if (is_null($game->win))
                         <div
                             @class([
-                            'flex flex-col md:flex-row md:flex-nowrap md:items-center',
+                            'flex flex-col md:flex-nowrap md:items-center',
                             'md:flex-row' => $home,
                             'md:flex-row-reverse' => !$home
                             ])
@@ -45,13 +39,14 @@
                             <label
                                 class="mx-2 text-sm text-gray-500"
                                 for="item-{{ $game->id }}"
-                                wire:key="item-{{ $game->id }}"
+                                @style(['display: none' => $i === 15])
                             >
-                                {{ $home ? 'Home' : 'Visit' }} {{ $game->player_position }}
+                                {{ ($home ? 'Home' : 'Visit') }} {{ $game->player_position }}
                             </label>
                             <select
                                 id="item-{{ $game->id }}"
                                 wire:change="playerChanged($event.target.value, {{ $game->id }})"
+                                @class(['ml-2' => $i === 15 && $home, 'mr-2' => $i === 15 && !$home])
                             >
                                 @if ($i === 15 && !$game->player_id)
                                     <option value="0">--{{ __('select') }}--</option>
@@ -85,7 +80,7 @@
                     @else
                         @php
                             // this check is needed to enable the win checkbox for the final game, only if all 4 players are selected
-                            $has_complete_final_game = $event->games()->wherePosition(15)->has('player')->count() === 4;
+                            $has_complete_final_game = $event->checkIfAllLastGamePositionsSelected();
                         @endphp
 
                         <div class="mx-3">
