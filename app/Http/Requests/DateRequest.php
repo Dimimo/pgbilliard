@@ -10,7 +10,7 @@ class DateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'season_id' => ['required', 'exists:seasons'],
+            'season_id' => ['required', 'exists:seasons,id'],
             'date' => ['required', 'date'],
             'regular' => ['boolean'],
             'title' => [

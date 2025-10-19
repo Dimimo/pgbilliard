@@ -35,6 +35,7 @@ class DateForm extends Form
 
     public function setDate(PoolDate $pool_date): void
     {
+        $this->season_id = $pool_date->season_id;
         $this->pool_date = $pool_date;
         $this->date = $pool_date->date;
         $this->regular = $pool_date->regular;
@@ -45,7 +46,7 @@ class DateForm extends Form
     public function store(): void
     {
         $this->validate();
-        $this->pool_date = PoolDate::query()->create($this->only(['date', 'regular', 'title', 'remark']));
+        $this->pool_date = PoolDate::query()->create($this->only(['season_id', 'date', 'regular', 'title', 'remark']));
     }
 
     public function update(): void
