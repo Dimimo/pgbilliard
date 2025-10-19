@@ -27,8 +27,9 @@
             id="regular"
             name="regular"
             type="checkbox"
+            value="1"
             class="h-4 w-4 shrink-0 rounded border-gray-700 text-blue-600 focus:ring-blue-500"
-            wire:model.change="dateForm.regular"
+            wire:model.live="dateForm.regular"
         />
         <label for="regular" class="ml-3 block text-sm">{{ __('Special date') }}?</label>
     </div>

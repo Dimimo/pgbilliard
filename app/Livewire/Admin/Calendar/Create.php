@@ -51,7 +51,10 @@ class Create extends Component
         if ($name === 'form.date_id' && $value) {
             $this->setSelectedDate($value);
         } elseif ($name === 'dateForm.regular') {
-            $this->dateForm->regular = $value ? 1 : 0;
+            $this->dateForm->regular = (bool)$value;
+            if ($this->dateForm->regular === false) {
+                $this->dateForm->title = null;
+            }
             $this->dateForm->update();
             $this->last_date->refresh();
         } elseif ($name === 'dateForm.title') {
