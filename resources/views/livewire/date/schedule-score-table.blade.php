@@ -29,13 +29,13 @@
             <div
                 @class([
                 'col-span-4 w-full p-1 text-right',
-                'rounded-lg border border-neutral-400 bg-neutral-100' => $i % 2 === 1 && ! $switches->get('confirmed') && $i > $pg,
                 ])
             >
                 <x-schedule.position-dropdown
                     key="home-{{ $i }}"
                     :event="$event"
                     :i="$i"
+                    :pg="$pg"
                     :matrix="$home_matrix"
                     home="1"
                     :switches="$switches"
@@ -43,8 +43,7 @@
             </div>
             <div
                 @class([
-                'col-span-4 w-full p-1',
-                'rounded-lg border border-neutral-700 bg-neutral-100' => $i % 2 === 0 && ! $switches->get('confirmed') && $i > $pg,
+                'col-span-4 w-full p-1 text-left',
                 ])
             >
                 <div>
@@ -52,6 +51,7 @@
                         key="visit-{{ $i }}"
                         :event="$event"
                         :i="$i"
+                        :pg="$pg"
                         :matrix="$visit_matrix"
                         home="0"
                         :switches="$switches"

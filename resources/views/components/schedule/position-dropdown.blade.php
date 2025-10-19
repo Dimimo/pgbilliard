@@ -1,4 +1,4 @@
-@props(['event', 'matrix', 'i', 'home', 'switches'])
+@props(['event', 'matrix', 'i', 'pg', 'home', 'switches'])
 @php
     $games = $event->scoreTable($home, $i);
 @endphp
@@ -8,7 +8,10 @@
 'justify-end' => $home,
 'justify-start' => !$home,
 ])>
-    <div class="flex flex-col space-y-2 md:flex-row md:flex-nowrap md:space-y-0">
+    <div @class([
+    'flex flex-col space-y-2 md:flex-row md:flex-nowrap md:space-y-0',
+    'rounded-lg border border-neutral-400 bg-neutral-100 p-1' => $i % 2 == $home && ! $switches->get('confirmed') && $i > $pg,
+    ])>
         @foreach ($games as $game)
             <div
                 @class([
@@ -32,8 +35,10 @@
                         <div
                             @class([
                             'flex flex-col md:flex-nowrap md:items-center',
-                            'md:flex-row' => $home,
-                            'md:flex-row-reverse' => !$home
+                            'md:flex-row' => $home && $i % 5 !== 0,
+                            'md:flex-row-reverse' => !$home && $i % 5 !== 0,
+                            'lg:flex-row space-x-1' => $home && $i % 5 === 0,
+                            'lg:flex-row-reverse space-x-1' => !$home && $i % 5 === 0,
                             ])
                         >
                             <label
