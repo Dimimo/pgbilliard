@@ -3,6 +3,7 @@
 namespace App\Livewire\Date;
 
 use App\Models\Event;
+use App\Services\LiveScoreUpdater;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -14,7 +15,7 @@ class ScheduleConfirm extends Component
 
     public function mount(Event $event): void
     {
-        $this->event = $event;
+        $this->event = (new LiveScoreUpdater($event))->getEventScores();
     }
 
     public function render(): \Illuminate\View\View
@@ -26,8 +27,15 @@ class ScheduleConfirm extends Component
     public function updateLiveScores($response): void
     {
         if ($this->event->id === $response['event_id'] && app()->environment() === $response['environment']) {
-            $this->event->refresh();
+            $this->event = (new LiveScoreUpdater($this->event))->getEventScores();
             $this->render();
         }
+    }
+
+    #[On('refresh-list')]
+    public function scoreUpdated(): void
+    {
+        $this->event = (new LiveScoreUpdater($this->event))->getEventScores();
+        $this->render();
     }
 }
