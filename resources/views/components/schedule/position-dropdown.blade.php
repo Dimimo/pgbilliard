@@ -1,6 +1,8 @@
 @props(['event', 'matrix', 'i', 'pg', 'home', 'switches'])
 @php
     $games = $event->scoreTable($home, $i);
+    // this check is needed to enable the win checkbox for the final game, only if all 4 players are selected
+    $has_complete_final_game = $event->checkIfAllLastGamePositionsSelected();
 @endphp
 
 <div @class([
@@ -8,10 +10,12 @@
 'justify-end' => $home,
 'justify-start' => !$home,
 ])>
-    <div @class([
-    'flex flex-col space-y-2 md:flex-row md:flex-nowrap md:space-y-0',
-    'rounded-lg border border-neutral-400 bg-neutral-100 p-1' => $i % 2 == $home && ! $switches->get('confirmed') && $i > $pg,
-    ])>
+    <div
+        @class([
+        'flex flex-col space-y-2 md:flex-row md:flex-nowrap md:space-y-0',
+        'rounded-lg border border-neutral-400 bg-neutral-100 p-1' => $i % 2 == $home && ! $switches->get('confirmed') && $i > $pg,
+        ])
+    >
         @foreach ($games as $game)
             <div
                 @class([
@@ -37,8 +41,8 @@
                             'flex flex-col md:flex-nowrap md:items-center',
                             'md:flex-row' => $home && $i % 5 !== 0,
                             'md:flex-row-reverse' => !$home && $i % 5 !== 0,
-                            'lg:flex-row space-x-1' => $home && $i % 5 === 0,
-                            'lg:flex-row-reverse space-x-1' => !$home && $i % 5 === 0,
+                            'space-x-1 lg:flex-row' => $home && $i % 5 === 0,
+                            'space-x-1 lg:flex-row-reverse' => !$home && $i % 5 === 0,
                             ])
                         >
                             <label
@@ -75,40 +79,37 @@
                     @endif
                 @endif
 
-                @if (($loop->last && $home) || ($loop->first && !$home))
-                    @if ($event->confirmed || auth()->guest() || auth()->user()->cannot('update', $game->event))
-                        @if ($game->win)
-                            <x-svg.check-solid color="fill-green-600" size="5" />
+                <div>
+                    @if (($loop->last && $home) || ($loop->first && !$home))
+                        @if ($event->confirmed || auth()->guest() || auth()->user()->cannot('update', $game->event))
+                            @if ($game->win)
+                                <x-svg.check-solid color="fill-green-600" size="5" />
+                            @else
+                                <span class="h-5 w-5"></span>
+                            @endif
                         @else
-                            <span class="h-5 w-5"></span>
+                            <div class="mx-3">
+                                <label wire:replace>
+                                    <input
+                                        type="checkbox"
+                                        wire:key="win-{{ $game->id }}-{{ $i }}"
+                                        wire:change="scoreGiven({{ $game->id }})"
+                                        wire:target="scoreGiven({{ $game->id }})"
+                                        @class([
+                                        'h-6 w-6',
+                                        'mt-4 md:mt-0' => $i % 5 !== 0 && $game->win === null,
+                                        'cursor-pointer' => $game->position === 15 && $has_complete_final_game,
+                                        'cursor-not-allowed bg-indigo-100' => $game->position === 15 && !$has_complete_final_game,
+                                        'text-green-600' => $game->win,
+                                        'bg-red-50' => $game->win === false])
+                                        @checked($game->win)
+                                        @disabled($game->position === 15 && !$has_complete_final_game)
+                                    />
+                                </label>
+                            </div>
                         @endif
-                    @else
-                        @php
-                            // this check is needed to enable the win checkbox for the final game, only if all 4 players are selected
-                            $has_complete_final_game = $event->checkIfAllLastGamePositionsSelected();
-                        @endphp
-
-                        <div class="mx-3">
-                            <label wire:replace>
-                                <input
-                                    type="checkbox"
-                                    wire:key="win-{{ $game->id }}-{{ $i }}"
-                                    wire:change="scoreGiven({{ $game->id }})"
-                                    wire:target="scoreGiven({{ $game->id }})"
-                                    @class([
-                                    'h-6 w-6',
-                                    'mt-4 md:mt-0' => $i % 5 !== 0 && $game->win === null,
-                                    'cursor-pointer' => $game->position === 15 && $has_complete_final_game,
-                                    'cursor-not-allowed bg-indigo-100' => $game->position === 15 && !$has_complete_final_game,
-                                    'text-green-600' => $game->win,
-                                    'bg-red-50' => $game->win === false])
-                                    @checked($game->win)
-                                    @disabled($game->position === 15 && !$has_complete_final_game)
-                                />
-                            </label>
-                        </div>
                     @endif
-                @endif
+                </div>
             </div>
         @endforeach
     </div>
