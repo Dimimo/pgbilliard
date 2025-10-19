@@ -2,307 +2,123 @@
 
 namespace App\Livewire\Date;
 
-use App\Events\ScoreEvent;
-use App\Jobs\UpdateRanks;
-use App\Livewire\WithCurrentCycle;
 use App\Models\Event;
 use App\Models\Format;
 use App\Models\Game;
-use App\Models\Player;
-use App\Models\Position;
-use App\Models\Schedule as Matrix;
-use App\Services\Logger\LogGames;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Season;
+use App\Services\ScheduleManager;
+use Illuminate\Support\Collection as Settings;
+use Illuminate\Support\Facades\Context;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Schedule extends Component
 {
-    use ConsolidateTrait;
-    use WithCurrentCycle;
-
     public Event $event;
-    public Format $format;
-    public Matrix $schedule;
-    public Collection $positions;
-    public Collection $home_players;
-    public Collection $visit_players;
-    public bool $choose_format = false;
-    public Collection $home_matrix;
-    public Collection $visit_matrix;
-    public array $rounds = [1 => 'First', 6 => 'Second', 11 => 'Last'];
-    public bool $can_update_players = true;
-    public bool $confirmed = false;
-    public ?int $game_win_id = null;
-    public ?int $game_lost_id = null;
+    public ?Format $format = null;
+    public Settings $switches;
+    public Season $season;
 
     public function mount(): void
     {
+        $this->season = Season::find(Context::getHidden('season_id'));
         $this->event->loadMissing('games', 'team_1.players', 'team_2.players');
-        $this->confirmed = $this->event->confirmed;
+        $this->format = (new ScheduleManager($this->event))->setFormat();
+        $this->switches = $this->collectSwitches();//$this->event->games()->delete();
+    }
 
-        //first check if the game is confirmed, that means the game is finished
-        if ($this->confirmed) {
-            $this->recreateMatrix();
-            $this->home_players = $this->getPlayersFromFinishedGame(true);
-            $this->visit_players = $this->getPlayersFromFinishedGame(false);
-            $this->can_update_players = false;
-        } elseif ($this->event->games()->whereBetween('position', [1, 15])->count() > 0) {
-            // the game has started but is not finished yet
-            $this->checkIfPlayersCanBeUpdated();
-            $this->checkThirdGame();
-            $this->recreateMatrix();
-            $this->getPlayersFromUnfinishedGame();
-            $this->event->update(['score1' => $this->getEventScore(true), 'score2' => $this->getEventScore(false)]);
-        } else {
-            // the game is brand new, time to choose the format and the players
-            $format = Format::all();
-            if ($format->count() === 1) {
-                $this->formatChosen($format->first()->id);
-                $this->checkThirdGame();
-                $this->recreateMatrix();
-                $this->getPlayersFromUnfinishedGame();
-                $this->event->refresh();
-            } else {
-                $this->choose_format = true;
-            }
+    protected function collectSwitches(): Settings
+    {
+        return collect([
+            'confirmed' => $this->event->confirmed,
+            'canUpdatePlayers' => $this->countGames(),
+            'chooseFormat' => is_null($this->format),
+            'rounds' => [1 => 'First', 6 => 'Second', 11 => 'Last'],
+            'games' => null,
+        ]);
+    }
+
+    private function countGames(): bool
+    {
+        if (auth()->check() && auth()->user()->can('update', $this->event)) {
+            return $this->event->games()
+                    ->whereBetween('position', [1, 15])
+                    ->whereNotNull('win')
+                    ->count() === 0;
         }
+        return false;
+    }
+
+    #[On('update-settings')]
+    public function updateSettings(?string $specific, ?array $games = null): void
+    {
+        switch ($specific) {
+            case 'choose-format':
+                $this->format = (new ScheduleManager($this->event))->setFormat();
+                $this->switches->put('choose_format', true);
+                break;
+
+            case 'can-update-players':
+                $this->checkIfPlayersCanBeUpdated();
+                break;
+
+                // the games come from Ably in array form, needs to be translated
+                // to a Game modal so we can easily filter on them
+            case 'score-set':
+                $this->checkIfPlayersCanBeUpdated();
+                $collection = collect();
+                if ($games) {
+                    foreach ($games as $game) {
+                        $collection->push(new Game($game));
+                    }
+                }
+                $this->switches->put('games', $collection);
+                break;
+
+            case 'confirmed':
+                $this->switches->put('confirmed', true);
+                break;
+
+            default:
+                $this->format = (new ScheduleManager($this->event))->setFormat();
+                $this->checkIfPlayersCanBeUpdated();
+        }
+    }
+
+    #[On('format-chosen')]
+    public function formatChosen(int $id): void
+    {
+        $this->format = Format::query()->findOrFail($id);
+        $this->switches->put('chooseFormat', false);
+        (new ScheduleManager($this->event))->checkThirdGame($this->format);
+    }
+
+    protected function checkIfPlayersCanBeUpdated(): void
+    {
+        $this->switches->put(
+            'canUpdatePlayers',
+            $this->countGames()
+        );
+    }
+
+    #[On('format-set')]
+    public function formatIsSet(): void
+    {
+        //$this->format = Format::query()->findOrFail($id);
+        $this->switches->put('chooseFormat', false);
+        //$this->event = (new ScheduleManager($this->event))->checkThirdGame($this->format);
+        $this->render();
     }
 
     public function render(): \Illuminate\View\View
     {
-        return view('livewire.date.schedule');
-    }
-
-    public function formatChosen(int $id): void
-    {
-        $this->format = Format::query()->find($id);
-        $this->choose_format = false;
-        $this->checkThirdGame();
-        $this->recreateMatrix();
-        $this->getPlayersFromUnfinishedGame();
-        $this->event->refresh();
-        $this->dispatch('format-chosen');
-    }
-
-    public function scoreGiven(int $game_id): void
-    {
-        $game = Game::with(['event', 'player'])->find($game_id);
-        $this->authorize('update', $game->event);
-
-        $score_is_true = $game->win === true;
-
-        // set the home or away player(s) to reverse the previous $score_is_true value
-        Game::query()->where([
-            ['event_id', $game->event_id],
-            ['position', $game->position],
-            ['home', $game->home]
-        ])->update(['win' => $score_is_true ? null : true]);
-
-        // then reverse the score to the other players, mind the reversed "! $game->home" status
-        // but a score to true can be set to false without changing the other score
-        Game::query()->where([
-            ['event_id', $game->event_id],
-            ['position', $game->position],
-            ['home', !$game->home]
-        ])->update(['win' => $score_is_true ? null : false]);
-
-        // check if this is the first score being given, if so, lock the players order
-        if ($this->can_update_players && $this->event->games()->whereNotNull('win')->count()) {
-            $this->can_update_players = false;
-        }
-
-        // finally, update the day score in the event and log the event
-        $this->event->update(['score1' => $this->getEventScore(true), 'score2' => $this->getEventScore(false)]);
-        (new LogGames())->logGameChanges($game);
-        $this->checkIfPlayersCanBeUpdated();
-
-        $this->dispatch('refresh-list');
-        // broadcast the event to Ably
-        broadcast(new ScoreEvent($this->season->id, $this->event->id, $game->player_id))->toOthers();
-    }
-
-    public function getEventScore(bool $home): int
-    {
-        return $this->event->games()
-            ->select('position')
-            ->whereHome($home)
-            ->whereWin(true)
-            ->groupBy(['position'])
-            ->get()->count();
-    }
-
-    public function playerSelected(int $player_id, int $position, string $place, ?int $previous_player_id = null): void
-    {
-        Position::query()->where([
-            'event_id' => $this->event->id,
-            'rank' => $position,
-            'home' => $place === 'home',
-        ])->delete();
-        $team = null;
-
-        if ($player = Player::query()->find($player_id)) {
-            Position::query()->updateOrCreate([
-                'event_id' => $this->event->id,
-                'rank' => $position,
-                'home' => $place === 'home',
-            ], ['player_id' => $player_id]);
-            $team = $player->team;
-        }
-
-        if (! $team) {
-            if ($place === 'home') {
-                $team = $this->event->team_1;
-            } else {
-                $team = $this->event->team_2;
-            }
-        }
-
-        $schedules = Matrix::query()->where([
-            ['format_id', $this->format->id],
-            ['player', $position],
-            ['home', $place === 'home']
-        ])
-            ->orderBy('position')
-            ->get();
-
-        if (!is_null($previous_player_id)) {
-            Game::query()
-                ->where([
-                    ['event_id', $this->event->id],
-                    ['team_id', $team->id],
-                    ['home', $place === 'home'],
-                    ['player_id', $previous_player_id],
-                ])
-                ->delete();
-        }
-
-
-        foreach ($schedules as $schedule) {
-            if ($player) {
-                (new Game())->create([
-                    'schedule_id' => $schedule->id,
-                    'event_id' => $this->event->id,
-                    'team_id' => $player->team_id,
-                    'player_id' => $player_id,
-                    'user_id' => $player->user_id,
-                    'position' => $schedule->position,
-                    'home' => $place === 'home',
-                ]);
-            }
-        }
-
-        $this->recreateMatrix();
-        $this->checkThirdGame();
-        $this->getPlayersFromUnfinishedGame();
-
-        UpdateRanks::dispatch($this->season);
-        $this->dispatch('refresh-list');
-        broadcast(new ScoreEvent($this->season->id, $this->event->id))->toOthers();
-    }
-
-    public function playerChanged(int $player_id, int $game_id): void
-    {
-        Game::query()->whereId($game_id)->update(['player_id' => $player_id]);
-        broadcast(new ScoreEvent($this->season->id, $this->event->id))->toOthers();
-    }
-
-    public function scheduleReset(string $home): void
-    {
-        $plays_home = $home === 'home';
-        $this->event->games()->where('home', $plays_home)->delete();
-        Position::query()->where([['event_id', $this->event->id], ['home', $plays_home]])->delete();
-        $this->event->games()->where('position', 15)->delete();
-        $this->recreateMatrix();
-        $this->getPlayersFromUnfinishedGame();
-        $this->dispatch('player-updated-' . $home);
-    }
-
-    private function recreateMatrix(): void
-    {
-        $this->home_matrix = Position::with('player.user')
-            ->where([['event_id', $this->event->id], ['home', true]])
-            ->orderBy('rank')
-            ->get();
-
-        $this->visit_matrix = Position::with('player.user')
-            ->where([['event_id', $this->event->id], ['home', false]])
-            ->orderBy('rank')
-            ->get();
-    }
-
-    private function checkThirdGame(): void
-    {
-        if ($this->event->games()->where('position', 15)->count() === 0) {
-            $schedules = $this->format->schedules()->wherePosition(15)->get();
-            foreach ($schedules as $schedule) {
-                $values = [
-                    'schedule_id' => $schedule->id,
-                    'event_id' => $this->event->id,
-                    'team_id' => $schedule->home ? $this->event->team_1->id : $this->event->team_2->id,
-                    'player_id' => null,
-                    'user_id' => null,
-                    'position' => 15,
-                    'home' => $schedule->home,
-                ];
-                (new Game())->create($values);
-            }
-            $this->event->refresh();
-        }
-    }
-
-    private function getPlayersFromFinishedGame(bool $home): Collection
-    {
-        $player_ids = $this->event
-            ->games()
-            ->select('player_id')
-            ->whereBetween('position', [1, 15])
-            ->whereHome($home)
-            ->orderBy('position')
-            ->groupBy(['player_id'])
-            ->get()
-            ->pluck('player_id')
-            ->toArray();
-        return Player::query()->whereIn('id', $player_ids)->get();
-    }
-
-    private function getPlayersFromUnfinishedGame(): void
-    {
-        $this->home_players = $this->event
-            ->team_1
-            ->activePlayers()
-            ->sortBy('name');
-
-        $this->visit_players = $this->event
-            ->team_2
-            ->activePlayers()
-            ->sortBy('name');
-    }
-
-    private function checkIfPlayersCanBeUpdated(): void
-    {
-        $this->can_update_players = $this->event->games()
-                ->whereBetween('position', [1, 15])
-                ->whereNotNull('win')
-                ->count() === 0;
-
-        $this->format = $this->event->games()
-            ->orderBy('position')
-            ->first()
-            ->schedule
-            ->format;
-
-        $this->choose_format = false;
+        return view('livewire.date.schedule')->with(['switches' => $this->switches]);
     }
 
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores($response): void
     {
         if ($this->event->id === $response['event_id'] && app()->environment() === $response['environment']) {
-            $this->event->refresh();
-            $this->checkIfPlayersCanBeUpdated();
-            $this->game_win_id = Game::query()->whereWin(true)->orderByDesc('updated_at')->first()?->id;
-            $this->game_lost_id = Game::query()->whereWin(false)->orderByDesc('updated_at')->first()?->id;
             $this->dispatch('refresh-list');
         }
     }
