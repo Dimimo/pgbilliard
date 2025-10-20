@@ -147,6 +147,11 @@
             </thead>
             <tbody class="whitespace-nowrap">
                 @forelse ($scores as $score)
+                    {{-- for some unknown reason, a score result can come up empty, but I only saw it on testing --}}
+                    @if (is_null($score->get('id')))
+                        @continue
+                    @endif
+
                     @php
                         if (is_countable($score->get('last_result'))) {
                             $score1 = $score->get('last_result')->get('score1');
