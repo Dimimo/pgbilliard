@@ -238,7 +238,7 @@
                             @endif
                         </td>
                         <td class="flex items-center justify-center p-2">
-                            @if (isset($event))
+                            @if (isset($event) && $score->get('last_result') !== 'BYE')
                                 <a
                                     href="{{ route('schedule.event', ['event' => $event]) }}"
                                     class="link"
