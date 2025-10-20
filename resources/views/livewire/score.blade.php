@@ -238,7 +238,7 @@
                             @endif
                         </td>
                         <td class="flex items-center justify-center p-2">
-                            @if ($event)
+                            @if (isset($event))
                                 <a
                                     href="{{ route('schedule.event', ['event' => $event]) }}"
                                     class="link"
