@@ -64,6 +64,7 @@
                                         <th class="p-2 text-right text-blue-700">
                                             {{ __('Visitors') }}
                                         </th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody class="whitespace-nowrap">
@@ -132,6 +133,21 @@
                                                         </a>
                                                     </div>
                                                 </div>
+                                            </td>
+                                            <td>
+                                                @if ($event->games()->whereNotNull('win')->count() > 0)
+                                                    <a
+                                                        href="{{ route('schedule.event', ['event' => $event]) }}"
+                                                        class="link"
+                                                        wire:navigate
+                                                    >
+                                                        <x-svg.eye-regular
+                                                            color="fill-sky-600"
+                                                            size="4"
+                                                            padding="mb-1"
+                                                        />
+                                                    </a>
+                                                @endif
                                             </td>
                                         </tr>
 

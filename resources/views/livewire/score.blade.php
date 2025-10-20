@@ -35,6 +35,10 @@
                     >
                         {{ __('Score') }}
                     </th>
+                    <th class="bg-yellow-100 p-2" title="{{ __('Individual Games and Results') }}">
+                        <!-- svg.list-ul-solid -->
+                        <x-svg.list-ul-solid color="fill-gray-400" size="4" padding="" />
+                    </th>
                     <th
                         @class([
                         'bg-green-300 p-2 text-gray-900',
@@ -142,156 +146,170 @@
                 </tr>
             </thead>
             <tbody class="whitespace-nowrap">
-                @foreach ($scores as $score)
-                    @if (!$score->get('played'))
-                        <div class="box-rounded-danger m-5">
-                            <h3 class="center">{{ __('No games yet') }}</h3>
-                        </div>
+                @forelse ($scores as $score)
+                    @php
+                        if (is_countable($score->get('last_result'))) {
+                            $score1 = $score->get('last_result')->get('score1');
+                            $score2 = $score->get('last_result')->get('score2');
+                            $event = $this->hasGames($score->get('id'));
+                        }
+                    @endphp
 
-                        @break
-                    @else
-                        @php
-                            if (is_countable($score->get('last_result'))) {
-                                $score1 = $score->get('last_result')->get('score1');
-                                $score2 = $score->get('last_result')->get('score2');
-                            }
-                        @endphp
-
-                        <tr class="h-8" wire:key="{{ $score->get('id') }}">
-                            <td
-                                class="bg-gray-200 p-2 text-center text-gray-900"
-                                title="{{ __('Your current position') }}"
+                    <tr class="h-8" wire:key="{{ $score->get('id') }}">
+                        <td
+                            class="bg-gray-200 p-2 text-center text-gray-900"
+                            title="{{ __('Your current position') }}"
+                        >
+                            <strong>{{ $i++ }}</strong>
+                        </td>
+                        <td
+                            @class([
+                            'p-2',
+                            'bg-green-300' => $my_team === $score->get('team')->id,
+                            'bg-blue-100' => $my_team !== $score->get('team')->id
+                            ])
+                            id="team_{{ $score->get('team')->id }}"
+                            wire:click.self="setMyTeam({{ $score->get('team')->id }})"
+                        >
+                            <a
+                                href="{{ route('teams.show', ['team' => $score->get('team')]) }}"
+                                class="link"
+                                wire:navigate
                             >
-                                <strong>{{ $i++ }}</strong>
-                            </td>
-                            <td
-                                @class([
-                                'p-2',
-                                'bg-green-300' => $my_team === $score->get('team')->id,
-                                'bg-blue-100' => $my_team !== $score->get('team')->id
-                                ])
-                                id="team_{{ $score->get('team')->id }}"
-                                wire:click.self="setMyTeam({{ $score->get('team')->id }})"
+                                {{ $score->get('team')->name }}
+                            </a>
+                        </td>
+                        <td
+                            class="bg-amber-200 p-2 text-gray-900"
+                            title="{{ __('Last played Team') }} ({{ __('week') }} {{ $played_weeks }})"
+                        >
+                            <a
+                                href="{{ route('teams.show', ['team' => $score->get('played')]) }}"
+                                class="link"
+                                wire:navigate
                             >
-                                <a
-                                    href="{{ route('teams.show', ['team' => $score->get('team')]) }}"
-                                    class="link"
-                                    wire:navigate
-                                >
-                                    {{ $score->get('team')->name }}
-                                </a>
-                            </td>
-                            <td
-                                class="bg-amber-200 p-2 text-gray-900"
-                                title="{{ __('Last played Team') }} ({{ __('week') }} {{ $played_weeks }})"
-                            >
-                                <a
-                                    href="{{ route('teams.show', ['team' => $score->get('played')]) }}"
-                                    class="link"
-                                    wire:navigate
-                                >
-                                    {{ $score->get('played')->name }}
-                                </a>
-                            </td>
-                            <td
-                                @class([
-                                'p-2 text-center',
-                                'bg-green-100' => $score_id == $score->get('id')
-                                ])
-                            >
-                                @if ($score->get('last_result') === 'not in')
-                                    <span class="text-orange-600"><i>not in</i></span>
-                                @elseif ($score->get('last_result') === 'BYE')
-                                    <span class="text-gray-600">BYE</span>
-                                @else
-                                    <div class="flex items-center justify-center space-x-2">
-                                        <div
-                                            @class([
-                                            'text-lg font-semibold text-green-700' => $score1 > 7,
-                                            ])
-                                        >
-                                            {{ $score1 }}
-                                        </div>
-                                        <div>
-                                            <!-- svg.minus-solid -->
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 448 512"
-                                                class="inline-block h-3 w-3 fill-gray-600"
-                                            >
-                                                <path
-                                                    d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"
-                                                />
-                                            </svg>
-                                        </div>
-                                        <div
-                                            @class([
-                                            'text-lg font-semibold text-green-700' => $score2 > 7,
-                                            ])
-                                        >
-                                            {{ $score2 }}
-                                        </div>
+                                {{ $score->get('played')->name }}
+                            </a>
+                        </td>
+                        <td
+                            @class([
+                            'p-2 text-center',
+                            'bg-green-100' => $score_id == $score->get('id')
+                            ])
+                        >
+                            @if ($score->get('last_result') === 'not in')
+                                <span class="text-orange-600"><i>not in</i></span>
+                            @elseif ($score->get('last_result') === 'BYE')
+                                <span class="text-gray-600">BYE</span>
+                            @else
+                                <div class="flex items-center justify-center space-x-2">
+                                    <div
+                                        @class([
+                                        'text-lg font-semibold text-green-700' => $score1 > 7,
+                                        ])
+                                    >
+                                        {{ $score1 }}
                                     </div>
-                                @endif
-                            </td>
-                            <td
-                                @class([
-                                'bg-green-200 p-2 text-center text-gray-900',
-                                'hidden sm:table-cell' => ! $show_full_table
-                                ])
-                                title="{{ __('Daily games won') }}"
-                            >
-                                {{ $score->get('won') }}
-                            </td>
-                            <td
-                                @class([
-                                'bg-red-100 p-2 text-center text-gray-900',
-                                'hidden sm:table-cell' => ! $show_full_table
-                                ])
-                                title="{{ __('Daily games lost') }}"
-                            >
-                                {{ $score->get('lost') }}
-                            </td>
-                            <td
-                                @class([
-                                'bg-green-200 p-2 text-center text-gray-900',
-                                'hidden lg:table-cell' => ! $show_full_table
-                                ])
-                                title="{{ __('Total games won') }}"
-                            >
-                                {{ $score->get('for') }}
-                            </td>
-                            <td
-                                @class([
-                                'bg-red-100 p-2 text-center text-gray-900',
-                                'hidden lg:table-cell' => ! $show_full_table
-                                ])
-                                title="{{ __('Total games lost') }}"
-                            >
-                                {{ $score->get('against') }}
-                            </td>
-                            <td
-                                @class([
-                                'bg-purple-100 p-2 text-center text-gray-900',
-                                'hidden md:table-cell' => ! $show_full_table
-                                ])
-                                title="{{ __('Percentage') }}"
-                            >
-                                {{ $score->get('percentage') }}%
-                            </td>
-                            <td
-                                @class([
-                                'bg-indigo-100 p-2 text-center text-gray-900',
-                                'font-bold' => $score->get('max_games') === $score->get('games_played'),
-                                'hidden md:table-cell' => ! $show_full_table
-                                ])
-                                title="{{ $score->get('games_played') }} {{ __('games participated') }}"
-                            >
-                                {{ $score->get('games_played') }}
-                            </td>
-                        </tr>
-                    @endif
-                @endforeach
+                                    <div>
+                                        <!-- svg.minus-solid -->
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 448 512"
+                                            class="inline-block h-3 w-3 fill-gray-600"
+                                        >
+                                            <path
+                                                d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"
+                                            />
+                                        </svg>
+                                    </div>
+                                    <div
+                                        @class([
+                                        'text-lg font-semibold text-green-700' => $score2 > 7,
+                                        ])
+                                    >
+                                        {{ $score2 }}
+                                    </div>
+                                </div>
+                            @endif
+                        </td>
+                        <td class="flex items-center justify-center p-2">
+                            @if ($event)
+                                <a
+                                    href="{{ route('schedule.event', ['event' => $event]) }}"
+                                    class="link"
+                                    wire:navigate
+                                    title="{{ __('individual games and results') }}"
+                                >
+                                    <!-- svg.eye-regular -->
+                                    <x-svg.eye-regular
+                                        color="fill-sky-600"
+                                        size="4"
+                                        padding="mb-1"
+                                    />
+                                </a>
+                            @endif
+                        </td>
+                        <td
+                            @class([
+                            'bg-green-200 p-2 text-center text-gray-900',
+                            'hidden sm:table-cell' => ! $show_full_table
+                            ])
+                            title="{{ __('Daily games won') }}"
+                        >
+                            {{ $score->get('won') }}
+                        </td>
+                        <td
+                            @class([
+                            'bg-red-100 p-2 text-center text-gray-900',
+                            'hidden sm:table-cell' => ! $show_full_table
+                            ])
+                            title="{{ __('Daily games lost') }}"
+                        >
+                            {{ $score->get('lost') }}
+                        </td>
+                        <td
+                            @class([
+                            'bg-green-200 p-2 text-center text-gray-900',
+                            'hidden lg:table-cell' => ! $show_full_table
+                            ])
+                            title="{{ __('Total games won') }}"
+                        >
+                            {{ $score->get('for') }}
+                        </td>
+                        <td
+                            @class([
+                            'bg-red-100 p-2 text-center text-gray-900',
+                            'hidden lg:table-cell' => ! $show_full_table
+                            ])
+                            title="{{ __('Total games lost') }}"
+                        >
+                            {{ $score->get('against') }}
+                        </td>
+                        <td
+                            @class([
+                            'bg-purple-100 p-2 text-center text-gray-900',
+                            'hidden md:table-cell' => ! $show_full_table
+                            ])
+                            title="{{ __('Percentage') }}"
+                        >
+                            {{ $score->get('percentage') }}%
+                        </td>
+                        <td
+                            @class([
+                            'bg-indigo-100 p-2 text-center text-gray-900',
+                            'font-bold' => $score->get('max_games') === $score->get('games_played'),
+                            'hidden md:table-cell' => ! $show_full_table
+                            ])
+                            title="{{ $score->get('games_played') }} {{ __('games participated') }}"
+                        >
+                            {{ $score->get('games_played') }}
+                        </td>
+                    </tr>
+                @empty
+                    <div class="box-rounded-danger m-5">
+                        <h3 class="center">{{ __('No games yet') }}</h3>
+                    </div>
+                @endforelse
             </tbody>
         </table>
     </div>

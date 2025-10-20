@@ -35,7 +35,10 @@ class Score extends Component
 
     public function render(): View
     {
-        return view('livewire.score')->with(['scores' => $this->scores]);
+        return view('livewire.score')->with([
+            'scores' => $this->scores,
+            'score_id' => $this->score_id
+        ]);
     }
 
     public function placeholder(): string
@@ -46,6 +49,18 @@ class Score extends Component
     public function toggleShowFullTable(): void
     {
         $this->show_full_table = !$this->show_full_table;
+    }
+
+    /**
+     * Check if an event has games, meaning, there is an individual scoresheet available
+     */
+    public function hasGames($event_id): ?Event
+    {
+        $event = Event::find($event_id);
+        if ($event->games()->whereNotNull('win')->count() > 0) {
+            return $event;
+        }
+        return null;
     }
 
     /**
