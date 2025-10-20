@@ -115,6 +115,12 @@
         <li>
             Oct 3, 2025: the individual scoreboard is finally ready and out of beta
         </li>
+        <li>
+            Oct 8, 2025: rewritten the individual scores mechanism to make it less error prawn
+        </li>
+        <li>
+            Oct 10, 2025: added a shortcut to the individual games
+        </li>
     </ul>
 </div>
 <div class="mt-4">
