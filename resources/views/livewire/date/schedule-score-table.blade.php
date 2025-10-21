@@ -26,11 +26,7 @@
                     {{ $round }} {{ __('doubles') }}
                 </div>
             @endif
-            <div
-                @class([
-                'col-span-4 w-full p-1 text-right',
-                ])
-            >
+            <div class="col-span-4 flex w-full justify-end p-1">
                 <x-schedule.position-dropdown
                     key="home-{{ $i }}"
                     :event="$event"
@@ -41,22 +37,16 @@
                     :switches="$switches"
                 />
             </div>
-            <div
-                @class([
-                'col-span-4 w-full p-1 text-left',
-                ])
-            >
-                <div>
-                    <x-schedule.position-dropdown
-                        key="visit-{{ $i }}"
-                        :event="$event"
-                        :i="$i"
-                        :pg="$pg"
-                        :matrix="$visit_matrix"
-                        home="0"
-                        :switches="$switches"
-                    />
-                </div>
+            <div class="col-span-4 flex w-full justify-start p-1">
+                <x-schedule.position-dropdown
+                    key="visit-{{ $i }}"
+                    :event="$event"
+                    :i="$i"
+                    :pg="$pg"
+                    :matrix="$visit_matrix"
+                    home="0"
+                    :switches="$switches"
+                />
             </div>
         @endfor
     @endforeach
