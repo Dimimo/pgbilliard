@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\CheckIfAdmin::class,
             \App\Http\Middleware\PoolCycle::class,
             \App\Http\Middleware\TeamOfLoggedInUserMiddleware::class,
+            \App\Http\Middleware\DetectAndroid::class,
         ]);
 
         $middleware->api(append: [
