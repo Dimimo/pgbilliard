@@ -17,6 +17,10 @@ name('teams.edit');
                 help="teams"
             />
 
+            @if (session('is_android', false))
+                <x-navigation.main-links-buttons />
+            @endif
+
             @can('update', $team)
                 @can('create', $team)
                     <livewire:team.edit :team="$team" />

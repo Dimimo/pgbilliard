@@ -16,6 +16,11 @@ name('dates.show');
                 subtitle="{{__('Season')}} {{ session('cycle') }}"
                 help="live-scores"
             />
+
+            @if (session('is_android', false))
+                <x-navigation.main-links-buttons />
+            @endif
+
             <div class="grid justify-items-center">
                 <table
                     class="table-collapse mb-4 min-w-full border-2 border-gray-900 bg-transparent md:min-w-0"

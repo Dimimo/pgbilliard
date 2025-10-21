@@ -11,6 +11,11 @@ name('teams.show');
     @volt
         <section>
             <x-title title="{{__('Details of')}} <strong>{{ $team->name }}</strong>" />
+
+            @if (session('is_android', false))
+                <x-navigation.main-links-buttons />
+            @endif
+
             <livewire:venue :venue="$team->venue" />
 
             <x-forms.sub-title title="Players">

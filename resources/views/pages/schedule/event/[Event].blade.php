@@ -11,6 +11,11 @@ name('schedule.event');
 <x-layout>
     @volt
         <section>
+
+            @if (session('is_android', false))
+                <x-navigation.main-links-buttons />
+            @endif
+
             <x-title help="schedule">
                 <x-slot:title>
                     {{ __('The daily games of') }}

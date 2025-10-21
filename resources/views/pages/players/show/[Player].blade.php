@@ -13,6 +13,11 @@ state('player');
                 title="Personal profile and results of {{ $player->name }}"
                 subtitle="Season {{ session('cycle') }}"
             />
+
+            @if (session('is_android', false))
+                <x-navigation.main-links-buttons />
+            @endif
+
             <livewire:players.details :player="$player" />
         </section>
     @endvolt
