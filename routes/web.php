@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * A bit of a strange fix to make sure the routes are recognized by the IDE
  */
-Route::middleware('detect.android')->get('/', fn () => view('pages.index'))->name('scoreboard');
+Route::get('/', fn () => view('pages.index'))->name('scoreboard');
 Route::get('rank', fn () => view('pages.rank'))->name('rank');
 Route::get('calendar', fn () => view('pages.calendar'))->name('calendar');
 Route::get('seasons', fn () => view('pages.seasons.all'))->name('seasons');
