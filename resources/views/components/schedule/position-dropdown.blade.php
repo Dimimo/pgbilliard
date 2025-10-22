@@ -1,6 +1,5 @@
 @props(['event', 'matrix', 'i', 'pg', 'home', 'switches'])
 @php
-    $games = $event->scoreTable($home, $i);
     // this check is needed to enable the win checkbox for the final game, only if all 4 players are selected
     $has_complete_final_game = $event->checkIfAllLastGamePositionsSelected();
 @endphp
@@ -23,6 +22,9 @@
             ])
         >
             @foreach ($games as $game)
+                @php
+                    $games = $event->scoreTable($home, $i);
+                @endphp
                 <div
                     @class([
                     'flex items-center',
