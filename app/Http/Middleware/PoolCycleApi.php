@@ -11,11 +11,13 @@ class PoolCycleApi
 {
     public function handle(Request $request, Closure $next)
     {
-        if ($request->hasHeader('season') || $request->session()->has('cycle')) {
-            $cycle = $request->header('season') ?: $request->session()->has('cycle');
+        if ($request->hasHeader('cycle')) {
             $season = DB::table('seasons')
-                ->where('cycle', $cycle)
-                ->orderBy('cycle', 'desc')
+                ->where('cycle', $request->header('cycle'))
+                ->firstOrFail();
+        } elseif ($request->hasHeader('season')) {
+            $season = DB::table('seasons')
+                ->where('id', $request->header('season'))
                 ->firstOrFail();
         } else {
             // probably first visit
@@ -23,17 +25,11 @@ class PoolCycleApi
             //what if the DB is empty?
             if (is_null($season)) {
                 Context::addHidden(['cycle', 'season_id']);
-                $request->session()->forget(['cycle', 'season_id']);
 
                 return $next($request);
             }
         }
 
-        // set the hidden context
-        $request->session()->put([
-            'cycle' => $season->cycle,
-            'season_id' => $season->id
-        ]);
         Context::addHidden([
             'cycle' => $season->cycle,
             'season_id' => $season->id
