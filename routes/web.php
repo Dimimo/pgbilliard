@@ -144,7 +144,7 @@ Route::middleware('guest')->group(function () {
  * Route for the schedule download
  */
 Route::get('schedule/original', function () {
-    return response()->download(public_path('day_schedule.pdf'));
+    return response()->download(public_path('day-schedule.pdf'));
 })->name('schedule.original');
 Route::get('schedule/new', function () {
     return response()->download(public_path('reviewed_day_schedule.pdf'));
