@@ -17,7 +17,7 @@ name('venues.show');
             />
             <livewire:venue :venue="$venue" :title="$venue->name" />
 
-            @foreach ($venue->teams->where('season_id', $season->id)->sortBy('name') as $team)
+            @foreach ($venue->teams->where('season_id', Context::getHidden('season_id'))->sortBy('name') as $team)
                 <x-forms.sub-title title="Team {{ $team->name }}">
                     <livewire:players.overview :team="$team" />
                 </x-forms.sub-title>
