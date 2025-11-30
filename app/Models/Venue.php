@@ -106,7 +106,7 @@ class Venue extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Event, $this>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Event, $this>
      */
     public function events(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

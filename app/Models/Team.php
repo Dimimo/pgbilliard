@@ -147,7 +147,7 @@ class Team extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Event, $this>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Event, $this>
      */
     public function team_1(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -155,7 +155,7 @@ class Team extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Event, $this>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Event, $this>
      */
     public function team_2(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

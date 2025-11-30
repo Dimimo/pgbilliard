@@ -64,7 +64,7 @@ class Game extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Event, $this>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Event, $this>
      */
     public function event(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
