@@ -25,9 +25,9 @@ class CaptainCreatedNewUser
      */
     public function handle(): void
     {
-        \Mail::to(auth()->user())->queue(new RemindCaptainOfNewUser($this->user));
+        \Illuminate\Support\Facades\Mail::to(auth()->user())->queue(new RemindCaptainOfNewUser($this->user));
         if (!Str::contains($this->user->email, '@pgbilliard.com')) {
-            \Mail::to($this->user)->queue(new RemindCaptainOfNewUser($this->user));
+            \Illuminate\Support\Facades\Mail::to($this->user)->queue(new RemindCaptainOfNewUser($this->user));
         }
     }
 }

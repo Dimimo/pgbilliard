@@ -4,7 +4,6 @@ namespace App\Models\Forum;
 
 use App\Models\User;
 use Database\Factories\Forum\PostFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -50,7 +49,7 @@ use Illuminate\Support\Str;
  * @method static Builder|Post whereUpdatedAt($value)
  * @method static Builder|Post whereUserId($value)
  *
- * @mixin Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class Post extends Model
 {

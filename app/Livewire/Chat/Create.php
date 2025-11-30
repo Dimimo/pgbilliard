@@ -5,7 +5,6 @@ namespace App\Livewire\Chat;
 use App\Constants;
 use App\Models\Chat\ChatMessage;
 use App\Models\Chat\ChatRoom;
-use Auth;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\URL;
 use Livewire\Attributes\Validate;
@@ -47,7 +46,7 @@ class Create extends Component
     public function create(): void
     {
         $this->authorize('create', ChatRoom::class);
-        $date = array_merge($this->validate(), ['user_id' => Auth::id()]);
+        $date = array_merge($this->validate(), ['user_id' => \Illuminate\Support\Facades\Auth::id()]);
         $this->room = ChatRoom::query()->create($date);
         $this->dispatch('room-created');
         auth()->user()->chatRooms()->attach($this->room->id);

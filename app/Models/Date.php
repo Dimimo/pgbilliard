@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Constants;
 use Database\Factories\DateFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,7 +24,7 @@ use Illuminate\Support\Collection as PlayerList;
  * @property string|null $remark
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection<int, Event> $events
+ * @property-read Collection<int, \Illuminate\Support\Facades\Event> $events
  * @property-read int|null $events_count
  * @property-read Season $season
  *
@@ -42,7 +41,7 @@ use Illuminate\Support\Collection as PlayerList;
  * @method static Builder|Date whereTitle($value)
  * @method static Builder|Date whereUpdatedAt($value)
  *
- * @mixin Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class Date extends Model
 {

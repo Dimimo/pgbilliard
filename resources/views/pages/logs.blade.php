@@ -4,7 +4,7 @@ use function Laravel\Folio\name;
 use function Livewire\Volt\state;
 
 name('logs');
-state(['logs' => \Storage::disk('logs')->get("scores.log")]);
+state(['logs' => \Illuminate\Support\Facades\Storage::disk('logs')->get("scores.log")]);
 ?>
 
 <x-layout>

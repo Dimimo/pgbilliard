@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,7 +32,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Season wherePlayers($value)
  * @method static Builder|Season whereUpdatedAt($value)
  *
- * @mixin Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class Season extends Model
 {

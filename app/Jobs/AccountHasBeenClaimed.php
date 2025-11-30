@@ -26,6 +26,6 @@ class AccountHasBeenClaimed
      */
     public function handle(): void
     {
-        \Mail::to($this->user)->queue(new AccountClaimed($this->user, $this->subject));
+        \Illuminate\Support\Facades\Mail::to($this->user)->queue(new AccountClaimed($this->user, $this->subject));
     }
 }

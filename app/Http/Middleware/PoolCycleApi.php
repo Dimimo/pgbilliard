@@ -12,16 +12,16 @@ class PoolCycleApi
     public function handle(Request $request, Closure $next)
     {
         if ($request->hasHeader('cycle')) {
-            $season = DB::table('seasons')
+            $season = \Illuminate\Support\Facades\DB::table('seasons')
                 ->where('cycle', $request->header('cycle'))
                 ->firstOrFail();
         } elseif ($request->hasHeader('season')) {
-            $season = DB::table('seasons')
+            $season = \Illuminate\Support\Facades\DB::table('seasons')
                 ->where('id', $request->header('season'))
                 ->firstOrFail();
         } else {
             // probably first visit
-            $season = DB::table('seasons')->orderBy('cycle', 'desc')->first();
+            $season = \Illuminate\Support\Facades\DB::table('seasons')->orderBy('cycle', 'desc')->first();
             //what if the DB is empty?
             if (is_null($season)) {
                 Context::addHidden(['cycle', 'season_id']);

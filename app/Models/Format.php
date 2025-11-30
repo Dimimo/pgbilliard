@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Format whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Format whereUserId($value)
  *
- * @mixin \Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class Format extends Model
 {

@@ -5,7 +5,6 @@ namespace App\Livewire\Admin;
 use App\Livewire\WithAdmins;
 use App\Livewire\WithUsersSelect;
 use App\Models\Admin;
-use Auth;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -36,7 +35,7 @@ class Overview extends Component
 
     public function updatedUserId($admin_user_id): void
     {
-        Admin::query()->create(['user_id' => $admin_user_id, 'assigned_by' => Auth::id()]);
+        Admin::query()->create(['user_id' => $admin_user_id, 'assigned_by' => \Illuminate\Support\Facades\Auth::id()]);
         $this->dispatch('admin-added');
         $this->loadVars();
     }

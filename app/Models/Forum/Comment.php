@@ -4,7 +4,6 @@ namespace App\Models\Forum;
 
 use App\Models\User;
 use Database\Factories\Forum\CommentFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,7 +33,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Comment whereUpdatedAt($value)
  * @method static Builder|Comment whereUserId($value)
  *
- * @mixin Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class Comment extends Model
 {

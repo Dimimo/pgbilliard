@@ -4,7 +4,6 @@ namespace App\Models\Chat;
 
 use App\Models\User;
 use Database\Factories\Chat\ChatMessageFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,7 +33,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|ChatMessage whereUpdatedAt($value)
  * @method static Builder|ChatMessage whereUserId($value)
  *
- * @mixin Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class ChatMessage extends Model
 {

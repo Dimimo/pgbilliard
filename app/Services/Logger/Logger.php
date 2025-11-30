@@ -8,7 +8,7 @@ abstract class Logger
     {
         date_default_timezone_set(config('app.app_timezone'));
 
-        return \Log::build([
+        return \Illuminate\Support\Facades\Log::build([
             'driver' => 'single',
             'path' => storage_path('logs/scores.log'),
         ]);

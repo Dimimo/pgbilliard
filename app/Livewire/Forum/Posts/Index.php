@@ -3,7 +3,6 @@
 namespace App\Livewire\Forum\Posts;
 
 use App\Models\Forum\Post;
-use Auth;
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
@@ -22,7 +21,7 @@ class Index extends Component
 
     public function getPosts(): LengthAwarePaginator
     {
-        return Post::with(['user', 'tags', 'visits' => fn ($q) => $q->where('user_id', Auth::id())])
+        return Post::with(['user', 'tags', 'visits' => fn ($q) => $q->where('user_id', \Illuminate\Support\Facades\Auth::id())])
             ->orderByDesc('is_sticky')
             ->latest('updated_at')
             ->withCount('comments')

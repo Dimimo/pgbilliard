@@ -58,7 +58,7 @@ class SendEmails extends Component
     {
         $validated = $this->validate();
         foreach ($this->users as $user) {
-            \Mail::to($user)->queue(new \App\Mail\ContactPlayers($validated['title'], $validated['body']));
+            \Illuminate\Support\Facades\Mail::to($user)->queue(new \App\Mail\ContactPlayers($validated['title'], $validated['body']));
         }
 
         $this->reset();

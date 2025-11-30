@@ -4,7 +4,6 @@ namespace App\Livewire\Forms;
 
 use App\Http\Requests\CommentRequest;
 use App\Models\Forum\Comment;
-use Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -36,7 +35,7 @@ class CommentForm extends Form
         $this->comment = $comment;
         $this->body = $this->comment->body ?: '';
         $this->post_id = $this->comment->post_id;
-        $this->user_id = $this->comment->user_id ?: Auth::id();
+        $this->user_id = $this->comment->user_id ?: \Illuminate\Support\Facades\Auth::id();
     }
 
     public function store(): void

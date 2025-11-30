@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property bool|null $win
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read Event $event
+ * @property-read \Illuminate\Support\Facades\Event $event
  * @property-read Player $player
  * @property-read Schedule|null $schedule
  * @property-read Team $team
@@ -39,7 +39,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Game whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Game whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Game whereWin($value)
- * @mixin \Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class Game extends Model
 {

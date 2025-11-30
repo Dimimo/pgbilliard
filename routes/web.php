@@ -183,7 +183,7 @@ Route::prefix('mailable')->group(function (): void {
     Route::get('date/{date}/admin', function ($date) {
         $date = \App\Models\Date::query()->find($date);
         $send_to = ['Joe Doe', 'Jane Doe'];
-        return new \App\Mail\DayScoresToAdmin($date, \Arr::sort($send_to));
+        return new \App\Mail\DayScoresToAdmin($date, \Illuminate\Support\Arr::sort($send_to));
     });
 
     Route::get('account-claimed/{user}', function ($user) {

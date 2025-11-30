@@ -4,7 +4,6 @@ namespace App\Livewire\Forms;
 
 use App\Models\Player;
 use App\Models\User;
-use Auth;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -26,7 +25,7 @@ class PlayerForm extends Form
         return [
             'captain' => 'bool',
             'active' => 'bool',
-            'user_id' => Rule::unique(User::class, 'id')->ignore(Auth::user()),
+            'user_id' => Rule::unique(User::class, 'id')->ignore(\Illuminate\Support\Facades\Auth::user()),
             'team_id' => [
                 'required',
                 'exists:teams,id',

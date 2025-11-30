@@ -50,7 +50,7 @@ class PoolSetDayScores implements ShouldQueue
 
     private function buildLogChannel(): \Psr\Log\LoggerInterface
     {
-        return \Log::build([
+        return \Illuminate\Support\Facades\Log::build([
             'driver' => 'single',
             'path' => storage_path('logs/scores.log'),
         ]);

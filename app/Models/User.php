@@ -8,7 +8,6 @@ use App\Models\Forum\Comment;
 use App\Models\Forum\Post;
 use App\Models\Forum\Visit;
 use Database\Factories\UserFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -73,7 +72,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
  *
- * @mixin Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class User extends Authenticatable
 {

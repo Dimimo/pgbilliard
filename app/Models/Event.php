@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Database\Factories\EventFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,22 +31,22 @@ use Illuminate\Support\Carbon;
  * @property-read Venue $venue
  *
  * @method static EventFactory factory($count = null, $state = [])
- * @method static Builder|Event newModelQuery()
- * @method static Builder|Event newQuery()
- * @method static Builder|Event query()
- * @method static Builder|Event whereConfirmed($value)
- * @method static Builder|Event whereCreatedAt($value)
- * @method static Builder|Event whereDateId($value)
- * @method static Builder|Event whereId($value)
- * @method static Builder|Event whereRemark($value)
- * @method static Builder|Event whereScore1($value)
- * @method static Builder|Event whereScore2($value)
- * @method static Builder|Event whereTeam1($value)
- * @method static Builder|Event whereTeam2($value)
- * @method static Builder|Event whereUpdatedAt($value)
- * @method static Builder|Event whereVenueId($value)
+ * @method static Builder|\Illuminate\Support\Facades\Event newModelQuery()
+ * @method static Builder|\Illuminate\Support\Facades\Event newQuery()
+ * @method static Builder|\Illuminate\Support\Facades\Event query()
+ * @method static Builder|\Illuminate\Support\Facades\Event whereConfirmed($value)
+ * @method static Builder|\Illuminate\Support\Facades\Event whereCreatedAt($value)
+ * @method static Builder|\Illuminate\Support\Facades\Event whereDateId($value)
+ * @method static Builder|\Illuminate\Support\Facades\Event whereId($value)
+ * @method static Builder|\Illuminate\Support\Facades\Event whereRemark($value)
+ * @method static Builder|\Illuminate\Support\Facades\Event whereScore1($value)
+ * @method static Builder|\Illuminate\Support\Facades\Event whereScore2($value)
+ * @method static Builder|\Illuminate\Support\Facades\Event whereTeam1($value)
+ * @method static Builder|\Illuminate\Support\Facades\Event whereTeam2($value)
+ * @method static Builder|\Illuminate\Support\Facades\Event whereUpdatedAt($value)
+ * @method static Builder|\Illuminate\Support\Facades\Event whereVenueId($value)
  *
- * @mixin Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class Event extends Model
 {

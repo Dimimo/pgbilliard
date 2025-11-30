@@ -4,7 +4,6 @@ namespace App\Models\Forum;
 
 use App\Models\User;
 use Database\Factories\Forum\VisitFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -32,7 +31,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Visit whereUpdatedAt($value)
  * @method static Builder|Visit whereUserId($value)
  *
- * @mixin Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class Visit extends Model
 {

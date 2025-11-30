@@ -23,8 +23,8 @@ Broadcast::channel('App.Models.User.{id}', fn ($user, $id) => (int) $user->id ==
 
 // the chat, all private but some more private
 Broadcast::channel('chat.{roomId}', function (\App\Models\User $user, int $roomId) {
-    Log::debug('from the channel.php');
-    Log::debug($user->toJson());
+    \Illuminate\Support\Facades\Log::debug('from the channel.php');
+    \Illuminate\Support\Facades\Log::debug($user->toJson());
     //$message = \App\Models\Chat\ChatMessage::find($messageId);
     if ($user->canJoinRoom($roomId)) {
         $room = \App\Models\Chat\ChatRoom::query()->find($roomId);

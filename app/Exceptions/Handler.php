@@ -44,15 +44,15 @@ class Handler extends ExceptionHandler
     {
         try {
             if (! $this->shouldntReport($e)) {
-                $title = $e->getMessage() . ' (' . \URL::full() . ')';
+                $title = $e->getMessage() . ' (' . \Illuminate\Support\Facades\URL::full() . ')';
                 $message = $title . "\n\n" . $e;
-                if (\App::isProduction()) {
-                    \Mail::to('admin@pgbilliard.com')->send(new ExceptionMail($title, nl2br($message)));
+                if (\Illuminate\Support\Facades\App::isProduction()) {
+                    \Illuminate\Support\Facades\Mail::to('admin@pgbilliard.com')->send(new ExceptionMail($title, nl2br($message)));
                 }
             }
             parent::report($e);
         } catch (Exception $e) {
-            \Log::error($e->getMessage());
+            \Illuminate\Support\Facades\Log::error($e->getMessage());
         }
 
     }

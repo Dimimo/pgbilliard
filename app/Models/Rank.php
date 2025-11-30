@@ -38,7 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereWon($value)
- * @mixin \Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class Rank extends Model
 {

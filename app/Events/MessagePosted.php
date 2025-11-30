@@ -35,8 +35,8 @@ class MessagePosted implements ShouldBroadcastNow, ShouldDispatchAfterCommit
      */
     public function broadcastOn(): PresenceChannel
     {
-        \Log::info('from the event');
-        \Log::info($this->message->toJson());
+        \Illuminate\Support\Facades\Log::info('from the event');
+        \Illuminate\Support\Facades\Log::info($this->message->toJson());
         return new PresenceChannel('chat.'.$this->message->room->id);
     }
 

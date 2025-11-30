@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Database\Factories\VenueFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -27,7 +26,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $lng
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection<int, Event> $events
+ * @property-read Collection<int, \Illuminate\Support\Facades\Event> $events
  * @property-read int|null               $events_count
  * @property-read mixed                  $get_contact_name
  * @property-read mixed                  $get_contact_nr
@@ -51,7 +50,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Venue whereUpdatedAt($value)
  * @method static Builder|Venue whereUserId($value)
  *
- * @mixin Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class Venue extends Model
 {

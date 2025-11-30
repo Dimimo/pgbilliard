@@ -31,7 +31,7 @@ class PoolCycle
             return $next($request);
         } else {
             // get the most recent season
-            $season = DB::table('seasons')->orderBy('cycle', 'desc')->first();
+            $season = \Illuminate\Support\Facades\DB::table('seasons')->orderBy('cycle', 'desc')->first();
 
             //what if the DB is empty?
             if (is_null($season)) {

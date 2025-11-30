@@ -4,7 +4,6 @@ namespace App\Livewire\Forum;
 
 use App\Models\Forum\Post;
 use App\Models\Forum\Visit;
-use Auth;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
@@ -15,8 +14,8 @@ class Show extends Component
     public function mount(Post $post): void
     {
         $this->post = $post;
-        if (Auth::check()) {
-            Visit::query()->updateOrCreate(['post_id' => $post->id, 'user_id' => Auth::id()], ['updated_at' => now()]);
+        if (\Illuminate\Support\Facades\Auth::check()) {
+            Visit::query()->updateOrCreate(['post_id' => $post->id, 'user_id' => \Illuminate\Support\Facades\Auth::id()], ['updated_at' => now()]);
         }
     }
 

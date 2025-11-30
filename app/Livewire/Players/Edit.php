@@ -9,7 +9,6 @@ use App\Livewire\WithLoadUsersList;
 use App\Models\Player;
 use App\Models\Team;
 use App\Models\User;
-use Hash;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Context;
@@ -184,7 +183,7 @@ class Edit extends Component
         $user = new User([
             'name' => $name,
             'email' => Str::lower(Str::snake($name)) . '@pgbilliard.com',
-            'password' => Hash::make('secret'),
+            'password' => \Illuminate\Support\Facades\Hash::make('secret'),
             'contact_nr' => $this->getPropertyValue('user_form.contact_nr'),
             'last_game' => now(),
         ]);

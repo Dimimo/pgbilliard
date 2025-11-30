@@ -3,7 +3,6 @@
 namespace App\Models\Forum;
 
 use Database\Factories\Forum\TagFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,7 +31,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Tag whereSlug($value)
  * @method static Builder|Tag whereUpdatedAt($value)
  *
- * @mixin Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class Tag extends Model
 {

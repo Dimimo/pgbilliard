@@ -41,12 +41,12 @@ class ExtractLangText extends Command
             // if the force flag is set to true, overwrite the file, if not, keep the existing translations and add new ones
             // you keep existing translations, old translations are kept (for now)
             if (!$force) {
-                $translations = \File::json($outputFile);
+                $translations = \Illuminate\Support\Facades\File::json($outputFile);
             } else {
                 if ($this->confirm('You are about to overwrite all existing translations. Continue or keep existing translations?')) {
                     $this->components->info("$outputFile removed. Rebuilding...");
                 } else {
-                    $translations = \File::json($outputFile);
+                    $translations = \Illuminate\Support\Facades\File::json($outputFile);
                 }
             }
             unlink($outputFile);
@@ -82,7 +82,7 @@ class ExtractLangText extends Command
         }
 
         $difference = array_diff_key($translations, $new_translations);
-        \Log::info(json_encode($difference));
+        \Illuminate\Support\Facades\Log::info(json_encode($difference));
 
         $translations = array_diff($translations, $difference);
         ksort($translations);

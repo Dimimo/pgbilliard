@@ -7,7 +7,7 @@ $logout = function (): void {
     session()->invalidate();
     session()->forget(['cycle', 'season_id', 'is_admin']);
     session()->regenerateToken();
-    Context::forget(['cycle', 'season_id']);
+    \Illuminate\Support\Facades\Context::forget(['cycle', 'season_id']);
     $this->redirect(\App\Providers\RouteServiceProvider::HOME);
 };
 ?>

@@ -43,7 +43,7 @@ class PoolScoresSetDay extends Command
         }
         $dates->count() ? $count = $dates->count() : $count = 'No';
         $message = "The daily Pool score for $today has been run. $count reset requests has been dispatched.";
-        \Log::info('[PoolScoreSetDay] ' . $message);
+        \Illuminate\Support\Facades\Log::info('[PoolScoreSetDay] ' . $message);
         $this->comment($message);
     }
 }

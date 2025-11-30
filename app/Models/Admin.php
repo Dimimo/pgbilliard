@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Database\Factories\AdminFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,7 +32,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Admin whereUpdatedAt($value)
  * @method static Builder|Admin whereUserId($value)
  *
- * @mixin Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class Admin extends Model
 {

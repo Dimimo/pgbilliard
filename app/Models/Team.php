@@ -27,9 +27,9 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, Player> $players
  * @property-read int|null $players_count
  * @property-read Season $season
- * @property-read Collection<int, Event> $team_1
+ * @property-read Collection<int, \Illuminate\Support\Facades\Event> $team_1
  * @property-read int|null $team_1_count
- * @property-read Collection<int, Event> $team_2
+ * @property-read Collection<int, \Illuminate\Support\Facades\Event> $team_2
  * @property-read int|null $team_2_count
  * @property-read Venue $venue
  * @property-read Collection<int, Player> activePlayers()
@@ -48,7 +48,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Team whereUpdatedAt($value)
  * @method static Builder|Team whereVenueId($value)
  *
- * @mixin Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class Team extends Model
 {

@@ -24,9 +24,9 @@ class UpdateRanks implements ShouldQueue, ShouldBeUnique
      */
     public function handle(): void
     {
-        \Log::info("Starting rank update for season {$this->season->id}");
+        \Illuminate\Support\Facades\Log::info("Starting rank update for season {$this->season->id}");
         $rankUpdater = new RankUpdater($this->season->id);
         $rankUpdater->update();
-        \Log::info("Completed rank update for season {$this->season->id}");
+        \Illuminate\Support\Facades\Log::info("Completed rank update for season {$this->season->id}");
     }
 }

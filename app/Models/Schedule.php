@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Schedule wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Schedule whereUpdatedAt($value)
  *
- * @mixin \Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 class Schedule extends Model
 {

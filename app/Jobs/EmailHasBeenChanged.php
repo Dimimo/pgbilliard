@@ -23,6 +23,6 @@ class EmailHasBeenChanged
      */
     public function handle(): void
     {
-        \Mail::to($this->user)->queue(new EmailChanged());
+        \Illuminate\Support\Facades\Mail::to($this->user)->queue(new EmailChanged());
     }
 }
