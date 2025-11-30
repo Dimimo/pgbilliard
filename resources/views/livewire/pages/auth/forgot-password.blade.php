@@ -11,7 +11,7 @@ state(['email' => '']);
 
 rules(['email' => ['required', 'string', 'email']]);
 
-$sendPasswordResetLink = function () {
+$sendPasswordResetLink = function (): void {
     $this->validate();
     // We will send the password reset link to this user. Once we have attempted
     // to send the link, we will examine the response then see the message we

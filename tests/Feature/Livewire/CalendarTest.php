@@ -3,14 +3,14 @@
 use App\Livewire\Calendar;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->seed(\Database\Seeders\EventSeeder::class);
     $season = \App\Models\Season::query()->first();
     session()->put('cycle', $season->cycle);
     $this->component = Livewire::test(Calendar::class);
 });
 
-it('shows the correct component', function () {
+it('shows the correct component', function (): void {
     $response = $this->get('/calendar');
 
     $response
@@ -18,17 +18,17 @@ it('shows the correct component', function () {
         ->assertSeeVolt('calendar');
 });
 
-it('renders successfully', function () {
+it('renders successfully', function (): void {
     $this->component
         ->assertStatus(200);
 });
 
-it('shows the correct view', function () {
+it('shows the correct view', function (): void {
     $this->component
         ->assertViewIs('livewire.calendar');
 });
 
-it('has dates and the correct count', function () {
+it('has dates and the correct count', function (): void {
     $this->component
         ->assertViewHas('dates')
         ->assertCount('dates', 4);

@@ -3,7 +3,7 @@
 use App\Livewire\Teams;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->seed(\Database\Seeders\EventSeeder::class);
     $this->team = \App\Models\Team::query()->find(1);
     $this->player = \App\Models\Player::factory()->create(['team_id' => $this->team->id, 'captain' => false]);
@@ -14,30 +14,30 @@ beforeEach(function () {
     session(['is_admin' => false]);
 });
 
-it('renders successfully', function () {
+it('renders successfully', function (): void {
     Livewire::test(Teams::class)
         ->assertStatus(200)
         ->assertViewIs('livewire.teams');
 });
 
-it('has teams', function () {
+it('has teams', function (): void {
     Livewire::test(Teams::class)
         ->assertViewHas('teams')
         ->assertCount('teams', 2);
 });
 
-it('shows the team and venue name', function () {
+it('shows the team and venue name', function (): void {
     Livewire::test(Teams::class)
         ->assertSee($this->team->name)
         ->assertSee($this->team->venue->name);
 });
 
-it('does not show the phone numbers as a guest', function () {
+it('does not show the phone numbers as a guest', function (): void {
     Livewire::test(Teams::class)
         ->assertSee('hidden');
 });
 
-it('shows the correct phone number if logged in but can not edit', function () {
+it('shows the correct phone number if logged in but can not edit', function (): void {
     Livewire::actingAs($this->player->user)
         ->test(Teams::class)
         ->assertDontSee($this->team->venue->contact_nr)
@@ -46,7 +46,7 @@ it('shows the correct phone number if logged in but can not edit', function () {
         ->assertDontSeeHtml('venues/edit');
 });
 
-it('checks if the captain can edit the team', function () {
+it('checks if the captain can edit the team', function (): void {
     Livewire::actingAs($this->captain->user)
         ->test(Teams::class)
         ->assertOk()
@@ -55,7 +55,7 @@ it('checks if the captain can edit the team', function () {
         ->assertDontSeeHtml('venues/edit');
 });
 
-it('checks if the bar owner can edit the venue and shows their contact number', function () {
+it('checks if the bar owner can edit the venue and shows their contact number', function (): void {
     Livewire::actingAs($this->owner)
         ->test(Teams::class)
         ->assertOk()

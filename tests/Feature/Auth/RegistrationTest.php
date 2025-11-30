@@ -5,7 +5,7 @@ namespace Tests\Feature\Auth;
 use App\Providers\RouteServiceProvider;
 use Livewire\Volt\Volt;
 
-test('registration screen can be rendered', function () {
+test('registration screen can be rendered', function (): void {
     $this->seed(\Database\Seeders\SeasonSeeder::class);
     $response = $this->get('/register');
 
@@ -14,7 +14,7 @@ test('registration screen can be rendered', function () {
         ->assertOk();
 });
 
-test('new users can register', function () {
+test('new users can register', function (): void {
     $component = Volt::test('pages.auth.register')
         ->set('name', 'Test User')
         ->set('email', 'test@example.com')

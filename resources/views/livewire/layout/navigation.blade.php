@@ -2,7 +2,7 @@
 
 use function Livewire\Volt\uses;
 
-$logout = function () {
+$logout = function (): void {
     auth()->guard('web')->logout();
     session()->invalidate();
     session()->forget(['cycle', 'season_id', 'is_admin']);

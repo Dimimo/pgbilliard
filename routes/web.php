@@ -27,7 +27,7 @@ Route::get('schedule/event/{event}', fn($event) => view('pages.schedule.event.[E
 /**
  * Routes for TEAMS
  */
-Route::prefix('team')->group(function () {
+Route::prefix('team')->group(function (): void {
     Route::get('/', fn() => view('pages.teams.index'))->name('teams.index');
     Route::get('show/{team}', fn($team) => view('pages.teams.show.[Team]', [
         'team' => \App\Models\Team::query()->find($team)
@@ -40,7 +40,7 @@ Route::prefix('team')->group(function () {
 /**
  * Routes for VENUES
  */
-Route::prefix('venues')->group(function () {
+Route::prefix('venues')->group(function (): void {
     Route::get('show/{venue}', fn($venue) => view('pages.venues.show.[Venue]', [
         'venue' => \App\Models\Venue::query()->find($venue)
     ]))->name('venues.show');
@@ -52,7 +52,7 @@ Route::prefix('venues')->group(function () {
 /**
  * Routes for ADMIN
  */
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function (): void {
     Route::get('/', fn() => view('pages.admin.index'))->name('admin.index');
     Route::get('overview', fn() => view('pages.admin.overview'))->name('admin.overview');
     Route::get('contact', fn() => view('pages.admin.contact'))->name('admin.contact');
@@ -60,7 +60,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('teams/create', fn() => view('pages.admin.teams.create'))->name('admin.teams.create');
     Route::get('venues/create', fn() => view('pages.admin.venues.create'))->name('admin.venues.create');
 
-    Route::prefix('calendar')->group(function () {
+    Route::prefix('calendar')->group(function (): void {
         Route::get('create/{season}', fn($season) => view('pages.admin.calendar.create.[Season]', [
             'season' => \App\Models\Season::query()->find($season)
         ]))->name('admin.calendar.create');
@@ -72,7 +72,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         ]))->name('admin.calendar.shift');
     });
 
-    Route::prefix('schedule')->group(function () {
+    Route::prefix('schedule')->group(function (): void {
         Route::get('/', fn() => view('pages.admin.schedule.index'))->name('admin.schedule.index');
         Route::get('create', fn() => view('pages.admin.schedule.create'))->name('admin.schedule.create');
         Route::get('update/{format}', fn($format) => view('pages.admin.schedule.update.[Format]', [
@@ -80,7 +80,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         ]))->name('admin.schedule.update');
     });
 
-    Route::prefix('season')->group(function () {
+    Route::prefix('season')->group(function (): void {
         Route::get('create', fn() => view('pages.admin.seasons.create'))->name('admin.seasons.create');
         Route::get('update/{season}', fn($season) => view('pages.admin.seasons.update.[Season]', [
             'season' => \App\Models\Season::query()->find($season)
@@ -91,8 +91,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 /**
  * Routes for FORUM
  */
-Route::prefix('forum')->group(function () {
-    Route::prefix('posts')->group(function () {
+Route::prefix('forum')->group(function (): void {
+    Route::prefix('posts')->group(function (): void {
         Route::get('/', fn() => view('pages.forum.posts.index'))->name('forum.posts.index');
         Route::get('create', fn() => view('pages.forum.posts.create'))->name('forum.posts.create');
         Route::get('show/{post}', fn($post) => view('pages.forum.posts.show.[Post]', [
@@ -103,7 +103,7 @@ Route::prefix('forum')->group(function () {
         ]))->name('forum.posts.edit');
         Route::get('create', fn() => view('pages.forum.posts.create'))->name('forum.posts.create');
     });
-    Route::prefix('comments')->group(function () {
+    Route::prefix('comments')->group(function (): void {
         Route::get('create/{post}', fn($post) => view('pages.forum.comments.create.[Post]', [
             'post' => \App\Models\Forum\Post::query()->find($post)
         ]))->name('forum.comments.create');
@@ -116,7 +116,7 @@ Route::prefix('forum')->group(function () {
 /**
  * Routes for the CHAT
  */
-Route::prefix('chat')->group(function () {
+Route::prefix('chat')->group(function (): void {
     Route::get('/', fn() => view('pages.chat.index'))->name('chat.index');
     Route::get('create', fn() => view('pages.chat.create'))->name('chat.room.create');
     Route::get('{room}', fn($room) => view('pages.chat.[.App.Models.Chat.ChatRoom]', [
@@ -127,13 +127,13 @@ Route::prefix('chat')->group(function () {
     ]))->name('chat.room.edit');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function (): void {
     Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::view('profile', 'profile')->name('profile');
 });
 
 // authentification
-Route::middleware('guest')->group(function () {
+Route::middleware('guest')->group(function (): void {
     Route::get('login', fn() => view('pages.auth.login'))->name('login');
     Route::get('register', fn() => view('pages.auth.register'))->name('register');
     Route::get('forgot-password', fn() => view('pages.auth.forgot-password'))->name('password.request');
@@ -153,7 +153,7 @@ Route::get('schedule/new', function () {
 /**
  * Routes for the help files
  */
-Route::prefix('help')->group(function () {
+Route::prefix('help')->group(function (): void {
     Route::get('billiard-rules', fn() => view('pages.help.billiard-rules'))->name('help.rules');
     Route::get('calendar', fn() => view('pages.help.calendar'))->name('help.calendar');
     Route::get('changelog', fn() => view('pages.help.changelog'))->name('help.changelog');
@@ -166,7 +166,7 @@ Route::prefix('help')->group(function () {
     Route::get('teams', fn() => view('pages.help.teams'))->name('help.teams');
 });
 
-Route::prefix('admin/help')->middleware('auth')->group(function () {
+Route::prefix('admin/help')->middleware('auth')->group(function (): void {
     Route::get('calendar', fn() => view('pages.admin.help.calendar'))->name('admin.help.calendar');
     Route::get('overview', fn() => view('pages.admin.help.overview'))->name('admin.help.overview');
     Route::get('schedule', fn() => view('pages.admin.help.schedule'))->name('admin.help.schedule');
@@ -178,7 +178,7 @@ Route::prefix('admin/help')->middleware('auth')->group(function () {
 /**
  * Mail routes to test the email body
  */
-Route::prefix('mailable')->group(function () {
+Route::prefix('mailable')->group(function (): void {
     Route::get('date/{date}', function ($date) {
         $date = \App\Models\Date::query()->find($date);
         return new \App\Mail\DayScoresConfirmed($date);

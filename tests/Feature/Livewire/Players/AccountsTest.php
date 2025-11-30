@@ -3,7 +3,7 @@
 use App\Livewire\Players\Accounts;
 use Livewire\Livewire;
 
-it('renders successfully', function () {
+it('renders successfully', function (): void {
     \App\Models\Season::factory()->create();
     \App\Models\Player::factory()->create();
 

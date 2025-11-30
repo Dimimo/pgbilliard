@@ -12,7 +12,7 @@ state(['password' => '']);
 
 rules(['password' => ['required', 'string']]);
 
-$confirmPassword = function () {
+$confirmPassword = function (): void {
     $this->validate();
     if (!auth()->guard('web')->validate([
         'email' => auth()->user()->email,

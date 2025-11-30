@@ -11,7 +11,7 @@ state([
     'contact_nr' => fn() => auth()->user()->contact_nr,
 ]);
 
-$updateContactNr = function () {
+$updateContactNr = function (): void {
     $user = auth()->user();
     $validated = $this->validate([
         'contact_nr' => [

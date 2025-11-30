@@ -26,12 +26,12 @@ rules([
     'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
 ]);
 
-$resetPassword = function () {
+$resetPassword = function (): void {
     $this->validate();
     // Here we will attempt to reset the user's password. If it is successful we
     // will update the password on an actual user model and persist it to the
     // database. Otherwise, we will parse the error and return the response.
-    $status = Password::reset($this->only('email', 'password', 'password_confirmation', 'token'), function ($user) {
+    $status = Password::reset($this->only('email', 'password', 'password_confirmation', 'token'), function ($user): void {
         $user->forceFill([
             'password' => Hash::make($this->password),
             'remember_token' => Str::random(60),

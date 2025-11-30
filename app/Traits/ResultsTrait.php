@@ -150,8 +150,8 @@ trait ResultsTrait
             ->with(['events.date', 'events.team_1', 'events.team_2'])
             ->get();
 
-        $dates->each(function (Date $date) {
-            $date->events->each(function ($event) {
+        $dates->each(function (Date $date): void {
+            $date->events->each(function ($event): void {
                 if (in_array($event->team_1->id, $this->teams_array)) {
                     $this->teams[$event->team_1->id][] = $event;
                 }

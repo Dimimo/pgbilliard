@@ -1,6 +1,6 @@
 <?php
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
     $this->player = \App\Models\Player::with('user')->find(1);
     $this->format = \App\Models\Format::factory()->create([
@@ -10,7 +10,7 @@ beforeEach(function () {
     ]);
 });
 
-it('if a day schedule can be loaded but not edited', function () {
+it('if a day schedule can be loaded but not edited', function (): void {
     $response = $this->get('/schedule/event/1');
     $response
         ->assertOk()
@@ -20,7 +20,7 @@ it('if a day schedule can be loaded but not edited', function () {
         ->assertDontSee('Choose a day games format');
 });
 
-it('checks if the schedule can be selected, admin login to bypass the time test', function () {
+it('checks if the schedule can be selected, admin login to bypass the time test', function (): void {
     $event = \App\Models\Event::query()->find(1);
     $event->update(['confirmed' => false]);
     \App\Models\Format::factory()->create(['name' => 'Format 2', 'details' => 'The format 2 details', 'user_id' => $this->player->user->id]);
@@ -44,7 +44,7 @@ it('checks if the schedule can be selected, admin login to bypass the time test'
         ->assertSee('Visit Team');
 });
 
-it('checks if the players can be selected for the matrix overview', function () {
+it('checks if the players can be selected for the matrix overview', function (): void {
     $event = \App\Models\Event::query()->find(1);
     $event->update(['confirmed' => false]);
     $admin = \App\Models\User::factory()->create(['name' => 'admin']);

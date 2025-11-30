@@ -3,12 +3,12 @@
 use App\Livewire\CycleAll;
 use Livewire\Livewire;
 
-it('renders successfully', function () {
+it('renders successfully', function (): void {
     Livewire::test(CycleAll::class)
         ->assertStatus(200);
 });
 
-it('shows the correct component', function () {
+it('shows the correct component', function (): void {
     $this->seed(\Database\Seeders\EventSeeder::class);
     $expected = "(" . \App\Models\Event::query()->count() . " games, " . \App\Models\Team::query()->count() . " Teams)";
 

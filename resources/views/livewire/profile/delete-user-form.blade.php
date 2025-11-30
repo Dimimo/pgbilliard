@@ -7,7 +7,7 @@ state(['password' => '']);
 
 rules(['password' => ['required', 'string', 'current_password']]);
 
-$deleteUser = function () {
+$deleteUser = function (): void {
     $this->validate();
     tap(auth()->user(), fn() => auth()->logout())->delete();
     session()->invalidate();

@@ -3,21 +3,21 @@
 use App\Livewire\Admin\Venues\Create;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->admin = \App\Models\Admin::factory()->create();
 
     $this->component = Livewire::actingAs($this->admin->user)
         ->test(Create::class, ['venue' => new \App\Models\Venue(['name' => ''])]);
 });
 
-it('renders the component successfully', function () {
+it('renders the component successfully', function (): void {
     $venue = \App\Models\Venue::factory()->create();
     Livewire::test(Create::class, ['venue' => $venue->id])
         ->assertStatus(200)
         ->assertViewIs('livewire.admin.venue');
 });
 
-it('creating a new venue validation test', function () {
+it('creating a new venue validation test', function (): void {
     $this->component
         ->set('venue_form.name', '')
         ->set('venue_form.address', '')
@@ -28,7 +28,7 @@ it('creating a new venue validation test', function () {
         ]);
 });
 
-it('can create a new venue', function () {
+it('can create a new venue', function (): void {
     $this->component
         ->set('venue_form.name', 'my venue')
         ->set('venue_form.address', 'my address')
@@ -42,7 +42,7 @@ it('can create a new venue', function () {
     $this->assertEquals(\App\Models\Venue::query()->count(), 1);
 });
 
-it('can update an existing venue', function () {
+it('can update an existing venue', function (): void {
     // uses a different LiveWire component
     $venue = \App\Models\Venue::factory()->create(['name' => 'my venue']);
     Livewire::actingAs($this->admin->user)

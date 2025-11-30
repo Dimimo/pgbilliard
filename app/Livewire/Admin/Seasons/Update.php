@@ -113,7 +113,7 @@ class Update extends Component
     private function getTeams(): void
     {
         $this->fill([
-            'teams' => Team::query()->where('season_id', $this->season->id)->orderBy('name')->get()->each(function (Team $team) {
+            'teams' => Team::query()->where('season_id', $this->season->id)->orderBy('name')->get()->each(function (Team $team): void {
                 if (strtoupper($team->name) === 'BYE') {
                     $this->has_bye = true;
                 }

@@ -3,7 +3,7 @@
 use App\Models\User;
 use Livewire\Volt\Volt;
 
-test('profile page is displayed', function () {
+test('profile page is displayed', function (): void {
     $this->seed(\Database\Seeders\SeasonSeeder::class);
     $user = User::factory()->create();
 
@@ -18,7 +18,7 @@ test('profile page is displayed', function () {
         ->assertOk();
 });
 
-test('profile information can be updated', function () {
+test('profile information can be updated', function (): void {
     $user = User::factory()->create();
 
     $this->actingAs($user);
@@ -39,7 +39,7 @@ test('profile information can be updated', function () {
     $this->assertNull($user->email_verified_at);
 });
 
-test('email verification status is unchanged when the email address is unchanged', function () {
+test('email verification status is unchanged when the email address is unchanged', function (): void {
     $user = User::factory()->create();
 
     $this->actingAs($user);
@@ -56,7 +56,7 @@ test('email verification status is unchanged when the email address is unchanged
     $this->assertNotNull($user->refresh()->email_verified_at);
 });
 
-test('user can delete their account', function () {
+test('user can delete their account', function (): void {
     $user = User::factory()->create();
 
     $this->actingAs($user);
@@ -73,7 +73,7 @@ test('user can delete their account', function () {
     $this->assertNull($user->fresh());
 });
 
-test('correct password must be provided to delete account', function () {
+test('correct password must be provided to delete account', function (): void {
     $user = User::factory()->create();
 
     $this->actingAs($user);

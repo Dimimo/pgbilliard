@@ -3,7 +3,7 @@
 use App\Livewire\Admin\Calendar\Shift;
 use Livewire\Livewire;
 
-it('renders successfully', function () {
+it('renders successfully', function (): void {
     $this->seed(\Database\Seeders\EventSeeder::class);
     $season = \App\Models\Season::query()->find(1);
     Livewire::test(Shift::class, ['season' => $season])
@@ -12,7 +12,7 @@ it('renders successfully', function () {
         ->assertCount('dates', 4);
 });
 
-it('has dates', function () {
+it('has dates', function (): void {
     $this->seed(\Database\Seeders\EventSeeder::class);
     $dates = \App\Models\Date::query()->where('season_id', 1)
         ->withCount(['events' => fn ($event) => $event->where('confirmed', 1)])
@@ -28,7 +28,7 @@ it('has dates', function () {
     $this->assertSame($last_played_date, $mutable_dates->first());
 });
 
-it('can shift a date and checks for overlap', function () {
+it('can shift a date and checks for overlap', function (): void {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
     $season = \App\Models\Season::query()->first();
     $admin = \App\Models\User::factory()->create(['name' => 'admin']);

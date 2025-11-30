@@ -17,7 +17,7 @@ rules([
     'password' => ['required', 'string', Password::defaults(), 'confirmed'],
 ]);
 
-$updatePassword = function () {
+$updatePassword = function (): void {
     try {
         $validated = $this->validate();
     } catch (ValidationException $e) {

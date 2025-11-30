@@ -3,7 +3,7 @@
 use App\Livewire\Players\Overview;
 use Livewire\Livewire;
 
-it('renders successfully', function () {
+it('renders successfully', function (): void {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
     $team = \App\Models\Team::query()->find(1);
 
@@ -13,7 +13,7 @@ it('renders successfully', function () {
         ->assertSet('team', $team);
 });
 
-it('shows player names', function () {
+it('shows player names', function (): void {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
     $team = \App\Models\Team::query()->find(1);
     Livewire::test(Overview::class, ['team' => $team])

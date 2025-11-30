@@ -11,7 +11,7 @@ state([
     'email' => fn() => auth()->user()->email
 ]);
 
-$updateProfileInformation = function () {
+$updateProfileInformation = function (): void {
     $user = auth()->user();
     $validated = $this->validate([
         'name' => ['required', 'string', 'min:2', 'max:255', Rule::unique(User::class)->ignore($user->id)],
@@ -27,7 +27,7 @@ $updateProfileInformation = function () {
     $this->dispatch('profile-updated', name: $user->name);
 };
 
-$sendVerification = function () {
+$sendVerification = function (): void {
     $user = auth()->user();
     if ($user->hasVerifiedEmail()) {
         $path = session('url.intended', RouteServiceProvider::HOME);

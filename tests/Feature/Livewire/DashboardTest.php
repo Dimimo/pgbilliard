@@ -3,19 +3,19 @@
 use App\Livewire\Dashboard;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->member = \App\Models\User::factory()->create();
     $this->season = \App\Models\Season::factory()->create(['cycle' => now()->format('Y/m')]);
     session()->put('cycle', $this->season->cycle);
 });
 
-it('renders successfully', function () {
+it('renders successfully', function (): void {
     Livewire::actingAs($this->member)
         ->test(Dashboard::class)
         ->assertStatus(200);
 });
 
-it('shows the correct component', function () {
+it('shows the correct component', function (): void {
     $this->actingAs($this->member);
     $response = $this->get('/dashboard');
 
@@ -24,7 +24,7 @@ it('shows the correct component', function () {
         ->assertOk();
 });
 
-it('is a player without a team', function () {
+it('is a player without a team', function (): void {
     $this->actingAs($this->member);
     $response = $this->get('/dashboard');
 
@@ -34,7 +34,7 @@ it('is a player without a team', function () {
         ->assertOk();
 });
 
-it('is a player for a team and is not a captain', function () {
+it('is a player for a team and is not a captain', function (): void {
     $team = \App\Models\Team::factory()->create(['season_id' => $this->season->id]);
     \App\Models\Player::factory()
         ->create([
@@ -52,7 +52,7 @@ it('is a player for a team and is not a captain', function () {
         ->assertDontSee('You are the Captain');
 });
 
-it('is a player for a team and is a captain', function () {
+it('is a player for a team and is a captain', function (): void {
     $team = \App\Models\Team::factory()->create(['season_id' => $this->season->id]);
     \App\Models\Player::factory()
         ->create([

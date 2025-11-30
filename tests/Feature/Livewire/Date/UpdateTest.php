@@ -3,14 +3,14 @@
 use App\Livewire\Date\Update;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->member = \App\Models\User::factory()->create();
     $this->seed(\Database\Seeders\EventSeeder::class);
     $this->game = \App\Models\Event::query()->find(2);
     session(['is_admin' => false]);
 });
 
-it('renders successfully', function () {
+it('renders successfully', function (): void {
     Livewire::actingAs($this->member)
         ->test(Update::class, ['event' => $this->game])
         ->assertStatus(200)
@@ -20,7 +20,7 @@ it('renders successfully', function () {
         ->assertViewHas('score1');
 });
 
-it('can change a score and dispatches a list refresh request', function () {
+it('can change a score and dispatches a list refresh request', function (): void {
     Livewire::actingAs($this->member)
         ->test(Update::class, ['event' => $this->game])
         ->call('change', 'score1')
@@ -28,7 +28,7 @@ it('can change a score and dispatches a list refresh request', function () {
         ->assertViewHas('score1', ++$this->game->score1);
 });
 
-it('shows errors if the score is less than 0 or more than 15', function () {
+it('shows errors if the score is less than 0 or more than 15', function (): void {
     Livewire::actingAs($this->member)
         ->test(Update::class, ['event' => $this->game])
         ->set('score2', 0)

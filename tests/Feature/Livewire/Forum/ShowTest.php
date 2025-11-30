@@ -3,7 +3,7 @@
 use App\Livewire\Forum\Show;
 use Livewire\Livewire;
 
-it('renders successfully', function () {
+it('renders successfully', function (): void {
     $post = \App\Models\Forum\Post::factory()->create();
 
     Livewire::test(Show::class, ['post' => $post])

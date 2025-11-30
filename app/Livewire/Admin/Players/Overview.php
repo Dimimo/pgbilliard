@@ -75,7 +75,7 @@ class Overview extends Component
         if ($user->games()->count()) {
             Toaster::error($user->name . ' has registered games and can not be deleted');
         } else {
-            $user->players()->each(function (Player $q) {
+            $user->players()->each(function (Player $q): void {
                 $q->position()->delete();
                 $q->rank()->delete();
             });

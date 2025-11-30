@@ -21,7 +21,7 @@ rules([
     'show_password' => ['boolean'],
 ]);
 
-$login = function () {
+$login = function (): void {
     $this->validate();
     $throttleKey = Str::transliterate(Str::lower($this->email) . '|' . request()->ip());
     if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
@@ -48,7 +48,7 @@ $login = function () {
     $this->redirect(session('url.intended', RouteServiceProvider::HOME));
 };
 
-$toggle_password = function () {
+$toggle_password = function (): void {
     $this->show_password = !$this->show_password;
 };
 ?>

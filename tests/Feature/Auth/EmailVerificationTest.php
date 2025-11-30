@@ -6,7 +6,7 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 
-test('email verification screen can be rendered', function () {
+test('email verification screen can be rendered', function (): void {
     $this->seed(\Database\Seeders\SeasonSeeder::class);
     $user = User::factory()->create([
         'email_verified_at' => null,
@@ -17,7 +17,7 @@ test('email verification screen can be rendered', function () {
     $response->assertStatus(200);
 });
 
-test('email can be verified', function () {
+test('email can be verified', function (): void {
     $user = User::factory()->create([
         'email_verified_at' => null,
     ]);
@@ -37,7 +37,7 @@ test('email can be verified', function () {
     $response->assertRedirect(RouteServiceProvider::HOME.'dashboard?verified=1');
 });
 
-test('email is not verified with invalid hash', function () {
+test('email is not verified with invalid hash', function (): void {
     $user = User::factory()->create([
         'email_verified_at' => null,
     ]);

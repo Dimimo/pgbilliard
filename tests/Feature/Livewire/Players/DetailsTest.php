@@ -3,7 +3,7 @@
 use App\Livewire\Players\Details;
 use Livewire\Livewire;
 
-it('renders successfully', function () {
+it('renders successfully', function (): void {
     $rank = \App\Models\Rank::factory()->create();
     $player = $rank->player;
     $season = $rank->season;

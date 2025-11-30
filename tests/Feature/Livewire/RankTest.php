@@ -3,18 +3,18 @@
 use App\Livewire\Rank;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->season = \App\Models\Season::factory()->create();
     session(['cycle' => $this->season->cycle]);
 });
 
-it('renders successfully', function () {
+it('renders successfully', function (): void {
     Livewire::test(Rank::class)
         ->assertStatus(200)
         ->assertViewIs('livewire.rank');
 });
 
-it('tests the ranking order and names', function () {
+it('tests the ranking order and names', function (): void {
     $this->seed(\Database\Seeders\RankSeeder::class);
     $first = \App\Models\Rank::query()->orderByDesc('percentage')->first();
     $last = \App\Models\Rank::query()->orderBy('played')->first();
