@@ -24,6 +24,7 @@ class Handler extends ExceptionHandler
     /**
      * Register the exception handling callbacks for the application.
      */
+    #[\Override]
     public function register(): void
     {
         $this->reportable(function (Throwable $e): void {
@@ -38,6 +39,7 @@ class Handler extends ExceptionHandler
      * @return void
      * @throws Throwable
      */
+    #[\Override]
     public function report(Throwable $e): void
     {
         try {
@@ -63,6 +65,7 @@ class Handler extends ExceptionHandler
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws Throwable
      */
+    #[\Override]
     public function render($request, Exception|Throwable $e): \Symfony\Component\HttpFoundation\Response
     {
         return parent::render($request, $e);

@@ -12,14 +12,11 @@ class UpdateRanks implements ShouldQueue, ShouldBeUnique
 {
     use Queueable;
 
-    public Season $season;
-
     /**
      * Create a new job instance.
      */
-    public function __construct(Season $season)
+    public function __construct(public Season $season)
     {
-        $this->season = $season;
     }
 
     /**

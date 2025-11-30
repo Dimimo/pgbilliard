@@ -47,15 +47,6 @@ class Admin extends Model
     protected $table = 'admins';
 
     /**
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'user_id' => 'integer',
-        'assigned_by' => 'integer',
-        'super_admin' => 'bool',
-    ];
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -86,5 +77,16 @@ class Admin extends Model
     public function assigned(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_by', 'id');
+    }
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'user_id' => 'integer',
+            'assigned_by' => 'integer',
+            'super_admin' => 'bool',
+        ];
     }
 }

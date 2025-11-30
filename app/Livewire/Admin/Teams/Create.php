@@ -23,6 +23,7 @@ class Create extends ModalComponent
         return view('livewire.admin.teams.create');
     }
 
+    #[\Override]
     public static function modalMaxWidthClass(): string
     {
         return 'max-w-xl md:max-w-2xl';

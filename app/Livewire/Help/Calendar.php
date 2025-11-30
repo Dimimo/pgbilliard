@@ -13,6 +13,7 @@ class Calendar extends ModalComponent
         return view('livewire.help.calendar');
     }
 
+    #[\Override]
     public static function modalMaxWidthClass(): string
     {
         return 'max-w-xl md:max-w-2xl';

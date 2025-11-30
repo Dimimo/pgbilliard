@@ -61,19 +61,6 @@ class Event extends Model
     protected $table = 'events';
 
     /**
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'date_id' => 'integer',
-        'venue_id' => 'integer',
-        'team1' => 'integer',
-        'team2' => 'integer',
-        'score1' => 'integer',
-        'score2' => 'integer',
-        'confirmed' => 'bool',
-    ];
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -157,5 +144,20 @@ class Event extends Model
     public function position(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Position::class);
+    }
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'date_id' => 'integer',
+            'venue_id' => 'integer',
+            'team1' => 'integer',
+            'team2' => 'integer',
+            'score1' => 'integer',
+            'score2' => 'integer',
+            'confirmed' => 'bool',
+        ];
     }
 }

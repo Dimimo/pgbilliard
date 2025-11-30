@@ -16,7 +16,7 @@ use Livewire\Component;
 class Dashboard extends Component
 {
     public User $user;
-    public ?Team $team;
+    public ?Team $team = null;
     public ?Player $player = null;
     public ?int $rank = null;
     public Collection $teams;

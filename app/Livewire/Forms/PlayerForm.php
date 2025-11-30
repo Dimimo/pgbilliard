@@ -17,9 +17,9 @@ class PlayerForm extends Form
     #[Validate]
     public bool $active = true;
     #[Validate]
-    public ?int $user_id;
+    public ?int $user_id = null;
     #[Validate]
-    public ?int $team_id;
+    public ?int $team_id = null;
 
     public function rules(): array
     {

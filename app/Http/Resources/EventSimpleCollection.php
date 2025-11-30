@@ -8,6 +8,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 /** @see \App\Models\Event */
 class EventSimpleCollection extends ResourceCollection
 {
+    #[\Override]
     public function toArray(Request $request): array
     {
         return [

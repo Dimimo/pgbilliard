@@ -18,7 +18,7 @@ class Details extends Component
     public Collection $games;
     public Season $season;
     public int $rank = 0;
-    public ?Carbon $date;
+    public ?Carbon $date = null;
     private array $date_ids;
     private array $event_ids;
     public bool $new_date = true;

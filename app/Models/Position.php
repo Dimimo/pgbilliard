@@ -37,16 +37,6 @@ class Position extends Model
 
     protected $table = 'positions';
 
-    /**
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'event_id' => 'integer',
-        'player_id' => 'integer',
-        'rank' => 'integer',
-        'home' => 'bool',
-    ];
-
     protected $fillable = [
         'event_id',
         'player_id',
@@ -62,5 +52,17 @@ class Position extends Model
     public function player(): BelongsTo
     {
         return $this->belongsTo(Player::class);
+    }
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'event_id' => 'integer',
+            'player_id' => 'integer',
+            'rank' => 'integer',
+            'home' => 'bool',
+        ];
     }
 }

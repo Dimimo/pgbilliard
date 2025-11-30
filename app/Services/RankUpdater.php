@@ -15,11 +15,9 @@ class RankUpdater
      * @var Collection<Player>
      */
     public Collection $players;
-    protected int $seasonId;
 
-    public function __construct(int $seasonId)
+    public function __construct(protected int $seasonId)
     {
-        $this->seasonId = $seasonId;
     }
 
     public function update(): void

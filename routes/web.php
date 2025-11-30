@@ -143,12 +143,8 @@ Route::middleware('guest')->group(function (): void {
 /**
  * Route for the schedule download
  */
-Route::get('schedule/original', function () {
-    return response()->download(public_path('day-schedule.pdf'));
-})->name('schedule.original');
-Route::get('schedule/new', function () {
-    return response()->download(public_path('reviewed_day_schedule.pdf'));
-})->name('schedule.new');
+Route::get('schedule/original', fn() => response()->download(public_path('day-schedule.pdf')))->name('schedule.original');
+Route::get('schedule/new', fn() => response()->download(public_path('reviewed_day_schedule.pdf')))->name('schedule.new');
 
 /**
  * Routes for the help files
@@ -195,9 +191,7 @@ Route::prefix('mailable')->group(function (): void {
         return new \App\Mail\AccountClaimed($user, "The email has been changed");
     });
 
-    Route::get('email-changed', function () {
-        return new \App\Mail\EmailChanged();
-    });
+    Route::get('email-changed', fn() => new \App\Mail\EmailChanged());
 
     Route::get('captain-reminder/{user}', function ($user) {
         $user = \App\Models\User::query()->find($user);

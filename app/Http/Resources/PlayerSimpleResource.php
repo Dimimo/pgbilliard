@@ -9,6 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /** @mixin Player */
 class PlayerSimpleResource extends JsonResource
 {
+    #[\Override]
     public function toArray(Request $request): array
     {
         return [

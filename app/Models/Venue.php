@@ -65,17 +65,6 @@ class Venue extends Model
     protected $table = 'venues';
 
     /**
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'address' => 'string',
-        'contact_name' => 'string',
-        'contact_nr' => 'string',
-        'name' => 'string',
-        'user_id' => 'integer',
-    ];
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -126,5 +115,18 @@ class Venue extends Model
     protected function getContactNr(): Attribute
     {
         return Attribute::make(get: fn () => $this->owner ? ($this->owner->contact_nr ?: $this->contact_nr) : $this->contact_nr);
+    }
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'address' => 'string',
+            'contact_name' => 'string',
+            'contact_nr' => 'string',
+            'name' => 'string',
+            'user_id' => 'integer',
+        ];
     }
 }

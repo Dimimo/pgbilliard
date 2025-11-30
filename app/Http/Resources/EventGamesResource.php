@@ -9,6 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /** @mixin Event */
 class EventGamesResource extends JsonResource
 {
+    #[\Override]
     public function toArray(Request $request): array
     {
         if ($this->games->count()) {

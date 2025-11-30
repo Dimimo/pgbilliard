@@ -20,6 +20,7 @@ class CommentRequest extends FormRequest
         ];
     }
 
+    #[\Override]
     public function messages(): array
     {
         return [

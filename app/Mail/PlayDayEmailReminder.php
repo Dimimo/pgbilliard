@@ -26,7 +26,7 @@ class PlayDayEmailReminder extends Mailable implements ShouldQueue
         public Date $date,
         public Team $team
     ) {
-        foreach ($this->date->events as $event) {
+        foreach ($this->date->dispatchesEvents as $event) {
             if ($event->team1 === $this->team->id || $event->team2 === $this->team->id) {
                 $this->event = $event;
             }

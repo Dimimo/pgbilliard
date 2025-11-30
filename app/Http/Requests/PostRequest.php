@@ -27,6 +27,7 @@ class PostRequest extends FormRequest
         ];
     }
 
+    #[\Override]
     public function messages(): array
     {
         return [

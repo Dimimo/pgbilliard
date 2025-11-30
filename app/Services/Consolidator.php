@@ -13,11 +13,8 @@ use Illuminate\Support\Str;
 
 class Consolidator
 {
-    public Event $event;
-
-    public function __construct(Event $event)
+    public function __construct(public Event $event)
     {
-        $this->event = $event;
     }
 
     public function consolidate(): bool
@@ -27,7 +24,7 @@ class Consolidator
         // let the others know the game is finished with a final score
         broadcast(new ScoreEvent($this->event->date->season_id, $this->event->id))->toOthers();
 
-        return app()->environment() === 'production' && $this->event->date->events->every(fn ($value) => $value->confirmed === true);
+        return app()->environment() === 'production' && $this->event->date->dispatchesEvents->every(fn ($value) => $value->confirmed === true);
     }
 
     /**

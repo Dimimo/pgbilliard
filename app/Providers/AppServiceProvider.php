@@ -10,6 +10,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
+    #[\Override]
     public function register(): void
     {
         //
@@ -22,8 +23,6 @@ class AppServiceProvider extends ServiceProvider
     {
         //Carbon macro for the timezone. For example $user->updated_at->appTimezone();
         //and even $user->updated_at->appTimezone()->format('d/m/y H:m');
-        Carbon::macro('appTimezone', function () {
-            return $this->tz(config('app.app_timezone'));
-        });
+        Carbon::macro('appTimezone', fn() => $this->tz(config('app.app_timezone')));
     }
 }

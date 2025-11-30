@@ -8,6 +8,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 /** @see \App\Models\Game */
 class GameCollection extends ResourceCollection
 {
+    #[\Override]
     public function toArray(Request $request): array
     {
         return [

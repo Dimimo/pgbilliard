@@ -17,13 +17,13 @@ class UserForm extends Form
     #[Validate]
     public ?string $contact_nr = '';
     #[Validate]
-    public ?string $gender;
+    public ?string $gender = null;
     #[Validate]
-    public ?string $email_verified_at;
+    public ?string $email_verified_at = null;
     #[Validate]
-    public ?string $last_game;
+    public ?string $last_game = null;
     #[Validate]
-    public ?string $password;
+    public ?string $password = null;
 
     public function rules(): array
     {

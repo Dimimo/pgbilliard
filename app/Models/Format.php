@@ -35,13 +35,6 @@ class Format extends Model
     use HasFactory;
 
     /**
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'user_id' => 'integer',
-    ];
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -65,5 +58,14 @@ class Format extends Model
     public function schedules(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Schedule::class);
+    }
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'user_id' => 'integer',
+        ];
     }
 }

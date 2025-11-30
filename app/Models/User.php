@@ -106,17 +106,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'last_game' => 'date',
-        'password' => 'hashed',
-    ];
-
     public function isAdmin(): bool
     {
         return session('is_admin');
@@ -197,5 +186,18 @@ class User extends Authenticatable
     public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Game::class);
+    }
+    /**
+     * The attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'last_game' => 'date',
+            'password' => 'hashed',
+        ];
     }
 }

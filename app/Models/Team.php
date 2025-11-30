@@ -62,15 +62,6 @@ class Team extends Model
     protected $table = 'teams';
 
     /**
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'name' => 'string',
-        'venue_id' => 'integer',
-        'season_id' => 'integer',
-    ];
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -103,9 +94,9 @@ class Team extends Model
         return floor(((($result['won'] / $result['max_games']) * 100) + (($result['for'] / (($result['max_games']) * 15)) * 100)) / 2);
     }
 
-    public function getUserIdAttribute()
+    protected function userId(): \Illuminate\Database\Eloquent\Casts\Attribute
     {
-        return $this->captain()?->user_id;
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(get: fn() => $this->captain()?->user_id);
     }
 
     /**
@@ -119,17 +110,19 @@ class Team extends Model
         ])->first();
     }
 
-    public function getCaptainNameAttribute(): ?string
+    protected function captainName(): \Illuminate\Database\Eloquent\Casts\Attribute
     {
-        return $this->captain()?->name ?: '(unknown)';
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(get: fn() => $this->captain()?->name ?: '(unknown)');
     }
 
-    public function getContactNrAttribute(): ?string
+    protected function contactNr(): \Illuminate\Database\Eloquent\Casts\Attribute
     {
-        if (!auth()->check()) {
-            return __('hidden');
-        }
-        return $this->captain()?->phone ?: $this->venue->contact_nr;
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(get: function () {
+            if (!auth()->check()) {
+                return __('hidden');
+            }
+            return $this->captain()?->phone ?: $this->venue->contact_nr;
+        });
     }
 
     public function hasGames(): bool
@@ -176,5 +169,16 @@ class Team extends Model
     public function games(): HasMany
     {
         return $this->hasMany(Game::class);
+    }
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'name' => 'string',
+            'venue_id' => 'integer',
+            'season_id' => 'integer',
+        ];
     }
 }

@@ -18,12 +18,12 @@ try {
         ->withPhpSets(php83: true)
         ->withSets([
             \RectorLaravel\Set\LaravelLevelSetList::UP_TO_LARAVEL_120,
-            \RectorLaravel\Set\LaravelSetList::LARAVEL_CODE_QUALITY,
-            \RectorLaravel\Set\LaravelSetList::LARAVEL_ARRAYACCESS_TO_METHOD_CALL,
+            //\RectorLaravel\Set\LaravelSetList::LARAVEL_CODE_QUALITY,
+            //\RectorLaravel\Set\LaravelSetList::LARAVEL_ARRAYACCESS_TO_METHOD_CALL,
 
         ])
         ->withRules([
-            LivewireComponentComputedMethodToComputedAttributeRector::class,
+            //LivewireComponentComputedMethodToComputedAttributeRector::class,
         ])
         ->withTypeCoverageLevel(0)
         ->withDeadCodeLevel(0)

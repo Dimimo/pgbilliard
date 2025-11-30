@@ -25,6 +25,6 @@ class DayReminder extends Command
      */
     public function handle(): void
     {
-        dispatch(new \App\Jobs\PlayDayReminder());
+        dispatch_sync(new \App\Jobs\PlayDayReminder());
     }
 }

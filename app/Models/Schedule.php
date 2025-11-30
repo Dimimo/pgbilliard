@@ -41,13 +41,6 @@ class Schedule extends Model
         'home',
     ];
 
-    protected $casts = [
-        'format_id' => 'integer',
-        'position' => 'integer',
-        'player' => 'integer',
-        'home' => 'bool',
-    ];
-
     public function format(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Format::class);
@@ -56,5 +49,14 @@ class Schedule extends Model
     public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Game::class);
+    }
+    protected function casts(): array
+    {
+        return [
+            'format_id' => 'integer',
+            'position' => 'integer',
+            'player' => 'integer',
+            'home' => 'bool',
+        ];
     }
 }

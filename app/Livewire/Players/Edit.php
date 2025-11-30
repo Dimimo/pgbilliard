@@ -200,7 +200,7 @@ class Edit extends Component
         $this->setUserForm(new User());
         $this->setMaxReached();
         $this->dispatch('user-created');
-        dispatch(new CaptainCreatedNewUser($user));
+        dispatch_sync(new CaptainCreatedNewUser($user));
     }
 
     public function removePlayer($player_id): void

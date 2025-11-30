@@ -19,9 +19,9 @@ class DateForm extends Form
     #[Validate]
     public bool $regular = false;
     #[Validate]
-    public ?string $title;
+    public ?string $title = null;
     #[Validate]
-    public ?string $remark;
+    public ?string $remark = null;
 
     public function rules(): array
     {

@@ -56,17 +56,6 @@ class Game extends Model
         'win',
     ];
 
-    protected $casts = [
-        'home' => 'bool',
-        'win' => 'bool',
-        'schedule_id' => 'int',
-        'event_id' => 'int',
-        'team_id' => 'int',
-        'player_id' => 'int',
-        'user_id' => 'int',
-        'position' => 'int',
-    ];
-
     public function schedule(): BelongsTo
     {
         return $this->belongsTo(Schedule::class);
@@ -90,5 +79,18 @@ class Game extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    protected function casts(): array
+    {
+        return [
+            'home' => 'bool',
+            'win' => 'bool',
+            'schedule_id' => 'int',
+            'event_id' => 'int',
+            'team_id' => 'int',
+            'player_id' => 'int',
+            'user_id' => 'int',
+            'position' => 'int',
+        ];
     }
 }

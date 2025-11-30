@@ -3,9 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:sanctum')->get('/user', fn(Request $request) => $request->user());
 
 Route::get('user/{id}', fn (string $id) => new \App\Http\Resources\UserResource(\App\Models\User::query()->findOrFail($id)));
 Route::get('date/{id}', fn (string $id) => new \App\Http\Resources\DatesResource(\App\Models\Date::query()->findOrFail($id)));

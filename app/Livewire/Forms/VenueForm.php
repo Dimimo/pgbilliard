@@ -16,17 +16,17 @@ class VenueForm extends Form
     #[Validate]
     public ?int $user_id = null;
     #[Validate]
-    public ?string $address;
+    public ?string $address = null;
     #[Validate]
-    public ?string $contact_name;
+    public ?string $contact_name = null;
     #[Validate]
-    public ?string $contact_nr;
+    public ?string $contact_nr = null;
     #[Validate]
-    public ?string $remark;
+    public ?string $remark = null;
     #[Validate]
-    public ?string $lat;
+    public ?string $lat = null;
     #[Validate]
-    public ?string $lng;
+    public ?string $lng = null;
 
     public function rules(): array
     {

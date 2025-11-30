@@ -14,18 +14,12 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 // only for live scores
-Broadcast::channel('live-score', function () {
-    return ['ably-capability' => ["subscribe", "publish"]];
-});
+Broadcast::channel('live-score', fn() => ['ably-capability' => ["subscribe", "publish"]]);
 
 // for universal use, just request a refresh of the page
-Broadcast::channel('refresh-request', function () {
-    return ['ably-capability' => ["subscribe", "publish"]];
-});
+Broadcast::channel('refresh-request', fn() => ['ably-capability' => ["subscribe", "publish"]]);
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
-});
+Broadcast::channel('App.Models.User.{id}', fn($user, $id) => (int) $user->id === (int) $id);
 
 // the chat, all private but some more private
 Broadcast::channel('chat.{roomId}', function (\App\Models\User $user, int $roomId) {

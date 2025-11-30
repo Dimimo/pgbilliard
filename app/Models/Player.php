@@ -62,16 +62,6 @@ class Player extends Model
     protected $table = 'players';
 
     /**
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'user_id' => 'integer',
-        'team_id' => 'integer',
-        'captain' => 'boolean',
-        'active' => 'boolean',
-    ];
-
-    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -130,12 +120,10 @@ class Player extends Model
 
     protected function participated(): Attribute
     {
-        return Attribute::make(get: function () {
-            return $this->games()
-                ->whereNotNull('win')
-                ->distinct()
-                ->count('event_id');
-        });
+        return Attribute::make(get: fn() => $this->games()
+            ->whereNotNull('win')
+            ->distinct()
+            ->count('event_id'));
     }
 
     public function events(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -166,5 +154,17 @@ class Player extends Model
     public function rank(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Rank::class);
+    }
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'user_id' => 'integer',
+            'team_id' => 'integer',
+            'captain' => 'boolean',
+            'active' => 'boolean',
+        ];
     }
 }

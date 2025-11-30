@@ -9,6 +9,7 @@ class Kernel extends ConsoleKernel
     /**
      * Register the commands for the application.
      */
+    #[\Override]
     protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');

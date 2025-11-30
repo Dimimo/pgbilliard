@@ -46,22 +46,12 @@ class SendEmails extends Component
         $this->users = Collect();
         $this->body = "A message for all " . Str::ucfirst($this->group) . ":\n\n";
 
-        switch ($value) {
-            case 'players':
-                $this->getPlayers();
-                break;
-
-            case 'captains':
-                $this->getCaptains();
-                break;
-
-            case 'administrators':
-                $this->getAdmins();
-                break;
-
-            default:
-                $this->getPlayers();
-        }
+        match ($value) {
+            'players' => $this->getPlayers(),
+            'captains' => $this->getCaptains(),
+            'administrators' => $this->getAdmins(),
+            default => $this->getPlayers(),
+        };
     }
 
     public function send(): void

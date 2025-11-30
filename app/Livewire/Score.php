@@ -22,7 +22,7 @@ class Score extends Component
     public array $scores;
     public int $i = 1;
     public int $played_weeks = 0;
-    public ?Date $date;
+    public ?Date $date = null;
     public ?int $score_id = null;
     public bool $show_full_table = false;
     public bool $isAndroid = false;

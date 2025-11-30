@@ -16,14 +16,11 @@ class PoolSetDayScores implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    protected Date $date;
-
     /**
      * Create a new job instance.
      */
-    public function __construct(Date $date)
+    public function __construct(protected Date $date)
     {
-        $this->date = $date;
     }
 
     /**
@@ -36,7 +33,7 @@ class PoolSetDayScores implements ShouldQueue
         date_default_timezone_set(config('app.app_timezone'));
 
         if ($this->date->events()->count() > 0) {
-            foreach ($this->date->events as $event) {
+            foreach ($this->date->dispatchesEvents as $event) {
                 if (!$event->score1 && !$event->score2) {
                     if ($event->team_2->name === 'BYE') {
                         $event->update(['score1' => null, 'score2' => null, 'confirmed' => true]);

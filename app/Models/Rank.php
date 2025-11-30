@@ -44,21 +44,6 @@ class Rank extends Model
 {
     use HasFactory;
 
-    /**
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'season_id' => 'integer',
-        'player_id' => 'integer',
-        'user_id' => 'integer',
-        'max_games' => 'integer',
-        'participated' => 'integer',
-        'won' => 'integer',
-        'lost' => 'integer',
-        'played' => 'integer',
-        'percentage' => 'integer',
-    ];
-
     protected $fillable = [
         'season_id',
         'player_id',
@@ -86,5 +71,22 @@ class Rank extends Model
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'season_id' => 'integer',
+            'player_id' => 'integer',
+            'user_id' => 'integer',
+            'max_games' => 'integer',
+            'participated' => 'integer',
+            'won' => 'integer',
+            'lost' => 'integer',
+            'played' => 'integer',
+            'percentage' => 'integer',
+        ];
     }
 }

@@ -25,6 +25,6 @@ class UpdateLastPlayedDate extends Command
      */
     public function handle(): void
     {
-        dispatch(new \App\Jobs\UpdateUsersLastPlayedDate());
+        dispatch_sync(new \App\Jobs\UpdateUsersLastPlayedDate());
     }
 }

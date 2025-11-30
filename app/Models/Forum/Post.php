@@ -65,11 +65,6 @@ class Post extends Model
         'is_sticky',
     ];
 
-    protected $casts = [
-        'is_locked' => 'bool',
-        'is_sticky' => 'bool',
-    ];
-
     protected function title(): Attribute
     {
         return Attribute::make(
@@ -96,5 +91,12 @@ class Post extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id');
+    }
+    protected function casts(): array
+    {
+        return [
+            'is_locked' => 'bool',
+            'is_sticky' => 'bool',
+        ];
     }
 }

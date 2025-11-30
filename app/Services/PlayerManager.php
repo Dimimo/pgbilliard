@@ -25,7 +25,7 @@ class PlayerManager
                 ->pluck('player_id')
                 ->toArray();
 
-            $$players = Player::query()->whereIn('id', $player_ids)->get();
+            ${$players} = Player::query()->whereIn('id', $player_ids)->get();
         }
         return [$home_players, $visit_players];
     }
