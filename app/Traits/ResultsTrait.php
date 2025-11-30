@@ -151,7 +151,7 @@ trait ResultsTrait
             ->get();
 
         $dates->each(function (Date $date): void {
-            $date->dispatchesEvents->each(function ($event): void {
+            $date->events->each(function ($event): void {
                 if (in_array($event->team_1->id, $this->teams_array)) {
                     $this->teams[$event->team_1->id][] = $event;
                 }
