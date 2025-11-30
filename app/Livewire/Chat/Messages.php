@@ -43,8 +43,7 @@ class Messages extends Component
     public function chatMessages(): void
     {
         $this->chats = $this->room
-            ->messages()
-            ->orderBy('created_at')
+            ->messages()->oldest()
             ->with(['user' => fn ($q) => $q->select(['id', 'name'])])
             ->get();
     }

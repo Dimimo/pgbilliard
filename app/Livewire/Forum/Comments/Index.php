@@ -31,7 +31,7 @@ class Index extends Component
 
     private function getComments(): void
     {
-        $this->comments = $this->post->comments()->orderBy('created_at')->get();
+        $this->comments = $this->post->comments()->oldest()->get();
     }
 
     public function toggleComment(): void

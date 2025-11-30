@@ -20,8 +20,8 @@ $updateProfileInformation = function (): void {
     $user->fill($validated);
     if ($user->isDirty('email')) {
         $user->email_verified_at = null;
-        \App\Jobs\AccountHasBeenClaimed::dispatch($user);
-        \App\Jobs\EmailHasBeenChanged::dispatch($user);
+        dispatch_sync(new \App\Jobs\AccountHasBeenClaimed($user));
+        dispatch_sync(new \App\Jobs\EmailHasBeenChanged($user));
     }
     $user->save();
     $this->dispatch('profile-updated', name: $user->name);

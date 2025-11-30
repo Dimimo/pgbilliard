@@ -38,10 +38,10 @@ class PoolScoresSetDay extends Command
      */
     public function handle(): void
     {
-        $today = Carbon::now()->appTimezone()->format('Y-m-d');
+        $today = \Illuminate\Support\Facades\Date::now()->appTimezone()->format('Y-m-d');
         $dates = Date::query()->where('date', $today)->get();
         foreach ($dates as $date) {
-            PoolSetDayScores::dispatch($date);
+            dispatch(new \App\Jobs\PoolSetDayScores($date));
         }
         $dates->count() ? $count = $dates->count() : $count = 'No';
         $message = "The daily Pool score for $today has been run. $count reset requests has been dispatched.";

@@ -24,7 +24,7 @@ class Index extends Component
     {
         return Post::with(['user', 'tags', 'visits' => fn ($q) => $q->where('user_id', Auth::id())])
             ->orderByDesc('is_sticky')
-            ->orderByDesc('updated_at')
+            ->latest('updated_at')
             ->withCount('comments')
             ->paginate(10);
     }

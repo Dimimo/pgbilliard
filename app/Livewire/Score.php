@@ -92,7 +92,7 @@ class Score extends Component
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores(array $response): void
     {
-        if (app()->environment() === $response['environment']) {
+        if (app()->environment($response['environment'])) {
             $event = Event::query()->find($response['event_id']);
             if ($event->date->season_id === Context::getHidden('season_id')) {
                 $this->scores = $this->getResults();

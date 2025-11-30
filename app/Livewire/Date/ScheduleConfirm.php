@@ -26,7 +26,7 @@ class ScheduleConfirm extends Component
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores($response): void
     {
-        if ($this->event->id === $response['event_id'] && app()->environment() === $response['environment']) {
+        if ($this->event->id === $response['event_id'] && app()->environment($response['environment'])) {
             $this->event = (new LiveScoreUpdater($this->event))->getEventScores();
             $this->render();
         }

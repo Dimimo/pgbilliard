@@ -25,7 +25,7 @@ trait WithLoadUsersList
     protected function queryUsers(): \Illuminate\Database\Eloquent\Builder
     {
         return User::query()
-            ->where('last_game', '>', Carbon::now()->sub($this->carbon_sub))
+            ->where('last_game', '>', \Illuminate\Support\Facades\Date::now()->sub($this->carbon_sub))
             ->orderBy('name')
             ->whereNotIn('id', [1]); //get rid of the administrator
     }

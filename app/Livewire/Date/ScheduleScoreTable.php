@@ -84,7 +84,7 @@ class ScheduleScoreTable extends Component
         $this->render();
         (new LogGames())->logGameChanges($game);
 
-        UpdateRanks::dispatch($this->season);
+        dispatch(new \App\Jobs\UpdateRanks($this->season));
         $this->dispatch('update-settings', specific: 'can-update-players')->to(Schedule::class);
         $this->dispatch('score-updated')->to(SchedulePlayerSelector::class);
         $this->dispatch('refresh-list');
@@ -102,7 +102,7 @@ class ScheduleScoreTable extends Component
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores($response): void
     {
-        if ($this->event->id === $response['event_id'] && app()->environment() === $response['environment']) {
+        if ($this->event->id === $response['event_id'] && app()->environment($response['environment'])) {
             $this->dispatch('update-settings', specific: 'score-set', games: $response['games']);
             $this->render();
         }

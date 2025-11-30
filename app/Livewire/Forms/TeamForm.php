@@ -47,7 +47,7 @@ class TeamForm extends Form
         // The id selects the first created captain in the team (not failsafe)
         $this->captain_id = $this->team->players()
             ->where('captain', true)
-            ->orderByDesc('updated_at')
+            ->latest('updated_at')
             ->first()
             ?->user_id;
 

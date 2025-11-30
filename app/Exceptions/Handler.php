@@ -46,7 +46,7 @@ class Handler extends ExceptionHandler
             if (! $this->shouldntReport($e)) {
                 $title = $e->getMessage() . ' (' . \URL::full() . ')';
                 $message = $title . "\n\n" . $e;
-                if (\App::environment() === 'production') {
+                if (\App::isProduction()) {
                     \Mail::to('admin@pgbilliard.com')->send(new ExceptionMail($title, nl2br($message)));
                 }
             }

@@ -67,7 +67,7 @@ class Rank extends Component
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores(array $response): void
     {
-        if ($this->season->id === $response['season_id'] && app()->environment() === $response['environment']) {
+        if ($this->season->id === $response['season_id'] && app()->environment($response['environment'])) {
             $rankUpdater = new RankUpdater($this->season->id);
             $rankUpdater->update();
 

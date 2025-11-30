@@ -83,7 +83,7 @@ class Date extends Model
      */
     public function checkOpenWindowAccess(): bool
     {
-        $now = Carbon::now()->appTimezone();
+        $now = \Illuminate\Support\Facades\Date::now()->appTimezone();
         $begin = $this->date->appTimezone()->setHour(Constants::DATEFORMAT_START);
         $end = $this->date->appTimezone()->setHour(Constants::DATEFORMAT_END);
 

@@ -21,11 +21,11 @@ class Create extends Component
 
     public function mount(): void
     {
-        $this->season = new Season(['cycle' => Carbon::now()->appTimezone()->format('Y/m')]);
+        $this->season = new Season(['cycle' => \Illuminate\Support\Facades\Date::now()->appTimezone()->format('Y/m')]);
         $this->cycle = $this->season->cycle;
         $this->day_of_week = Constants::STARTING_DAY;
         $this->players = Constants::MAX_TEAM_PLAYERS;
-        $this->starting_date = Carbon::now()
+        $this->starting_date = \Illuminate\Support\Facades\Date::now()
             ->appTimezone()
             ->next($this->day_of_week)
             ->format('Y-m-d');
@@ -43,7 +43,7 @@ class Create extends Component
         $season = Season::query()->create($validated);
         Date::query()->create([
             'season_id' => $season->id,
-            'date' => Carbon::createFromFormat('Y-m-d', $this->starting_date),
+            'date' => \Illuminate\Support\Facades\Date::createFromFormat('Y-m-d', $this->starting_date),
         ]);
         $this->dispatch('season-created');
         session(['alert' => "Season $season->cycle is created. Time to create the teams!"]);
@@ -60,7 +60,7 @@ class Create extends Component
             $this->has_bye = $value % 2 !== 0;
         } elseif ($name === 'day_of_week') {
             $this->day_of_week = $value;
-            $this->starting_date = Carbon::createFromFormat('Y-m-d', $this->starting_date)
+            $this->starting_date = \Illuminate\Support\Facades\Date::createFromFormat('Y-m-d', $this->starting_date)
                 ->appTimezone()
                 ->firstOfMonth($this->getWeekDay())
                 ->format('Y-m-d');
@@ -71,12 +71,12 @@ class Create extends Component
 
     public function addMonth(): void
     {
-        $this->cycle = Carbon::createFromFormat('Y/m', $this->cycle)
+        $this->cycle = \Illuminate\Support\Facades\Date::createFromFormat('Y/m', $this->cycle)
             ->appTimezone()
             ->addMonth()
             ->format('Y/m');
 
-        $this->starting_date = Carbon::createFromFormat('Y-m-d', $this->starting_date)
+        $this->starting_date = \Illuminate\Support\Facades\Date::createFromFormat('Y-m-d', $this->starting_date)
             ->appTimezone()->addMonth()
             ->firstOfMonth($this->getWeekDay())
             ->format('Y-m-d');
@@ -86,7 +86,7 @@ class Create extends Component
 
     public function subMonth(): void
     {
-        $this->cycle = Carbon::createFromFormat('Y/m', $this->cycle)
+        $this->cycle = \Illuminate\Support\Facades\Date::createFromFormat('Y/m', $this->cycle)
             ->appTimezone()
             ->subMonth()
             ->format('Y/m');
@@ -97,7 +97,7 @@ class Create extends Component
 
     public function addWeek(): void
     {
-        $this->starting_date = Carbon::createFromFormat('Y-m-d', $this->starting_date)
+        $this->starting_date = \Illuminate\Support\Facades\Date::createFromFormat('Y-m-d', $this->starting_date)
             ->appTimezone()
             ->addWeek()
             ->format('Y-m-d');
@@ -105,7 +105,7 @@ class Create extends Component
 
     public function subWeek(): void
     {
-        $this->starting_date = Carbon::createFromFormat('Y-m-d', $this->starting_date)
+        $this->starting_date = \Illuminate\Support\Facades\Date::createFromFormat('Y-m-d', $this->starting_date)
             ->appTimezone()
             ->subWeek()
             ->format('Y-m-d');
@@ -137,14 +137,14 @@ class Create extends Component
     //as it first starts with the first weekday day of the month it is possible
     private function subMonthAndCheck(): void
     {
-        $this->starting_date = Carbon::createFromFormat('Y-m-d', $this->starting_date)
+        $this->starting_date = \Illuminate\Support\Facades\Date::createFromFormat('Y-m-d', $this->starting_date)
             ->appTimezone()
             ->subMonth()
             ->firstOfMonth($this->getWeekDay())
             ->format('Y-m-d');
 
-        if (Carbon::createFromFormat('Y-m-d', $this->starting_date)->isSameMonth(Carbon::now())) {
-            $this->starting_date = Carbon::now()->appTimezone()->next($this->day_of_week)->format('Y-m-d');
+        if (\Illuminate\Support\Facades\Date::createFromFormat('Y-m-d', $this->starting_date)->isSameMonth(\Illuminate\Support\Facades\Date::now())) {
+            $this->starting_date = \Illuminate\Support\Facades\Date::now()->appTimezone()->next($this->day_of_week)->format('Y-m-d');
         }
     }
 
