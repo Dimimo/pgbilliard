@@ -3,7 +3,6 @@
 namespace App\Livewire\Date;
 
 use App\Events\ScoreEvent;
-use App\Jobs\UpdateRanks;
 use App\Models\Event;
 use App\Models\Format;
 use App\Models\Game;

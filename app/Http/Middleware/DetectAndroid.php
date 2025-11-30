@@ -20,8 +20,7 @@ class DetectAndroid
             // User is on an Android device
             // You can perform actions here, like setting a session variable or logging
             $request->session()->put('is_android', true);
-            if ($request->url() !== $request->session()->previousUrl())
-            {
+            if ($request->url() !== $request->session()->previousUrl()) {
                 $request->session()->setPreviousUrl($request->url());
             }
         } else {

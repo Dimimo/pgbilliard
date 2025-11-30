@@ -3,9 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Date;
-use App\Jobs\PoolSetDayScores;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 
 class PoolScoresSetDay extends Command
 {

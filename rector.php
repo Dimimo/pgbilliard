@@ -19,7 +19,7 @@ try {
         ->withSets([
             \RectorLaravel\Set\LaravelLevelSetList::UP_TO_LARAVEL_120,
             \RectorLaravel\Set\LaravelSetList::LARAVEL_CODE_QUALITY,
-            //\RectorLaravel\Set\LaravelSetList::LARAVEL_ARRAYACCESS_TO_METHOD_CALL,
+            \RectorLaravel\Set\LaravelSetList::LARAVEL_ARRAYACCESS_TO_METHOD_CALL,
 
         ])
         ->withRules([

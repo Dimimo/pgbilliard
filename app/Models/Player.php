@@ -120,7 +120,7 @@ class Player extends Model
 
     protected function participated(): Attribute
     {
-        return Attribute::make(get: fn() => $this->games()
+        return Attribute::make(get: fn () => $this->games()
             ->whereNotNull('win')
             ->distinct()
             ->count('event_id'));

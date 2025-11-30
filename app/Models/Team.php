@@ -96,7 +96,7 @@ class Team extends Model
 
     protected function userId(): \Illuminate\Database\Eloquent\Casts\Attribute
     {
-        return \Illuminate\Database\Eloquent\Casts\Attribute::make(get: fn() => $this->captain()?->user_id);
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(get: fn () => $this->captain()?->user_id);
     }
 
     /**
@@ -112,7 +112,7 @@ class Team extends Model
 
     protected function captainName(): \Illuminate\Database\Eloquent\Casts\Attribute
     {
-        return \Illuminate\Database\Eloquent\Casts\Attribute::make(get: fn() => $this->captain()?->name ?: '(unknown)');
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(get: fn () => $this->captain()?->name ?: '(unknown)');
     }
 
     protected function contactNr(): \Illuminate\Database\Eloquent\Casts\Attribute
