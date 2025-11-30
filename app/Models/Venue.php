@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -50,7 +48,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Venue whereUpdatedAt($value)
  * @method static Builder|Venue whereUserId($value)
  *
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 class Venue extends Model
 {
@@ -91,17 +89,26 @@ class Venue extends Model
         return VenueFactory::new();
     }
 
-    public function owner(): BelongsTo
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     */
+    public function owner(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function teams(): HasMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Team, $this>
+     */
+    public function teams(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Team::class, 'venue_id', 'id');
     }
 
-    public function events(): HasMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Event, $this>
+     */
+    public function events(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Event::class, 'venue_id', 'id');
     }

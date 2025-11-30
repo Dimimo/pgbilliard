@@ -47,7 +47,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Player whereUpdatedAt($value)
  * @method static Builder|Player whereUserId($value)
  *
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 class Player extends Model
 {
@@ -130,6 +130,9 @@ class Player extends Model
         return $this->games()->whereNotNull('win')->select('event_id')->distinct();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Team, $this>
+     */
     public function team(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Team::class, 'team_id', 'id');
@@ -140,16 +143,25 @@ class Player extends Model
         return $this->belongsTo(config('auth.providers.users.model'), 'user_id', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Game, $this>
+     */
     public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Game::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Position, $this>
+     */
     public function position(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Position::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rank, $this>
+     */
     public function rank(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Rank::class);

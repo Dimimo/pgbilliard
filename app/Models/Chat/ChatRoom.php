@@ -8,9 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -39,7 +36,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|ChatRoom whereUpdatedAt($value)
  * @method static Builder|ChatRoom whereUserId($value)
  *
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 class ChatRoom extends Model
 {
@@ -70,17 +67,26 @@ class ChatRoom extends Model
         return ChatRoomFactory::new();
     }
 
-    public function owner(): BelongsTo
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     */
+    public function owner(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function users(): BelongsToMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this, \Illuminate\Database\Eloquent\Relations\Pivot>
+     */
+    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
-    public function messages(): HasMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ChatMessage, $this>
+     */
+    public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ChatMessage::class, 'chat_room_id', 'id');
     }

@@ -46,7 +46,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|\Illuminate\Support\Facades\Event whereUpdatedAt($value)
  * @method static Builder|\Illuminate\Support\Facades\Event whereVenueId($value)
  *
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 class Event extends Model
 {
@@ -115,31 +115,49 @@ class Event extends Model
         return $this->games()->wherePosition(15)->has('player')->count() === 4;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Date, $this>
+     */
     public function date(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Date::class, 'date_id', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Venue, $this>
+     */
     public function venue(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Venue::class, 'venue_id', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Team, $this>
+     */
     public function team_1(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Team::class, 'team1', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Team, $this>
+     */
     public function team_2(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Team::class, 'team2', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Game, $this>
+     */
     public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Game::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Position, $this>
+     */
     public function position(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Position::class);

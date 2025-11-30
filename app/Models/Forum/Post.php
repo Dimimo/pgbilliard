@@ -9,9 +9,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
@@ -49,7 +46,7 @@ use Illuminate\Support\Str;
  * @method static Builder|Post whereUpdatedAt($value)
  * @method static Builder|Post whereUserId($value)
  *
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 class Post extends Model
 {
@@ -72,22 +69,34 @@ class Post extends Model
         );
     }
 
-    public function user(): BelongsTo
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     */
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function comments(): HasMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Comment, $this>
+     */
+    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Comment::class, 'post_id', 'id');
     }
 
-    public function visits(): HasMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Visit, $this>
+     */
+    public function visits(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Visit::class, 'post_id', 'id');
     }
 
-    public function tags(): BelongsToMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tag, $this, \Illuminate\Database\Eloquent\Relations\Pivot>
+     */
+    public function tags(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id');
     }

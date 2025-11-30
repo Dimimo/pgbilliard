@@ -32,7 +32,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Season wherePlayers($value)
  * @method static Builder|Season whereUpdatedAt($value)
  *
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 class Season extends Model
 {
@@ -43,16 +43,25 @@ class Season extends Model
         'players',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Team, $this>
+     */
     public function teams(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Team::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Date, $this>
+     */
     public function dates(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Date::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rank, $this>
+     */
     public function ranks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Rank::class);

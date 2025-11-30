@@ -3,12 +3,10 @@
 namespace App\Models;
 
 use Database\Factories\TeamFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -48,7 +46,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Team whereUpdatedAt($value)
  * @method static Builder|Team whereVenueId($value)
  *
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 class Team extends Model
 {
@@ -140,33 +138,50 @@ class Team extends Model
      * The eloquent relationships
      *
      **************************************/
-
-    public function players(): HasMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Player, $this>
+     */
+    public function players(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Player::class);
     }
 
-    public function team_1(): HasMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Event, $this>
+     */
+    public function team_1(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Event::class, 'team1', 'id');
     }
 
-    public function team_2(): HasMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Event, $this>
+     */
+    public function team_2(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Event::class, 'team2', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Season, $this>
+     */
     public function season(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Season::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Venue, $this>
+     */
     public function venue(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Venue::class, 'venue_id');
     }
 
-    public function games(): HasMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Game, $this>
+     */
+    public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Game::class);
     }

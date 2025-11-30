@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Schedule wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Schedule whereUpdatedAt($value)
  *
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 class Schedule extends Model
 {
@@ -41,11 +41,17 @@ class Schedule extends Model
         'home',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Format, $this>
+     */
     public function format(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Format::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Game, $this>
+     */
     public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Game::class);

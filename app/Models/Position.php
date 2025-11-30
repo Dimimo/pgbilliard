@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Position
@@ -29,7 +28,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Position wherePlayerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Position whereRank($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Position whereUpdatedAt($value)
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 class Position extends Model
 {
@@ -44,12 +43,18 @@ class Position extends Model
         'home',
     ];
 
-    public function event(): BelongsTo
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Event, $this>
+     */
+    public function event(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Event::class);
     }
 
-    public function player(): BelongsTo
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Player, $this>
+     */
+    public function player(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Player::class);
     }

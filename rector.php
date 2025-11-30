@@ -21,7 +21,8 @@ try {
             \RectorLaravel\Set\LaravelSetList::LARAVEL_CODE_QUALITY,
             \RectorLaravel\Set\LaravelSetList::LARAVEL_ARRAYACCESS_TO_METHOD_CALL,
             \RectorLaravel\Set\LaravelSetList::LARAVEL_FACADE_ALIASES_TO_FULL_NAMES,
-
+            \RectorLaravel\Set\LaravelSetList::LARAVEL_FACTORIES,
+            \RectorLaravel\Set\LaravelSetList::LARAVEL_TYPE_DECLARATIONS,
         ])
         ->withRules([
             LivewireComponentComputedMethodToComputedAttributeRector::class,

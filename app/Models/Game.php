@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  *
@@ -39,7 +38,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Game whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Game whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Game whereWin($value)
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 class Game extends Model
 {
@@ -56,27 +55,42 @@ class Game extends Model
         'win',
     ];
 
-    public function schedule(): BelongsTo
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Schedule, $this>
+     */
+    public function schedule(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Schedule::class);
     }
 
-    public function event(): BelongsTo
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Event, $this>
+     */
+    public function event(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Event::class);
     }
 
-    public function team(): BelongsTo
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Team, $this>
+     */
+    public function team(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Team::class);
     }
 
-    public function player(): BelongsTo
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Player, $this>
+     */
+    public function player(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Player::class);
     }
 
-    public function user(): BelongsTo
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     */
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }

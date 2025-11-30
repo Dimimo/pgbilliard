@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 
 /**
@@ -31,7 +30,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Tag whereSlug($value)
  * @method static Builder|Tag whereUpdatedAt($value)
  *
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 class Tag extends Model
 {
@@ -42,7 +41,10 @@ class Tag extends Model
         'slug',
     ];
 
-    public function posts(): BelongsToMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Post, $this, \Illuminate\Database\Eloquent\Relations\Pivot>
+     */
+    public function posts(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Post::class, 'post_tag', 'tag_id', 'post_id');
     }

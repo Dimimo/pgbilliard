@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection as PlayerList;
 
@@ -41,7 +39,7 @@ use Illuminate\Support\Collection as PlayerList;
  * @method static Builder|Date whereTitle($value)
  * @method static Builder|Date whereUpdatedAt($value)
  *
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 class Date extends Model
 {
@@ -144,12 +142,18 @@ class Date extends Model
         ?->team;
     }
 
-    public function season(): BelongsTo
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Season, $this>
+     */
+    public function season(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Season::class);
     }
 
-    public function events(): HasMany
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Event, $this>
+     */
+    public function events(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Event::class);
     }

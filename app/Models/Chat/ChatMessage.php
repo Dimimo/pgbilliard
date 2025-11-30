@@ -7,7 +7,6 @@ use Database\Factories\Chat\ChatMessageFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
@@ -33,7 +32,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|ChatMessage whereUpdatedAt($value)
  * @method static Builder|ChatMessage whereUserId($value)
  *
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 class ChatMessage extends Model
 {
@@ -71,12 +70,18 @@ class ChatMessage extends Model
         return ChatMessageFactory::new();
     }
 
-    public function user(): BelongsTo
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     */
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function room(): BelongsTo
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<ChatRoom, $this>
+     */
+    public function room(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(ChatRoom::class, 'chat_room_id', 'id');
     }

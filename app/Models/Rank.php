@@ -38,7 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereWon($value)
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 class Rank extends Model
 {
@@ -58,16 +58,25 @@ class Rank extends Model
 
     protected $with = ['player', 'user'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Season, $this>
+     */
     public function season(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Season::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Player, $this>
+     */
     public function player(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Player::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);

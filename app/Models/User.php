@@ -11,6 +11,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -72,7 +73,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
  *
- * @mixin \Illuminate\Database\Eloquent\Model
+ * @mixin Model
  */
 class User extends Authenticatable
 {
@@ -127,61 +128,97 @@ class User extends Authenticatable
         return false;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Admin, $this>
+     */
     public function admin(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Admin::class, 'user_id', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Admin, $this>
+     */
     public function assignees(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Admin::class, 'assigned_by', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Venue, $this>
+     */
     public function venue(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Venue::class, 'user_id', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Player, $this>
+     */
     public function players(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Player::class, 'user_id', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Forum\Post, $this>
+     */
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Post::class, 'user_id', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Forum\Comment, $this>
+     */
     public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Comment::class, 'user_id', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Forum\Visit, $this>
+     */
     public function visits(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Visit::class, 'user_id', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Chat\ChatMessage, $this>
+     */
     public function chatMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ChatMessage::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Chat\ChatRoom, $this, \Illuminate\Database\Eloquent\Relations\Pivot>
+     */
     public function chatRooms(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(ChatRoom::class)->withTimestamps();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Format, $this>
+     */
     public function formats(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Format::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rank, $this>
+     */
     public function ranks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Rank::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Game, $this>
+     */
     public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Game::class);
