@@ -26,10 +26,7 @@ try {
         ])
         ->withRules([
             LivewireComponentComputedMethodToComputedAttributeRector::class,
-        ])
-        ->withTypeCoverageLevel(0)
-        ->withDeadCodeLevel(0)
-        ->withCodeQualityLevel(0);
+        ]);
 } catch (\Rector\Exception\Configuration\InvalidConfigurationException $e) {
     //
 }
