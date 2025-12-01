@@ -27,9 +27,7 @@ $logout = function (): void {
                         >
                             <!-- Admin Dropdown -->
                             @if (session('is_admin'))
-                                <x-navigation.admin-dropdown-expanded
-                                    :season="Context::getHidden('season_id')"
-                                />
+                                <x-navigation.admin-dropdown-expanded :season="Context::getHidden('season_id')" />
                             @endif
 
                             <!-- User logged in Dropdown -->

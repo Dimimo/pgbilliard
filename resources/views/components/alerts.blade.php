@@ -1,8 +1,11 @@
-<section id="session-alerts" x-data="{ open: true }">
+<section
+    id="session-alerts"
+    x-data="{ open: true }"
+>
     <div
         class="relative mx-auto mb-6 flex justify-center"
         x-show="open"
-        x-transition:leave="transition duration-200 ease-in"
+        x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
     >
@@ -20,7 +23,11 @@
                 <span class="text-green-800">
                     {!! session()->has('status') ? session()->pull('status') : session()->pull('success') !!}
                 </span>
-                <button @click="open = ! open" class="-mr-4 -mt-8 ml-4" title="Close">
+                <button
+                    @click="open = ! open"
+                    class="-mt-8 -mr-4 ml-4"
+                    title="Close"
+                >
                     <x-svg.xmark-solid color="fill-gray-500" size="5" padding="" />
                 </button>
             </div>
@@ -40,7 +47,11 @@
                 <span class="text-red-800">
                     {!! session()->pull('error') !!}
                 </span>
-                <button @click="open = ! open" class="-mr-4 -mt-8 ml-4" title="Close">
+                <button
+                    @click="open = ! open"
+                    class="-mt-8 -mr-4 ml-4"
+                    title="Close"
+                >
                     <x-svg.xmark-solid color="fill-gray-500" size="5" padding="" />
                 </button>
             </div>
@@ -62,7 +73,11 @@
                 <span class="text-yellow-800">
                     {!! session()->pull('warning') !!}
                 </span>
-                <button @click="open = ! open" class="-mr-4 -mt-8 ml-4" title="Close">
+                <button
+                    @click="open = ! open"
+                    class="-mt-8 -mr-4 ml-4"
+                    title="Close"
+                >
                     <x-svg.xmark-solid color="fill-gray-500" size="5" padding="" />
                 </button>
             </div>
@@ -84,12 +99,17 @@
                 <span class="text-blue-800">
                     {!! session()->pull('info') !!}
                 </span>
-                <button @click="open = ! open" class="-mr-4 -mt-8 ml-4" title="Close">
+                <button
+                    @click="open = ! open"
+                    class="-mt-8 -mr-4 ml-4"
+                    title="Close"
+                >
                     <x-svg.xmark-solid color="fill-gray-500" size="5" padding="" />
                 </button>
             </div>
         @endif
 
         <!-- End Alert Info -->
+
     </div>
 </section>

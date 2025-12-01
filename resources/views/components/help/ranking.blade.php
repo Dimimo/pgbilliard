@@ -23,14 +23,16 @@
             <x-svg.percent-solid color="fill-indigo-500" size="5" />
         </div>
         <div class="flex-1">
-            <div>The percentage is calculated as following</div>
+            <div>
+                The percentage is calculated as following
+            </div>
             <div class="m-4">
                 <math xmlns="http://www.w3.org/1998/Math/MathML">
                     <mrow>
                         <mo>(</mo>
                         <mfrac>
-                            <mtext>{{ __('Games Won') }}</mtext>
-                            <mtext>{{ __('Total Games') }}</mtext>
+                            <mtext>{{__('Games Won')}}</mtext>
+                            <mtext>{{__('Total Games')}}</mtext>
                         </mfrac>
                         <mo>)</mo>
                         <mo>
@@ -38,8 +40,8 @@
                         </mo>
                         <mo>(</mo>
                         <mfrac>
-                            <mtext>{{ __('Days Participated') }}</mtext>
-                            <mtext>{{ __('Max Playing Days') }}</mtext>
+                            <mtext>{{__('Days Participated')}}</mtext>
+                            <mtext>{{__('Max Playing Days')}}</mtext>
                         </mfrac>
                         <mo>)</mo>
                         <mo>
