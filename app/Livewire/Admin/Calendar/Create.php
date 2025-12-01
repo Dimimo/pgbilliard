@@ -88,7 +88,7 @@ class Create extends Component
     {
         $this->last_date = Date::query()->find($date_id);
         $this->dateForm->setDate($this->last_date);
-        $this->events = $this->last_date->dispatchesEvents;
+        $this->events = $this->last_date->events;
         $this->form->reset(['venue_id', 'team1', 'team2']);
         $this->form->setEvent(new Event(['date_id' => $this->last_date->id]));
     }
@@ -99,7 +99,7 @@ class Create extends Component
         $this->form->store();
         $this->dispatch('event-created');
         $this->last_date->refresh();
-        $this->events = $this->last_date->dispatchesEvents;
+        $this->events = $this->last_date->events;
         $this->form->reset(['venue_id', 'team1', 'team2']);
         $this->dates = Date::query()->whereSeasonId($this->season->id)->with('events')->orderBy('date')->get();
     }
@@ -114,7 +114,7 @@ class Create extends Component
         $this->last_date = Date::query()->create(['season_id' => $this->season->id, 'date' => $next_week, 'regular' => false]);
         $this->dateForm->setDate($this->last_date);
         $this->dates = Date::query()->whereSeasonId($this->season->id)->with('events')->orderBy('date')->get();
-        $this->events = $this->last_date->dispatchesEvents;
+        $this->events = $this->last_date->events;
         $this->form->reset(['venue_id', 'team1', 'team2']);
         $this->form->setEvent(new Event(['date_id' => $this->last_date->id]));
     }
@@ -125,7 +125,7 @@ class Create extends Component
         $this->authorize('delete', $event);
         $event->delete();
         $this->last_date->refresh();
-        $this->events = $this->last_date->dispatchesEvents;
+        $this->events = $this->last_date->events;
     }
 
     public function removeDate($date_id): void

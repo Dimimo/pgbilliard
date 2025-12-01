@@ -24,7 +24,7 @@ class Consolidator
         // let the others know the game is finished with a final score
         broadcast(new ScoreEvent($this->event->date->season_id, $this->event->id))->toOthers();
 
-        return app()->isProduction() && $this->event->date->dispatchesEvents->every(fn ($value) => $value->confirmed === true);
+        return app()->isProduction() && $this->event->date->events->every(fn ($value) => $value->confirmed === true);
     }
 
     /**

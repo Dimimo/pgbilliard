@@ -95,7 +95,7 @@ class Date extends Model
     public function players(): PlayerList
     {
         return
-            $this->dispatchesEvents
+            $this->events
                 ->map(
                     fn ($event) => $event
                         ->team_1
@@ -103,7 +103,7 @@ class Date extends Model
                         ->map(fn ($player) => $player->user)
                 )
                 ->merge(
-                    $this->dispatchesEvents->map(
+                    $this->events->map(
                         fn ($event) => $event
                             ->team_2
                             ->activePlayers()
@@ -121,7 +121,7 @@ class Date extends Model
      */
     public function getTeam(User $user): ?Team
     {
-        return $this->dispatchesEvents
+        return $this->events
         ->map(
             fn ($event) => $event
                 ->team_1
@@ -129,7 +129,7 @@ class Date extends Model
                 ->filter(fn ($player) => $player->user_id === $user->id)
         )
         ->merge(
-            $this->dispatchesEvents->map(
+            $this->events->map(
                 fn ($event) => $event
                     ->team_2
                     ->activePlayers()

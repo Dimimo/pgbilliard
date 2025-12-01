@@ -33,7 +33,7 @@ class PoolSetDayScores implements ShouldQueue
         date_default_timezone_set(config('app.app_timezone'));
 
         if ($this->date->events()->count() > 0) {
-            foreach ($this->date->dispatchesEvents as $event) {
+            foreach ($this->date->events as $event) {
                 if (!$event->score1 && !$event->score2) {
                     if ($event->team_2->name === 'BYE') {
                         $event->update(['score1' => null, 'score2' => null, 'confirmed' => true]);

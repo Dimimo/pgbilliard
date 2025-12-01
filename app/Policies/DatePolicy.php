@@ -32,6 +32,6 @@ class DatePolicy
 
     public function delete(User $user, date $dates): bool
     {
-        return $user->isAdmin() && $dates->dispatchesEvents->count() === 0;
+        return $user->isAdmin() && $dates->events->count() === 0;
     }
 }
