@@ -13,8 +13,8 @@
             <mrow>
                 <mo>(</mo>
                 <mfrac>
-                    <mtext>{{__('Games Won')}}</mtext>
-                    <mtext>{{__('Total Games')}}</mtext>
+                    <mtext>{{ __('Games Won') }}</mtext>
+                    <mtext>{{ __('Total Games') }}</mtext>
                 </mfrac>
                 <mo>)</mo>
                 <mo>
@@ -22,8 +22,8 @@
                 </mo>
                 <mo>(</mo>
                 <mfrac>
-                    <mtext>{{__('Days Participated')}}</mtext>
-                    <mtext>{{__('Max Playing Days')}}</mtext>
+                    <mtext>{{ __('Days Participated') }}</mtext>
+                    <mtext>{{ __('Max Playing Days') }}</mtext>
                 </mfrac>
                 <mo>)</mo>
                 <mo>

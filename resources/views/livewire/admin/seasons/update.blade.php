@@ -14,7 +14,7 @@
                 <div
                     class="text-uppercase flex flex-row items-center space-x-2 text-lg text-blue-900"
                 >
-                    <div>{{ $i-1 }} of the {{ $number_of_teams }} teams are chosen</div>
+                    <div>{{ $i - 1 }} of the {{ $number_of_teams }} teams are chosen</div>
                     <div class="text-sm text-gray-500">
                         ({{ $has_bye ? __('has a BYE') : __('has no BYE') }})
                     </div>
