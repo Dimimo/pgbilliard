@@ -86,11 +86,7 @@
     <div class="relative flex min-h-[48px] flex-wrap items-center justify-center px-10 py-2">
         <div class="relative z-50 ml-auto flex lg:order-1 lg:hidden">
             <button class="ml-7">
-                <svg
-                    class="h-7 w-7"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
+                <svg class="h-7 w-7" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path
                         fill="#000"
                         fill-rule="evenodd"

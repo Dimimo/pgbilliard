@@ -15,11 +15,7 @@ name('admin.contact');
                         You may send out a message here to all players and/or captains and even
                         admins. This service is only available for administrators. Only players with
                         an email that are claimed
-                        <span class="italic">
-                            (i.e. not the
-                            @pgbilliard.com
-                            default)
-                        </span>
+                        <span class="italic">(i.e. not the @pgbilliard.com default)</span>
                         will receive your message.
                     </div>
                     <div class="mb-4">

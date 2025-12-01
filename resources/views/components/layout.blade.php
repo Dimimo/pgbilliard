@@ -17,7 +17,11 @@
         <link
             rel="preload"
             href="{{ secure_asset('webfonts/roboto/roboto.css') }}"
-            onload="this.onload=null;this.rel='stylesheet';this.removeAttribute('as')"
+            onload="
+                this.onload = null;
+                this.rel = 'stylesheet';
+                this.removeAttribute('as');
+            "
             as="style"
         />
 
@@ -91,13 +95,9 @@
 
             @if (session('is_android', false) === true && session()->hasPreviousUri())
                 <div class="fixed bottom-0 right-0 z-50">
-                    <div class="mr-8 mb-24 bg-transparent">
+                    <div class="mb-24 mr-8 bg-transparent">
                         <a href="{{ session()->previousUri() }}" wire:navigate>
-                            <x-svg.arrow-left-solid
-                                color="fill-black"
-                                size="8"
-                                padding=""
-                            />
+                            <x-svg.arrow-left-solid color="fill-black" size="8" padding="" />
                         </a>
                     </div>
                 </div>

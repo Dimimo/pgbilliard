@@ -46,8 +46,8 @@
         If you want to skip a week (holidays for example), create 2 new dates and delete the holiday
         later.
         <br />
-        If a certain date can't be on a the chosen weekday, you can shift it
-        in the Admin section 'Change a playing date' later on.
+        If a certain date can't be on a the chosen weekday, you can shift it in the Admin section
+        'Change a playing date' later on.
     </div>
 
     <div class="text-2xl">Delete a date</div>
