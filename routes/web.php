@@ -170,6 +170,9 @@ Route::prefix('admin/help')->middleware('auth')->group(function (): void {
     Route::get('players', fn () => view('pages.admin.help.players'))->name('admin.help.players');
 });
 
+//Route for Testing
+Route::middleware(['auth', 'admin'])->get('justfortesting', fn () => view('pages.test'));
+
 
 /**
  * Mail routes to test the email body
