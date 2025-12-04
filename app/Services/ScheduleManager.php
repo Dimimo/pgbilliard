@@ -39,7 +39,7 @@ class ScheduleManager
     }
 
     public function checkThirdGame(Format $format): Event
-    {//dd($this->event->games()->where('position', 15)->count());
+    {
         if ($this->event->games()->where('position', 15)->count() === 0) {
             $schedules = $format->schedules()->wherePosition(15)->get();
             foreach ($schedules as $schedule) {
