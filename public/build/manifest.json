@@ -1,20 +1,21 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-eCkRweTO.css",
+    "file": "assets/app-CMMUH8Bw.css",
     "src": "resources/css/app.css",
     "isEntry": true,
+    "name": "app",
     "names": [
       "app.css"
     ]
   },
   "resources/js/ably.js": {
-    "file": "assets/ably-DJZseJwe.js",
+    "file": "assets/ably-C123yLWZ.js",
     "name": "ably",
     "src": "resources/js/ably.js",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-D7-seGbC.js",
+    "file": "assets/app-BYEwOR7l.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true
