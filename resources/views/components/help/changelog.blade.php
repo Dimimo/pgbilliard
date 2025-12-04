@@ -116,6 +116,10 @@
         <li>Oct 8, 2025: rewritten the individual scores mechanism to make it less error prawn</li>
         <li>Oct 10, 2025: added a shortcut to the individual games</li>
         <li>Dec 4, 2025: upgrade to Tailwind version 4</li>
+        <li>
+            Dec 4, 2025: a bug fix where the last double doesn't show up in the personal overview of
+            played games
+        </li>
     </ul>
 </div>
 <div class="mt-4">
