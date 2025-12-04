@@ -1,4 +1,4 @@
-<div class="mt-12 border-t border-t-gray-500 bg-indigo-50 p-2 text-center">
+<div class="mt-12 border-t border-t-gray-500 bg-indigo-50 p-2 pb-10 text-center">
     <div class="text-2xl">&copy; {{ now()->format('Y') }} PG Billiard</div>
     <div class="my-4">
         <a
