@@ -6,6 +6,7 @@ use App\Events\ScoreEvent;
 use App\Models\Event;
 use App\Models\Format;
 use App\Models\Game;
+use App\Models\Player;
 use App\Models\Season;
 use App\Services\LiveScoreUpdater;
 use App\Services\Logger\LogGames;
@@ -46,7 +47,8 @@ class ScheduleScoreTable extends Component
 
     public function playerChanged(int $player_id, int $game_id): void
     {
-        Game::query()->whereId($game_id)->update(['player_id' => $player_id]);
+        $player = Player::find($player_id);
+        Game::query()->whereId($game_id)->update(['player_id' => $player_id, 'user_id' => $player->user_id]);
         broadcast(new ScoreEvent($this->season->id, $this->event->id))->toOthers();
     }
 
