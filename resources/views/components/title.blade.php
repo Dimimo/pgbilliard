@@ -2,7 +2,7 @@
 @php
     $class = "grid-rows-auto mb-2 grid gap-y-2 px-6 py-3 md:mb-4";
         if ($gradient) {
-            $class .= " bg-gradient-to-b from-green-300 rounded-lg";
+            $class .= " bg-linear-to-b from-green-300 rounded-lg";
         }
 @endphp
 

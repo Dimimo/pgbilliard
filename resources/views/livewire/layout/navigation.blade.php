@@ -12,8 +12,8 @@ $logout = function (): void {
 };
 ?>
 
-<nav x-data="{ open: false }" class="bg-gradient-to-b from-blue-200 pb-4 pt-2">
-    <div class="container mx-auto flex-grow sm:px-4 md:px-12 lg:px-24">
+<nav x-data="{ open: false }" class="bg-linear-to-b from-blue-200 pb-4 pt-2">
+    <div class="container mx-auto grow sm:px-4 md:px-12 lg:px-24">
         <!-- Primary Navigation Menu -->
         <div class="mx-auto max-w-7xl px-2 md:px-4 lg:px-6">
             <div class="flex h-16 justify-between">

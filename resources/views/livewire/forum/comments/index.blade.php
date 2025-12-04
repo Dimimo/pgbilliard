@@ -16,7 +16,7 @@
 
     @foreach ($comments as $comment)
         <div
-            class="border-1 {{ $comment->updated_at->isCurrentMinute() ? 'bg-yellow-100' : 'bg-gray-50' }} my-2 ml-4 border border-gray-500"
+            class="border {{ $comment->updated_at->isCurrentMinute() ? 'bg-yellow-100' : 'bg-gray-50' }} my-2 ml-4 border border-gray-500"
         >
             <div class="mb-2 p-4">{!! nl2br($comment->body) !!}</div>
             <div

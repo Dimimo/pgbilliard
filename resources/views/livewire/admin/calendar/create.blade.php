@@ -67,7 +67,7 @@
 
                             <div class="mt-8">
                                 <x-forms.primary-button
-                                    class="!bg-blue-600 hover:!bg-blue-800"
+                                    class="bg-blue-600! hover:bg-blue-800!"
                                     wire:click="$dispatch('openModal', { component: 'admin.teams.create' })"
                                 >
                                     You may create a new team here
@@ -77,7 +77,7 @@
                             @if ($new === true)
                                 <div class="mt-8">
                                     <x-forms.secondary-button
-                                        class="!bg-green-100"
+                                        class="bg-green-100!"
                                         wire:click="concludeSeason"
                                     >
                                         When the new Calendar is finished, check the results

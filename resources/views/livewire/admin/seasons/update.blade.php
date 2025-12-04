@@ -61,7 +61,7 @@
 
         <div>
             <x-forms.primary-button
-                class="!bg-blue-600 hover:!bg-blue-800"
+                class="bg-blue-600! hover:bg-blue-800!"
                 wire:click="$dispatch('openModal', { component: 'admin.teams.create' })"
             >
                 Or create a new team

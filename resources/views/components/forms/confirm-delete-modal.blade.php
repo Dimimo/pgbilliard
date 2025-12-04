@@ -1,5 +1,5 @@
 <div
-    class="fixed inset-0 z-[1000] flex h-full w-full flex-wrap items-center justify-center overflow-auto p-4 font-[sans-serif] before:fixed before:inset-0 before:h-full before:w-full before:bg-[rgba(0,0,0,0.5)]"
+    class="fixed inset-0 z-1000 flex h-full w-full flex-wrap items-center justify-center overflow-auto p-4 font-[sans-serif] before:fixed before:inset-0 before:h-full before:w-full before:bg-[rgba(0,0,0,0.5)]"
 >
     <div class="relative w-full max-w-lg rounded-md bg-white px-5 py-4 shadow-lg">
         <svg

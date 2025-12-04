@@ -24,7 +24,7 @@
             <x-svg.spinner-solid />
         </div>
         <!-- Session Status -->
-        <x-auth-session-status class="mx-auto mt-2 !text-green-700" :status="session('status')" />
+        <x-auth-session-status class="mx-auto mt-2 text-green-700!" :status="session('status')" />
     </form>
 
     <div class="mx-auto my-8 w-96 text-sm text-gray-600">

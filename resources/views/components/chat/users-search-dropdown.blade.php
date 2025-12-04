@@ -51,7 +51,7 @@
         </label>
     </div>
     <ul
-        class="absolute z-[1000] max-h-96 w-max min-w-full overflow-auto rounded bg-white px-2 py-2 shadow-lg"
+        class="absolute z-1000 max-h-96 w-max min-w-full overflow-auto rounded bg-white px-2 py-2 shadow-lg"
         x-show="open"
     >
         <x-chat.user-search-item :room="$room" :users="$list_users" />

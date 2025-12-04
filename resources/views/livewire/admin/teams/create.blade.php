@@ -6,7 +6,7 @@
             <input
                 type="text"
                 id="name"
-                class="border-1 block rounded-md border-blue-300 p-3 shadow-sm focus:outline-none sm:text-sm"
+                class="border block rounded-md border-blue-300 p-3 shadow-sm focus:outline-none sm:text-sm"
                 wire:model.live.debounce="form.name"
             />
         </div>

@@ -27,7 +27,7 @@
                         >
                             <a
                                 href="{{ route('dates.show', ['date' => $date]) }}"
-                                class="link text-lg !text-white after:!bg-yellow-100"
+                                class="link text-lg text-white! after:bg-yellow-100!"
                                 title="click for details"
                                 wire:navigate
                             >
