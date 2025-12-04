@@ -54,7 +54,8 @@ class Details extends Component
             ->whereIn('event_id', $this->event_ids)
             ->with(['event.venue', 'team.venue', 'event.date', 'event.team_1', 'event.team_2', 'player'])
             ->where('user_id', $this->player->user_id)
-            ->orderBy('id')
+            ->orderBy('event_id')
+            ->orderBy('position')
             ->get();
     }
 }
