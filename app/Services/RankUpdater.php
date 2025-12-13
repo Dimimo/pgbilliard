@@ -61,6 +61,8 @@ class RankUpdater
             'season_id' => $this->seasonId,
             'max_games' => $maxPlayedGames,
             'max_days' => $maxParticipated,
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
 
         $groupedByUser = $this->players->groupBy('user_id');
