@@ -120,6 +120,10 @@
             Dec 4, 2025: a bug fix where the last double doesn't show up in the personal overview of
             played games
         </li>
+        <li>
+            Dec 13, 2025: a bug fix where a starting game can not be accessed by others if there are
+            no scores given but the schedule and players are selected
+        </li>
     </ul>
 </div>
 <div class="mt-4">
