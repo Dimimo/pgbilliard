@@ -64,7 +64,7 @@
                                         :can_update="true"
                                     />
                                 @else
-                                    @if ($event->games()->whereNotNull('win')->count())
+                                    @if ($event->games()->count())
                                         <x-schedule.schedule-running
                                             key="date-list-{{$event->id}}"
                                             :event="$event"

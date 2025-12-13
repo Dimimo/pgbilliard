@@ -27,7 +27,7 @@
                         >
                             <a
                                 href="{{ route('dates.show', ['date' => $date]) }}"
-                                class="link text-lg text-white! after:bg-yellow-100!"
+                                class="link text-white! after:bg-yellow-100! text-lg"
                                 title="click for details"
                                 wire:navigate
                             >
@@ -135,7 +135,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                @if ($event->games()->whereNotNull('win')->count() > 0)
+                                                @if ($event->games()->count() > 0)
                                                     <a
                                                         href="{{ route('schedule.event', ['event' => $event]) }}"
                                                         class="link"

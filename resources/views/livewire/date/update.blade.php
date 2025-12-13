@@ -91,7 +91,7 @@
                         >
                             confirm
                         </button>
-                    @elseif ($event->games()->whereNotNull('win')->count() > 0)
+                    @elseif ($event->games()->count() > 0)
                         <a
                             href="{{ route('schedule.event', ['event' => $event]) }}"
                             class="link text-blue-800"
@@ -129,7 +129,7 @@
                         </x-forms.action-message>
                     @endif
                 @else
-                    @if (($event->confirmed || $event->games()->whereNotNull('win')->count() > 0))
+                    @if (($event->confirmed || $event->games()->count() > 0))
                         <a
                             href="{{ route('schedule.event', ['event' => $event]) }}"
                             class="link text-blue-800"
