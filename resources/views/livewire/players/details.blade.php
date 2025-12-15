@@ -3,8 +3,7 @@
 
     <x-forms.sub-title title="{{__('Individual Games and Results')}}">
         @foreach ($games as $game)
-            @php
-                if ($game->event->date->date != $date) {
+            @php if ($game->event->date->date != $date) {
                     $date = $game->event->date->date;
                     $new_date = true;
                 } else {
@@ -38,8 +37,30 @@
                         <div class="text-normal font-normal italic text-gray-500">
                             {{ $player->name }} {{ __('played for') }} {{ $game->team->name }}
                         </div>
+                        <div>
+                            <span @class(['text-green-700' => $game->event->score1 > 7])>
+                                {{ $game->event->team_1->name }}
+                            </span>
+                            <span class="font-normal">vs</span>
+                            <span @class(['text-green-700' => $game->event->score2 > 7])>
+                                {{ $game->event->team_2->name }}
+                            </span>
+                        </div>
                         <div class="font-normal">
-                            {{ $game->event->team_1->name }} vs {{ $game->event->team_2->name }}
+                            {{ __("Final Score") }}
+                            <span>
+                                <span
+                                    @class(['text-lg font-bold text-green-700' => $game->event->score1 > 7])
+                                >
+                                    {{ $game->event->score1 }}
+                                </span>
+                                -
+                                <span
+                                    @class(['text-lg font-bold text-green-700' => $game->event->score2 > 7])
+                                >
+                                    {{ $game->event->score2 }}
+                                </span>
+                            </span>
                         </div>
                         @if ($game->event->date->regular)
                             <di class="mb-2 text-lg text-green-700">
