@@ -124,6 +124,10 @@
             Dec 13, 2025: a bug fix where a starting game can not be accessed by others if there are
             no scores given but the schedule and players are selected
         </li>
+        <li>
+            Dec 15, 2025: a bug fix in case of a game ending in 0-15 or 15-0, was considered a
+            no-show. Is now considered a fully played game and adds to the played games total
+        </li>
     </ul>
 </div>
 <div class="mt-4">
