@@ -57,7 +57,12 @@ trait ResultsTrait
                         if ($event->score1 > 7) {
                             $result->put('won', $result->get('won') + 1);
                             $result->put('last_game_won', true);
-                        } elseif ($event->score1 !== 0 && $event->score2 !== 0) { //in case of not-in (0-0)
+                        } elseif (
+                            // a fix in case of a score of 0-15 or 0-8, shouldn't be mixed up with a no show
+                            ($event->score1 > 0 && $event->score2 > 0)
+                            ||
+                            ($event->score1 === 0 && $event->score2 > 7)
+                        ) { //in case of not-in (0-0)
                             $result->put('lost', $result->get('lost') + 1);
                             $result->put('last_game_won', false);
                         }
