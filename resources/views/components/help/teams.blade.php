@@ -86,10 +86,4 @@
         That's about it. Cheerio and
         <span class="font-bold">Have Fun!</span>
     </div>
-    {{-- todo: remove this after the first 2025 season --}}
-    <div class="italic">
-        (some players in the proposed list are not with us anymore; at the startup of the new
-        website I had no other choice but to add everybody from the previous database; this will
-        change after the first 2025 Season)
-    </div>
 </div>

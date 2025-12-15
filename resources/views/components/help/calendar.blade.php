@@ -50,11 +50,6 @@
         </a>
         <br class="mb-2" />
         If the latter is true, ask the bar or the captain of your team. They can add you!
-        <br />
-        <span class="text-sm italic">
-            (reminder: for the moment, this website is still in beta)
-        </span>
-        {{-- todo: remove this once the beta is over --}}
     </div>
     <div class="mb-4">Special dates have a subtitle. Usually the semi-finals, final and party.</div>
     <div class="mb-4">
