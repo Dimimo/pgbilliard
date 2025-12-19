@@ -13,7 +13,7 @@
         "ext-pdo": "*",
         "ext-zip": "*",
         "ably/laravel-broadcaster": "^1.0",
-        "aws/aws-sdk-php": "3.342.1",
+        "aws/aws-sdk-php": "3.368.2",
         "aws/aws-sdk-php-laravel": "^3.10",
         "erag/laravel-pwa": "^1.9",
         "guzzlehttp/guzzle": "^7.9",
