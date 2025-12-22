@@ -90,7 +90,8 @@ class ScheduleScoreTable extends Component
         $this->dispatch('score-updated')->to(SchedulePlayerSelector::class);
         $this->dispatch('refresh-list');
         // broadcast the event to Ably
-        broadcast(new ScoreEvent($this->season->id, $this->event->id, $game->player_id, $gamePosition))->toOthers();
+        // use of rescue avoids a possible ably key id error
+        rescue(fn() => broadcast(new ScoreEvent($this->season->id, $this->event->id, $game->player_id, $gamePosition))->toOthers());
     }
 
     #[On('player-selected')]
