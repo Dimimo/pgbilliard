@@ -13,6 +13,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use URL;
 
 class Create extends Component
 {
@@ -24,10 +25,12 @@ class Create extends Component
     public DateForm $dateForm;
     public Collection $teams;
     public Collection $venues;
+    public bool $new = false;
 
     public function mount(Season $season): void
     {
         $this->season = $season;
+        $this->new = str_contains(URL::current(), 'calendar/create');
         $this->getLastEventAndPotentiallyDeleteTheSeason();
         $this->getTeams();
         $venue_ids = Team::query()->whereSeasonId($season->id)

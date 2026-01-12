@@ -1,12 +1,3 @@
-@if (str_contains(URL::current(), 'season/update'))
-    @php
-        $new = false;
-    @endphp
-@else
-    @php
-        $new = true;
-    @endphp
-@endif
 <div>
     <div class="m-2 rounded-lg border border-green-500 bg-green-100 p-4">
         <x-admin.help.calendar :dates="$dates" :new="$new" />
