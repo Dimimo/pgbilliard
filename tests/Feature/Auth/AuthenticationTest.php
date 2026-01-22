@@ -14,7 +14,7 @@ test('login screen can be rendered', function (): void {
     $response = $this->get('/login');
 
     $response
-        ->assertSeeVolt('pages.auth.login')
+        ->assertSeeLivewire('auth.login')
         ->assertOk();
 });
 
@@ -51,17 +51,18 @@ test('users can not authenticate with invalid password', function (): void {
 });
 
 test('navigation menu can be rendered', function (): void {
-    Season::factory()->create();
-    $user = User::factory()->create();
+    $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
+    $player = \App\Models\Player::with('user')->find(1);
+    $user = $player->user;
 
     $this->actingAs($user);
 
     $response = $this->get('/dashboard');
 
     $response
-        ->assertSeeVolt('layout.navigation')
+        ->assertOk()
         ->assertSee($user->name)
-        ->assertOk();
+        ->assertSeeLivewire('dashboard');
 });
 
 test('users can logout', function (): void {
