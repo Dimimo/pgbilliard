@@ -1,10 +1,10 @@
-@props(['event', 'switches', 'formatName'])
+@props(['event', 'switches', 'format'])
 
 <div
     class="mx-2 mb-4 h-auto rounded-lg border-2 border-indigo-400 bg-indigo-100 p-2 pt-2 text-center text-xl md:mx-0"
 >
     {{ __('The format used is the') }}
-    <span class="font-bold">{{ $formatName }}</span>
+    <span class="font-bold">{{ $format }}</span>
 
     @if ($switches->get('canUpdatePlayers') && auth()->check() && auth()->user()->can('update', $event))
         <div class="m-2 text-center text-sm">
