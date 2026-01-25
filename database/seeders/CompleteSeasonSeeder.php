@@ -15,6 +15,7 @@ class CompleteSeasonSeeder extends Seeder
             NewTeamsSeeder::class,
             NewPlayersSeeder::class,
             NewEventsSeeder::class,
+            ScheduleSeeder::class,
         ]);
     }
 }
