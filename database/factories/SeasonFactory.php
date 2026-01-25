@@ -16,7 +16,7 @@ class SeasonFactory extends Factory
             'cycle' => $this->faker->dateTimeThisYear()->format('Y/m'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-            'players' => $this->faker->numberBetween(2, 8),
+            'players' => $this->faker->numberBetween(4, 8),
         ];
     }
 }
