@@ -12,7 +12,7 @@ test('reset password link screen can be rendered', function (): void {
     $response = $this->get('/forgot-password');
 
     $response
-        ->assertSeeVolt('pages.auth.forgot-password')
+        ->assertSeeLivewire('auth.forgot-password')
         ->assertStatus(200);
 });
 

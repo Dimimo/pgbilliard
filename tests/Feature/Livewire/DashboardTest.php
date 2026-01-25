@@ -4,8 +4,9 @@ use App\Livewire\Dashboard;
 use Livewire\Livewire;
 
 beforeEach(function (): void {
-    $this->member = \App\Models\User::factory()->create();
-    $this->season = \App\Models\Season::factory()->create(['cycle' => now()->format('Y/m')]);
+    $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
+    $this->member = \App\Models\User::has('players')->first();
+    $this->season = \App\Models\Season::first();
     session()->put('cycle', $this->season->cycle);
 });
 
@@ -20,12 +21,13 @@ it('shows the correct component', function (): void {
     $response = $this->get('/dashboard');
 
     $response
-        ->assertSeeVolt('dashboard')
+        ->assertSeeLivewire('dashboard')
         ->assertOk();
 });
 
 it('is a player without a team', function (): void {
-    $this->actingAs($this->member);
+    $user = \App\Models\User::factory()->create();
+    $this->actingAs($user);
     $response = $this->get('/dashboard');
 
     $response
@@ -36,18 +38,18 @@ it('is a player without a team', function (): void {
 
 it('is a player for a team and is not a captain', function (): void {
     $team = \App\Models\Team::factory()->create(['season_id' => $this->season->id]);
-    \App\Models\Player::factory()
-        ->create([
-            'user_id' => $this->member->id,
-            'team_id' => $team->id,
-            'active' => true,
-            'captain' => false,
+    $player = $this->member->players()->first();
+    $player->update([
+        'user_id' => $this->member->id,
+        'team_id' => $team->id,
+        'active' => true,
+        'captain' => false,
         ]);
-    $this->actingAs($this->member);
+    $this->actingAs($player->user);
     $response = $this->get('/dashboard');
 
     $response
-        ->assertSee('You play for')
+        ->assertSee($player->team->name)
         ->assertSee($team->name)
         ->assertDontSee('You are the Captain');
 });

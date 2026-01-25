@@ -1,13 +1,16 @@
 <?php
 
+use App\Models\Game;
+use Illuminate\Support\Facades\Context;
+
 beforeEach(function (): void {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
-    $this->player = \App\Models\Player::with('user')->find(1);
-    $this->format = \App\Models\Format::factory()->create([
-        'name' => 'Format 1',
-        'details' => 'The format 1 details',
-        'user_id' => $this->player->user->id
+    $season = \App\Models\Season::first();
+    Context::addHidden([
+        'cycle' => $season->cycle,
+        'season_id' => $season->id
     ]);
+    $this->player = \App\Models\Player::with('user')->find(1);
 });
 
 it('if a day schedule can be loaded but not edited', function (): void {
@@ -21,9 +24,18 @@ it('if a day schedule can be loaded but not edited', function (): void {
 });
 
 it('checks if the schedule can be selected, admin login to bypass the time test', function (): void {
-    $event = \App\Models\Event::query()->find(1);
+    $event = \App\Models\Event::first();
     $event->update(['confirmed' => false]);
-    \App\Models\Format::factory()->create(['name' => 'Format 2', 'details' => 'The format 2 details', 'user_id' => $this->player->user->id]);
+    $format1 = \App\Models\Format::factory()->create([
+        'name' => 'Format 1',
+        'details' => 'The format 1 details',
+        'user_id' => $this->player->user->id
+    ]);
+    $format2 = \App\Models\Format::factory()->create([
+        'name' => 'Format 2',
+        'details' => 'The format 2 details',
+        'user_id' => $this->player->user->id
+    ]);
     $admin = \App\Models\User::factory()->create(['name' => 'admin']);
     \App\Models\Admin::factory()->create(['user_id' => $admin->id]);
     session(['is_admin' => true]);
@@ -31,13 +43,14 @@ it('checks if the schedule can be selected, admin login to bypass the time test'
     Livewire::actingAs($admin)
         ->test(\App\Livewire\Date\Schedule::class, ['event' => $event])
         ->assertViewIs('livewire.date.schedule')
-        ->assertViewHas('choose_format', true)
+        ->assertViewHas('switches.chooseFormat', true)
+        ->assertViewHas('switches.confirmed', false)
         ->assertSee('Choose a day games format')
-        ->assertSee('Format 1')
-        ->assertSee('The format 2 details')
+        ->assertSee($format1->name)
+        ->assertSee($format2->details)
         ->call('formatChosen', 1)
-        ->assertViewHas('choose_format', false)
-        ->assertViewHas('format', $this->format)
+        ->assertViewHas('switches.chooseFormat', false)
+        ->assertViewHas('format', $format1)
         ->assertDontSee('Choose a day games format')
         ->assertSee('The format used is the')
         ->assertSee('Home Team')
@@ -46,6 +59,8 @@ it('checks if the schedule can be selected, admin login to bypass the time test'
 
 it('checks if the players can be selected for the matrix overview', function (): void {
     $event = \App\Models\Event::query()->find(1);
+    \App\Models\Schedule::factory()->count(15)->create();
+    Game::factory()->count(15)->create();
     $event->update(['confirmed' => false]);
     $admin = \App\Models\User::factory()->create(['name' => 'admin']);
     \App\Models\Admin::factory()->create(['user_id' => $admin->id]);
@@ -60,7 +75,7 @@ it('checks if the players can be selected for the matrix overview', function ():
         ->sortBy('name');
 
     Livewire::actingAs($admin)
-        ->test(\App\Livewire\Date\Schedule::class, ['event' => $event])
+        ->test(\App\Livewire\Date\SchedulePlayerSelector::class, ['event' => $event])
         ->assertCount('home_players', 4)
         ->assertCount('visit_players', 4)
         ->assertCount('home_matrix', 0)
@@ -78,5 +93,5 @@ it('checks if the players can be selected for the matrix overview', function ():
         ->call('playerSelected', $team2_players->shift()->id, 4, 'visit')
         ->assertCount('home_matrix', 4)
         ->assertCount('visit_matrix', 4)
-        ->assertDispatched('refresh-list');
+        ->assertDispatched('player-selected');
 });

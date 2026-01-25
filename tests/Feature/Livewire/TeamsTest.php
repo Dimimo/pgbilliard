@@ -10,7 +10,11 @@ beforeEach(function (): void {
     $this->captain = \App\Models\Player::factory()->create(['team_id' => $this->team->id, 'captain' => true]);
     $this->owner = \App\Models\User::factory()->create();
     \App\Models\Venue::query()->find(1)->update(['user_id' => $this->owner->id]);
-    session()->put('cycle', \App\Models\Season::query()->first()->cycle);
+    $season = \App\Models\Season::query()->first();
+    Context::addHidden([
+        'cycle' => $season->cycle,
+        'season_id' => $season->id,
+    ]);
     session(['is_admin' => false]);
 });
 
@@ -51,7 +55,7 @@ it('checks if the captain can edit the team', function (): void {
         ->test(Teams::class)
         ->assertOk()
         ->assertSeeText($this->captain->user->contact_nr)
-        ->assertSeeHtml('teams/edit/1')
+        ->assertSeeHtml('team/edit/1')
         ->assertDontSeeHtml('venues/edit');
 });
 

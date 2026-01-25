@@ -10,9 +10,9 @@ it('renders successfully', function (): void {
 
 it('shows the correct component', function (): void {
     $this->seed(\Database\Seeders\EventSeeder::class);
-    $expected = "(" . \App\Models\Event::query()->count() . " games, " . \App\Models\Team::query()->count() . " Teams)";
+    $expected = "(" . \App\Models\Event::query()->count() . " games";
 
-    $response = $this->get('/seasons/all');
+    $response = $this->get('/seasons');
     $response
         ->assertOk()
         ->assertSeeVolt('cycle-all')

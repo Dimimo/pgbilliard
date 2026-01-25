@@ -1,12 +1,17 @@
 <?php
 
 use App\Livewire\Calendar;
+use Illuminate\Support\Facades\Context;
 use Livewire\Livewire;
 
 beforeEach(function (): void {
     $this->seed(\Database\Seeders\EventSeeder::class);
     $season = \App\Models\Season::query()->first();
     session()->put('cycle', $season->cycle);
+    Context::addHidden([
+        'cycle' => $season->cycle,
+        'season_id' => $season->id,
+    ]);
     $this->component = Livewire::test(Calendar::class);
 });
 

@@ -36,6 +36,7 @@ it('shows errors if the score is less than 0 or more than 15', function (): void
         ->assertViewHas('score2', -1)
         ->assertHasErrors(['score2' => ['between:0,15']])
         ->set('score2', 14)
+        ->set('score1', 2) // adds to 16 games, throws an error on score1
         ->call('change', 'score2')
         ->assertHasErrors('score1');
 });

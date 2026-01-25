@@ -7,7 +7,10 @@ it('renders successfully', function (): void {
     $rank = \App\Models\Rank::factory()->create();
     $player = $rank->player;
     $season = $rank->season;
-    session()->put('cycle', $season->cycle);
+    Context::addHidden([
+        'cycle' => $season->cycle,
+        'season_id' => $season->id,
+    ]);
 
     Livewire::test(Details::class, ['player' => $player])
         ->assertStatus(200)

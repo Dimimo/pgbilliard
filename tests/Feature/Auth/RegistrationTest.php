@@ -10,7 +10,7 @@ test('registration screen can be rendered', function (): void {
     $response = $this->get('/register');
 
     $response
-        ->assertSeeVolt('pages.auth.register')
+        ->assertSeeLivewire('auth.register')
         ->assertOk();
 });
 

@@ -4,7 +4,12 @@ use App\Models\User;
 use Livewire\Volt\Volt;
 
 test('profile page is displayed', function (): void {
-    $this->seed(\Database\Seeders\SeasonSeeder::class);
+    $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
+    $season = \App\Models\Season::query()->first();
+    Context::addHidden([
+        'cycle' => $season->cycle,
+        'season_id' => $season->id,
+    ]);
     $user = User::factory()->create();
 
     $this->actingAs($user);
@@ -12,9 +17,9 @@ test('profile page is displayed', function (): void {
     $response = $this->get('/profile');
 
     $response
-        ->assertSeeVolt('profile.update-profile-information-form')
-        ->assertSeeVolt('profile.update-password-form')
-        ->assertSeeVolt('profile.update-contact-form')
+        ->assertSeeLivewire('profile.update-profile-information-form')
+        ->assertSeeLivewire('profile.update-password-form')
+        ->assertSeeLivewire('profile.update-contact-form')
         ->assertOk();
 });
 

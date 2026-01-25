@@ -3,19 +3,22 @@
 use App\Livewire\Score;
 use Livewire\Livewire;
 
-it('renders successfully', function (): void {
-    $this->seed(\Database\Seeders\EventSeeder::class);
-    session()->put('cycle', \App\Models\Season::query()->first()->cycle);
+beforeEach(function () {
+    $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
+    $season = \App\Models\Season::first();
+    Context::addHidden([
+        'cycle' => $season->cycle,
+        'season_id' => $season->id,
+    ]);
+});
 
+it('renders successfully', function (): void {
     Livewire::test(Score::class)
-        ->assertStatus(200)
-        ->assertSeeVolt('score');
+    ->assertStatus(200)
+    ->assertSeeVolt('score');
 });
 
 it('loads the score and rank components', function (): void {
-    $this->seed(\Database\Seeders\EventSeeder::class);
-    session()->put('cycle', \App\Models\Season::query()->first()->cycle);
-
     $response = $this->get('/');
 
     $response
@@ -27,8 +30,6 @@ it('loads the score and rank components', function (): void {
 });
 
 it('shows the score board of a full Season in the correct order', function (): void {
-    $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
-    session()->put('cycle', \App\Models\Season::query()->first()->cycle);
     $team_names = \App\Models\Team::query()->where('name', '<>', 'BYE')
         ->orderBy('name')
         ->get()
