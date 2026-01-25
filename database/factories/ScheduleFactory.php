@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Player;
 use App\Models\Schedule;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
@@ -12,13 +13,14 @@ class ScheduleFactory extends Factory
 
     public function definition(): array
     {
+        $players = Player::get(['id']);
+
         return [
             'position' => $this->faker->numberBetween(1, 15),
-            'player' => $this->faker->randomNumber(),
+            'player' => $players ? $players->random() : $this->faker->randomNumber(),
             'home' => $this->faker->boolean(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-
             'format_id' => 1,
         ];
     }
