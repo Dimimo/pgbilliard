@@ -15,17 +15,13 @@ use App\Services\ScheduleManager;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as Settings;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Reactive;
 use Livewire\Component;
 
 class SchedulePlayerSelector extends Component
 {
     public Event $event;
-    #[Reactive]
     public Settings $switches;
-    #[Reactive]
     public ?Format $format = null;
-    #[Reactive]
     public Season $season;
     public Collection $home_players;
     public Collection $visit_players;
@@ -35,6 +31,7 @@ class SchedulePlayerSelector extends Component
     public function mount(Event $event, Settings $switches): void
     {
         $this->event = $event;
+        $this->season = $event->date->season;
         $this->switches = $switches;
 
         if (!$this->switches->get('chooseFormat')) {

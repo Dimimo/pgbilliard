@@ -3,7 +3,7 @@
         @if (! $switches->get('confirmed'))
             <x-schedule.info-box-before-first-game
                 :event="$event"
-                :formatName="$format->name"
+                :format="$format->name"
                 :switches="$switches"
             />
         @endif
