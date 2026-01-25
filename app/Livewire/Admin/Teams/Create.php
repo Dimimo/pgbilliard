@@ -3,19 +3,17 @@
 namespace App\Livewire\Admin\Teams;
 
 use App\Livewire\Forms\TeamForm;
-use App\Livewire\WithCurrentCycle;
 use App\Models\Team;
+use Illuminate\Support\Facades\Context;
 use LivewireUI\Modal\ModalComponent;
 
 class Create extends ModalComponent
 {
-    use WithCurrentCycle;
-
     public TeamForm $form;
 
     public function mount(): void
     {
-        $this->form->setTeam(new Team(['season_id' => $this->season->id]));
+        $this->form->setTeam(new Team(['season_id' => Context::getHidden('season_id')]));
     }
 
     public function render(): \Illuminate\View\View
