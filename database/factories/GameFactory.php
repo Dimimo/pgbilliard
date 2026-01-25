@@ -14,14 +14,18 @@ class GameFactory extends Factory
 
     public function definition(): array
     {
+        $player = Player::query()->inRandomOrder()->first();
         return [
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
             'win' => $this->faker->boolean(),
 
-            'event_id' => $this->faker->numberBetween(1061, 1071),
+            'event_id' => 1, //$this->faker->numberBetween(1061, 1071),
             'schedule_id' => Schedule::query()->inRandomOrder()->first()->id,
-            'player_id' => Player::query()->inRandomOrder()->first()->id,
+            'player_id' => $player->id,
+            'team_id' => $player->team->id,
+            'position' => $this->faker->numberBetween(1, 15),
+            'home' => $this->faker->boolean(),
         ];
     }
 }
