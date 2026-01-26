@@ -25,7 +25,6 @@ it('if a day schedule can be loaded but not edited', function (): void {
 
 it('checks if the schedule can be selected, admin login to bypass the time test', function (): void {
     $event = \App\Models\Event::first();
-    $event->update(['confirmed' => false]);
     $format1 = \App\Models\Format::factory()->create([
         'name' => 'Format 1',
         'details' => 'The format 1 details',
@@ -36,6 +35,8 @@ it('checks if the schedule can be selected, admin login to bypass the time test'
         'details' => 'The format 2 details',
         'user_id' => $this->player->user->id
     ]);
+
+    $event->update(['confirmed' => false]);
     $admin = \App\Models\User::factory()->create(['name' => 'admin']);
     \App\Models\Admin::factory()->create(['user_id' => $admin->id]);
     session(['is_admin' => true]);
@@ -59,12 +60,19 @@ it('checks if the schedule can be selected, admin login to bypass the time test'
 
 it('checks if the players can be selected for the matrix overview', function (): void {
     $event = \App\Models\Event::query()->find(1);
-    \App\Models\Schedule::factory()->count(15)->create();
+    $format1 = \App\Models\Format::factory()->create([
+        'name' => 'Format 1',
+        'details' => 'The format 1 details',
+        'user_id' => $this->player->user->id
+    ]);
+
+    \App\Models\Schedule::factory()->count(15)->create(['format_id' => $format1->id]);
     Game::factory()->count(15)->create();
     $event->update(['confirmed' => false]);
     $admin = \App\Models\User::factory()->create(['name' => 'admin']);
     \App\Models\Admin::factory()->create(['user_id' => $admin->id]);
     session(['is_admin' => true]);
+
     $team1_players = $event
         ->team_1
         ->activePlayers()
