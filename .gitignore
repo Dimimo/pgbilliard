@@ -11,6 +11,7 @@ cacert.pem
 .env.testing
 .phpunit.result.cache
 .tailwindorder
+.nvmrc
 Homestead.json
 Homestead.yaml
 auth.json
