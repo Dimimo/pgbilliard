@@ -26,8 +26,6 @@ jobs:
         path: vendor
         key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
         restore-keys: ${{ runner.os }}-composer-
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
     - name: Create storage directories
       run: |
         mkdir -p storage/framework/sessions
@@ -38,6 +36,8 @@ jobs:
         chmod -R 775 storage
     - name: Check permissions
       run: ls -la storage/framework
+    - name: Install Dependencies
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
     - name: Set permissions for artisan
       run: chmod +x artisan
     - name: Generate key
