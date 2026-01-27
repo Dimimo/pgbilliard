@@ -24,7 +24,7 @@ it('if a day schedule can be loaded but not edited', function (): void {
 });
 
 it('checks if the schedule can be selected, admin login to bypass the time test', function (): void {
-    $event = \App\Models\Event::first();
+    $event = \App\Models\Event::find(1);
     $format1 = \App\Models\Format::factory()->create([
         'name' => 'Format 1',
         'details' => 'The format 1 details',
@@ -36,9 +36,11 @@ it('checks if the schedule can be selected, admin login to bypass the time test'
         'user_id' => $this->player->user->id
     ]);
 
-    $event->update(['confirmed' => false]);
+    \App\Models\Schedule::factory()->count(15)->create(['format_id' => $format1->id]);
+
     $admin = \App\Models\User::factory()->create(['name' => 'admin']);
     \App\Models\Admin::factory()->create(['user_id' => $admin->id]);
+    $event->update(['confirmed' => false]);
     session(['is_admin' => true]);
 
     Livewire::actingAs($admin)
