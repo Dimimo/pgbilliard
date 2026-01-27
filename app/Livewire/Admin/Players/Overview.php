@@ -7,7 +7,7 @@ use App\Models\Forum\Post;
 use App\Models\Player;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Masmerise\Toaster\Toaster;
@@ -43,7 +43,7 @@ class Overview extends Component
             ->where('last_game', '<', $date_filter)
             ->withCount(['games', 'players'])
             ->with([
-                'players' => fn (HasMany $q) => $q->orderByDesc('team_id')
+                'players' => fn (Relation $q) => $q->orderByDesc('team_id')
                     ->with(['team' => fn ($t) => $t->select(['id', 'name'])])
                     ->take(1)
             ])
