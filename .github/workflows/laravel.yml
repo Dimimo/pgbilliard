@@ -35,6 +35,9 @@ jobs:
         mkdir -p storage/framework/cache/data
         mkdir -p storage/logs
         mkdir -p bootstrap/cache
+        chmod -R 775 storage
+    - name: Set permissions for artisan
+      run: chmod +x artisan
     - name: Generate key
       run: php artisan key:generate
     - name: Directory Permissions
