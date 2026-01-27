@@ -101,7 +101,7 @@ class Edit extends Component
         $this->available_players = $this->loadUsersCollection(array_keys($this->occupied_players));
         // add the name of the last team and last played game in the dropdown list
         $this->available_players->each(
-            function (User $q): ?Player {
+            function (User $q): void {
                 $player = Player::query()
                     ->where('user_id', $q->id)
                     ->with('team')
