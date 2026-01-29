@@ -6,8 +6,10 @@ use App\Models\Game;
 use App\Models\Player;
 use App\Models\Schedule;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
+/**
+ * @extends Factory<Game>
+ */
 class GameFactory extends Factory
 {
     protected $model = Game::class;
@@ -16,8 +18,8 @@ class GameFactory extends Factory
     {
         $player = Player::query()->inRandomOrder()->first();
         return [
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'created_at' => \Illuminate\Support\Facades\Date::now(),
+            'updated_at' => \Illuminate\Support\Facades\Date::now(),
             'win' => $this->faker->boolean(),
 
             'event_id' => 1, //$this->faker->numberBetween(1061, 1071),

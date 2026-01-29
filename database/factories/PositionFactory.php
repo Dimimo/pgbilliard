@@ -6,8 +6,10 @@ use App\Models\Event;
 use App\Models\Player;
 use App\Models\Position;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
+/**
+ * @extends Factory<Position>
+ */
 class PositionFactory extends Factory
 {
     protected $model = Position::class;
@@ -15,8 +17,8 @@ class PositionFactory extends Factory
     public function definition(): array
     {
         return [
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'created_at' => \Illuminate\Support\Facades\Date::now(),
+            'updated_at' => \Illuminate\Support\Facades\Date::now(),
             'rank' => $this->faker->numberBetween(1, 6),
             'home' => $this->faker->boolean(),
 

@@ -6,7 +6,6 @@ use App\Models\Season;
 use App\Models\Team;
 use App\Models\Venue;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
 /**
  * @extends Factory<Team>
@@ -22,8 +21,8 @@ class TeamFactory extends Factory
             'remark' => $this->faker->words(3, true),
             'season_id' => Season::factory(),
             'venue_id' => Venue::factory(),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'created_at' => \Illuminate\Support\Facades\Date::now(),
+            'updated_at' => \Illuminate\Support\Facades\Date::now(),
         ];
     }
 }

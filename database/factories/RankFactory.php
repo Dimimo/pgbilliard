@@ -7,8 +7,10 @@ use App\Models\Rank;
 use App\Models\Season;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
+/**
+ * @extends Factory<Rank>
+ */
 class RankFactory extends Factory
 {
     protected $model = Rank::class;
@@ -22,8 +24,8 @@ class RankFactory extends Factory
             'lost' => $this->faker->numberBetween(2, 20),
             'played' => $this->faker->numberBetween(2, 20),
             'percentage' => $this->faker->numberBetween(20, 100),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'created_at' => \Illuminate\Support\Facades\Date::now(),
+            'updated_at' => \Illuminate\Support\Facades\Date::now(),
 
             'season_id' => Season::factory(),
             'player_id' => Player::factory(),

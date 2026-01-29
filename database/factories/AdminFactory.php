@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
 /**
  * @extends Factory<Admin>
@@ -20,8 +19,8 @@ class AdminFactory extends Factory
             'user_id' => User::factory(),
             'assigned_by' => fn () => User::query()->inRandomOrder()->first()->id,
             'super_admin' => $this->faker->boolean(20),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'created_at' => \Illuminate\Support\Facades\Date::now(),
+            'updated_at' => \Illuminate\Support\Facades\Date::now(),
         ];
     }
 }

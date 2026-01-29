@@ -6,8 +6,10 @@ use App\Models\Forum\Post;
 use App\Models\Forum\Visit;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
+/**
+ * @extends Factory<Forum\Visit>
+ */
 class VisitFactory extends Factory
 {
     protected $model = Visit::class;
@@ -15,8 +17,8 @@ class VisitFactory extends Factory
     public function definition(): array
     {
         return [
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'created_at' => \Illuminate\Support\Facades\Date::now(),
+            'updated_at' => \Illuminate\Support\Facades\Date::now(),
             'user_id' => User::factory(),
             'post_id' => Post::factory(),
         ];

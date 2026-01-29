@@ -5,8 +5,10 @@ namespace Database\Factories\Chat;
 use App\Models\Chat\ChatRoom;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
+/**
+ * @extends Factory<ChatRoom>
+ */
 class ChatRoomFactory extends Factory
 {
     protected $model = ChatRoom::class;
@@ -14,14 +16,15 @@ class ChatRoomFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->words(rand(1, 4), true),
+            'name' => $this->faker->words(random_int(1, 4), true),
             'user_id' => User::factory(),
             'private' => $this->faker->boolean(),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'created_at' => \Illuminate\Support\Facades\Date::now(),
+            'updated_at' => \Illuminate\Support\Facades\Date::now(),
         ];
     }
 
+    #[\Override]
     public function configure(): ChatRoomFactory
     {
         return $this->afterCreating(function (ChatRoom $room) {

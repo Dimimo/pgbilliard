@@ -6,7 +6,6 @@ use App\Models\Player;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
 /**
  * @extends Factory<Player>
@@ -22,8 +21,8 @@ class PlayerFactory extends Factory
             'team_id' => Team::factory(),
             'captain' => $this->faker->boolean(),
             'active' => true,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'created_at' => \Illuminate\Support\Facades\Date::now(),
+            'updated_at' => \Illuminate\Support\Facades\Date::now(),
         ];
     }
 }

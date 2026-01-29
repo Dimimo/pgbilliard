@@ -5,9 +5,11 @@ namespace Database\Factories\Forum;
 use App\Models\Forum\Post;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
+/**
+ * @extends Factory<Forum\Post>
+ */
 class PostFactory extends Factory
 {
     protected $model = Post::class;
@@ -23,8 +25,8 @@ class PostFactory extends Factory
             'user_id' => User::factory(),
             'is_locked' => $this->faker->boolean(),
             'is_sticky' => $this->faker->boolean(),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
+            'created_at' => \Illuminate\Support\Facades\Date::now(),
+            'updated_at' => \Illuminate\Support\Facades\Date::now(),
         ];
     }
 }
