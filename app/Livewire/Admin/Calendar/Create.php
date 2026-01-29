@@ -30,7 +30,7 @@ class Create extends Component
     public function mount(Season $season): void
     {
         $this->season = $season;
-        $this->new = str_contains(URL::current(), 'calendar/create');
+        $this->new = str_contains(\Illuminate\Support\Facades\URL::current(), 'calendar/create');
         $this->getLastEventAndPotentiallyDeleteTheSeason();
         $this->getTeams();
         $venue_ids = Team::query()->whereSeasonId($season->id)
