@@ -13,7 +13,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
-use URL;
 
 class Create extends Component
 {
