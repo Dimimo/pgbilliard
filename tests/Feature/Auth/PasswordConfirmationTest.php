@@ -7,7 +7,7 @@ use Livewire\Volt\Volt;
 
 beforeEach(function () {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
-    $this->user = user::first();
+    $this->user = user::query()->first();
 });
 
 test('confirm password screen can be rendered', function (): void {

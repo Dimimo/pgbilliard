@@ -5,8 +5,8 @@ use Livewire\Livewire;
 
 beforeEach(function (): void {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
-    $this->member = \App\Models\User::has('players')->first();
-    $this->season = \App\Models\Season::first();
+    $this->member = \App\Models\User::query()->has('players')->first();
+    $this->season = \App\Models\Season::query()->first();
     session()->put('cycle', $this->season->cycle);
 });
 

@@ -21,7 +21,7 @@ class Schedule extends Component
 
     public function mount(): void
     {
-        $this->season = Season::find(Context::getHidden('season_id'));
+        $this->season = Season::query()->find(Context::getHidden('season_id'));
         $this->event->loadMissing('games', 'team_1.players', 'team_2.players');
         $this->format = (new ScheduleManager($this->event))->setFormat();
         $this->switches = $this->collectSwitches();//$this->event->games()->delete();

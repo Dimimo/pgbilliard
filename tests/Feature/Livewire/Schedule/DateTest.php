@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Context;
 
 beforeEach(function (): void {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
-    $season = \App\Models\Season::first();
+    $season = \App\Models\Season::query()->first();
     Context::addHidden([
         'cycle' => $season->cycle,
         'season_id' => $season->id
@@ -24,7 +24,7 @@ it('if a day schedule can be loaded but not edited', function (): void {
 });
 
 it('checks if the schedule can be selected, admin login to bypass the time test', function (): void {
-    $event = \App\Models\Event::find(1);
+    $event = \App\Models\Event::query()->find(1);
     $format1 = \App\Models\Format::factory()->create([
         'name' => 'Format 1',
         'details' => 'The format 1 details',

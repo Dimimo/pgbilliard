@@ -21,7 +21,7 @@ test('email verification screen can be rendered', function (): void {
 
 test('email can be verified', function (): void {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
-    $user = user::first();
+    $user = user::query()->first();
     $user->unguard();
     $user->update([
         'email_verified_at' => null,
@@ -33,7 +33,7 @@ test('email can be verified', function (): void {
     $verificationUrl = URL::temporarySignedRoute(
         'verification.verify',
         now()->addMinutes(60),
-        ['id' => $user->id, 'hash' => sha1($user->email)]
+        ['id' => $user->id, 'hash' => sha1((string) $user->email)]
     );
 
     $response = $this->actingAs($user)

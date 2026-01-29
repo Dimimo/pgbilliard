@@ -56,7 +56,7 @@ class Score extends Component
      */
     public function hasGames($event_id): ?Event
     {
-        $event = Event::find($event_id);
+        $event = Event::query()->find($event_id);
         if ($event->has('games') && $event->games()->whereNotNull('win')->count() > 0) {
             return $event;
         }

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Context;
 
 it('renders successfully', function (): void {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
-    $season = Season::first();
+    $season = Season::query()->first();
     Context::addHidden([
         'cycle' => $season->cycle,
         'season_id' => $season->id,

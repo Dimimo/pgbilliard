@@ -47,7 +47,7 @@ class ScheduleScoreTable extends Component
 
     public function playerChanged(int $player_id, int $game_id): void
     {
-        $player = Player::find($player_id);
+        $player = Player::query()->find($player_id);
         Game::query()->whereId($game_id)->update(['player_id' => $player_id, 'user_id' => $player->user_id]);
         broadcast(new ScoreEvent($this->season->id, $this->event->id))->toOthers();
     }

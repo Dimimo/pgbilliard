@@ -5,8 +5,8 @@ use Livewire\Livewire;
 
 beforeEach(function () {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
-    $season = \App\Models\Season::first();
-    Context::addHidden([
+    $season = \App\Models\Season::query()->first();
+    \Illuminate\Support\Facades\Context::addHidden([
         'cycle' => $season->cycle,
         'season_id' => $season->id,
     ]);
