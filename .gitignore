@@ -24,7 +24,7 @@ phpstan-baseline.neon
 /.vscode
 /.git
 /package-lock.json
-# /composer.lock # Commented out - composer.lock should be committed for applications
+/composer.lock
 /.phpstorm.meta.php
 /_ide_helper.php
 /_ide_helper_models.php
