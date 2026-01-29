@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->web(append: [
+            \App\Http\Middleware\SetLocale::class,
             \App\Http\Middleware\CheckIfAdmin::class,
             \App\Http\Middleware\PoolCycle::class,
             \App\Http\Middleware\TeamOfLoggedInUserMiddleware::class,
@@ -26,6 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'detect.android' => \App\Http\Middleware\DetectAndroid::class,
             'admin' => \App\Http\Middleware\IsAdmin::class,
+            'locale' => \App\Http\Middleware\SetLocale::class,
         ]);
         $middleware->statefulApi();
     })
