@@ -7,7 +7,7 @@ it('renders successfully', function (): void {
     $this->seed(\Database\Seeders\EventSeeder::class);
     $event = \App\Models\Event::query()->latest()->first();
     $season = $event->date->season;
-    Context::addHidden([
+    \Illuminate\Support\Facades\Context::addHidden([
         'cycle' => $season->cycle,
         'season_id' => $season->id,
     ]);

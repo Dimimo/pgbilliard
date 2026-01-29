@@ -7,7 +7,7 @@ it('renders successfully', function (): void {
     $rank = \App\Models\Rank::factory()->create();
     $player = $rank->player;
     $season = $rank->season;
-    Context::addHidden([
+    \Illuminate\Support\Facades\Context::addHidden([
         'cycle' => $season->cycle,
         'season_id' => $season->id,
     ]);

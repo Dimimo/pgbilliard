@@ -6,7 +6,7 @@ use Livewire\Volt\Volt;
 test('profile page is displayed', function (): void {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
     $season = \App\Models\Season::query()->first();
-    Context::addHidden([
+    \Illuminate\Support\Facades\Context::addHidden([
         'cycle' => $season->cycle,
         'season_id' => $season->id,
     ]);

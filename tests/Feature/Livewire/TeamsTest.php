@@ -11,7 +11,7 @@ beforeEach(function (): void {
     $this->owner = \App\Models\User::factory()->create();
     \App\Models\Venue::query()->find(1)->update(['user_id' => $this->owner->id]);
     $season = \App\Models\Season::query()->first();
-    Context::addHidden([
+    \Illuminate\Support\Facades\Context::addHidden([
         'cycle' => $season->cycle,
         'season_id' => $season->id,
     ]);
