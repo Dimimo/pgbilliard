@@ -1,12 +1,12 @@
 <div class="m-8 flex flex-col items-center">
-    <x-title title="Create a new team" />
+    <x-title title="{{__('Create a new team')}}" />
     <form wire:submit="save">
         <div class="my-4">
             <label for="name" class="block">Name of the team</label>
             <input
                 type="text"
                 id="name"
-                class="border block rounded-md border-blue-300 p-3 shadow-sm focus:outline-none sm:text-sm"
+                class="block rounded-md border border-blue-300 p-3 shadow-sm focus:outline-none sm:text-sm"
                 wire:model.live.debounce="form.name"
             />
         </div>

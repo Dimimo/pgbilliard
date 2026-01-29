@@ -1,5 +1,5 @@
 <section>
-    <x-title title="Claim an open user account" />
+    <x-title title="{{__('Claim an open user account')}}" />
     <div class="mb-5 border border-gray-500 p-4 text-justify">
         <div class="text-2xl">
             What is this page about?

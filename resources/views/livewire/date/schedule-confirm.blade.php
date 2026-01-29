@@ -16,10 +16,10 @@
                     <div class="flex justify-center pb-2">
                         <button
                             type="button"
-                            title="Confirm the final score"
+                            title="{{ __('Confirm the final score') }}"
                             class="block rounded-lg bg-blue-100 p-2 outline outline-blue-600 hover:bg-green-100 hover:outline-green-600"
                             wire:click="consolidate()"
-                            wire:confirm="Final score is {{ $event->team_1->name }} {{ $event->score1 }} - {{ $event->score2 }} {{ $event->team_2->name }}\nYou can't change the score after the confirmation."
+                            wire:confirm="{{ __('Final score is') }} {{ $event->team_1->name }} {{ $event->score1 }} - {{ $event->score2 }} {{ $event->team_2->name }}\n{{ __("You can't change the score after the confirmation") }}."
                         >
                             {{ __('Confirm') }}
                         </button>

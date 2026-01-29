@@ -1,6 +1,6 @@
 <div>
     <div class="overflow-x-auto">
-        <x-title title="Competition Results" help="scoreboard">
+        <x-title title="{{__('Competition Results')}}" help="scoreboard">
             <x-slot:subtitle>
                 <div>{{ __('Season') }} {{ Context::getHidden('cycle') }}</div>
                 @if ($date && $date->checkOpenWindowAccess())
@@ -15,7 +15,7 @@
             class="mx-auto my-2 w-min whitespace-nowrap rounded-full border border-gray-500 bg-gray-100 text-center md:ml-auto md:mr-6 lg:hidden"
         >
             <button class="px-4 py-2" wire:click="toggleShowFullTable">
-                {{ $show_full_table ? 'Hide some' : 'Show all' }} {{ __('columns') }}
+                {{ $show_full_table ? __('Hide some') : __('Show all') }} {{ __('columns') }}
             </button>
         </div>
 

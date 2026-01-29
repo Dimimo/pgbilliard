@@ -2,7 +2,7 @@
     <x-title
         id="comment-show"
         :title="$post->title"
-        subtitle="Created by {{  $post->user->name }} on {{ $post->created_at->format('d-m-Y') }}"
+        subtitle="{{__('Created by')}} {{  $post->user->name }} {{__('on')}} {{ $post->created_at->format('d-m-Y') }}"
     />
 
     <x-forum.back-to-posts />

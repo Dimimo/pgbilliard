@@ -59,8 +59,8 @@
             <div class="ml-2 inline-block">
                 <button
                     type="submit"
-                    title="Remove this team"
-                    wire:confirm="Do you want to remove this team? You can always add again later"
+                    title="{{ __('Remove this team') }}"
+                    wire:confirm="{{ __('Do you want to remove this team? You can always add it again later') }}"
                     wire:click="$dispatch('remove-team', { team_id: {{ $form->team->id }} })"
                 >
                     <x-svg.square-minus-solid color="fill-orange-400" size="6" />

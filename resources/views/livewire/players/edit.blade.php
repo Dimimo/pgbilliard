@@ -51,7 +51,7 @@
                         @if (session('is_admin') && $show_new_player_form)
                             <button
                                 class="cursor-pointer"
-                                title="Edit this player"
+                                title="{{ __('Edit this player') }}"
                                 x-on:click="edit = !edit"
                                 wire:click="editUser({{ $player->user_id }})"
                             >
@@ -65,7 +65,7 @@
 
                         <button
                             class="cursor-pointer"
-                            title="Remove this user"
+                            title="{{ __('Remove this player') }}"
                             wire:confirm="{{ __('Are you sure you want to remove this player from the team?') }}"
                             wire:click="removePlayer({{ $player->id }})"
                         >

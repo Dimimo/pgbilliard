@@ -24,9 +24,9 @@
                         @if (!$admin->super_admin && (auth()->user()->isSuperAdmin() || $admin->assigned_by === auth()->user()->id))
                             <button
                                 type="button"
-                                title="Remove this administrator"
+                                title="{{ __('Remove this administrator') }}"
                                 wire:click="removeAdmin({{ $admin->user_id }})"
-                                wire:confirm="Do you want to remove this user as an administrator?"
+                                wire:confirm="{{ __('Do you want to remove this user as an administrator?') }}"
                             >
                                 <x-svg.user-minus-solid
                                     color="fill-red-500"
@@ -51,9 +51,11 @@
         </x-forms.action-message>
     </div>
 
-    <x-forms.sub-title title="Add another admin">
+    <x-forms.sub-title title="{{__('Add another admin')}}">
         <div class="grid grid-cols-2">
-            <div class="p-2 text-right text-xl">Select a user</div>
+            <div class="p-2 text-right text-xl">
+                {{ __('Select a user') }}
+            </div>
             <div class="p-2">
                 <label for="user_id"></label>
                 <select id="user_id" wire:model.change="user_id">

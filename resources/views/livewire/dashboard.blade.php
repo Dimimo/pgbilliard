@@ -22,7 +22,7 @@
                         (
                         <a
                             href="{{ route('venues.edit', ['venue' => $user->venue]) }}"
-                            title="edit"
+                            title="{{ __('edit') }}"
                             class="inline-block text-sm text-blue-800"
                             wire:navigate
                         >
@@ -48,7 +48,7 @@
                             (
                             <a
                                 href="{{ route('teams.edit', ['team' => $team]) }}"
-                                title="edit"
+                                title="{{ __('edit') }}"
                                 class="inline-block text-sm text-blue-800"
                                 wire:navigate
                             >

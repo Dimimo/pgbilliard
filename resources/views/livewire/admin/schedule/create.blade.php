@@ -42,7 +42,10 @@
             >
                 {{ __('The format used is') }}
                 <span class="font-bold">{{ $format->name }}</span>
-                <button wire:click="requestFormatUpdate" title="Edit the format's name and details">
+                <button
+                    wire:click="requestFormatUpdate"
+                    title="{{ __("Edit the format's name and details") }}"
+                >
                     <x-svg.pen-to-square-solid color="fill-green-600" size="4" padding="ml-2" />
                 </button>
                 @if ($details)
@@ -71,7 +74,7 @@
 
             @foreach ($rounds as $i => $round)
                 @php
-                    $j = $i+4;
+                    $j = $i + 4;
                 @endphp
 
                 <div class="col-span-9 h-12 w-full bg-green-100 pt-2 text-center text-xl">

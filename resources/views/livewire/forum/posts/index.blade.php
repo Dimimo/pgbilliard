@@ -1,5 +1,5 @@
 <div>
-    <x-title title="Forum Posts" />
+    <x-title title="{{__('Forum Posts')}}" />
 
     @auth()
         <x-forum.write-a-post />

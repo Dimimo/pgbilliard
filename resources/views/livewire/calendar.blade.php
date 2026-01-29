@@ -1,5 +1,9 @@
 <div>
-    <x-title title="Games schedule" subtitle="Season {{ session('cycle') }}" help="calendar" />
+    <x-title
+        title="{{__('Games schedule')}}"
+        subtitle="{{__('Season')}} {{ session('cycle') }}"
+        help="calendar"
+    />
 
     <x-navigation.main-links-buttons />
 
@@ -28,7 +32,7 @@
                             <a
                                 href="{{ route('dates.show', ['date' => $date]) }}"
                                 class="link text-white! after:bg-yellow-100! text-lg"
-                                title="click for details"
+                                title="{{ __('click for details') }}"
                                 wire:navigate
                             >
                                 {{ $date->date->format('jS \o\f M Y') }}

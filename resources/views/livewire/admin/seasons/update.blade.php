@@ -1,6 +1,6 @@
 <div>
     <x-title
-        title="Season Structure"
+        title="{{__('Season Structure')}}"
         subtitle="Create the {{ $number_of_teams }} Teams for Season {{ $season->cycle }}"
     />
 
