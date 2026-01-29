@@ -12,10 +12,9 @@
     </div>
     <div class="mb-4">
         Winning teams
-        <span class="font-bold">are shown in bolder text</span>
-        . If you are logged in and participate in the current season, the team you play in
-        <span class="bg-green-50 p-1">has a greenish background</span>
-        .
+        <span class="font-bold">are shown in bolder text.</span>
+        If you are logged in and participate in the current season, the team you play in
+        <span class="bg-green-50 p-1">has a greenish background.</span>
     </div>
     <div class="mb-4">
         You may click on the white space between the team name and the score to give any other team
@@ -49,7 +48,7 @@
             you don't appear as a player in your team
         </a>
         <br class="mb-2" />
-        If the latter is true, ask the bar or the captain of your team. They can add you!
+        If the latter is true, ask the bar owner or the captain of your team. They can add you!
     </div>
     <div class="mb-4">Special dates have a subtitle. Usually the semi-finals, final and party.</div>
     <div class="mb-4">
