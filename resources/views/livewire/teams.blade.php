@@ -1,5 +1,9 @@
 <div>
-    <x-title title="Participating teams" subtitle="Season {{ $cycle }}" help="teams" />
+    <x-title
+        title="{{__('Participating Teams')}}"
+        subtitle="{{__('Season')}} {{ $cycle }}"
+        help="teams"
+    />
 
     <x-navigation.main-links-buttons />
 
@@ -14,7 +18,7 @@
                 </th>
                 <th
                     class="border border-slate-300 bg-slate-100 p-2 text-center"
-                    title="number of players"
+                    title="{{ __('number of players') }}"
                 >
                     <x-svg.list-ul-solid color="fill-blue-700" size="4" padding="mr-2 mb-1" />
                 </th>
