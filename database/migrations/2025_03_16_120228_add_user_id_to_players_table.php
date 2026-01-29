@@ -16,7 +16,7 @@ return new class () extends Migration {
             });
         });
 
-        DB::table('players')->update(['active' => true]);
+        \Illuminate\Support\Facades\DB::table('players')->update(['active' => true]);
     }
 
     /**

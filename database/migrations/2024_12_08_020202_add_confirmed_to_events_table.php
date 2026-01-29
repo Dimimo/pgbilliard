@@ -16,7 +16,7 @@ return new class () extends Migration {
             });
         });
 
-        DB::table('events')
+        \Illuminate\Support\Facades\DB::table('events')
             ->whereNotNull(['score1', 'score2'])
             ->where([['score1', '<>', '0'], ['score2', '<>', '0']])
             ->update(['confirmed' => true]);
