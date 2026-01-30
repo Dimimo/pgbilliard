@@ -1,3 +1,10 @@
 <x-help.help-layout :help="$help">
-    <x-help.competition-results />
+    @switch(app()->getLocale())
+        @case('nl')
+            <x-help.nl.competition-results />
+
+            @break
+        @default
+            <x-help.competition-results />
+    @endswitch
 </x-help.help-layout>

@@ -1,3 +1,10 @@
 <x-help.help-layout :help="$help">
-    <x-help.ranking />
+    @switch(app()->getLocale())
+        @case('nl')
+            <x-help.nl.ranking />
+
+            @break
+        @default
+            <x-help.ranking />
+    @endswitch
 </x-help.help-layout>
