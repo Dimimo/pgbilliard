@@ -27,12 +27,12 @@
     </x-slot>
 
     <x-slot name="content">
-        <x-forms.dropdown-link :href="route('rank')" wire:navigate>
-            {{ __('The Individual Ranking') }}
-        </x-forms.dropdown-link>
-
         <x-forms.dropdown-link :href="route('dashboard')" wire:navigate>
             {{ __('Dashboard') }}
+        </x-forms.dropdown-link>
+
+        <x-forms.dropdown-link :href="route('rank')" wire:navigate>
+            {{ __('The Individual Ranking') }}
         </x-forms.dropdown-link>
 
         <x-forms.dropdown-link :href="route('profile')" wire:navigate>
