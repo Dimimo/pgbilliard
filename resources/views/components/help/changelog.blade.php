@@ -128,6 +128,10 @@
             Dec 15, 2025: a bug fix in case of a game ending in 0-15 or 15-0, was considered a
             no-show. Is now considered a fully played game and adds to the played games total
         </li>
+        <li>
+            Jan 2026: the first phase of making the website multilingual. First Dutch, as my mother
+            tongue, it's the easiest language for me to check on errors in the design.
+        </li>
     </ul>
 </div>
 <div class="mt-4">
