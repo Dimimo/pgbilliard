@@ -1,8 +1,11 @@
 <?php
 
 use function Laravel\Folio\name;
+use function Livewire\Volt\state;
 
 name('help.calendar');
+state(['locale' => app()->getLocale()]);
+
 ?>
 
 <x-layout>
@@ -24,7 +27,14 @@ name('help.calendar');
                 </x-slot>
             </x-title>
 
-            <x-help.calendar />
+            @switch($locale)
+                @case('nl')
+                    <x-help.nl.calendar />
+
+                    @break
+                @default
+                    <x-help.calendar />
+            @endswitch
         </section>
     @endvolt
 </x-layout>

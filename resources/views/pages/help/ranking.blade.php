@@ -1,8 +1,10 @@
 <?php
 
 use function Laravel\Folio\name;
+use function Livewire\Volt\state;
 
 name('help.ranking');
+state(['locale' => app()->getLocale()]);
 ?>
 
 <x-layout>
@@ -24,7 +26,14 @@ name('help.ranking');
                 </x-slot>
             </x-title>
 
-            <x-help.ranking />
+            @switch($locale)
+                @case('nl')
+                    <x-help.nl.ranking />
+
+                    @break
+                @default
+                    <x-help.ranking />
+            @endswitch
         </section>
     @endvolt
 </x-layout>

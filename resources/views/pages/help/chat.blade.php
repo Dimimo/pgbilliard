@@ -1,8 +1,10 @@
 <?php
 
 use function Laravel\Folio\name;
+use function Livewire\Volt\state;
 
 name('help.chat');
+state(['locale' => app()->getLocale()]);
 ?>
 
 <x-layout>
@@ -24,7 +26,14 @@ name('help.chat');
                 </x-slot>
             </x-title>
 
-            <x-help.chat />
+            @switch($locale)
+                @case('nl')
+                    <x-help.nl.chat />
+
+                    @break
+                @default
+                    <x-help.chat />
+            @endswitch
         </section>
     @endvolt
 </x-layout>

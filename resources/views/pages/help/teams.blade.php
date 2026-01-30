@@ -1,8 +1,10 @@
 <?php
 
 use function Laravel\Folio\name;
+use function Livewire\Volt\state;
 
 name('help.teams');
+state(['locale' => app()->getLocale()]);
 ?>
 
 <x-layout>
@@ -24,7 +26,14 @@ name('help.teams');
                 </x-slot>
             </x-title>
 
-            <x-help.teams />
+            @switch($locale)
+                @case('nl')
+                    <x-help.nl.teams />
+
+                    @break
+                @default
+                    <x-help.teams />
+            @endswitch
         </section>
     @endvolt
 </x-layout>
