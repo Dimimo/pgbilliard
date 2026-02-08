@@ -17,8 +17,7 @@ class SetLocale
     {
         if ($request->has('locale')) {
             $locale = $request->get('locale', \Illuminate\Support\Facades\Config::get('app.locale'));
-        }
-        elseif ($request->session()->has('locale')) {
+        } elseif ($request->session()->has('locale')) {
             $locale = $request->session()->get('locale', \Illuminate\Support\Facades\Config::get('app.locale'));
         } else {
             $locale = substr($request->server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
