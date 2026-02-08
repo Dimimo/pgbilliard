@@ -27,14 +27,7 @@ state(['locale' => app()->getLocale()]);
                 </x-slot>
             </x-title>
 
-            @switch($locale)
-                @case('nl')
-                    <x-help.nl.calendar />
-
-                    @break
-                @default
-                    <x-help.calendar />
-            @endswitch
+            @include('components.help.'.app()->getLocale().'.calendar')
         </section>
     @endvolt
 </x-layout>

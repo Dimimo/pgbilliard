@@ -26,14 +26,7 @@ state(['locale' => app()->getLocale()]);
                 </x-slot>
             </x-title>
 
-            @switch($locale)
-                @case('nl')
-                    <x-help.nl.chat />
-
-                    @break
-                @default
-                    <x-help.chat />
-            @endswitch
+            @include('components.help.'.app()->getLocale().'.chat')
         </section>
     @endvolt
 </x-layout>

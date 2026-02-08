@@ -26,14 +26,7 @@ state(['locale' => app()->getLocale()]);
                 </x-slot>
             </x-title>
 
-            @switch($locale)
-                @case('nl')
-                    <x-help.nl.schedule />
-
-                    @break
-                @default
-                    <x-help.schedule />
-            @endswitch
+            @include('components.help.'.app()->getLocale().'.schedule')
         </section>
     @endvolt
 </x-layout>

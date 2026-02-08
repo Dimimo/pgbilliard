@@ -26,14 +26,7 @@ state(['locale' => app()->getLocale()]);
                 </x-slot>
             </x-title>
 
-            @switch($locale)
-                @case('nl')
-                    <x-help.nl.teams />
-
-                    @break
-                @default
-                    <x-help.teams />
-            @endswitch
+            @include('components.help.'.app()->getLocale().'.teams')
         </section>
     @endvolt
 </x-layout>
