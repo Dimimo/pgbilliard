@@ -1,9 +1,9 @@
 @props(['title', 'subtitle' => null, 'help' => null, 'gradient' => true])
 @php
     $class = "grid-rows-auto mb-2 grid gap-y-2 px-6 py-3 md:mb-4";
-            if ($gradient) {
-                $class .= " bg-linear-to-b from-green-300 rounded-lg";
-            }
+    if ($gradient) {
+        $class .= " bg-linear-to-b from-green-300 rounded-lg";
+    }
 @endphp
 
 <div
@@ -21,7 +21,7 @@
             </div>
             <div class="flex-none text-right">
                 <button
-                    title="Get help for the {{ $help }}"
+                    title="{{ __('Get help for') }} {{ __($help) }}"
                     class="cursor-pointer"
                     wire:click="$dispatch('openModal', { component: 'help.{{ $help }}' })"
                 >
