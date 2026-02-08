@@ -1,10 +1,3 @@
 <x-help.help-layout :help="$help">
-    @switch(app()->getLocale())
-        @case('nl')
-            <x-help.nl.schedule />
-
-            @break
-        @default
-            <x-help.schedule />
-    @endswitch
+    @include('components.help.'.app()->getLocale().'.schedule')
 </x-help.help-layout>

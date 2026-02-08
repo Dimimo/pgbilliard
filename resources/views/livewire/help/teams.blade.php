@@ -1,10 +1,3 @@
 <x-help.help-layout :help="$help">
-    @switch(app()->getLocale())
-        @case('nl')
-            <x-help.nl.teams />
-
-            @break
-        @default
-            <x-help.teams />
-    @endswitch
+    @include('components.help.'.app()->getLocale().'.teams')
 </x-help.help-layout>
