@@ -55,9 +55,6 @@
             <x-svg.circle-question-regular color="fill-green-700" size="6" />
         </a>
     </div>
-    <div class="mb-1">
-        {{ __('Designed for the Puerto Galera Billiard League') }}
-    </div>
     <div class="mb-4">
         <a
             href="{{ route('privacy-policy') }}"
@@ -68,6 +65,24 @@
             {{ __('Privacy Policy') }}
         </a>
     </div>
+    <!-- START Language Selection -->
+    <div class="mb-4 inline-block">
+        <label for="locale-select-dropdown">Select your preferred language</label>
+        <select
+            id="locale-select-dropdown"
+            class="w-auto appearance-none rounded border border-gray-500 bg-white py-1 pl-4 pr-8 text-base leading-normal text-gray-800"
+            title="Select your preferred language"
+            wire:change="setLocale($event.target.value)"
+        >
+            @foreach (config('app.available_locales') as $language => $locale)
+                <option value="{{ $locale }}" @selected(app()->getLocale() === $locale)>
+                    {{-- @include('components.svg.flag-en', ['size' => 10]) --}}
+                    {{ $language }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+    <!-- END Language Selection -->
     <div class="text-xs">
         {{ __('This is an open source project build on Laravel, Livewire and Tailwind') }}
     </div>

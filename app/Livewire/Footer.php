@@ -11,4 +11,11 @@ class Footer extends Component
     {
         return view('livewire.footer');
     }
+
+    public function setLocale(string $locale): void
+    {
+        \App::setLocale($locale);
+        session()->put('locale', $locale);
+        $this->redirect('/');
+    }
 }
