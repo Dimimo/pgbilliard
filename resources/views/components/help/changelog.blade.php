@@ -132,6 +132,7 @@
             Jan 2026: the first phase of making the website multilingual. First Dutch, as my mother
             tongue, it's the easiest language for me to check on errors in the design.
         </li>
+        <li>Feb 2026: Tagalog added as a sitewide extra language</li>
     </ul>
 </div>
 <div class="mt-4">

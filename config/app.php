@@ -86,7 +86,7 @@ return [
     */
 
     'locale' => 'en',
-    'available_locales' => ['English' => 'en', 'Nederlands' => 'nl', /*'Tagalog' => 'tl'*/],
+    'available_locales' => ['English' => 'en', 'Nederlands' => 'nl', 'Tagalog' => 'tl'],
 
     /*
     |--------------------------------------------------------------------------
