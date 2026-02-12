@@ -1,38 +1,39 @@
 <div class="text-justify">
     <div class="mb-4">
-        The main page and the first page you see when you go to the website or log in. It speaks for
-        itself if you know what you are looking at. Anybody can see this page by the way, if you are
-        logged in or not.
+        Ang pangunahing pahina at ang unang pahina na makikita mo kapag pumunta ka sa website o
+        mag-log in. Madaling maunawaan kung alam mo kung ano ang iyong tinitingnan. Sinuman ay
+        maaaring makita ang pahinang ito, naka-log in ka man o hindi.
     </div>
     <div class="mb-4">
-        Each team appears twice. First in the ranking, then in your latest game. Home and away
-        status is irrelevant! Check
+        Bawat koponan ay lumilitaw nang dalawang beses. Una sa ranggo, pagkatapos ay sa iyong
+        pinakabagong laro. Ang home at away status ay hindi mahalaga! Tingnan ang
         <a
             class="text-blue-800 hover:text-blue-600 hover:underline"
             href="{{ route('calendar') }}"
             wire:navigate
         >
-            the Calendar
+            Kalendaryo
         </a>
-        to see the details of your day-to-day games.
+        upang makita ang mga detalye ng iyong araw-araw na mga laro.
     </div>
     <div class="mb-4">
-        The ranking is determined by (1) alphabetical order, (2) your daily wins, (3) the amount of
-        individual games won vs (4) the lost individual games. Lost daily games are irrelevant in
-        the makeup of the ranking.
+        Ang ranggo ay tinutukoy ng (1) alphabetical order, (2) ang iyong araw-araw na mga panalo,
+        (3) ang dami ng mga indibidwal na larong nanalo laban sa (4) ang mga natalo na indibidwal na
+        laro. Ang mga natalo na araw-araw na laro ay hindi mahalaga sa pagbuo ng ranggo.
     </div>
     <div class="mb-4">
-        Teams that didn't make it to the finals are negatively influenced by the percentage AND
-        number of games. This is to avoid that the nr 3 can have a higher percentage than the
-        runner-up.
+        Ang mga koponang hindi umabot sa finals ay negatibong apektado ng porsyento AT bilang ng mga
+        laro. Ito ay upang maiwasan na ang nr 3 ay maaaring magkaroon ng mas mataas na porsyento
+        kaysa sa runner-up.
     </div>
     <div class="mb-4">
-        Team and individual wins influence the score. To get a 100% you should win every game at the
-        maximum score of 15/0.
+        Ang mga panalo ng koponan at indibidwal ay nakakaimpluwensya sa iskor. Upang makakuha ng
+        100% dapat kang manalo sa bawat laro sa maximum score na 15/0.
     </div>
     <div class="mb-4">
         <x-svg.percent-solid color="fill-indigo-500" size="5" />
-        is calculated as following (where TG = total games, including semi and finals)
+        ay kinakalkula sa sumusunod na paraan (kung saan ang TG = total games, kasama ang semi at
+        finals)
         <div class="m-4 text-center font-mono">
             <math xmlns="http://www.w3.org/1998/Math/MathML">
                 <mrow>
@@ -65,49 +66,50 @@
         </div>
     </div>
     <div class="mb-4">
-        The
+        Ang
         <span class="font-bold">factor</span>
-        has only an influence to finalists. The winner gets a factor of 1.3 or 30% extra on the
-        percentage. The runner-up gets 15% extra. All other teams get a factor of 1. Reason? In
-        previous Seasons, it was possible the nr 3 ended up with a better percentage than the runner
-        up...
+        ay may impluwensya lamang sa mga finalist. Ang nanalo ay nakakakuha ng factor na 1.3 o 30%
+        na dagdag sa porsyento. Ang runner-up ay nakakakuha ng 15% na dagdag. Lahat ng iba pang
+        koponan ay nakakakuha ng factor na 1. Dahilan? Sa mga nakaraang Panahon, posible na ang nr 3
+        ay nagtapos na may mas magandang porsyento kaysa sa runner-up...
     </div>
     <div class="mb-4">
-        BYE games are excluded in any calculation as they are not considered a game.
+        Ang mga larong BYE ay hindi kasama sa anumang kalkulasyon dahil hindi ito itinuturing na
+        laro.
     </div>
     <div class="mb-4">
-        If 2 teams end up with the same scores (daily + individual), the ranking will be alphabetic.
-        The calculation does not take mutual game results into account. If this is the case, please
-        refer to our
+        Kung 2 koponan ay nagtapos na may parehong mga iskor (araw-araw + indibidwal), ang ranggo ay
+        magiging alphabetic. Ang kalkulasyon ay hindi isinasaalang-alang ang mga resulta ng mutual
+        game. Kung ito ang kaso, mangyaring sumangguni sa aming
         <a
             class="font-bold text-blue-800 hover:text-blue-600 hover:underline"
             href="{{ route('forum.posts.index') }}"
             wire:navigate
         >
-            our Forum
+            aming Porum
         </a>
-        where we can talk about anything (replaces FaceBook).
+        kung saan maaari tayong pag-usapan ang kahit ano (pumapalit sa FaceBook).
     </div>
     <div class="mb-4">
-        Last but not least, the symbols.
-        <span class="font-bold">Some columns may be hidden on your device.</span>
-        It depends on the width of your screen. It's a table and tables have their awkward
-        limitations.
+        Panghuli, ang mga simbolo.
+        <span class="font-bold">Ang ilang kolum ay maaaring nakatago sa iyong device.</span>
+        Depende ito sa lapad ng iyong screen. Ito ay isang talahanayan at ang mga talahanayan ay may
+        kanilang mga kakaibang limitasyon.
     </div>
     <div class="mb-4">
-        <span class="font-bold">The site is build on mobile first.</span>
-        In the table, some columns are
-        <span class="font-bold">dropped</span>
+        <span class="font-bold">Ang site ay ginawa para sa mobile muna.</span>
+        Sa talahanayan, ang ilang kolum ay
+        <span class="font-bold">inalis</span>
         (
         <x-svg.minus-solid color="fill-red-700" size="5" padding="-mr-1" />
-        ) on smaller devices but
-        <span class="font-bold">visible</span>
-        on larger screens (
+        ) sa mas maliliit na device ngunit
+        <span class="font-bold">nakikita</span>
+        sa mas malalaking screen (
         <x-svg.plus-solid color="fill-green-700" size="5" padding="-mr-1" />
         ).
         <span class="text-sm">
-            The width of the screens are: extra small (xs) < 640px, small (sm) > 640px, medium (md)
-            > 768px, large (lg) >1024px.
+            Ang lapad ng mga screen ay: extra small (xs) < 640px, small (sm) > 640px, medium (md) >
+            768px, large (lg) >1024px.
         </span>
     </div>
     <table class="table-auto border-separate">
@@ -117,7 +119,7 @@
                     <x-svg.circle-question-regular color="fill-gray-600" size="5" />
                 </th>
                 <th class="h-12 w-auto border border-indigo-400 bg-indigo-50 px-2 text-left">
-                    Explanation
+                    Paliwanag
                 </th>
                 <th class="h-12 w-12 border border-indigo-400 bg-indigo-50 px-2 text-center">xs</th>
                 <th class="h-12 w-12 border border-indigo-400 bg-indigo-50 px-2 text-center">sm</th>
@@ -131,15 +133,15 @@
                     <x-svg.circle-info-solid color="fill-green-600" size="5" />
                 </td>
                 <td class="h-12 w-auto border border-gray-300 p-2">
-                    Ranking, last game and score (check
+                    Ranggo, huling laro at iskor (tingnan ang
                     <a
                         class="text-blue-800 hover:text-blue-600 hover:underline"
                         href="{{ route('calendar') }}"
                         wire:navigate
                     >
-                        the Calendar
+                        Kalendaryo
                     </a>
-                    for details)
+                    para sa mga detalye)
                 </td>
                 <td class="h-12 w-12 border border-gray-300 text-center">
                     <x-svg.plus-solid color="fill-green-700" />
@@ -180,7 +182,7 @@
                     <x-svg.thumbs-up-solid color="fill-green-600" size="5" />
                 </td>
                 <td class="h-12 w-auto border border-gray-300 p-2">
-                    The number of daily games won (8 or higher is a win)
+                    Ang bilang ng mga araw-araw na larong nanalo (8 o mas mataas ay panalo)
                 </td>
                 <td class="h-12 w-12 border border-gray-300 text-center">
                     <x-svg.minus-solid color="fill-red-700" />
@@ -200,7 +202,7 @@
                     <x-svg.thumbs-down-solid color="fill-red-600" size="5" />
                 </td>
                 <td class="h-12 w-auto border border-gray-300 p-2">
-                    The number of daily games lost (7 or lower)
+                    Ang bilang ng mga araw-araw na larong natalo (7 o mas mababa)
                 </td>
                 <td class="h-12 w-12 border border-gray-300 text-center">
                     <x-svg.minus-solid color="fill-red-700" />
@@ -220,7 +222,7 @@
                     <x-svg.square-plus-solid color="fill-green-600" size="5" />
                 </td>
                 <td class="h-12 w-auto border border-gray-300 p-2">
-                    The number of individual games won, including doubles
+                    Ang bilang ng mga indibidwal na larong nanalo, kasama ang dobles
                 </td>
                 <td class="h-12 w-12 border border-gray-300 text-center">
                     <x-svg.minus-solid color="fill-red-700" />
@@ -240,7 +242,7 @@
                     <x-svg.square-minus-solid color="fill-orange-500" size="5" />
                 </td>
                 <td class="h-12 w-auto border border-gray-300 p-2">
-                    The number of individual games lost
+                    Ang bilang ng mga indibidwal na larong natalo
                 </td>
                 <td class="h-12 w-12 border border-gray-300 text-center">
                     <x-svg.minus-solid color="fill-red-700" />
@@ -260,7 +262,7 @@
                     <x-svg.percent-solid color="fill-indigo-500" size="5" />
                 </td>
                 <td class="h-12 w-auto border border-gray-300 p-2">
-                    Percentage based on team effort and individual outcome
+                    Porsyento batay sa pagsisikap ng koponan at indibidwal na resulta
                 </td>
                 <td class="h-12 w-12 border border-gray-300 text-center">
                     <x-svg.minus-solid color="fill-red-700" />
@@ -280,8 +282,8 @@
                     <x-svg.champagne-glasses-solid color="fill-blue-800" size="5" />
                 </td>
                 <td class="h-12 w-auto border border-gray-300 p-2">
-                    The number of games played
-                    <span class="italic">(including no-show)</span>
+                    Ang bilang ng mga larong nilaro
+                    <span class="italic">(kasama ang no-show)</span>
                 </td>
                 <td class="h-12 w-12 border border-gray-300 text-center">
                     <x-svg.minus-solid color="fill-red-700" />

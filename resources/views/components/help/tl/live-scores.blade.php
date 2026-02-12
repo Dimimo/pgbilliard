@@ -1,28 +1,29 @@
 <div class="text-justify">
     <div class="mb-4">
-        On
+        Sa
         <a href="{{ route('calendar') }}" class="link inline-block text-blue-800" wire:navigate>
-            the Calendar
+            Kalendaryo
         </a>
-        you can select any date. There are 3 possibilities presented to you:
+        maaari mong piliin ang anumang petsa. Mayroong 3 posibilidad na ipapakita sa iyo:
     </div>
 
     <div class="mb-4">
         <ul class="list-inside list-disc">
             <li>
-                a date
-                <span class="font-bold">from the past</span>
-                shows you the end score and a link to the daily schedule individual results
+                ang petsang
+                <span class="font-bold">mula sa nakaraan</span>
+                ay nagpapakita sa iyo ng panghuling iskor at isang link sa araw-araw na iskedyul ng
+                mga indibidwal na resulta
             </li>
             <li>
-                a date
-                <span class="font-bold">into the future</span>
-                gives you the time remaining for the 'window' to open
+                ang petsang
+                <span class="font-bold">sa hinaharap</span>
+                ay nagbibigay sa iyo ng natitirang oras para sa 'window' na magbukas
             </li>
             <li>
-                the
-                <span class="font-bold">'time window' is open</span>
-                , games are about to start or have already started
+                ang
+                <span class="font-bold">'time window' ay bukas</span>
+                , ang mga laro ay magsisimula na o nagsimula na
             </li>
         </ul>
     </div>
@@ -30,7 +31,7 @@
     <div class="mb-6 w-full rounded-lg border-2 border-gray-500 text-center">
         <div class="border-b border-gray-500 font-bold">
             <div class="rounded-t-lg bg-green-100 p-4">
-                The calendar day overview set into the future
+                Ang pangkalahatang tingnan ng araw ng kalendaryo na nakatakda sa hinaharap
             </div>
         </div>
         <div class="m-4 flex justify-center">
@@ -41,8 +42,9 @@
     <div class="mb-6 w-full rounded-lg border-2 border-gray-500 text-center">
         <div class="border-b border-gray-500 font-bold">
             <div class="rounded-t-lg bg-green-100 p-4">
-                The calendar day overview on the day we play from
-                {{ \App\Constants::DATEFORMAT_START }}h to {{ \App\Constants::DATEFORMAT_END }}h
+                Ang pangkalahatang tingnan ng araw ng kalendaryo sa araw na naglalaro tayo mula
+                {{ \App\Constants::DATEFORMAT_START }}h hanggang
+                {{ \App\Constants::DATEFORMAT_END }}h
             </div>
         </div>
         <div class="m-4 flex justify-center">
@@ -51,126 +53,133 @@
     </div>
 
     <div class="mb-4">
-        If you are playing for a team, you have access to the game you are participating in. Every
-        player can update the game scores. In this case, the game
+        Kung ikaw ay naglalaro para sa isang koponan, mayroon kang access sa larong iyong kasalihan.
+        Bawat manlalaro ay maaaring mag-update ng mga iskor ng laro. Sa kasong ito, ang larong
         <span class="font-bold">Pirata Galleon - Victoria</span>
-        can be updated. The other games
-        <span class="font-bold">didn't start yet</span>
+        ay maaaring i-update. Ang ibang mga laro
+        <span class="font-bold">ay hindi pa nagsimula</span>
         .
     </div>
 
     <div class="mb-4 rounded-lg border-2 border-green-700 bg-green-100 p-4">
-        Every
-        <span class="italic">finished individual game</span>
-        is visible in the Score Board, the Calendar, the day overview AND the "Schedules of the
-        day".
-        <span class="font-bold">No need to refresh. Score updates are immediately reflected.</span>
+        Bawat
+        <span class="italic">natapos na indibidwal na laro</span>
+        ay makikita sa Score Board, ang Kalendaryo, ang pangkalahatang tingnan ng araw AT ang "Mga
+        iskedyul ng araw".
+        <span class="font-bold">
+            Walang pangangailangang mag-refresh. Ang mga update sa iskor ay agad na makikita.
+        </span>
     </div>
 
     <div class="mb-4">
-        When the games are actually being played, you notice a link on
+        Kapag ang mga laro ay aktwal na nilalaro, mapapansin mo ang isang link sa
         <a href="{{ route('scoreboard') }}" class="link inline-block text-blue-800" wire:navigate>
-            the Scoreboard
+            Scoreboard
         </a>
-        and on
+        at sa
         <a href="{{ route('calendar') }}" class="link inline-block text-blue-800" wire:navigate>
-            the Calendar
+            Kalendaryo
         </a>
-        as
+        bilang
         <span class="font-bold">Live Scores</span>
         .
     </div>
 
     <div class="mb-4">
-        <span class="font-bold">From now on you need to be logged in to change a score.</span>
-        Anybody can visit during
-        <span class="italic">opening hours</span>
-        from {{ \App\Constants::DATEFORMAT_START }}h to {{ \App\Constants::DATEFORMAT_END }}h.
+        <span class="font-bold">
+            Mula ngayon kailangan mong naka-log in upang baguhin ang iskor.
+        </span>
+        Sinuman ay maaaring bumisita sa panahon ng
+        <span class="italic">mga oras ng pagbubukas</span>
+        mula {{ \App\Constants::DATEFORMAT_START }}h hanggang
+        {{ \App\Constants::DATEFORMAT_END }}h.
     </div>
 
     <div class="mb-4">
-        <span class="font-bold">There is a logical hierarchy</span>
+        <span class="font-bold">Mayroon lohikal na hierarchy</span>
         :
         <div class="ml-4">
-            <span class="font-bold">Administrators</span>
-            : access to all games
-            <span class="font-semibold">except</span>
-            confirmed games, these are immutable
+            <span class="font-bold">Mga Administrator</span>
+            : access sa lahat ng mga laro
+            <span class="font-semibold">maliban</span>
+            sa mga nakumpirmang laro, ang mga ito ay hindi na mababago
             <br />
-            <span class="font-bold">Bar owners</span>
-            : can change the scores on any team playing for the bar
+            <span class="font-bold">Mga may-ari ng bar</span>
+            : maaaring baguhin ang mga iskor sa anumang koponang naglalaro para sa bar
             <br />
-            <span class="font-bold">Captains and players</span>
-            : can only change the game they are involved in, i.e. Victoria has no access to Bluemoon
-            - Tigers
+            <span class="font-bold">Mga kapitan at manlalaro</span>
+            : maaari lamang baguhin ang larong kanilang kasangkot, i.e. ang Victoria ay walang
+            access sa Bluemoon - Tigers
             <br />
-            <span class="font-bold">Visitors or non-players</span>
-            : read only
+            <span class="font-bold">Mga bisita o hindi manlalaro</span>
+            : basahin lamang
         </div>
-        Notice: if you have access to a game in progress, you have access to both the home and
-        visitor's score.
+        Pansinin: kung mayroon kang access sa isang laro na kasalukuyang ginagawa, mayroon kang
+        access sa parehong home at visitor's score.
     </div>
 
     <div class="mb-4">
         <span class="font-bold">
-            What's with the
+            Ano ang tungkol sa
             <span class="text-lg text-blue-800">confirm</span>
             button?
         </span>
         <div class="ml-4">
-            It appears when the game adds up to 15 games. It's a trigger of sorts. It tells the game
-            is finished and the score is final. The Pirata - Geriatric game is set as confirmed. The
-            Kickass - Victoria game not yet.
+            Ito ay lumalabas kapag ang laro ay umabot na sa 15 na mga laro. Ito ay isang uri ng
+            trigger. Sinasabi nito na ang laro ay tapos na at ang iskor ay final. Ang Pirata -
+            Geriatric na laro ay nakatakda bilang nakumpirma. Ang Kickass - Victoria na laro ay
+            hindi pa.
             <br class="mb-2" />
-            It comes with a confirmation dialogue. Just to be sure.
+            Ito ay may confirmation dialogue. Para lang sigurado.
             <br class="mb-2" />
-            When the final game is confirmed,
+            Kapag ang panghuling laro ay nakumpirma,
             <span class="font-bold">
-                all participating players get an email with the day results
+                lahat ng mga lumalahok na manlalaro ay makakatanggap ng email na may mga resulta ng
+                araw
             </span>
             .
             <br />
-            <span class="font-bold">As always</span>
+            <span class="font-bold">Gaya ng palagi</span>
             :
             <a
                 href="{{ route('scoreboard') }}"
                 class="link inline-block text-blue-800"
                 wire:navigate
             >
-                the Scoreboard
+                ang Scoreboard
             </a>
-            and
+            at
             <a
                 href="{{ route('calendar') }}"
                 class="link inline-block text-blue-800"
                 wire:navigate
             >
-                the Calendar
+                ang Kalendaryo
             </a>
-            are immediately up-to-date.
+            ay agad na naka-update.
         </div>
     </div>
 
     <div class="mb-4 font-bold">
-        Confirmed games can't be changed by anybody, not even administrators.
+        Ang mga nakumpirmang laro ay hindi mababago ng sinuman, kahit ng mga administrator.
     </div>
 
     @if (session('is_admin'))
         <div class="mb-4 rounded-lg border-2 border-indigo-700 text-center">
             <div class="mb-4 border-b border-indigo-700 font-bold">
-                <div class="rounded-t-lg bg-indigo-100 p-4">Only for administrators</div>
+                <div class="rounded-t-lg bg-indigo-100 p-4">Para sa mga administrator lamang</div>
             </div>
             <div class="mb-4">
-                As an administrator you can still change the score directly as it was before.
+                Bilang administrator maaari mo pa ring baguhin ang iskor direkta gaya ng dati.
                 <br />
-                The reason? In case of a
+                Ang dahilan? Sa kaso ng
                 <span class="font-bold">no-show (8-0)</span>
-                . No daily individual scores will be available as there aren't any.
+                . Walang araw-araw na indibidwal na mga iskor na magagamit dahil wala naman.
             </div>
             <div class="w-full rounded-lg border border-gray-500 bg-white p-2 text-center">
                 <div class="my-2 font-bold">
-                    What an administrator sees when a game is
-                    <span class="font-bold">not confirmed</span>
+                    Ang makikita ng administrator kapag ang laro ay
+                    <span class="font-bold">hindi nakumpirma</span>
                 </div>
                 <img
                     src="{{ secure_url('/images/schedule/admin_direct_score_overview.png') }}"

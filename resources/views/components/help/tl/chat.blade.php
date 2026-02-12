@@ -1,28 +1,30 @@
 <div class="text-justify">
     <div class="mb-4">
-        The General Chat Room is a starting point. You can create other rooms, public and private.
-        In a private room you will need to invite other people, if not you will be talking to
-        yourself...
+        Ang General Chat Room ay isang panimulang punto. Maaari kang lumikha ng ibang mga silid,
+        pampubliko at pribado. Sa pribadong silid kakailanganin mong mag-anyaya ng ibang tao, kung
+        hindi ay makikipag-usap ka sa iyong sarili...
     </div>
     <div class="mb-4">
-        I consider sending invitation emails for private chats. Not implemented yet.
+        Isinasaalang-alang kong magpadala ng mga email na imbitasyon para sa mga pribadong chat.
+        Hindi pa naipapatupad.
     </div>
     <div class="mb-4">
-        Any room you create can also be deleted, together with all chat messages that may exist
-        inside.
+        Anumang silid na iyong ginawa ay maaari ring tanggalin, kasama ang lahat ng mga mensahe ng
+        chat na maaaring umiiral sa loob.
     </div>
     <div class="mb-4">
-        If you for some reason remove a participant, their messages are removed from the chat as
-        well. Administrators have no access to private rooms. Unless invited.
+        Kung sa ilang dahilan ay aalisin mo ang isang kalahok, ang kanilang mga mensahe ay aalisin
+        din sa chat. Ang mga administrator ay walang access sa mga pribadong silid. Maliban kung
+        inanyayahan.
     </div>
     <div class="mb-4">
-        Public rooms have a list of participants as well. All you need to do is create at least one
-        message.
+        Ang mga pampublikong silid ay mayroon ding listahan ng mga kalahok. Ang kailangan mo lang
+        gawin ay lumikha ng kahit isang mensahe.
     </div>
-    <div class="mb-4">You can delete any of your own messages.</div>
+    <div class="mb-4">Maaari mong tanggalin ang alinman sa iyong sariling mga mensahe.</div>
     <div class="mb-4">
-        It's a simple chat. For your convenience. If it gets popular, it will be expanded with more
-        features.
+        Ito ay isang simpleng chat. Para sa iyong kaginhawahan. Kung ito ay maging popular, ito ay
+        palawakin na may mas maraming mga feature.
     </div>
-    <div class="fon-bold">Chat on!</div>
+    <div class="fon-bold">Mag-chat!</div>
 </div>

@@ -1,13 +1,15 @@
 <div class="text-justify">
     <div class="mb-4">
-        When you see
-        <span class="font-bold">create day sheet</span>
-        , you can start the daily individual day sheet.
+        Kapag nakita mo ang
+        <span class="font-bold">gumawa ng talaan ng araw</span>
+        , maaari mong simulan ang araw-araw na indibidwal na talaan ng araw.
     </div>
 
     <div class="mb-6 w-full rounded-lg border-2 border-gray-500 text-center">
         <div class="border-b border-gray-500 font-bold">
-            <div class="rounded-t-lg bg-green-100 p-4">The view of the calendar day overview</div>
+            <div class="rounded-t-lg bg-green-100 p-4">
+                Ang tingnan ng pangkalahatang tingnan ng araw ng kalendaryo
+            </div>
         </div>
         <div class="m-4 flex justify-center">
             <img src="{{ secure_url('/images/schedule/day_score_ready.png') }}" alt="" />
@@ -17,7 +19,8 @@
     <div class="mb-6 w-full rounded-lg border-2 border-gray-500 text-center">
         <div class="border-b border-gray-500 font-bold">
             <div class="rounded-t-lg bg-green-100 p-4">
-                Following the link, gives you 2 options, the 'old' and the 'new' daily schedule
+                Sa pagsunod sa link, binibigyan ka ng 2 opsyon, ang 'luma' at ang 'bago' na
+                araw-araw na iskedyul
             </div>
         </div>
         <div class="m-4 flex flex-col justify-center space-y-2">
@@ -27,16 +30,20 @@
     </div>
 
     <div class="mb-4">
-        Take your pick, you can now enter your team members. The selected players will fill up the
-        individual games one by one. You can still change any game later on.
-        <span class="font-bold">Just make sure players don't play the same opponent</span>
-        as before.
+        Pumili, maaari mo nang ilagay ang iyong mga miyembro ng koponan. Ang mga napiling manlalaro
+        ay pupunan ang mga indibidwal na laro isa-isa. Maaari mo pa ring baguhin ang anumang laro
+        mamaya.
+        <span class="font-bold">
+            Siguruhing ang mga manlalaro ay hindi naglalaro laban sa parehong kalaban
+        </span>
+        tulad ng dati.
     </div>
 
     <div class="mb-6 w-full rounded-lg border-2 border-gray-500 text-center">
         <div class="border-b border-gray-500 font-bold">
             <div class="rounded-t-lg bg-green-100 p-4">
-                Select your team members one by one as you did on the paper sheet.
+                Piliin ang iyong mga miyembro ng koponan isa-isa tulad ng ginawa mo sa papel na
+                talaan.
             </div>
         </div>
         <div class="m-4 flex justify-center">
@@ -45,13 +52,13 @@
     </div>
 
     <div class="mb-4 text-lg text-red-700">
-        If you move selected players around, there is a bug. You could see this for example.
+        Kung ililipat mo ang mga napiling manlalaro, may bug. Maaari mong makita ito halimbawa.
     </div>
 
     <div class="mb-6 w-full rounded-lg border-2 border-gray-500 text-center">
         <div class="border-b border-gray-500 font-bold">
             <div class="rounded-t-lg bg-green-100 p-4">
-                Before adding the first score, please check for this anomaly
+                Bago magdagdag ng unang iskor, mangyaring suriin ang anomalyang ito
             </div>
         </div>
         <div class="m-4 flex justify-center">
@@ -59,8 +66,8 @@
         </div>
         <div class="border-b border-gray-500 font-bold">
             <div class="rounded-t-lg bg-green-100 p-4">
-                There is an easy fix, under you team click 'Reset the schedule' and simply enter the
-                players again.
+                Mayroong madaling solusyon, sa ilalim ng iyong koponan i-click ang 'I-reset ang
+                iskedyul' at ilagay lang muli ang mga manlalaro.
             </div>
         </div>
         <div class="m-4 flex justify-center">
@@ -68,12 +75,15 @@
         </div>
     </div>
 
-    <div class="mb-4">The individual games overview should look similar to this:</div>
+    <div class="mb-4">
+        Ang pangkalahatang tingnan ng mga indibidwal na laro ay dapat kamukha nito:
+    </div>
 
     <div class="mb-6 w-full rounded-lg border-2 border-gray-500 text-center">
         <div class="border-b border-gray-500 font-bold">
             <div class="rounded-t-lg bg-green-100 p-4">
-                The first round, the 15th (3th double) is set to empty as expected
+                Ang unang round, ang ika-15 (ika-3 na doble) ay nakatakda sa walang laman gaya ng
+                inaasahan
             </div>
         </div>
         <div class="m-4 flex flex-col justify-center space-y-2">
@@ -85,12 +95,13 @@
     <div class="mb-6 w-full rounded-lg border-2 border-gray-500 text-center">
         <div class="border-b border-gray-500">
             <div class="rounded-t-lg bg-green-100 p-4">
-                After you entered the first score (in this case Helen - Rhea) the drop-down choices
-                of the players will be locked.
+                Matapos mong ilagay ang unang iskor (sa kasong ito si Helen - Rhea) ang mga
+                drop-down na pagpipilian ng mga manlalaro ay magiging nakakandado.
                 <br />
                 <span class="font-bold">
-                    If you are not sure if a reserve will show up, add the player anyway! You can't
-                    change the selected players after the game started.
+                    Kung hindi ka sigurado kung ang reserba ay darating, idagdag pa rin ang
+                    manlalaro! Hindi mo mababago ang mga napiling manlalaro matapos magsimula ang
+                    laro.
                 </span>
             </div>
         </div>

@@ -1,41 +1,43 @@
 <div class="text-justify">
     <div class="mb-4">
-        The Calendar gives you an overview of the current Season. When and where you play. Simple.
-        With the results of past games
+        Ang Kalendaryo ay nagbibigay sa iyo ng pangkalahatang tingnan ng kasalukuyang Panahon.
+        Kailan at saan ka maglalaro. Simple. Kasama ang mga resulta ng nakaraang mga laro
         <a
             class="font-bold text-blue-800 hover:text-blue-600 hover:underline"
             href="{{ route('scoreboard') }}"
             wire:navigate
         >
-            that determine the current ranking of your team
+            na tumutukoy sa kasalukuyang ranggo ng iyong koponan
         </a>
     </div>
     <div class="mb-4">
-        Winning teams
-        <span class="font-bold">are shown in bolder text.</span>
-        If you are logged in and participate in the current season, the team you play in
-        <span class="bg-green-50 p-1">has a greenish background.</span>
+        Ang mga koponang nanalo
+        <span class="font-bold">ay ipinapakita sa mas makapal na teksto.</span>
+        Kung ikaw ay naka-log in at lumalahok sa kasalukuyang panahon, ang koponang iyong
+        pinaglalaruan
+        <span class="bg-green-50 p-1">ay may berdeng background.</span>
     </div>
     <div class="mb-4">
-        You may click on the white space between the team name and the score to give any other team
-        <span class="bg-green-50 p-1">the same greenish background</span>
-        in the current session.
+        Maaari mong i-click ang puting espasyo sa pagitan ng pangalan ng koponan at ang iskor upang
+        bigyan ang ibang koponan ng
+        <span class="bg-green-50 p-1">parehong berdeng background</span>
+        sa kasalukuyang session.
     </div>
     <div class="mb-4 font-bold">
-        If, for some reason, your team doesn't play home, the bar (or Venue) will be shown right
-        under it.
-        <span class="text-red-700">In red letters</span>
-        so you won't miss it.
+        Kung, sa ilang dahilan, ang iyong koponan ay hindi naglalaro sa bahay, ang bar (o Lugar) ay
+        ipapakita sa ilalim nito.
+        <span class="text-red-700">Sa pulang mga titik</span>
+        upang hindi mo ito makakaligtaan.
     </div>
     <div class="mb-4 rounded-lg border border-gray-300 bg-gray-50 p-2">
-        An email,
-        <span class="font-bold">as a reminder</span>
-        , will be sent to you the day before the game, at noon. If you didn't get any email, some of
-        the next requirements are not met:
+        Isang email,
+        <span class="font-bold">bilang paalala</span>
+        , ay ipapadala sa iyo sa araw bago ang laro, sa tanghali. Kung hindi ka nakatanggap ng
+        anumang email, ang ilan sa mga sumusunod na kinakailangan ay hindi natutugunan:
         <br class="mb-2" />
-        1/ you are not subscribed
+        1/ hindi ka naka-subscribe
         <br />
-        2/ you gave the wrong email address
+        2/ nagbigay ka ng maling email address
         <br />
         3/ Ormeco
         <br />
@@ -45,27 +47,32 @@
             href="{{ route('teams.index') }}"
             wire:navigate
         >
-            you don't appear as a player in your team
+            hindi ka lumalabas bilang manlalaro sa iyong koponan
         </a>
         <br class="mb-2" />
-        If the latter is true, ask the bar owner or the captain of your team. They can add you!
-    </div>
-    <div class="mb-4">Special dates have a subtitle. Usually the semi-finals, final and party.</div>
-    <div class="mb-4">
-        Dates may be skipped due to special holidays as Christmas or the New Year. Extraordinary
-        circumstances, such as a typhoon, may move the calendar dates up one week. Only
-        administrators have access to create and change the dates.
+        Kung ang huli ay totoo, tanungin ang may-ari ng bar o ang kapitan ng iyong koponan. Maaari
+        ka nilang idagdag!
     </div>
     <div class="mb-4">
-        You may not have noticed: every team has its own page. Just click on the name. It shows the
-        Calendar overview of the team you play for and the results of past games.
+        Ang mga espesyal na petsa ay may subtitle. Karaniwang ang semi-finals, final at party.
     </div>
     <div class="mb-4">
-        I hope to create a PDF file by the next Season, so you can print it out. Personalized to
-        make your schedule more visible.
+        Ang mga petsa ay maaaring laktawan dahil sa mga espesyal na holiday tulad ng Pasko o ang
+        Bagong Taon. Ang hindi pangkaraniwang mga pangyayari, tulad ng bagyo, ay maaaring ilipat ang
+        mga petsa ng kalendaryo ng isang linggo. Ang mga administrator lamang ang may access upang
+        lumikha at baguhin ang mga petsa.
+    </div>
+    <div class="mb-4">
+        Maaaring hindi mo napansin: bawat koponan ay may sariling pahina. I-click lang ang pangalan.
+        Ipinapakita nito ang pangkalahatang tingnan ng Kalendaryo ng koponang iyong pinaglaraluan at
+        ang mga resulta ng nakaraang mga laro.
+    </div>
+    <div class="mb-4">
+        Inaasahan kong lumikha ng PDF file sa susunod na Panahon, upang maaari mong i-print ito.
+        Personalized upang gawing mas nakikita ang iyong iskedyul.
     </div>
     <div>
-        That's about it. Cheerio and
-        <span class="font-bold">Have Fun!</span>
+        Iyan lang. Cheerio at
+        <span class="font-bold">Mag-enjoy!</span>
     </div>
 </div>

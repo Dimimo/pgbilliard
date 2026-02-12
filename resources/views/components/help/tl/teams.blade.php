@@ -1,89 +1,93 @@
 <div class="text-justify">
     <div class="mb-4 border-2 border-yellow-500 bg-yellow-100 p-4">
         <span class="font-bold">Disclaimer:</span>
-        on the captains meeting of the 5th of March 2025 it has been agreed that the maximum amount
-        of players allowed to a team is capped at
+        sa pagpupulong ng mga kapitan noong ika-5 ng Marso 2025 ay napagkasunduan na ang maximum na
+        bilang ng mga manlalarong pinapayagan sa isang koponan ay
         <span class="font-bold">{{ \App\Constants::MAX_TEAM_PLAYERS }}</span>
         .
     </div>
     <div class="mb-4">
-        At first, you will find this page boring. But it is actually very interesting and
-        <span class="font-bold">important for Bar owners and Captains</span>
+        Una, makikita mong nakakaboring ang pahinang ito. Ngunit ito ay talagang interesante at
+        <span class="font-bold">mahalaga para sa mga may-ari ng Bar at mga Kapitan</span>
         .
     </div>
-    <div class="mb-4">Let me explain...</div>
+    <div class="mb-4">Ipaliliwanag ko...</div>
     <div class="mb-4">
-        <span class="font-bold">Teams and where they play</span>
-        are obvious. The number next to it are the number of players added to the team. In the
-        future, it should be at least 4.
+        <span class="font-bold">Ang mga koponan at kung saan sila naglalaro</span>
+        ay malinaw. Ang numero sa tabi nito ay ang bilang ng mga manlalarong idinagdag sa koponan.
+        Sa hinaharap, dapat ay hindi bababa sa 4.
     </div>
     <div class="mb-4">
-        Finally, the Captain and the contact number. If the Captain is not set or the Captain didn't
-        fill in the contact number, the fall-back number you see is of the bar owner. In case you
-        need to move a date, or you will be later than expected, you find who to contact on this
-        page.
+        Sa wakas, ang Kapitan at ang numero ng contact. Kung ang Kapitan ay hindi nakatakda o ang
+        Kapitan ay hindi nagpunan ng numero ng contact, ang fall-back na numero na makikita mo ay ng
+        may-ari ng bar. Sakaling kailangan mong ilipat ang petsa, o magiging huli ka kaysa
+        inaasahan, makikita mo kung sino ang kokontakin sa pahinang ito.
     </div>
     <div class="mb-4 font-bold">
-        For understandable reasons, all phone numbers are hidden for visitors. In order to see a
-        contact number you need to be
+        Para sa mga maiintindihang dahilan, lahat ng mga numero ng telepono ay nakatago para sa mga
+        bisita. Upang makita ang numero ng contact kailangan mong
         <a href="{{ route('login') }}" class="link inline-block text-blue-800" wire:navigate>
-            Logged In
+            Naka-log In
         </a>
         !
     </div>
-    <div class="font-bold">Bar owners and Captains</div>
+    <div class="font-bold">Mga may-ari ng bar at mga Kapitan</div>
     <div class="mb-4">
-        Bar owners and Captains may notice a
+        Ang mga may-ari ng bar at mga Kapitan ay maaaring mapansin ang
         <x-svg.pen-to-square-solid color="fill-blue-600" size="4" />
-        sign next to some names. This means you have access to change what's underneath. For Bar
-        owners that would be the information of the bar, the team(s) and the players of the team(s).
-        Including who to appoint as a captain. Appointing the teams itself is done by an
-        administrator as it is part of the schedule in the current Season.
+        tanda sa tabi ng ilang pangalan. Ibig sabihin nito ay mayroon kang access upang baguhin ang
+        nasa ilalim. Para sa mga may-ari ng bar iyon ay ang impormasyon ng bar, ang (mga) koponan at
+        ang mga manlalaro ng (mga) koponan. Kasama kung sino ang itatalaga bilang kapitan. Ang
+        pagtalaga ng mga koponan mismo ay ginagawa ng administrator dahil ito ay bahagi ng iskedyul
+        sa kasalukuyang Panahon.
     </div>
-    <div class="font-bold">Captains</div>
+    <div class="font-bold">Mga Kapitan</div>
     <div class="mb-4">
-        Captains (and Bar owners) can add who is playing in the team. I made it as simple as
-        possible. Just read the instructions on the page if you have any questions. A mistake is
-        very easily undone by the way. Except... if you unset yourself as a captain... Well, you get
-        a warning before doing so. Removing a team player gives a warning as well. Anyway, it's easy
-        to add or remove players.
+        Ang mga Kapitan (at mga may-ari ng Bar) ay maaaring magdagdag kung sino ang naglalaro sa
+        koponan. Ginawa ko itong simple hangga't maaari. Basahin lang ang mga tagubilin sa pahina
+        kung mayroon kang anumang mga tanong. Ang isang pagkakamali ay napakadaling ibalik pati.
+        Maliban... kung aalisin mo ang iyong sarili bilang kapitan... Well, makakakuha ka ng babala
+        bago mo gawin iyon. Ang pag-alis ng manlalaro ng koponan ay nagbibigay din ng babala.
+        Anyway, madali lang magdagdag o mag-alis ng mga manlalaro.
     </div>
     <div class="mb-4">
-        <span class="font-bold">Players that are already in another team can not be selected.</span>
-        If the player is new and not in the database, simply add a new player. Names have to be
-        unique. A warning is given if the name is already in use. After creating a new user, you
-        will receive an email with the data your new team member needs in order to log in and change
-        their credentials.
+        <span class="font-bold">
+            Ang mga manlalaro na nasa ibang koponan na ay hindi maaaring piliin.
+        </span>
+        Kung ang manlalaro ay bago at wala sa database, magdagdag lang ng bagong manlalaro. Ang mga
+        pangalan ay dapat na natatangi. Ang babala ay ibibigay kung ang pangalan ay ginagamit na.
+        Matapos lumikha ng bagong user, makakatanggap ka ng email na may datos na kailangan ng iyong
+        bagong miyembro ng koponan upang mag-log in at baguhin ang kanilang mga kredensyal.
     </div>
     <div class="mb-4 border-2 border-gray-500 bg-gray-100 p-4">
-        <div class="mb-2 font-bold">Players leaving or switching to another team</div>
+        <div class="mb-2 font-bold">Mga manlalarong umaalis o lilipat sa ibang koponan</div>
         <div class="mb-2">
-            If a player leaves and won't come back (holiday is over f.ex.) OR a player wants to
-            switch to another team,
-            <span class="font-bold">you can safely remove the player from the list</span>
-            . Doing so HAS NO impact on past games.
+            Kung ang manlalaro ay umaalis at hindi na babalik (ang bakasyon ay tapos na halimbawa) O
+            ang manlalaro ay gustong lumipat sa ibang koponan,
+            <span class="font-bold">maaari mong ligtas na alisin ang manlalaro sa listahan</span>
+            . Ang paggawa nito ay WALANG epekto sa nakaraang mga laro.
         </div>
         <div class="mb-2">
-            <span class="font-bold">How does it works under the hood?</span>
-            The player gets
-            <span class="italic">deactivated</span>
-            . (S)he is still in the league, but has no more attachment to a team. If the player
-            comes back OR switches team, the player's status is updated accordingly.
+            <span class="font-bold">Paano ito gumagana sa ilalim ng hood?</span>
+            Ang manlalaro ay
+            <span class="italic">dineactivate</span>
+            . Siya ay nasa liga pa rin, ngunit wala nang koneksyon sa koponan. Kung ang manlalaro ay
+            bumalik O lumipat ng koponan, ang katayuan ng manlalaro ay ia-update nang naaayon.
         </div>
         <div class="mb-2">
-            <span class="font-bold">For Captains:</span>
-            a player that is deactivated becomes available to invite into any team.
+            <span class="font-bold">Para sa mga Kapitan:</span>
+            ang manlalaro na dineactivate ay nagiging available na anyayahin sa anumang koponan.
         </div>
         <div>
-            A player's status OR team has no influence on
+            Ang katayuan O koponan ng manlalaro ay walang impluwensya sa
             <a href="{{ route('rank') }}" class="link inline-block text-blue-800" wire:navigate>
-                the individual scoreboard
+                indibidwal na scoreboard
             </a>
             .
         </div>
     </div>
     <div class="mb-6">
-        That's about it. Cheerio and
-        <span class="font-bold">Have Fun!</span>
+        Iyan lang. Cheerio at
+        <span class="font-bold">Mag-enjoy!</span>
     </div>
 </div>
