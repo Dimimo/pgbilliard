@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'player-rank' => 'The ranking shows :count of :result players',
+    'player-rank' => 'Ang ranggo ay nagpapakita ng :count sa :result manlalaro',
 ];
