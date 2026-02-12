@@ -28,7 +28,7 @@ class SetLocale
             $locale = \Illuminate\Support\Facades\Config::get('app.fallback_locale');
         }
 
-        \App::setLocale($locale);
+        \Illuminate\Support\Facades\App::setLocale($locale);
         $request->session()->put('locale', $locale);
 
         return $next($request);

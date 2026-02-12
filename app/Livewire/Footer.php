@@ -14,7 +14,7 @@ class Footer extends Component
 
     public function setLocale(string $locale): void
     {
-        \App::setLocale($locale);
+        \Illuminate\Support\Facades\App::setLocale($locale);
         session()->put('locale', $locale);
         $this->redirect('/');
     }

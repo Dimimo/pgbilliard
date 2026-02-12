@@ -56,6 +56,7 @@ class Schedule extends Model
     {
         return $this->hasMany(Game::class);
     }
+    #[\Override]
     protected function casts(): array
     {
         return [
