@@ -112,8 +112,7 @@ class Date extends Model
                     )
                 )
                 ->flatten()
-                ->unique()
-                ->select(['id', 'name', 'email', 'contact_nr']);
+                ->unique();
     }
 
     /**
