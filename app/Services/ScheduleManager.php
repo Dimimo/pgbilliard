@@ -40,7 +40,7 @@ class ScheduleManager
 
     public function checkThirdGame(Format $format): Event
     {
-        if ($this->event->games()->where('position', 15)->count() === 0) {
+        if ($this->event->games()->where('position', 15)->count() !== 4) {
             $schedules = $format->schedules()->wherePosition(15)->get();
             foreach ($schedules as $schedule) {
                 $values = [
@@ -52,7 +52,7 @@ class ScheduleManager
                     'position' => 15,
                     'home' => $schedule->home,
                 ];
-                (new Game())->create($values);
+                (new Game())->updateOrCreate($values);
             }
             return $this->event->refresh();
         }
