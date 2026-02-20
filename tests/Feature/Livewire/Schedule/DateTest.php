@@ -25,23 +25,24 @@ it('if a day schedule can be loaded but not edited', function (): void {
 
 it('checks if the schedule can be selected, admin login to bypass the time test', function (): void {
     $event = \App\Models\Event::query()->find(1);
+    $event->update(['confirmed' => false]);
+
+    $admin = \App\Models\User::factory()->create(['name' => 'admin']);
+    \App\Models\Admin::factory()->create(['user_id' => $admin->id]);
+    session(['is_admin' => true]);
+
     $format1 = \App\Models\Format::factory()->create([
         'name' => 'Format 1',
         'details' => 'The format 1 details',
-        'user_id' => $this->player->user->id
+        'user_id' => $admin->id
     ]);
     $format2 = \App\Models\Format::factory()->create([
         'name' => 'Format 2',
         'details' => 'The format 2 details',
-        'user_id' => $this->player->user->id
+        'user_id' => $admin->id
     ]);
 
     \App\Models\Schedule::factory()->count(15)->create(['format_id' => $format1->id]);
-
-    $admin = \App\Models\User::factory()->create(['name' => 'admin']);
-    \App\Models\Admin::factory()->create(['user_id' => $admin->id]);
-    $event->update(['confirmed' => false]);
-    session(['is_admin' => true]);
 
     Livewire::actingAs($admin)
         ->test(\App\Livewire\Date\Schedule::class, ['event' => $event])
@@ -51,7 +52,7 @@ it('checks if the schedule can be selected, admin login to bypass the time test'
         ->assertSee('Choose a day games format')
         ->assertSee($format1->name)
         ->assertSee($format2->details)
-        ->call('formatChosen', 1)
+        ->call('formatChosen', $format1->id)
         ->assertViewHas('switches.chooseFormat', false)
         ->assertViewHas('format', $format1)
         ->assertDontSee('Choose a day games format')
