@@ -15,12 +15,15 @@ use App\Services\ScheduleManager;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as Settings;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Reactive;
 use Livewire\Component;
 
 class SchedulePlayerSelector extends Component
 {
     public Event $event;
+    #[Reactive]
     public Settings $switches;
+    #[Reactive]
     public ?Format $format = null;
     public Season $season;
     public Collection $home_players;
