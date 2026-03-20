@@ -85,8 +85,16 @@ it('checks if the players can be selected for the matrix overview', function ():
         ->activePlayers()
         ->sortBy('name');
 
+    $switches = collect([
+        'confirmed' => false,
+        'canUpdatePlayers' => true,
+        'chooseFormat' => false,
+        'rounds' => [1 => 'First', 6 => 'Second', 11 => 'Last'],
+        'games' => null,
+    ]);
+
     Livewire::actingAs($admin)
-        ->test(\App\Livewire\Date\SchedulePlayerSelector::class, ['event' => $event])
+        ->test(\App\Livewire\Date\SchedulePlayerSelector::class, ['event' => $event, 'switches' => $switches])
         ->assertCount('home_players', 4)
         ->assertCount('visit_players', 4)
         ->assertCount('home_matrix', 0)
