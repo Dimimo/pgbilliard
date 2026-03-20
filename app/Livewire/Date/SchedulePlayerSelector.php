@@ -23,7 +23,6 @@ class SchedulePlayerSelector extends Component
     public Event $event;
     #[Reactive]
     public Settings $switches;
-    #[Reactive]
     public ?Format $format = null;
     public Season $season;
     public Collection $home_players;
