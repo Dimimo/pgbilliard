@@ -33,6 +33,8 @@ trait ResultsTrait
         $this->getTeamsArray();
         $this->getEvents();
         $max_games = $this->played_weeks;
+        // 21/05/2026 I added an extra condition in case a future game has been played already
+        $max_allowed_date_for_next_week = $this->maxAllowedDateForNextWeek();
 
         foreach ($this->teams as $team_id => $events) {
             $result = $this->startCollection();
@@ -42,6 +44,7 @@ trait ResultsTrait
                     $result->put('id', $event->id);
                     $result->put('last_game_won', false);
                     $result->put('games_played', $result->get('games_played') + 1);
+                    $result->put('last_play_date', $event->date->date->format('d/m/Y'));
                     //team plays home
                     if ($team_id === $event->team_1->id) {
                         $result->put('played', $event->team_2);
@@ -91,8 +94,14 @@ trait ResultsTrait
                             $result->put('last_game_won', false);
                         }
                     }
-                } //HERE is a tricky one, to avoid that the nr 3 is higher ranked than the runner-up
-                elseif (($event->team_2->name === 'BYE') && ($result->get('games_played') <= ($max_games - 1))) {
+                }
+                //HERE is a tricky one, to avoid that the nr 3 is higher ranked than the runner-up
+                // 21/05/2026 I added an extra condition in case a future game has been played already
+                elseif (
+                    ($event->team_2->name === 'BYE') &&
+                    ($result->get('games_played') <= ($max_games - 1)) &&
+                    $event->date->date->format('Y-m-d') < $max_allowed_date_for_next_week
+                ) {
                     $result->put('games_played', $result->get('games_played') + 1);
                     $result->put('played', $event->team_2);
                     $result->put('last_result', 'BYE');
@@ -194,6 +203,22 @@ trait ResultsTrait
         $collection->put('finals', 0);
 
         return $collection;
+    }
+
+    private function maxAllowedDateForNextWeek(): string
+    {
+        $first_date = Date::query()
+            ->where('season_id', Context::getHidden('season_id'))
+            ->first();
+        $day_of_week = \Illuminate\Support\Facades\Date::createFromFormat(
+            'Y-m-d',
+            $first_date->date->format('Y-m-d')
+        )
+            ->dayOfWeek();
+        return \Illuminate\Support\Facades\Date::now()
+            ->next($day_of_week)
+            ->subDays(3)
+            ->format('Y-m-d');
     }
 
     /**

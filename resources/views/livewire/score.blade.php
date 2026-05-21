@@ -143,6 +143,14 @@
                             />
                         </svg>
                     </th>
+                    <th
+                        @class([
+                        'mb-1 bg-blue-300',
+                        'hidden lg:table-cell' => ! $show_full_table
+                        ])
+                    >
+                        <x-svg.calendar-days-solid color="fill-blue-700" size="5" />
+                    </th>
                 </tr>
             </thead>
             <tbody class="whitespace-nowrap">
@@ -309,9 +317,17 @@
                         >
                             {{ $score->get('games_played') }}
                         </td>
+                        <td
+                            @class([
+                            'hidden text-center text-gray-700',
+                            'lg:table-cell' => ! $show_full_table
+                            ])
+                        >
+                            {{ $score->get('last_play_date') }}
+                        </td>
                     </tr>
                 @empty
-                    <div class="box-rounded-danger m-5">
+                    <div class="box-rounded-danger m-5 hidden lg:table-cell">
                         <h3 class="center">{{ __('No games yet') }}</h3>
                     </div>
                 @endforelse
