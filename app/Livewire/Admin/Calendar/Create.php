@@ -130,6 +130,16 @@ class Create extends Component
         $this->events = $this->last_date->events;
     }
 
+    public function removeConsolidation($event_id): void
+    {
+        $event = Event::query()->find($event_id);
+        $this->authorize('update', $event);
+
+        $event->update(['confirmed' => false]);
+        $this->last_date->refresh();
+        $this->events = $this->last_date->events;
+    }
+
     public function removeDate($date_id): void
     {
         $this->last_date = Date::query()->find($date_id);

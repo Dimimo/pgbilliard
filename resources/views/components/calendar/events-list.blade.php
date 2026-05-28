@@ -29,6 +29,16 @@
                         </button>
                     @endif
 
+                    @if ($event->confirmed && $event->team_2->name !== 'BYE')
+                        <button
+                            class="inline-block cursor-pointer"
+                            wire:confirm="Unset the consolidation of this game {{ $event->team_1->name }} - {{ $event->team_2->name }}?"
+                            wire:click="removeConsolidation({{ $event->id }})"
+                        >
+                            <x-svg.key-solid color="fill-blue-600" size="4" padding="mb-1" />
+                        </button>
+                    @endif
+
                     {{ $event->team_1->name }} - {{ $event->team_2->name }}
                     @if ($event->hasScore())
                         <span class="text-sm text-gray-600">

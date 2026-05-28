@@ -62,6 +62,36 @@
         Past dates yes, if there are no games.
     </div>
 
+    <div class="text-2xl">Unset the consolidation of a game</div>
+    <div class="my-2">
+        Sometimes it happens a game is consolidated but there is a mistake in the final individual
+        scores. In order to update the score, the game needs to be unconsolidated.
+    </div>
+    <div class="my-2">
+        First, select the date (the
+        <span class="font-bold">{{ __('Playing date') }}</span>
+        dropdown or click on the green date on the right). You will notice a
+        <x-svg.key-solid color="fill-blue-600" size="4" padding="mb-1" />
+        symbol. Simply
+        <span class="font-bold">click on it to unconsolidate the game.</span>
+    </div>
+    <div class="my-2">
+        You may change the score again in the
+        <x-forms.nav-link
+            :active="true"
+            href="{{ route('calendar') }}"
+            class="text-lg"
+            wire:navigate
+        >
+            Calendar
+        </x-forms.nav-link>
+        and re-consolidate the game when done.
+    </div>
+    <div class="my-2">
+        <span class="font-bold">Remark:</span>
+        an email with the final day scores may be send again.
+    </div>
+
     <div class="text-2xl">Delete a Season</div>
     <div class="my-2">
         A Season can be deleted if it has no dates. If there is only one date left without games,
