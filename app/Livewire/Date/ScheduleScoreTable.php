@@ -55,7 +55,13 @@ class ScheduleScoreTable extends Component
     public function scoreGiven(int $game_id): void
     {
         $game = Game::with(['event', 'player'])->find($game_id);
-        $this->authorize('update', $game->event);
+        $this->event = $game->event;
+        $this->authorize('update', $this->event);
+
+        // check if the game has already been confirmed
+        if ($this->event->confirmed) {
+            return;
+        }
 
         $scoreIsTrue = $game->win === true;
 
