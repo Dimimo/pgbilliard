@@ -133,6 +133,14 @@
             tongue, it's the easiest language for me to check on errors in the design.
         </li>
         <li>Feb 2026: Tagalog added as a sitewide extra language</li>
+        <li>
+            May 2026: Admins can unset a consolidated game in order to post game still change
+            individual results in case of an error
+        </li>
+        <li>
+            June 2026: Players in the individual ranking show only once (in case they shifted team
+            several times like what happened with Dan in Season 2026/02)
+        </li>
     </ul>
 </div>
 <div class="mt-4">
