@@ -61,7 +61,10 @@ class Rank extends Component
             ->ranks()
             ->with('player.team')
             ->orderByDesc('percentage')
-            ->get();
+            ->get()
+            ->groupBy('user_id')
+            ->map(fn ($ranks) => $ranks->sortByDesc('played')->first())
+            ->values();
     }
 
     #[On('echo:live-score,ScoreEvent')]
