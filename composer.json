@@ -13,7 +13,7 @@
         "ext-pdo": "*",
         "ext-zip": "*",
         "ably/laravel-broadcaster": "^1.0",
-        "aws/aws-sdk-php": "3.374.2",
+        "aws/aws-sdk-php": "3.383.1",
         "aws/aws-sdk-php-laravel": "^3.10",
         "erag/laravel-pwa": "^1.9",
         "guzzlehttp/guzzle": "^7.9",
@@ -39,6 +39,7 @@
         "fakerphp/faker": "^1.23",
         "larastan/larastan": "^3.4",
         "laravel-lang/lang": "^15.28",
+        "laravel/boost": "^2.4",
         "laravel/pint": "^1.15",
         "laravel/sail": "^1.29",
         "mockery/mockery": "^1.6",
@@ -71,7 +72,8 @@
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "@php artisan optimize"
+            "@php artisan optimize",
+            "@php artisan boost:update --ansi"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
