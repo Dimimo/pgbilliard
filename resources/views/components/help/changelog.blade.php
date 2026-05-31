@@ -141,6 +141,7 @@
             June 2026: Players in the individual ranking show only once (in case they shifted team
             several times like what happened with Dan in Season 2026/02)
         </li>
+        <li>June 2026: upgraded to Laravel version 13</li>
     </ul>
 </div>
 <div class="mt-4">
