@@ -154,6 +154,11 @@ return [
             'disks' => [
                 'backup',
             ],
+
+            /*
+             * Determines whether to allow backups to continue when some targets fail instead of failing completely.
+             */
+            'continue_on_failure' => false,
         ],
 
         /*
@@ -175,6 +180,12 @@ return [
          * available on your system.
          */
         'encryption' => 'default',
+
+        /*
+         * After creating the zip, verify it can be opened and contains files.
+         * Recommended for critical backups but adds a small overhead.
+         */
+        'verify_backup' => false,
 
         /*
          * The number of attempts, in case the backup command encounters an exception
@@ -246,7 +257,24 @@ return [
              */
             'avatar_url' => '',
         ],
+
+        /*
+         * A generic webhook channel that POSTs JSON to a URL.
+         * Useful for Mattermost, Microsoft Teams, or custom integrations.
+         */
+        'webhook' => [
+            'url' => '',
+        ],
     ],
+
+    /*
+     * The log channel used for backup activity messages.
+     *
+     * Set to a channel name defined in config/logging.php to use that channel.
+     * Set too false to disable backup logging entirely.
+     * Set to null to use the default log channel.
+     */
+    'log_channel' => null,
 
     /*
      * Here you can specify which backups should be monitored.
@@ -262,17 +290,6 @@ return [
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumStorageInMegabytes::class => 5000,
             ],
         ],
-
-        /*
-        [
-            'name' => 'name of the second app',
-            'disks' => ['local', 's3'],
-            'health_checks' => [
-                \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class => 1,
-                \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumStorageInMegabytes::class => 5000,
-            ],
-        ],
-        */
     ],
 
     'cleanup' => [
