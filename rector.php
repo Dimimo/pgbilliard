@@ -18,7 +18,7 @@ try {
         // uncomment to reach your current PHP version
         ->withPhpSets(php83: true)
         ->withSets([
-            \RectorLaravel\Set\LaravelSetList::LARAVEL_120,
+            \RectorLaravel\Set\LaravelSetList::LARAVEL_130,
             \RectorLaravel\Set\LaravelSetList::LARAVEL_CODE_QUALITY,
             \RectorLaravel\Set\LaravelSetList::LARAVEL_ARRAYACCESS_TO_METHOD_CALL,
             \RectorLaravel\Set\LaravelSetList::LARAVEL_FACTORIES,
