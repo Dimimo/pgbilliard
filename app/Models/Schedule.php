@@ -30,16 +30,15 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'format_id',
+    'position',
+    'player',
+    'home',
+])]
 class Schedule extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'format_id',
-        'position',
-        'player',
-        'home',
-    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Format, $this>

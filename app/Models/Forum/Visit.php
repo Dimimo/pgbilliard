@@ -32,15 +32,14 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'user_id',
+    'post_id',
+    'updated_at',
+])]
 class Visit extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'user_id',
-        'post_id',
-        'updated_at',
-    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>

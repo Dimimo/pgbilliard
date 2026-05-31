@@ -32,14 +32,13 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'name',
+    'slug',
+])]
 class Tag extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'name',
-        'slug',
-    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Post, $this, \Illuminate\Database\Eloquent\Relations\Pivot>

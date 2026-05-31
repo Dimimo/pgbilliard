@@ -34,27 +34,15 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'message',
+    'user_id',
+    'chat_room_id',
+])]
+#[\Illuminate\Database\Eloquent\Attributes\Table(name: 'chat_messages')]
 class ChatMessage extends Model
 {
     use HasFactory;
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'chat_messages';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'message',
-        'user_id',
-        'chat_room_id',
-    ];
 
     /**
      * The attributes excluded from the model's JSON form.

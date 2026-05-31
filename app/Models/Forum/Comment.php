@@ -34,15 +34,14 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'body',
+    'user_id',
+    'post_id',
+])]
 class Comment extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'body',
-        'user_id',
-        'post_id',
-    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>

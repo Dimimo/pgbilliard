@@ -34,14 +34,13 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'cycle',
+    'players',
+])]
 class Season extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'cycle',
-        'players',
-    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Team, $this>

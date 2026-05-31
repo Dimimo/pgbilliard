@@ -6,22 +6,10 @@ use Illuminate\Console\Command;
 use Livewire\Component;
 use Symfony\Component\Finder\Finder;
 
+#[\Illuminate\Console\Attributes\Description('Discover Livewire Components and Generate Unit Test')]
+#[\Illuminate\Console\Attributes\Signature('livewire:test {--force : overwrite existing files}')]
 class CreateLivewireTestCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'livewire:test {--force : overwrite existing files}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Discover Livewire Components and Generate Unit Test';
-
     /**
      * Execute the console command.
      */

@@ -7,16 +7,13 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-class ExtractLangText extends Command
-{
-    // Define the command signature to accept a locale argument and an optional path
-    protected $signature = 'lang:extract
+#[\Illuminate\Console\Attributes\Description('Extract all text within the __() helper and output to the /lang/{locale}.json file or a custom path')]
+#[\Illuminate\Console\Attributes\Signature('lang:extract
                             {locale : the language of the extracted file}
                             {path? : the /lang/(locale).json file or a custom path}
-                            {--force : overwrite the whole file or simply add new entries}';
-
-    protected $description = 'Extract all text within the __() helper and output to the /lang/{locale}.json file or a custom path';
-
+                            {--force : overwrite the whole file or simply add new entries}')]
+class ExtractLangText extends Command
+{
     // Execute the command
 
     /**

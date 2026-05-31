@@ -30,20 +30,14 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'name',
+    'details',
+    'user_id',
+])]
 class Format extends Model
 {
     use HasFactory;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'details',
-        'user_id',
-    ];
 
     public function checkGameNumbers(int $player, bool $home): int
     {

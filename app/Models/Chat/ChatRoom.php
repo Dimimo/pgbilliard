@@ -38,22 +38,15 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'name',
+    'user_id',
+    'private',
+])]
+#[\Illuminate\Database\Eloquent\Attributes\Table(name: 'chat_rooms')]
 class ChatRoom extends Model
 {
     use HasFactory;
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'chat_rooms';
-
-    protected $fillable = [
-        'name',
-        'user_id',
-        'private',
-    ];
 
     /**
      * The attributes excluded from the model's JSON form.

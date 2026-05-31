@@ -49,28 +49,23 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Appends([
+    'name',
+    'phone',
+    'email',
+    'gender',
+    'participated',
+])]
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'user_id',
+    'team_id',
+    'captain',
+    'active',
+])]
+#[\Illuminate\Database\Eloquent\Attributes\Table(name: 'players')]
 class Player extends Model
 {
     use HasFactory;
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'players';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'user_id',
-        'team_id',
-        'captain',
-        'active',
-    ];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -80,14 +75,6 @@ class Player extends Model
     protected $hidden = [];
 
     protected $with = [];
-
-    protected $appends = [
-        'name',
-        'phone',
-        'email',
-        'gender',
-        'participated',
-    ];
 
     protected function name(): Attribute
     {

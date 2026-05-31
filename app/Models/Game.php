@@ -40,20 +40,19 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Game whereWin($value)
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'schedule_id',
+    'event_id',
+    'team_id',
+    'player_id',
+    'user_id',
+    'position',
+    'home',
+    'win',
+])]
 class Game extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'schedule_id',
-        'event_id',
-        'team_id',
-        'player_id',
-        'user_id',
-        'position',
-        'home',
-        'win',
-    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Schedule, $this>

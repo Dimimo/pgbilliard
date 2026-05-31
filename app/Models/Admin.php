@@ -33,27 +33,15 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'user_id',
+    'assigned_by',
+    'super_admin',
+])]
+#[\Illuminate\Database\Eloquent\Attributes\Table(name: 'admins')]
 class Admin extends Model
 {
     use HasFactory;
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'admins';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'user_id',
-        'assigned_by',
-        'super_admin',
-    ];
 
     /**
      * The attributes excluded from the model's JSON form.

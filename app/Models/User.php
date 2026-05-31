@@ -75,36 +75,24 @@ use Laravel\Sanctum\PersonalAccessToken;
  *
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'id', // my addition
+    'name',
+    'email',
+    'password',
+    'contact_nr',
+    'gender',
+    'last_game',
+])]
+#[\Illuminate\Database\Eloquent\Attributes\Hidden([
+    'password',
+    'remember_token',
+])]
 class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
     use Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'id', // my addition
-        'name',
-        'email',
-        'password',
-        'contact_nr',
-        'gender',
-        'last_game',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
 
     public function isAdmin(): bool
     {

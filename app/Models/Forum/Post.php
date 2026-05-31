@@ -48,18 +48,17 @@ use Illuminate\Support\Str;
  *
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'title',
+    'slug',
+    'body',
+    'user_id',
+    'is_locked',
+    'is_sticky',
+])]
 class Post extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'title',
-        'slug',
-        'body',
-        'user_id',
-        'is_locked',
-        'is_sticky',
-    ];
 
     protected function title(): Attribute
     {

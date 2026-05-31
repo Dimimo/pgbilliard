@@ -50,32 +50,20 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'name',
+    'user_id',
+    'address',
+    'contact_name',
+    'contact_nr',
+    'lat',
+    'lng',
+    'remark',
+])]
+#[\Illuminate\Database\Eloquent\Attributes\Table(name: 'venues')]
 class Venue extends Model
 {
     use HasFactory;
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'venues';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'user_id',
-        'address',
-        'contact_name',
-        'contact_nr',
-        'lat',
-        'lng',
-        'remark',
-    ];
 
     /**
      * The attributes excluded from the model's JSON form.

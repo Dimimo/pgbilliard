@@ -48,34 +48,22 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'id',
+    'date_id',
+    'venue_id',
+    'team1',
+    'team2',
+    'score1',
+    'score2',
+    'confirmed',
+    'remark',
+    'games',
+])]
+#[\Illuminate\Database\Eloquent\Attributes\Table(name: 'events')]
 class Event extends Model
 {
     use HasFactory;
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'events';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'id',
-        'date_id',
-        'venue_id',
-        'team1',
-        'team2',
-        'score1',
-        'score2',
-        'confirmed',
-        'remark',
-        'games',
-    ];
 
     /**
      * The relations to eager load on every query.

@@ -41,30 +41,18 @@ use Illuminate\Support\Collection as PlayerList;
  *
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'id',
+    'season_id',
+    'date',
+    'regular',
+    'title',
+    'remark',
+])]
+#[\Illuminate\Database\Eloquent\Attributes\Table(name: 'dates')]
 class Date extends Model
 {
     use HasFactory;
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'dates';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'id',
-        'season_id',
-        'date',
-        'regular',
-        'title',
-        'remark',
-    ];
 
     /**
      * The attributes excluded from the model's JSON form.

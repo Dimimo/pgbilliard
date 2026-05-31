@@ -4,22 +4,10 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+#[\Illuminate\Console\Attributes\Description('Start the redis server')]
+#[\Illuminate\Console\Attributes\Signature('queue:start-redis-server')]
 class StartRedisServer extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'queue:start-redis-server';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Start the redis server';
-
     /**
      * Execute the console command.
      */

@@ -30,18 +30,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Position whereUpdatedAt($value)
  * @mixin Model
  */
+#[\Illuminate\Database\Eloquent\Attributes\Fillable([
+    'event_id',
+    'player_id',
+    'rank',
+    'home',
+])]
+#[\Illuminate\Database\Eloquent\Attributes\Table(name: 'positions')]
 class Position extends Model
 {
     use HasFactory;
-
-    protected $table = 'positions';
-
-    protected $fillable = [
-        'event_id',
-        'player_id',
-        'rank',
-        'home',
-    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Event, $this>

@@ -5,22 +5,10 @@ namespace App\Console\Commands;
 use App\Models\Date;
 use Illuminate\Console\Command;
 
+#[\Illuminate\Console\Attributes\Description('Set the daily pool scores to zero to activate Live Scores')]
+#[\Illuminate\Console\Attributes\Signature('pool:day-scores')]
 class PoolScoresSetDay extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'pool:day-scores';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Set the daily pool scores to zero to activate Live Scores';
-
     /**
      * Create a new command instance.
      *
