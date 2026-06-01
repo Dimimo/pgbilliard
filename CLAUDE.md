@@ -10,7 +10,7 @@ Puerto Galera Billiard League is a Laravel-based web application for managing a 
 
 ## Technology Stack
 
-- **Backend**: Laravel 12, PHP 8.3
+- **Backend**: Laravel 13, PHP 8.3
 - **Frontend**: Livewire 3.6, Volt, Folio, Tailwind CSS 4, Alpine.js
 - **Database**: MySQL 8.0+
 - **Cache/Queue**: Redis 6.0+ with Predis client
@@ -168,6 +168,7 @@ SEASON → DATES → EVENTS → GAMES
 ```
 
 **Core Models**:
+
 - `Season`: League cycle (e.g., 2024 season) with player count configuration
 - `Date`: Individual play dates within a season
 - `Event`: Match between two teams on a specific date (contains 15 games)
@@ -181,12 +182,14 @@ SEASON → DATES → EVENTS → GAMES
 - `Venue`: Billiard hall location with contact info
 
 **Supporting Models**:
+
 - `User`: Authentication (linked to Player)
 - `ChatRoom`, `ChatMessage`: Chat system
 - `Post`, `Comment`, `Tag`: Forum system
 - `Visit`: Post view tracking
 
 **Important Relationships**:
+
 - Season has many Dates, Teams, Formats, Ranks
 - Date has many Events
 - Event belongs to Date, has many Games and Positions
@@ -197,11 +200,13 @@ SEASON → DATES → EVENTS → GAMES
 ### Application Structure
 
 **Route Layer** (`routes/web.php`):
+
 - Uses Laravel Folio for file-based routing (pages in `resources/views/pages/`)
 - Main sections: Public (scoreboard, ranks, calendar), Player (teams, schedule, forum, chat), Admin (calendar, schedule, season, player management)
 - Protected routes use `auth` and `admin` middleware
 
 **Livewire Component Layer** (`app/Livewire/`):
+
 - **Core Components**: `Score.php` (live scores), `Rank.php` (rankings), `Calendar.php`, `Dashboard.php`
 - **Score Management** (`Date/` directory): `ScheduleScoreTable.php` (real-time score entry with broadcasting), `SchedulePlayerSelector.php`, `ScheduleConfirm.php`, `ScheduleFormatChooser.php`, `Schedule.php`
 - **Admin Components** (`Admin/` directory): Schedule/Calendar/Teams/Seasons/Players CRUD
@@ -209,6 +214,7 @@ SEASON → DATES → EVENTS → GAMES
 - **Key Traits**: `ConsolidateTrait.php`, `ResultsTrait.php` (complex calculations)
 
 **Service Layer** (`app/Services/`):
+
 - `LiveScoreUpdater.php`: Calculates event scores from individual games
 - `RankUpdater.php`: Calculates player rankings (percentage, wins/losses)
 - `ScheduleManager.php`: Manages game schedule matrix and format selection
@@ -217,18 +223,21 @@ SEASON → DATES → EVENTS → GAMES
 - `Logger/LogGames.php`, `Logger/LogConsolidate.php`: Change logging
 
 **Job Queue System** (`app/Jobs/`):
+
 - `UpdateRanks`: Updates player rankings (ShouldQueue, ShouldBeUnique)
 - `UpdateUsersLastPlayedDate`: Tracks last game date
 - `PoolSetDayScores`: Consolidated score setting
 - `PlayDayReminder`, `AccountHasBeenClaimed`, `CaptainCreatedNewUser`, `EmailHasBeenChanged`: Email notifications
 
 **Broadcasting & Real-Time** (`routes/channels.php`, `app/Events/`):
+
 - **Channels**: `live-score` (public), `refresh-request` (public), `chat.{roomId}` (private with presence)
 - **Events**: `ScoreEvent` (ShouldBroadcastNow), `MessagePosted`, `PrivateMessagePosted`, `RefreshRequest`
 - **Listeners**: `ScoreEventListener` (queued)
 - Components listen with: `#[On('echo:live-score,ScoreEvent')]`
 
 **Middleware** (`app/Http/Middleware/`):
+
 - `PoolCycle` & `PoolCycleApi`: Sets current season context in `Context` facade
 - `TeamOfLoggedInUserMiddleware`: Validates user's team access
 - `CheckIfAdmin` & `IsAdmin`: Admin role validation
@@ -237,6 +246,7 @@ SEASON → DATES → EVENTS → GAMES
 ### Key Business Logic Patterns
 
 **Score Calculation Flow**:
+
 1. User updates game result in `ScheduleScoreTable` component
 2. Game record updated with `win` field (true/false/null)
 3. `LiveScoreUpdater` service calculates event scores from all 15 games
@@ -245,23 +255,27 @@ SEASON → DATES → EVENTS → GAMES
 6. `Rank.php` component receives broadcast and updates display
 
 **Ranking Calculation** (`RankUpdater`):
+
 - Aggregates wins/losses across all games for a player
 - Considers days participated (attended events)
 - Formula: `(won/played * 100) * (participated/maxParticipated)` capped at 100
 - Updates `ranks` table for display
 
 **Context Management**:
+
 - Current season stored in session context via `Context` facade
 - Retrieved with `Context::getHidden('season_id')`
 - Set by `PoolCycle` middleware based on session or default
 
 **Broadcasting Pattern**:
+
 ```php
 // Wrapped in rescue() to handle Ably connection errors gracefully
 rescue(fn() => broadcast(new ScoreEvent(...))->toOthers());
 ```
 
 **Authorization**:
+
 - Policy-based authorization: `$this->authorize('update', $game->event);`
 - Policies in `app/Policies/` directory
 - User must belong to team's season to access/update
@@ -269,20 +283,25 @@ rescue(fn() => broadcast(new ScoreEvent(...))->toOthers());
 ### Livewire Patterns
 
 **Reactive Properties**:
+
 ```php
 #[Reactive]
 public ?Format $format = null;
 ```
+
 Properties marked `#[Reactive]` update automatically when parent changes.
 
 **Event Listening**:
+
 ```php
 #[On('echo:live-score,ScoreEvent')]
 public function updateLiveScores(array $response): void
 ```
+
 Listen to Laravel Echo broadcasts from Reverb/Ably.
 
 **Model Attributes**:
+
 - Many models use `Attribute::make(get: fn() => ...)` for computed properties
 - Example: `Player->name`, `Player->phone`, `Player->email` derived from relations
 - Privacy-aware attributes check authentication before exposing data
@@ -397,6 +416,7 @@ php artisan optimize
 ```
 
 Then restart services:
+
 - PHP-FPM / Apache / Nginx
 - Queue workers (`php artisan queue:restart`)
 - Reverb server (if running as daemon)
@@ -425,7 +445,7 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - php - 8.3
 - laravel/breeze (BREEZE) - v2
 - laravel/folio (FOLIO) - v1
-- laravel/framework (LARAVEL) - v12
+- laravel/framework (LARAVEL) - v13
 - laravel/pint (PINT) - v1
 - laravel/prompts (PROMPTS) - v0
 - laravel/reverb (REVERB) - v1
@@ -484,7 +504,7 @@ This application is a Laravel application and its main Laravel ecosystems packag
 
 - Execute PHP in app context for debugging and testing code. Do not create models without user approval, prefer tests with factories instead. Prefer existing Artisan commands over custom tinker code.
 - Always use single quotes to prevent shell expansion: `php artisan tinker --execute 'Your::code();'`
-  - Double quotes for PHP strings inside: `php artisan tinker --execute 'User::where("active", true)->count();'`
+    - Double quotes for PHP strings inside: `php artisan tinker --execute 'User::where("active", true)->count();'`
 
 === php rules ===
 
@@ -555,15 +575,15 @@ This application is a Laravel application and its main Laravel ecosystems packag
 
 - If you receive an "Illuminate\Foundation\ViteException: Unable to locate file in Vite manifest" error, you can run `npm run build` or ask the user to run `npm run dev` or `composer run dev`.
 
-=== laravel/v12 rules ===
+=== laravel/v13 rules ===
 
-# Laravel 12
+# Laravel 13
 
-- Since Laravel 11, Laravel has a new streamlined file structure which this project uses.
+- Since Laravel 11/12, Laravel has a new streamlined file structure which this project uses.
 
-## Laravel 12 Structure
+## Laravel 13 Structure
 
-- In Laravel 12, middleware are no longer registered in `app/Http/Kernel.php`.
+- In Laravel 13, middleware are no longer registered in `app/Http/Kernel.php`.
 - Middleware are configured declaratively in `bootstrap/app.php` using `Application::configure()->withMiddleware()`.
 - `bootstrap/app.php` is the file to register middleware, exceptions, and routing files.
 - `bootstrap/providers.php` contains application specific service providers.
@@ -572,8 +592,8 @@ This application is a Laravel application and its main Laravel ecosystems packag
 
 ## Database
 
-- When modifying a column, the migration must include all of the attributes that were previously defined on the column. Otherwise, they will be dropped and lost.
-- Laravel 12 allows limiting eagerly loaded records natively, without external packages: `$query->latest()->limit(10);`.
+- When modifying a column, the migration must include all the attributes that were previously defined on the column. Otherwise, they will be dropped and lost.
+- Laravel 13 allows limiting eagerly loaded records natively, without external packages: `$query->latest()->limit(10);`.
 
 ### Models
 
