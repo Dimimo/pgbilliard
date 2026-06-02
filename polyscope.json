@@ -1,0 +1,7 @@
+{
+    "copyGitignored": true,
+    "scripts": {
+        "setup": "npm run dev",
+        "archive": ""
+    }
+}
