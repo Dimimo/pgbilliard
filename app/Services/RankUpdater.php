@@ -16,9 +16,7 @@ class RankUpdater
      */
     public Collection $players;
 
-    public function __construct(protected int $seasonId)
-    {
-    }
+    public function __construct(protected int $seasonId) {}
 
     public function update(): void
     {
@@ -33,16 +31,27 @@ class RankUpdater
     protected function populateData(): void
     {
         $dateIds = Date::query()->whereSeasonId($this->seasonId)->orderBy('date')->pluck('id');
-        $eventIds = Event::query()->whereIn('date_id', $dateIds)->whereNotNull(['score1', 'score2'])->pluck('id');
+        $eventIds = Event::query()
+            ->whereIn('date_id', $dateIds)
+            ->whereNotNull(['score1', 'score2'])
+            ->pluck('id');
 
         $this->players = Player::query()
             //->whereIn('players.id', $player_ids)
-            ->whereHas('games', fn ($q) => $q->whereIn('event_id', $eventIds)->whereNotNull('win'))
+            ->whereHas('games', fn($q) => $q->whereIn('event_id', $eventIds)->whereNotNull('win'))
             ->withCount([
-                'games as games_won' => fn (Builder $q) => $q->where('win', true)->whereIn('event_id', $eventIds),
-                'games as games_lost' => fn (Builder $q) => $q->where('win', false)->whereIn('event_id', $eventIds),
-                'games as games_played' => fn (Builder $q) => $q->whereIn('event_id', $eventIds)->whereNotNull('win'),
-                'events as participated' => fn (Builder $q) => $q->whereIn('id', $eventIds)->distinct(),
+                'games as games_won' => fn(Builder $q) => $q
+                    ->where('win', true)
+                    ->whereIn('event_id', $eventIds),
+                'games as games_lost' => fn(Builder $q) => $q
+                    ->where('win', false)
+                    ->whereIn('event_id', $eventIds),
+                'games as games_played' => fn(Builder $q) => $q
+                    ->whereIn('event_id', $eventIds)
+                    ->whereNotNull('win'),
+                'events as participated' => fn(Builder $q) => $q
+                    ->whereIn('id', $eventIds)
+                    ->distinct(),
             ])
             ->with(['user', 'team'])
             ->get();
@@ -67,29 +76,31 @@ class RankUpdater
 
         $groupedByUser = $this->players->groupBy('user_id');
 
-        $rankData = $groupedByUser->map(function ($players, $userId) use ($baseData, $maxParticipated) {
-            $activePlayer = $players->firstWhere('active', true) ?? $players->first();
+        $rankData = $groupedByUser
+            ->map(function ($players, $userId) use ($baseData, $maxParticipated) {
+                $activePlayer = $players->firstWhere('active', true) ?? $players->first();
 
-            $won = $players->sum('games_won');
-            $lost = $players->sum('games_lost');
-            $played = $players->sum('games_played');
-            $participated = $players->sum('participated');
+                $won = $players->sum('games_won');
+                $lost = $players->sum('games_lost');
+                $played = $players->sum('games_played');
+                $participated = $players->sum('participated');
 
-            $percentage = 0;
-            if ($played > 0 && $maxParticipated > 0) {
-                $percentage = ceil(($won / $played) * 100 * ($participated / $maxParticipated));
-            }
+                $percentage = 0;
+                if ($played > 0 && $maxParticipated > 0) {
+                    $percentage = ceil(($won / $played) * 100 * ($participated / $maxParticipated));
+                }
 
-            return array_merge($baseData, [
-                'player_id' => $activePlayer->id,
-                'user_id' => $userId,
-                'won' => $won,
-                'lost' => $lost,
-                'played' => $played,
-                'participated' => $participated,
-                'percentage' => $percentage,
-            ]);
-        })->sortByDesc('played');
+                return array_merge($baseData, [
+                    'player_id' => $activePlayer->id,
+                    'user_id' => $userId,
+                    'won' => $won,
+                    'lost' => $lost,
+                    'played' => $played,
+                    'participated' => $participated,
+                    'percentage' => $percentage,
+                ]);
+            })
+            ->sortByDesc('played');
 
         foreach ($rankData as $data) {
             Rank::query()->updateOrInsert(
@@ -98,7 +109,9 @@ class RankUpdater
                     'player_id' => $data['player_id'],
                     'user_id' => $data['user_id'],
                 ],
-                collect($data)->except(['season_id', 'player_id', 'user_id', 'max_days'])->toArray()
+                collect($data)
+                    ->except(['season_id', 'player_id', 'user_id', 'max_days'])
+                    ->toArray(),
             );
         }
     }

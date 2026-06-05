@@ -9,18 +9,12 @@ use App\Models\Position;
 
 class ScheduleManager
 {
-    public function __construct(public Event $event)
-    {
-    }
+    public function __construct(public Event $event) {}
 
     // returns the chosen format based on the games schedule
     public function setFormat(): ?Format
     {
-        return $this->event
-            ->games()
-            ->first()
-            ?->schedule
-            ->format;
+        return $this->event->games()->first()?->schedule->format;
     }
 
     public function recreateMatrix(): array
@@ -46,7 +40,9 @@ class ScheduleManager
                 $values = [
                     'schedule_id' => $schedule->id,
                     'event_id' => $this->event->id,
-                    'team_id' => $schedule->home ? $this->event->team_1->id : $this->event->team_2->id,
+                    'team_id' => $schedule->home
+                        ? $this->event->team_1->id
+                        : $this->event->team_2->id,
                     'player_id' => null,
                     'user_id' => null,
                     'position' => 15,

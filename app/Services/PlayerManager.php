@@ -7,9 +7,7 @@ use App\Models\Player;
 
 class PlayerManager
 {
-    public function __construct(public Event $event)
-    {
-    }
+    public function __construct(public Event $event) {}
 
     public function getPlayersFromFinishedGame(): array
     {
@@ -32,15 +30,9 @@ class PlayerManager
 
     public function getPlayersFromUnfinishedGame(): array
     {
-        $home_players = $this->event
-            ->team_1
-            ->activePlayers()
-            ->sortBy('name');
+        $home_players = $this->event->team_1->activePlayers()->sortBy('name');
 
-        $visit_players = $this->event
-            ->team_2
-            ->activePlayers()
-            ->sortBy('name');
+        $visit_players = $this->event->team_2->activePlayers()->sortBy('name');
 
         return [$home_players, $visit_players];
     }

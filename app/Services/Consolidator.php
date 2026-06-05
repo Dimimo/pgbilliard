@@ -13,9 +13,7 @@ use Illuminate\Support\Str;
 
 class Consolidator
 {
-    public function __construct(public Event $event)
-    {
-    }
+    public function __construct(public Event $event) {}
 
     public function consolidate(): bool
     {
@@ -24,7 +22,8 @@ class Consolidator
         // let the others know the game is finished with a final score
         broadcast(new ScoreEvent($this->event->date->season_id, $this->event->id))->toOthers();
 
-        return app()->isProduction() && $this->event->date->events->every(fn ($value) => $value->confirmed === true);
+        return app()->isProduction() &&
+            $this->event->date->events->every(fn($value) => $value->confirmed === true);
     }
 
     /**
@@ -45,11 +44,12 @@ class Consolidator
 
         Mail::send(new DayScoresToAdmin($this->event->date, Arr::sort($send_to)));
 
-        $message = "["
-            . $this->event->date->date->appTimezone()->format("d/m/Y")
-            . "] All day scores confirmed, "
-            . count($send_to)
-            . " emails have been sent";
+        $message =
+            '[' .
+            $this->event->date->date->appTimezone()->format('d/m/Y') .
+            '] All day scores confirmed, ' .
+            count($send_to) .
+            ' emails have been sent';
 
         (new LogConsolidate($this->event))->buildLogChannel()->info($message);
 
