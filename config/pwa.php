@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Would you like the installation button to appear on all pages?
@@ -25,20 +24,21 @@ return [
         'display' => 'fullscreen',
         'orientation' => 'any',
         'start_url' => 'https://www.pgparrot.com',
-        'description' => 'The official app of the Puerto Galera Billiard League. View live scores, match schedules, team standings, and results. The app is a convenient way for players and fans to follow the competition.',
+        'description' =>
+            'The official app of the Puerto Galera Billiard League. View live scores, match schedules, team standings, and results. The app is a convenient way for players and fans to follow the competition.',
         'theme_color' => '#0cc716',
         'icons' => [
             [
-                'src' => public_path('ms-icon-310x310.png'),
-                '36x36' => public_path('android-icon-36x36.png'),
-                '48x48' => public_path('android-icon-48x48.png'),
-                '72x72' => public_path('android-icon-72x72.png'),
-                '96x96' => public_path('android-icon-96x96.png'),
-                '128x128' => public_path('android-icon-128x128.png'),
-                '144x144' => public_path('android-icon-144x144.png'),
-                '192x192' => public_path('android-icon-192x192.png'),
-                '384x384' => public_path('android-icon-384x384.png'),
-                '512x512' => public_path('android-icon-512x512.png'),
+                'src' => '/ms-icon-310x310.png',
+                '36x36' => '/android-icon-36x36.png',
+                '48x48' => '/android-icon-48x48.png',
+                '72x72' => '/android-icon-72x72.png',
+                '96x96' => '/android-icon-96x96.png',
+                '128x128' => '/android-icon-128x128.png',
+                '144x144' => '/android-icon-144x144.png',
+                '192x192' => '/android-icon-192x192.png',
+                '384x384' => '/android-icon-384x384.png',
+                '512x512' => '/android-icon-512x512.png',
             ],
         ],
     ],
