@@ -30,11 +30,6 @@ class TeamPolicy
         return $this->returnAdminOwnerOrCaptain($user, $team);
     }
 
-    public function delete(User $user): bool
-    {
-        return $user->isAdmin();
-    }
-
     private function returnAdminOwnerOrCaptain(User $user, Team $team): bool
     {
         if ($user->isAdmin()) {
@@ -46,5 +41,10 @@ class TeamPolicy
         }
 
         return $team->activePlayers()->where('user_id', $user->id)->first()?->captain === true;
+    }
+
+    public function delete(User $user): bool
+    {
+        return $user->isAdmin();
     }
 }

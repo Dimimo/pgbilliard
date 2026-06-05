@@ -32,6 +32,8 @@ class SeasonPolicy
 
     public function delete(User $user, Season $season): bool
     {
-        return $user->isAdmin() && $season->teams()->count() === 0 && $season->dates()->count() === 0;
+        return $user->isAdmin() &&
+            $season->teams()->count() === 0 &&
+            $season->dates()->count() === 0;
     }
 }

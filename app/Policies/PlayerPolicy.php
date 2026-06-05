@@ -26,6 +26,19 @@ class PlayerPolicy
         return $this->returnAdminOwnerOrCaptain($user, $team);
     }
 
+    private function returnAdminOwnerOrCaptain(User $user, Team $team): bool
+    {
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        if ($team->venue->owner->id === $user->id) {
+            return true;
+        }
+
+        return $team->activePlayers()->where('user_id', $user->id)->first()?->captain === true;
+    }
+
     public function update(User $user, Player $player): bool
     {
         if ($this->returnAdminOwnerOrCaptain($user, $player->team)) {
@@ -38,18 +51,5 @@ class PlayerPolicy
     public function delete(User $user, Player $player): bool
     {
         return $this->returnAdminOwnerOrCaptain($user, $player->team);
-    }
-
-    private function returnAdminOwnerOrCaptain(User $user, Team $team): bool
-    {
-        if ($user->isAdmin()) {
-            return true;
-        }
-
-        if ($team->venue->owner->id === $user->id) {
-            return true;
-        }
-
-        return $team->activePlayers()->where('user_id', $user->id)->first()?->captain === true;
     }
 }
