@@ -15,27 +15,20 @@ class CreateLivewireTestCommand extends Command
      */
     public function handle(): void
     {
-        $paths = [
-            app_path('Livewire')
-        ];
+        $paths = [app_path('Livewire')];
 
         $this->components->success('Starting');
 
         foreach ((new Finder())->in($paths)->files() as $file) {
-            $component = ucfirst(trim(
-                str_replace(
-                    [realpath(base_path()), '.php'],
-                    '',
-                    $file->getRealPath()
-                ),
-                '/'
-            ));
+            $component = ucfirst(
+                trim(str_replace([realpath(base_path()), '.php'], '', $file->getRealPath()), '/'),
+            );
             $className = str_replace(['/', '\\app'], ['\\', '\\App'], $component);
 
             if (is_subclass_of($className, Component::class)) {
-
                 $directory = base_path(
-                    'tests/Feature' . str_replace([app_path(), $file->getFilename()], '', $file->getRealPath())
+                    'tests/Feature' .
+                        str_replace([app_path(), $file->getFilename()], '', $file->getRealPath()),
                 );
                 $class = $file->getFilenameWithoutExtension();
                 $filename = $class . 'Test.php';

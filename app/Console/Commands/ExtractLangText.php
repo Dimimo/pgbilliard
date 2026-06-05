@@ -7,11 +7,19 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
-#[\Illuminate\Console\Attributes\Description('Extract all text within the __() helper and output to the /lang/{locale}.json file or a custom path')]
-#[\Illuminate\Console\Attributes\Signature('lang:extract
+#[
+    \Illuminate\Console\Attributes\Description(
+        'Extract all text within the __() helper and output to the /lang/{locale}.json file or a custom path',
+    ),
+]
+#[
+    \Illuminate\Console\Attributes\Signature(
+        'lang:extract
                             {locale : the language of the extracted file}
                             {path? : the /lang/(locale).json file or a custom path}
-                            {--force : overwrite the whole file or simply add new entries}')]
+                            {--force : overwrite the whole file or simply add new entries}',
+    ),
+]
 class ExtractLangText extends Command
 {
     // Execute the command
@@ -40,7 +48,11 @@ class ExtractLangText extends Command
             if (!$force) {
                 $translations = \Illuminate\Support\Facades\File::json($outputFile);
             } else {
-                if ($this->confirm('You are about to overwrite all existing translations. Continue or keep existing translations?')) {
+                if (
+                    $this->confirm(
+                        'You are about to overwrite all existing translations. Continue or keep existing translations?',
+                    )
+                ) {
                     $this->components->info("$outputFile removed. Rebuilding...");
                 } else {
                     $translations = \Illuminate\Support\Facades\File::json($outputFile);
@@ -50,11 +62,7 @@ class ExtractLangText extends Command
         }
 
         // Find all files in app, routes, and resources/views directories
-        $directories = [
-            base_path('app'),
-            base_path('routes'),
-            base_path('resources/views'),
-        ];
+        $directories = [base_path('app'), base_path('routes'), base_path('resources/views')];
 
         $new_translations = [];
 
@@ -71,7 +79,7 @@ class ExtractLangText extends Command
                     foreach ($matches[1] as $key) {
                         $new_translations[$key] = $key;
                         if (!isset($translations[$key])) {
-                            $translations[$key] = $key;  // Initial extraction without translation
+                            $translations[$key] = $key; // Initial extraction without translation
                         }
                     }
                 }
@@ -85,8 +93,16 @@ class ExtractLangText extends Command
         ksort($translations);
 
         // Write translations to a JSON file in the target directory
-        file_put_contents($outputFile, json_encode($translations, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+        file_put_contents(
+            $outputFile,
+            json_encode(
+                $translations,
+                JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE,
+            ),
+        );
 
-        $this->components->info(count($translations) . " translations extracted successfully and saved to $outputFile");
+        $this->components->info(
+            count($translations) . " translations extracted successfully and saved to $outputFile",
+        );
     }
 }

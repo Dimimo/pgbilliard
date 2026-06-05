@@ -5,7 +5,11 @@ namespace App\Console\Commands;
 use App\Models\Date;
 use Illuminate\Console\Command;
 
-#[\Illuminate\Console\Attributes\Description('Set the daily pool scores to zero to activate Live Scores')]
+#[
+    \Illuminate\Console\Attributes\Description(
+        'Set the daily pool scores to zero to activate Live Scores',
+    ),
+]
 #[\Illuminate\Console\Attributes\Signature('pool:day-scores')]
 class PoolScoresSetDay extends Command
 {
@@ -29,7 +33,7 @@ class PoolScoresSetDay extends Command
         foreach ($dates as $date) {
             dispatch(new \App\Jobs\PoolSetDayScores($date));
         }
-        $dates->count() ? $count = $dates->count() : $count = 'No';
+        $dates->count() ? ($count = $dates->count()) : ($count = 'No');
         $message = "The daily Pool score for $today has been run. $count reset requests has been dispatched.";
         \Illuminate\Support\Facades\Log::info('[PoolScoreSetDay] ' . $message);
         $this->comment($message);
