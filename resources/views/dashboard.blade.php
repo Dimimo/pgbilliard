@@ -6,7 +6,7 @@ use function Livewire\Volt\{state, uses};
 name('dashboard');
 middleware(['auth']);
 state([
-    'user' => fn() => auth()->user(),
+    'user' => fn () => auth()->user(),
 ])
 
 ?>
