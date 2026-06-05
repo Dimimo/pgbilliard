@@ -7,7 +7,9 @@ use App\Models\Player;
 
 class PlayerManager
 {
-    public function __construct(public Event $event) {}
+    public function __construct(public Event $event)
+    {
+    }
 
     public function getPlayersFromFinishedGame(): array
     {

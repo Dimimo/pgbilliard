@@ -16,7 +16,9 @@ class RankUpdater
      */
     public Collection $players;
 
-    public function __construct(protected int $seasonId) {}
+    public function __construct(protected int $seasonId)
+    {
+    }
 
     public function update(): void
     {
@@ -38,18 +40,18 @@ class RankUpdater
 
         $this->players = Player::query()
             //->whereIn('players.id', $player_ids)
-            ->whereHas('games', fn($q) => $q->whereIn('event_id', $eventIds)->whereNotNull('win'))
+            ->whereHas('games', fn ($q) => $q->whereIn('event_id', $eventIds)->whereNotNull('win'))
             ->withCount([
-                'games as games_won' => fn(Builder $q) => $q
+                'games as games_won' => fn (Builder $q) => $q
                     ->where('win', true)
                     ->whereIn('event_id', $eventIds),
-                'games as games_lost' => fn(Builder $q) => $q
+                'games as games_lost' => fn (Builder $q) => $q
                     ->where('win', false)
                     ->whereIn('event_id', $eventIds),
-                'games as games_played' => fn(Builder $q) => $q
+                'games as games_played' => fn (Builder $q) => $q
                     ->whereIn('event_id', $eventIds)
                     ->whereNotNull('win'),
-                'events as participated' => fn(Builder $q) => $q
+                'events as participated' => fn (Builder $q) => $q
                     ->whereIn('id', $eventIds)
                     ->distinct(),
             ])

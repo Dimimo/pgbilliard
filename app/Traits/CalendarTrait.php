@@ -17,7 +17,7 @@ trait CalendarTrait
         return Date::query()
             ->where('season_id', Context::getHidden('season_id'))
             ->with([
-                'events' => fn(Relation $q) => $q->with(['date', 'team_1', 'team_2']),
+                'events' => fn (Relation $q) => $q->with(['date', 'team_1', 'team_2']),
             ])
             ->orderBy('date')
             ->get();

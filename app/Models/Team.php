@@ -145,7 +145,7 @@ class Team extends Model
     protected function userId(): \Illuminate\Database\Eloquent\Casts\Attribute
     {
         return \Illuminate\Database\Eloquent\Casts\Attribute::make(
-            get: fn() => $this->captain()?->user_id,
+            get: fn () => $this->captain()?->user_id,
         );
     }
 
@@ -170,7 +170,7 @@ class Team extends Model
     protected function captainName(): \Illuminate\Database\Eloquent\Casts\Attribute
     {
         return \Illuminate\Database\Eloquent\Casts\Attribute::make(
-            get: fn() => $this->captain()?->name ?: '(unknown)',
+            get: fn () => $this->captain()?->name ?: '(unknown)',
         );
     }
 

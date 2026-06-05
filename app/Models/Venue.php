@@ -106,7 +106,7 @@ class Venue extends Model
     protected function getContactName(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->owner
+            get: fn () => $this->owner
                 ? ($this->owner->name ?:
                 $this->contact_name)
                 : $this->contact_name,
@@ -116,7 +116,7 @@ class Venue extends Model
     protected function getContactNr(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->owner
+            get: fn () => $this->owner
                 ? ($this->owner->contact_nr ?:
                 $this->contact_nr)
                 : $this->contact_nr,

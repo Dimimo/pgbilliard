@@ -2,4 +2,6 @@
 
 namespace App\Services;
 
-class ScoreManager {}
+class ScoreManager
+{
+}

@@ -9,7 +9,9 @@ use App\Models\Position;
 
 class ScheduleManager
 {
-    public function __construct(public Event $event) {}
+    public function __construct(public Event $event)
+    {
+    }
 
     // returns the chosen format based on the games schedule
     public function setFormat(): ?Format

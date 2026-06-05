@@ -85,13 +85,13 @@ class Date extends Model
     public function players(): PlayerList
     {
         return $this->events
-            ->map(fn($event) => $event->team_1->activePlayers()->map(fn($player) => $player->user))
+            ->map(fn ($event) => $event->team_1->activePlayers()->map(fn ($player) => $player->user))
             ->merge(
                 $this->events->map(
-                    fn($event) => $event->team_2
+                    fn ($event) => $event->team_2
                         ->activePlayers()
-                        ->map(fn($player) => $player->user)
-                        ->merge(Admin::with('user')->get()->map(fn($admin) => $admin->user)),
+                        ->map(fn ($player) => $player->user)
+                        ->merge(Admin::with('user')->get()->map(fn ($admin) => $admin->user)),
                 ),
             )
             ->flatten()
@@ -106,18 +106,18 @@ class Date extends Model
     {
         return $this->events
             ->map(
-                fn($event) => $event->team_1
+                fn ($event) => $event->team_1
                     ->activePlayers()
-                    ->filter(fn($player) => $player->user_id === $user->id),
+                    ->filter(fn ($player) => $player->user_id === $user->id),
             )
             ->merge(
                 $this->events->map(
-                    fn($event) => $event->team_2
+                    fn ($event) => $event->team_2
                         ->activePlayers()
-                        ->filter(fn($player) => $player->user_id == $user->id),
+                        ->filter(fn ($player) => $player->user_id == $user->id),
                 ),
             )
-            ->filter(fn($c) => $c->count())
+            ->filter(fn ($c) => $c->count())
             ->first()
             ?->first()?->team;
     }

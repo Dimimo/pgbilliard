@@ -7,7 +7,9 @@ use App\Models\Game;
 
 class LogGames extends Logger
 {
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 
     public function logGameChanges(Game $game): void
     {

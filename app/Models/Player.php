@@ -109,7 +109,7 @@ class Player extends Model
 
     protected function name(): Attribute
     {
-        return Attribute::make(get: fn() => $this->user?->name);
+        return Attribute::make(get: fn () => $this->user?->name);
     }
 
     protected function phone(): Attribute
@@ -129,18 +129,18 @@ class Player extends Model
 
     protected function gender(): Attribute
     {
-        return Attribute::make(get: fn() => $this->user?->gender);
+        return Attribute::make(get: fn () => $this->user?->gender);
     }
 
     protected function email(): Attribute
     {
-        return Attribute::make(get: fn() => $this->user?->email);
+        return Attribute::make(get: fn () => $this->user?->email);
     }
 
     protected function participated(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->games()->whereNotNull('win')->distinct()->count('event_id'),
+            get: fn () => $this->games()->whereNotNull('win')->distinct()->count('event_id'),
         );
     }
 

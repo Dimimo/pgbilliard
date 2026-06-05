@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
         //and even $user->updated_at->appTimezone()->format('d/m/y H:m');
         \Illuminate\Support\Facades\Date::macro(
             'appTimezone',
-            fn() => $this->tz(config('app.app_timezone')),
+            fn () => $this->tz(config('app.app_timezone')),
         );
     }
 }

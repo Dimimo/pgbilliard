@@ -6,7 +6,9 @@ use App\Models\Event;
 
 class LiveScoreUpdater
 {
-    public function __construct(public Event $event) {}
+    public function __construct(public Event $event)
+    {
+    }
 
     public function getEventScores(): Event
     {

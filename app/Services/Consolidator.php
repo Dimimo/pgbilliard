@@ -13,7 +13,9 @@ use Illuminate\Support\Str;
 
 class Consolidator
 {
-    public function __construct(public Event $event) {}
+    public function __construct(public Event $event)
+    {
+    }
 
     public function consolidate(): bool
     {
@@ -23,7 +25,7 @@ class Consolidator
         broadcast(new ScoreEvent($this->event->date->season_id, $this->event->id))->toOthers();
 
         return app()->isProduction() &&
-            $this->event->date->events->every(fn($value) => $value->confirmed === true);
+            $this->event->date->events->every(fn ($value) => $value->confirmed === true);
     }
 
     /**

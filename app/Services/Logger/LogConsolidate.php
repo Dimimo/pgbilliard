@@ -6,7 +6,9 @@ use App\Models\Event;
 
 class LogConsolidate extends Logger
 {
-    public function __construct(public Event $event) {}
+    public function __construct(public Event $event)
+    {
+    }
 
     public function message(): void
     {

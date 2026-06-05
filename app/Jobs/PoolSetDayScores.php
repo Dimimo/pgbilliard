@@ -19,7 +19,9 @@ class PoolSetDayScores implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(protected Date $date) {}
+    public function __construct(protected Date $date)
+    {
+    }
 
     /**
      * Check for events today, if they exist, set the scores to 0-0

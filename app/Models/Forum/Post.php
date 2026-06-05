@@ -97,8 +97,8 @@ class Post extends Model
     protected function title(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => str::apa($value),
-            set: fn($value) => ['slug' => Str::slug($value), 'title' => $value],
+            get: fn ($value) => str::apa($value),
+            set: fn ($value) => ['slug' => Str::slug($value), 'title' => $value],
         );
     }
 

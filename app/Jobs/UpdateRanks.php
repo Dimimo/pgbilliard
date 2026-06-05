@@ -15,7 +15,9 @@ class UpdateRanks implements ShouldQueue, ShouldBeUnique
     /**
      * Create a new job instance.
      */
-    public function __construct(public Season $season) {}
+    public function __construct(public Season $season)
+    {
+    }
 
     /**
      * Execute the job.
