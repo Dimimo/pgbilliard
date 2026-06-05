@@ -6,7 +6,11 @@
     "trailingComma": "all",
     "bracketSpacing": true,
     "bracketSameLine": false,
-    "plugins": ["prettier-plugin-blade", "prettier-plugin-tailwindcss"],
+    "plugins": [
+        "prettier-plugin-blade",
+        "prettier-plugin-tailwindcss",
+        "@prettier/plugin-php"
+    ],
     "tailwindConfig": "tailwind.config.js",
     "overrides": [
         {
@@ -14,7 +18,8 @@
                 "*.blade.php"
             ],
             "options": {
-                "parser": "blade"
+                "parser": "blade",
+                "bladePhpFormatting": "safe"
             }
         }
     ]
