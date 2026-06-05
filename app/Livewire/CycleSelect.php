@@ -18,6 +18,11 @@ class CycleSelect extends Component
         $this->cycle = session('cycle', '0000/00');
     }
 
+    private function getCycles(): Collection
+    {
+        return Season::query()->distinct()->orderBy('cycle', 'desc')->limit(4)->get();
+    }
+
     public function render(): View
     {
         return view('livewire.cycle-select');
@@ -32,14 +37,5 @@ class CycleSelect extends Component
             session()->put(['cycle' => $season->cycle, 'season_id' => $season->id]);
             $this->redirect(route('scoreboard'));
         }
-    }
-
-    private function getCycles(): Collection
-    {
-        return Season::query()
-            ->distinct()
-            ->orderBy('cycle', 'desc')
-            ->limit(4)
-            ->get();
     }
 }

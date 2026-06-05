@@ -21,7 +21,11 @@ class Index extends Component
 
     public function getPosts(): LengthAwarePaginator
     {
-        return Post::with(['user', 'tags', 'visits' => fn ($q) => $q->where('user_id', \Illuminate\Support\Facades\Auth::id())])
+        return Post::with([
+            'user',
+            'tags',
+            'visits' => fn ($q) => $q->where('user_id', \Illuminate\Support\Facades\Auth::id()),
+        ])
             ->orderByDesc('is_sticky')
             ->latest('updated_at')
             ->withCount('comments')
@@ -31,13 +35,13 @@ class Index extends Component
     public function toggle_sticky($id): void
     {
         $post = Post::query()->find($id);
-        $post->withoutTimestamps(fn () => $post->update(['is_sticky' => ! $post->is_sticky]));
+        $post->withoutTimestamps(fn () => $post->update(['is_sticky' => !$post->is_sticky]));
     }
 
     public function toggle_locked($id): void
     {
         $post = Post::query()->find($id);
-        $post->withoutTimestamps(fn () => $post->update(['is_locked' => ! $post->is_locked]));
+        $post->withoutTimestamps(fn () => $post->update(['is_locked' => !$post->is_locked]));
     }
 
     public function delete($id): void

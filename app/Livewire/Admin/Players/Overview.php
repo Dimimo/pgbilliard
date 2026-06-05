@@ -26,13 +26,6 @@ class Overview extends Component
         $this->loadUsersList();
     }
 
-    public function render(): \Illuminate\View\View
-    {
-        return view('livewire.admin.players.overview')->with([
-            'users' => $this->users,
-        ]);
-    }
-
     private function loadUsersList(): void
     {
         $date_filter = \Illuminate\Support\Facades\Date::now()->sub($this->carbon_sub);
@@ -43,12 +36,20 @@ class Overview extends Component
             ->where('last_game', '<', $date_filter)
             ->withCount(['games', 'players'])
             ->with([
-                'players' => fn (Relation $q) => $q->orderByDesc('team_id')
+                'players' => fn (Relation $q) => $q
+                    ->orderByDesc('team_id')
                     ->with(['team' => fn ($t) => $t->select(['id', 'name'])])
-                    ->take(1)
+                    ->take(1),
             ])
             ->orderBy($this->orderBy, $this->asc ? 'asc' : 'desc')
             ->get();
+    }
+
+    public function render(): \Illuminate\View\View
+    {
+        return view('livewire.admin.players.overview')->with([
+            'users' => $this->users,
+        ]);
     }
 
     public function updatedCarbonSub($value): void
@@ -60,9 +61,9 @@ class Overview extends Component
     public function sortColumn(string $orderBy): void
     {
         if (Str::contains('last_game|games_count|players_count', $orderBy)) {
-            $this->orderBy === $orderBy ? $this->asc = !$this->asc : $this->asc = false;
+            $this->orderBy === $orderBy ? ($this->asc = !$this->asc) : ($this->asc = false);
         } else {
-            $this->orderBy === $orderBy ? $this->asc = !$this->asc : $this->asc = true;
+            $this->orderBy === $orderBy ? ($this->asc = !$this->asc) : ($this->asc = true);
         }
         $this->orderBy = $orderBy;
         $this->loadUsersList();
@@ -82,7 +83,8 @@ class Overview extends Component
             $user->venue()->count() ?? $user->venue()->update(['user_id' => null]);
             $user->visits()->delete();
             $user->comments()->delete();
-            $user->posts()->count() ?? $user->posts()->each(fn (Post $q) => $q->update(['user_id' => 1]));
+            $user->posts()->count() ??
+                $user->posts()->each(fn (Post $q) => $q->update(['user_id' => 1]));
             $user->chatMessages()->delete();
             $user->chatRooms()->delete();
             $user->delete();

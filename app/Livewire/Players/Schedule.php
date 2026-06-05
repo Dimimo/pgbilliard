@@ -22,13 +22,13 @@ class Schedule extends Component
         $this->dates = $this->getDates();
     }
 
-    public function render(): View
-    {
-        return view('livewire.players.schedule');
-    }
-
     private function getDates(): Collection
     {
         return $this->dates = $this->getCalendar();
+    }
+
+    public function render(): View
+    {
+        return view('livewire.players.schedule');
     }
 }

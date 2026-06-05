@@ -20,14 +20,14 @@ class Create extends Component
         $this->post = $this->returnPost($comment->post_id);
     }
 
-    public function render(): View
-    {
-        return view('livewire.forum.comments.create');
-    }
-
     public function returnPost($post_id): Post
     {
         return Post::query()->find($post_id);
+    }
+
+    public function render(): View
+    {
+        return view('livewire.forum.comments.create');
     }
 
     public function create(): void
@@ -44,6 +44,9 @@ class Create extends Component
         $this->authorize('update', $this->comment_form->comment);
         $this->comment_form->update();
         $this->dispatch('comment-updated');
-        $this->redirect(route('forum.posts.show', ['post' => $this->comment_form->comment->post]), navigate: true);
+        $this->redirect(
+            route('forum.posts.show', ['post' => $this->comment_form->comment->post]),
+            navigate: true,
+        );
     }
 }

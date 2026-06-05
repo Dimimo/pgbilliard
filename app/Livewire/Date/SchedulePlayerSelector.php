@@ -38,51 +38,78 @@ class SchedulePlayerSelector extends Component
 
         if (!$this->switches->get('chooseFormat')) {
             if (!$this->switches->get('confirmed')) {
-                [$this->home_players, $this->visit_players] = (new PlayerManager($this->event))->getPlayersFromFinishedGame();
+                [$this->home_players, $this->visit_players] = (new PlayerManager(
+                    $this->event,
+                ))->getPlayersFromFinishedGame();
             } else {
-                $this->dispatch('update-settings', specific: 'can-update-players')->to(Schedule::class);
-                [$this->home_matrix, $this->visit_matrix] = (new ScheduleManager($this->event))->recreateMatrix();
-                [$this->home_players, $this->visit_players] = (new PlayerManager($this->event))->getPlayersFromUnfinishedGame();
+                $this->dispatch('update-settings', specific: 'can-update-players')->to(
+                    Schedule::class,
+                );
+                [$this->home_matrix, $this->visit_matrix] = (new ScheduleManager(
+                    $this->event,
+                ))->recreateMatrix();
+                [$this->home_players, $this->visit_players] = (new PlayerManager(
+                    $this->event,
+                ))->getPlayersFromUnfinishedGame();
             }
         }
         $this->format = (new ScheduleManager($this->event))->setFormat();
+    }
+
+    public function formatIsSet(): void
+    {
+        $this->format = (new ScheduleManager($this->event))->setFormat();
+        [$this->home_players, $this->visit_players] = (new PlayerManager(
+            $this->event,
+        ))->getPlayersFromUnfinishedGame();
+        $this->render();
     }
 
     public function render(): \Illuminate\View\View
     {
         // sometimes, when the page is long open or reloaded, the app loses these settings
         if ($this->switches->get('confirmed')) {
-            [$this->home_players, $this->visit_players] = (new PlayerManager($this->event))->getPlayersFromFinishedGame();
+            [$this->home_players, $this->visit_players] = (new PlayerManager(
+                $this->event,
+            ))->getPlayersFromFinishedGame();
         } else {
-            [$this->home_matrix, $this->visit_matrix] = (new ScheduleManager($this->event))->recreateMatrix();
-            [$this->home_players, $this->visit_players] = (new PlayerManager($this->event))->getPlayersFromUnfinishedGame();
+            [$this->home_matrix, $this->visit_matrix] = (new ScheduleManager(
+                $this->event,
+            ))->recreateMatrix();
+            [$this->home_players, $this->visit_players] = (new PlayerManager(
+                $this->event,
+            ))->getPlayersFromUnfinishedGame();
         }
 
-        return view('livewire.date.schedule-player-selector')->with(['switches' => $this->switches]);
+        return view('livewire.date.schedule-player-selector')->with([
+            'switches' => $this->switches,
+        ]);
     }
 
-    public function formatIsSet(): void
-    {
-        $this->format = (new ScheduleManager($this->event))->setFormat();
-        [$this->home_players, $this->visit_players] = (new PlayerManager($this->event))->getPlayersFromUnfinishedGame();
-        $this->render();
-    }
-
-    public function playerSelected(int $player_id, int $position, string $place, ?int $previous_player_id = null): void
-    {
-        Position::query()->where([
-            'event_id' => $this->event->id,
-            'rank' => $position,
-            'home' => $place === 'home',
-        ])->delete();
-        $team = null;
-
-        if ($player = Player::query()->with('team')->find($player_id)) {
-            Position::query()->updateOrCreate([
+    public function playerSelected(
+        int $player_id,
+        int $position,
+        string $place,
+        ?int $previous_player_id = null,
+    ): void {
+        Position::query()
+            ->where([
                 'event_id' => $this->event->id,
                 'rank' => $position,
                 'home' => $place === 'home',
-            ], ['player_id' => $player_id]);
+            ])
+            ->delete();
+        $team = null;
+
+        if ($player = Player::query()->with('team')->find($player_id)) {
+            Position::query()->updateOrCreate(
+                [
+                    'event_id' => $this->event->id,
+                    'rank' => $position,
+                    'home' => $place === 'home',
+                ],
+                ['player_id' => $player_id],
+            );
             $team = $player->team;
         }
 
@@ -94,11 +121,12 @@ class SchedulePlayerSelector extends Component
             }
         }
 
-        $schedules = Matrix::query()->where([
-            ['format_id', $this->format->id],
-            ['player', $position],
-            ['home', $place === 'home']
-        ])
+        $schedules = Matrix::query()
+            ->where([
+                ['format_id', $this->format->id],
+                ['player', $position],
+                ['home', $place === 'home'],
+            ])
             ->orderBy('position')
             ->get();
 
@@ -126,12 +154,14 @@ class SchedulePlayerSelector extends Component
                     [
                         'player_id' => $player->id,
                         'user_id' => $player->user_id,
-                    ]
+                    ],
                 );
             }
         }
 
-        [$this->home_matrix, $this->visit_matrix] = (new ScheduleManager($this->event))->recreateMatrix();
+        [$this->home_matrix, $this->visit_matrix] = (new ScheduleManager(
+            $this->event,
+        ))->recreateMatrix();
         $this->dispatch('player-selected')->to(ScheduleScoreTable::class);
         broadcast(new ScoreEvent($this->season->id, $this->event->id))->toOthers();
         $this->render();
@@ -142,7 +172,9 @@ class SchedulePlayerSelector extends Component
     {
         $plays_home = $home === 'home';
         $this->event->games()->where('home', $plays_home)->delete();
-        Position::query()->where([['event_id', $this->event->id], ['home', $plays_home]])->delete();
+        Position::query()
+            ->where([['event_id', $this->event->id], ['home', $plays_home]])
+            ->delete();
         $this->event->games()->where('position', 15)->delete();
 
         // if all games are deleted, show the format choices again by simply reloading the page
@@ -150,8 +182,12 @@ class SchedulePlayerSelector extends Component
         if ($this->event->games()->count() === 0) {
             $this->redirectRoute('schedule.event', ['event' => $this->event], navigate: true);
         } else {
-            [$this->home_matrix, $this->visit_matrix] = (new ScheduleManager($this->event))->recreateMatrix();
-            [$this->home_players, $this->visit_players] = (new PlayerManager($this->event))->getPlayersFromUnfinishedGame();
+            [$this->home_matrix, $this->visit_matrix] = (new ScheduleManager(
+                $this->event,
+            ))->recreateMatrix();
+            [$this->home_players, $this->visit_players] = (new PlayerManager(
+                $this->event,
+            ))->getPlayersFromUnfinishedGame();
             (new ScheduleManager($this->event))->checkThirdGame($this->format);
             $this->dispatch('player-selected')->to(ScheduleScoreTable::class);
         }

@@ -24,7 +24,7 @@ class Schedule extends Component
         $this->season = Season::query()->find(Context::getHidden('season_id'));
         $this->event->loadMissing('games', 'team_1.players', 'team_2.players');
         $this->format = (new ScheduleManager($this->event))->setFormat();
-        $this->switches = $this->collectSwitches();//$this->event->games()->delete();
+        $this->switches = $this->collectSwitches(); //$this->event->games()->delete();
     }
 
     protected function collectSwitches(): Settings
@@ -41,10 +41,11 @@ class Schedule extends Component
     private function countGames(): bool
     {
         if (auth()->check() && auth()->user()->can('update', $this->event)) {
-            return $this->event->games()
-                    ->whereBetween('position', [1, 15])
-                    ->whereNotNull('win')
-                    ->count() === 0;
+            return $this->event
+                ->games()
+                ->whereBetween('position', [1, 15])
+                ->whereNotNull('win')
+                ->count() === 0;
         }
         return false;
     }
@@ -85,20 +86,17 @@ class Schedule extends Component
         }
     }
 
+    protected function checkIfPlayersCanBeUpdated(): void
+    {
+        $this->switches->put('canUpdatePlayers', $this->countGames());
+    }
+
     #[On('format-chosen')]
     public function formatChosen(int $id): void
     {
         $this->format = Format::query()->findOrFail($id);
         $this->switches->put('chooseFormat', false);
         (new ScheduleManager($this->event))->checkThirdGame($this->format);
-    }
-
-    protected function checkIfPlayersCanBeUpdated(): void
-    {
-        $this->switches->put(
-            'canUpdatePlayers',
-            $this->countGames()
-        );
     }
 
     #[On('format-set')]
@@ -118,7 +116,10 @@ class Schedule extends Component
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores($response): void
     {
-        if ($this->event->id === $response['event_id'] && app()->environment($response['environment'])) {
+        if (
+            $this->event->id === $response['event_id'] &&
+            app()->environment($response['environment'])
+        ) {
             $this->dispatch('refresh-list');
         }
     }

@@ -33,11 +33,32 @@ class Score extends Component
         $this->scores = $this->getResults();
     }
 
+    /**
+     * Determine the last played week
+     */
+    private function getLastWeek(): ?Date
+    {
+        $dates = Date::query()
+            ->whereSeasonId(Context::getHidden('season_id'))
+            ->has('events', '>', 0, 'and', fn (Builder $q) => $q->whereNotNull(['score1', 'score2']))
+            ->with('events')
+            ->orderBy('dates.date')
+            ->get();
+
+        if ($dates->first()->events()->count() === 0) {
+            return $dates->first();
+        }
+
+        $this->played_weeks = $dates->count();
+
+        return $dates->last();
+    }
+
     public function render(): View
     {
         return view('livewire.score')->with([
             'scores' => $this->scores,
-            'score_id' => $this->score_id
+            'score_id' => $this->score_id,
         ]);
     }
 
@@ -61,32 +82,6 @@ class Score extends Component
             return $event;
         }
         return null;
-    }
-
-    /**
-     * Determine the last played week
-     */
-    private function getLastWeek(): ?Date
-    {
-        $dates = Date::query()->whereSeasonId(Context::getHidden('season_id'))
-            ->has(
-                'events',
-                '>',
-                0,
-                'and',
-                fn (Builder $q) => $q->whereNotNull(['score1', 'score2'])
-            )
-            ->with('events')
-            ->orderBy('dates.date')
-            ->get();
-
-        if ($dates->first()->events()->count() === 0) {
-            return $dates->first();
-        }
-
-        $this->played_weeks = $dates->count();
-
-        return $dates->last();
     }
 
     #[On('echo:live-score,ScoreEvent')]

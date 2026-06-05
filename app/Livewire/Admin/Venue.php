@@ -26,7 +26,7 @@ class Venue extends Component
     public function updated($name, $value): void
     {
         if ($name == 'venue_form.user_id') {
-            $this->venue_form->show_name = ! $value;
+            $this->venue_form->show_name = !$value;
         }
     }
 

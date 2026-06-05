@@ -19,16 +19,17 @@ class Accounts extends Component
         $this->users = $this->getUsers();
     }
 
-    public function render(): View
-    {
-        return view('livewire.players.accounts');
-    }
-
     private function getUsers(): Collection
     {
-        return User::query()->where('email', 'like', "%\@pgbilliard\.com")
+        return User::query()
+            ->where('email', 'like', '%\@pgbilliard\.com')
             ->whereNotIn('id', [1]) //get rid of the administrator
             ->orderBy('name')
             ->get(['id', 'name', 'email', 'last_game']);
+    }
+
+    public function render(): View
+    {
+        return view('livewire.players.accounts');
     }
 }

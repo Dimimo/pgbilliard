@@ -16,13 +16,13 @@ trait WithCurrentCycle
         $this->season = $this->getSeason();
     }
 
-    public function getCycle()
-    {
-        return $this->cycle;
-    }
-
     public function getSeason(): Season
     {
         return Season::query()->whereCycle($this->cycle)->first();
+    }
+
+    public function getCycle()
+    {
+        return $this->cycle;
     }
 }

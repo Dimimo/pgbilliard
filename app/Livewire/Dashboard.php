@@ -27,16 +27,19 @@ class Dashboard extends Component
         $this->user = auth()->user();
         $this->team = Team::query()
             ->where('season_id', Context::getHidden('season_id'))
-            ->has('players', '=', 1, 'and', fn ($q) => $q->where([['user_id', $this->user->id], ['active', true]]))
+            ->has(
+                'players',
+                '=',
+                1,
+                'and',
+                fn ($q) => $q->where([['user_id', $this->user->id], ['active', true]]),
+            )
             ->first();
-        $this->player = $this->team
-            ?->activePlayers()
-            ->where('user_id', $this->user->id)
-            ->first();
+        $this->player = $this->team?->activePlayers()->where('user_id', $this->user->id)->first();
         $this->rank = $this->getPlayerIndividualRank();
         if ($this->user->venue) {
-            $this->teams = $this->user
-                ->venue->teams()
+            $this->teams = $this->user->venue
+                ->teams()
                 ->where('season_id', Context::getHidden('season_id'))
                 ->get();
         }
@@ -49,17 +52,6 @@ class Dashboard extends Component
             )->sortBy('id');*/
     }
 
-    public function render(): \Illuminate\View\View
-    {
-        return view('livewire.dashboard');
-    }
-
-    #[Computed]
-    public function newPosts(): Collection
-    {
-        return Post::query()->where('updated_at', '>', session('last_login', $this->user->updated_at))->get();
-    }
-
     private function getPlayerIndividualRank(): ?int
     {
         if (!$this->player) {
@@ -69,5 +61,18 @@ class Dashboard extends Component
         $ranks = $season->ranks()->orderByDesc('percentage')->pluck('user_id')->toArray();
         $key = array_search($this->user->id, $ranks);
         return $key ? ++$key : 0;
+    }
+
+    public function render(): \Illuminate\View\View
+    {
+        return view('livewire.dashboard');
+    }
+
+    #[Computed]
+    public function newPosts(): Collection
+    {
+        return Post::query()
+            ->where('updated_at', '>', session('last_login', $this->user->updated_at))
+            ->get();
     }
 }

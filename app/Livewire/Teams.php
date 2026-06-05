@@ -21,12 +21,11 @@ class Teams extends Component
     public function mount(): void
     {
         $this->teams = $this->getTeams();
-        $this->date = Season::query()->find(Context::getHidden('season_id'))->dates()->latest()->first();
-    }
-
-    public function render(): View
-    {
-        return view('livewire.teams');
+        $this->date = Season::query()
+            ->find(Context::getHidden('season_id'))
+            ->dates()
+            ->latest()
+            ->first();
     }
 
     private function getTeams(): Collection
@@ -37,6 +36,11 @@ class Teams extends Component
             ->with(['players', 'venue'])
             ->orderBy('name')
             ->get();
+    }
+
+    public function render(): View
+    {
+        return view('livewire.teams');
     }
 
     public function deleteTeam($id): void

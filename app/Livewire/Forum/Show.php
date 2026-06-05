@@ -15,7 +15,10 @@ class Show extends Component
     {
         $this->post = $post;
         if (\Illuminate\Support\Facades\Auth::check()) {
-            Visit::query()->updateOrCreate(['post_id' => $post->id, 'user_id' => \Illuminate\Support\Facades\Auth::id()], ['updated_at' => now()]);
+            Visit::query()->updateOrCreate(
+                ['post_id' => $post->id, 'user_id' => \Illuminate\Support\Facades\Auth::id()],
+                ['updated_at' => now()],
+            );
         }
     }
 

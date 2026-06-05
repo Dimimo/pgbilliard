@@ -11,6 +11,12 @@ class Create extends ModalComponent
 {
     public TeamForm $form;
 
+    #[\Override]
+    public static function modalMaxWidthClass(): string
+    {
+        return 'max-w-xl md:max-w-2xl';
+    }
+
     public function mount(): void
     {
         $this->form->setTeam(new Team(['season_id' => Context::getHidden('season_id')]));
@@ -19,12 +25,6 @@ class Create extends ModalComponent
     public function render(): \Illuminate\View\View
     {
         return view('livewire.admin.teams.create');
-    }
-
-    #[\Override]
-    public static function modalMaxWidthClass(): string
-    {
-        return 'max-w-xl md:max-w-2xl';
     }
 
     public function updating($name, $value): void

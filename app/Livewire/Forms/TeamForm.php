@@ -7,8 +7,8 @@ use App\Models\Player;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\Venue;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Context;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -45,14 +45,40 @@ class TeamForm extends Form
         $this->team = $team;
         $this->fill($team);
         // The id selects the first created captain in the team (not failsafe)
-        $this->captain_id = $this->team->players()
+        $this->captain_id = $this->team
+            ->players()
             ->where('captain', true)
             ->latest('updated_at')
-            ->first()
-            ?->user_id;
+            ->first()?->user_id;
 
         $this->users = $this->getUsersNotOccupiedExceptOwnPlayers();
-        $this->venues = Venue::query()->orderBy('name')->get(['id', 'name']);
+        $this->venues = Venue::query()
+            ->orderBy('name')
+            ->get(['id', 'name']);
+    }
+
+    private function getUsersNotOccupiedExceptOwnPlayers(): Collection
+    {
+        $teamPlayers = $this->team->players()->pluck('user_id')->toArray();
+        $occupiedPlayers = Player::query()
+            ->has(
+                'team',
+                '=',
+                1,
+                'and',
+                fn (Builder $q) => $q->whereSeasonId(Context::getHidden('season_id')),
+            )
+            ->pluck('user_id')
+            ->unique()
+            ->toArray();
+
+        $occupiedPlayers = array_diff($occupiedPlayers, $teamPlayers);
+        $occupiedPlayers[] = 1; // omit the administrator
+
+        return User::query()
+            ->whereNotIn('id', $occupiedPlayers)
+            ->orderBy('name')
+            ->get(['id', 'name']);
     }
 
     public function checkAndSetValues($name, $value): void
@@ -66,29 +92,14 @@ class TeamForm extends Form
         } elseif ($name === 'form.captain_id') {
             // selecting a new captain is different, first unset the existing players as captain, then add the new one
             // this could possibly corrupt the players list of the team in the current season, but there is no delete
-            $this->team->players()->whereCaptain(true)->update(['captain' => false]);
+            $this->team
+                ->players()
+                ->whereCaptain(true)
+                ->update(['captain' => false]);
             $this->team->players()->create(['user_id' => $value, 'captain' => true]);
             $this->captain_id = $value;
             $this->users = $this->getUsersNotOccupiedExceptOwnPlayers();
         }
-    }
-
-    public function store(): Team
-    {
-        $validated = $this->validate();
-        $team = Team::query()->create($validated);
-        if ($validated['captain_id']) {
-            Player::query()
-                ->create([
-                    'user_id' => $validated['captain_id'],
-                    'team_id' => $team->id,
-                    'captain' => 1
-                ]);
-        }
-        $this->reset(['name', 'venue_id', 'remark', 'captain_id']);
-        $this->resetValidation();
-
-        return $team;
     }
 
     public function update(): void
@@ -102,27 +113,21 @@ class TeamForm extends Form
     // only of importance in case of an update, if new, obviously, all users are selectable
     // but allow the captain in the list that is currently selected
     // also, omit your own team, you can be selected as a member of the team you play for
-    private function getUsersNotOccupiedExceptOwnPlayers(): Collection
+
+    public function store(): Team
     {
-        $teamPlayers = $this->team->players()->pluck('user_id')->toArray();
-        $occupiedPlayers = Player::query()
-            ->has(
-                'team',
-                '=',
-                1,
-                'and',
-                fn (Builder $q) => $q->whereSeasonId(Context::getHidden('season_id'))
-            )
-            ->pluck('user_id')
-            ->unique()
-            ->toArray();
+        $validated = $this->validate();
+        $team = Team::query()->create($validated);
+        if ($validated['captain_id']) {
+            Player::query()->create([
+                'user_id' => $validated['captain_id'],
+                'team_id' => $team->id,
+                'captain' => 1,
+            ]);
+        }
+        $this->reset(['name', 'venue_id', 'remark', 'captain_id']);
+        $this->resetValidation();
 
-        $occupiedPlayers = array_diff($occupiedPlayers, $teamPlayers);
-        $occupiedPlayers[] = 1; // omit the administrator
-
-        return User::query()
-            ->whereNotIn('id', $occupiedPlayers)
-            ->orderBy('name')
-            ->get(['id', 'name']);
+        return $team;
     }
 }

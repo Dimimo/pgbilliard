@@ -41,35 +41,35 @@ class Edit extends Component
         $this->setMaxReached();
     }
 
-    public function render(): View
+    private function setPlayerForm(?int $user_id = null): bool
     {
-        return view('livewire.players.edit');
-    }
-
-    public function updatedUserFormName($value): void
-    {
-        // there are ways this update can be called: creating a new user or update an existing user (only available for admins)
-        $this->validateOnly('user_form.name');
-        $this->user_form->name = $value = Str::length($value) > 2
-            ? Str::title($value)
-            : Str::upper($value);
-        if ($this->user_form->user->exists) {
-            $this->user_form->update();
-        } else {
-            $this->user_form->email = Str::lower(Str::snake($value, '-')) . '@pgbilliard.com';
+        // if the player exists in the team but has been set to inactive, reactivate the player
+        if (
+            $user_id &&
+            ($player = Player::query()
+                ->whereUserId($user_id)
+                ->whereTeamId($this->team->id)
+                ->first())
+        ) {
+            $player->active = 1;
+            $player->update();
+            $this->setPlayerForm($player->id);
+            return true;
         }
+        $this->player_form->setPlayer(
+            new Player([
+                'captain' => 0,
+                'active' => 1,
+                'user_id' => $user_id,
+                'team_id' => $this->team->id,
+            ]),
+        );
+        return false;
     }
 
-    public function updatedUserFormContactNr($value): void
+    private function setUserForm(User $user): void
     {
-        $this->validateOnly('user_form.contact_nr');
-        $this->user_form->contact_nr = $value;
-    }
-
-    public function updatedUserFormEmail($value): void
-    {
-        $this->validateOnly('user_form.email');
-        $this->user_form->email = $value;
+        $this->user_form->setUser($user);
     }
 
     private function getPlayers(): void
@@ -100,37 +100,52 @@ class Edit extends Component
             ->toArray();
         $this->available_players = $this->loadUsersCollection(array_keys($this->occupied_players));
         // add the name of the last team and last played game in the dropdown list
-        $this->available_players->each(
-            function (User $q): void {
-                $player = Player::query()
-                    ->where('user_id', $q->id)
-                    ->with('team')
-                    ->orderByDesc('id')
-                    ->first();
-                $name = $q->name . ' (';
-                $name .= $player ? $player->team?->name : 'none';
-                $name .= ' - ' . $q->last_game->diffForHumans() . ')';
-                $q->setAttribute('name', $name);
-            }
-        );
+        $this->available_players->each(function (User $q): void {
+            $player = Player::query()
+                ->where('user_id', $q->id)
+                ->with('team')
+                ->orderByDesc('id')
+                ->first();
+            $name = $q->name . ' (';
+            $name .= $player ? $player->team?->name : 'none';
+            $name .= ' - ' . $q->last_game->diffForHumans() . ')';
+            $q->setAttribute('name', $name);
+        });
     }
 
-    private function setPlayerForm(?int $user_id = null): bool
+    private function setMaxReached(): void
     {
-        // if the player exists in the team but has been set to inactive, reactivate the player
-        if ($user_id && $player = Player::query()->whereUserId($user_id)->whereTeamId($this->team->id)->first()) {
-            $player->active = 1;
-            $player->update();
-            $this->setPlayerForm($player->id);
-            return true;
+        $this->max_reached = $this->players->count() >= $this->max_players;
+    }
+
+    public function render(): View
+    {
+        return view('livewire.players.edit');
+    }
+
+    public function updatedUserFormName($value): void
+    {
+        // there are ways this update can be called: creating a new user or update an existing user (only available for admins)
+        $this->validateOnly('user_form.name');
+        $this->user_form->name = $value =
+            Str::length($value) > 2 ? Str::title($value) : Str::upper($value);
+        if ($this->user_form->user->exists) {
+            $this->user_form->update();
+        } else {
+            $this->user_form->email = Str::lower(Str::snake($value, '-')) . '@pgbilliard.com';
         }
-        $this->player_form->setPlayer(new Player([
-            'captain' => 0,
-            'active' => 1,
-            'user_id' => $user_id,
-            'team_id' => $this->team->id,
-        ]));
-        return false;
+    }
+
+    public function updatedUserFormContactNr($value): void
+    {
+        $this->validateOnly('user_form.contact_nr');
+        $this->user_form->contact_nr = $value;
+    }
+
+    public function updatedUserFormEmail($value): void
+    {
+        $this->validateOnly('user_form.email');
+        $this->user_form->email = $value;
     }
 
     public function editUser(int $user_id): void
@@ -148,11 +163,6 @@ class Edit extends Component
         $this->setPlayerForm();
         $this->getPlayers();
         //$this->user_form->reset(['name', 'email', 'contact_nr', 'gender', 'email_verified_at', 'last_game', 'password']);
-    }
-
-    private function setUserForm(User $user): void
-    {
-        $this->user_form->setUser($user);
     }
 
     public function toggleCaptain(int $user_id): void
@@ -209,10 +219,5 @@ class Edit extends Component
         $this->getPlayersActiveInCurrentSeason();
         $this->getPlayers();
         $this->setMaxReached();
-    }
-
-    private function setMaxReached(): void
-    {
-        $this->max_reached = $this->players->count() >= $this->max_players;
     }
 }

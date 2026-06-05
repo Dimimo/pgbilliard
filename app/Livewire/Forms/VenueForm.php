@@ -30,7 +30,7 @@ class VenueForm extends Form
 
     public function rules(): array
     {
-        return  (new VenueRequest())->rules($this->venue);
+        return (new VenueRequest())->rules($this->venue);
     }
 
     public function messages(): array
@@ -42,7 +42,7 @@ class VenueForm extends Form
     {
         $this->venue = $venue;
         $this->fill($venue);
-        $this->show_name = ! $this->user_id;
+        $this->show_name = !$this->user_id;
     }
 
     public function create(): void

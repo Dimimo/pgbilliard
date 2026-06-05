@@ -15,7 +15,9 @@ class Index extends Component
 
     public function mount(): void
     {
-        $this->room = ChatRoom::with(['messages.user' => fn ($q) => $q->select(['id', 'name'])])->find(1);
+        $this->room = ChatRoom::with([
+            'messages.user' => fn ($q) => $q->select(['id', 'name']),
+        ])->find(1);
     }
 
     public function render(): View

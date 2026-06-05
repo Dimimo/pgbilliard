@@ -11,15 +11,8 @@ class CycleAll extends Component
     public function render(): \Illuminate\View\View
     {
         return view('livewire.cycle-all')->with([
-            'seasons' => $this->getCycles()
+            'seasons' => $this->getCycles(),
         ]);
-    }
-
-    public function selectedSeason($id): void
-    {
-        $season = Season::query()->findOrFail($id);
-        session()->put('cycle', $season->cycle);
-        $this->redirect(route('scoreboard'), navigate: true);
     }
 
     private function getCycles(): Collection
@@ -29,5 +22,12 @@ class CycleAll extends Component
             ->withCount(['dates', 'teams'])
             ->orderBy('cycle', 'desc')
             ->get();
+    }
+
+    public function selectedSeason($id): void
+    {
+        $season = Season::query()->findOrFail($id);
+        session()->put('cycle', $season->cycle);
+        $this->redirect(route('scoreboard'), navigate: true);
     }
 }

@@ -15,13 +15,15 @@ class AllRooms extends Component
     #[On('userSelected')]
     public function mount(): void
     {
-        $this->public_rooms = ChatRoom::query()->wherePrivate(false)
+        $this->public_rooms = ChatRoom::query()
+            ->wherePrivate(false)
             //->whereKeyNot(1)
             ->with(['users' => fn ($q) => $q->select(['id', 'name'])])
             ->orderBy('name')
             ->get();
 
-        $this->private_rooms = ChatRoom::query()->wherePrivate(true)
+        $this->private_rooms = ChatRoom::query()
+            ->wherePrivate(true)
             ->with(['users' => fn ($q) => $q->select(['id', 'name'])])
             ->withCount('users')
             ->orderBy('name')

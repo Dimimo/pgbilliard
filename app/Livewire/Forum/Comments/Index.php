@@ -24,25 +24,25 @@ class Index extends Component
         $this->showComment = false;
     }
 
-    public function render(): View
-    {
-        return view('livewire.forum.comments.index');
-    }
-
     private function getComments(): void
     {
         $this->comments = $this->post->comments()->oldest()->get();
     }
 
+    public function render(): View
+    {
+        return view('livewire.forum.comments.index');
+    }
+
     public function toggleComment(): void
     {
-        $this->showComment = ! $this->showComment;
+        $this->showComment = !$this->showComment;
     }
 
     #[On('comment-hide-form')]
     public function commentHideForm(): void
     {
-        $this->showComment = ! $this->showComment;
+        $this->showComment = !$this->showComment;
         $this->getComments();
     }
 

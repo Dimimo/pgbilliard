@@ -46,7 +46,9 @@ class DateForm extends Form
     public function store(): void
     {
         $this->validate();
-        $this->pool_date = PoolDate::query()->create($this->only(['season_id', 'date', 'regular', 'title', 'remark']));
+        $this->pool_date = PoolDate::query()->create(
+            $this->only(['season_id', 'date', 'regular', 'title', 'remark']),
+        );
     }
 
     public function update(): void

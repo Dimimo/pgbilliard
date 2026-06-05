@@ -31,12 +31,6 @@ class ScheduleFormatChooser extends Component
                 $this->dispatch('update-settings', specific: 'choose-format')->to(Schedule::class);
             }
         }
-
-    }
-
-    public function render(): \Illuminate\View\View
-    {
-        return view('livewire.date.schedule-format-chooser')->with(['switches' => $this->switches]);
     }
 
     #[On('echo:live-score,ScoreEvent')]
@@ -44,5 +38,10 @@ class ScheduleFormatChooser extends Component
     {
         $this->dispatch('update-settings', specific: 'can-update-players')->to(Schedule::class);
         $this->render();
+    }
+
+    public function render(): \Illuminate\View\View
+    {
+        return view('livewire.date.schedule-format-chooser')->with(['switches' => $this->switches]);
     }
 }

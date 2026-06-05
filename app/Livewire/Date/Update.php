@@ -43,6 +43,18 @@ class Update extends Component
         $this->updateScores();
     }
 
+    private function updateScores(): void
+    {
+        $this->score1 = $this->event->score1;
+        $this->score2 = $this->event->score2;
+        if ($this->score1 + $this->score2 > 15) {
+            $this->addError('score1', 'More than 15 games? Please correct this...');
+        } else {
+            $this->resetErrorBag();
+        }
+        $this->confirmed = $this->event->confirmed;
+    }
+
     public function render(): View
     {
         return view('livewire.date.update');
@@ -59,7 +71,7 @@ class Update extends Component
 
     public function change(string $field, string $action = 'increment'): void
     {
-        $action === 'increment' ? $this->$field += 1 : $this->$field -= 1;
+        $action === 'increment' ? ($this->$field += 1) : ($this->$field -= 1);
         $this->validate();
         if (is_null($this->event->$field)) {
             $this->event->update([$field => 0]);
@@ -71,22 +83,13 @@ class Update extends Component
         broadcast(new ScoreEvent($this->event->date->season->id, $this->event->id))->toOthers();
     }
 
-    private function updateScores(): void
-    {
-        $this->score1 = $this->event->score1;
-        $this->score2 = $this->event->score2;
-        if ($this->score1 + $this->score2 > 15) {
-            $this->addError('score1', 'More than 15 games? Please correct this...');
-        } else {
-            $this->resetErrorBag();
-        }
-        $this->confirmed = $this->event->confirmed;
-    }
-
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores(array $response): void
     {
-        if ($this->event->id == $response['event_id'] && app()->environment($response['environment'])) {
+        if (
+            $this->event->id == $response['event_id'] &&
+            app()->environment($response['environment'])
+        ) {
             $this->event->update();
             $this->updateScores();
             $this->event_id = $this->event->id;

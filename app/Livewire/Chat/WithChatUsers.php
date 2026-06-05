@@ -10,13 +10,35 @@ trait WithChatUsers
 {
     #[Validate(['nullable', 'string'])]
     public ?string $search = '';
-    private array $ids;
     public Collection $list_users;
+    private array $ids;
 
     public function mountWithChatUsers(): void
     {
         $this->search = '';
         $this->getListUsers();
+    }
+
+    private function getListUsers(): void
+    {
+        $this->getIds();
+        if ($this->search) {
+            $this->list_users = User::query()
+                ->whereNotIn('id', $this->ids)
+                ->where('name', 'LIKE', "%$this->search%")
+                ->orderBy('name')
+                ->get(['id', 'name']);
+        } else {
+            $this->list_users = User::query()
+                ->whereNotIn('id', $this->ids)
+                ->orderBy('name')
+                ->get(['id', 'name']);
+        }
+    }
+
+    private function getIds(): void
+    {
+        $this->ids = array_merge($this->room->users->pluck('id')->toArray(), [1]);
     }
 
     public function toggleUser(int $user_id): void
@@ -26,31 +48,10 @@ trait WithChatUsers
             'users' => fn ($q) => $q->select(['id', 'name']),
             'owner',
             'messages.user' => fn ($q) => $q->select(['id', 'name']),
-
         ]);
         $this->room->messages()->whereUserId($user_id)->delete();
         $this->getListUsers();
         $this->dispatch('userSelected');
         $this->reset('search');
-    }
-
-    private function getListUsers(): void
-    {
-        $this->getIds();
-        if ($this->search) {
-            $this->list_users = User::query()->whereNotIn('id', $this->ids)
-                ->where('name', 'LIKE', "%$this->search%")
-                ->orderBy('name')
-                ->get(['id', 'name']);
-        } else {
-            $this->list_users = User::query()->whereNotIn('id', $this->ids)
-                ->orderBy('name')
-                ->get(['id', 'name']);
-        }
-    }
-
-    private function getIds(): void
-    {
-        $this->ids = array_merge($this->room->users->pluck('id')->toArray(), [1]);
     }
 }

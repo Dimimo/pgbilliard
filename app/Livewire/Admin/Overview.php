@@ -27,17 +27,20 @@ class Overview extends Component
         return view('livewire.admin.overview');
     }
 
+    public function updatedUserId($admin_user_id): void
+    {
+        Admin::query()->create([
+            'user_id' => $admin_user_id,
+            'assigned_by' => \Illuminate\Support\Facades\Auth::id(),
+        ]);
+        $this->dispatch('admin-added');
+        $this->loadVars();
+    }
+
     private function loadVars(): void
     {
         $this->loadAdmins();
         $this->user_id = null;
-    }
-
-    public function updatedUserId($admin_user_id): void
-    {
-        Admin::query()->create(['user_id' => $admin_user_id, 'assigned_by' => \Illuminate\Support\Facades\Auth::id()]);
-        $this->dispatch('admin-added');
-        $this->loadVars();
     }
 
     public function removeAdmin($remove_id): void

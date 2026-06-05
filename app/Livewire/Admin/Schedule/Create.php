@@ -46,42 +46,25 @@ class Create extends Component
     public function player(int $player, int $position, bool $home = true): void
     {
         if ($player === 0) {
-            $this->format->schedules()->where([['position', $position], ['home', $home]])->delete();
+            $this->format
+                ->schedules()
+                ->where([['position', $position], ['home', $home]])
+                ->delete();
         } else {
             $schedule = $this->format
                 ->schedules()
-                ->where([
-                    ['player', $player],
-                    ['position', $position],
-                    ['home', $home]
-                ])->first();
+                ->where([['player', $player], ['position', $position], ['home', $home]])
+                ->first();
 
             $exists = !is_null($schedule);
             $exists
                 ? $schedule->update(['player' => $player, 'position' => $position, 'home' => $home])
-                : $this->format->schedules()->create(['player' => $player, 'position' => $position, 'home' => $home]);
+                : $this->format
+                    ->schedules()
+                    ->create(['player' => $player, 'position' => $position, 'home' => $home]);
         }
         $this->checkThirdDouble();
         $this->table = $this->format->schedules;
-    }
-
-    public function save(): void
-    {
-        $validated = $this->validate([
-            'name' => ['required', 'min:4', 'max:20'],
-            'details' => ['nullable', 'max:255'],
-        ]);
-        $this->format->exists
-            ? $this->format->update($validated)
-            : $this->format = auth()->user()->formats()->create($validated);
-
-        if ($this->request_format_update === true) {
-            $this->request_format_update = false;
-            $this->dispatch('format-updated');
-        } else {
-            // redirect (reloads) to this page in case a new input was created
-            $this->redirect(route('admin.schedule.update', ['format' => $this->format->id]), navigate: true);
-        }
     }
 
     private function checkThirdDouble(): void
@@ -94,7 +77,34 @@ class Create extends Component
 
     private function insertLastDouble(bool $home): void
     {
-        $values = ['format_id' => $this->format->id, 'position' => 15, 'player' => 0, 'home' => $home];
+        $values = [
+            'format_id' => $this->format->id,
+            'position' => 15,
+            'player' => 0,
+            'home' => $home,
+        ];
         $this->format->schedules()->insert([$values, $values]);
+    }
+
+    public function save(): void
+    {
+        $validated = $this->validate([
+            'name' => ['required', 'min:4', 'max:20'],
+            'details' => ['nullable', 'max:255'],
+        ]);
+        $this->format->exists
+            ? $this->format->update($validated)
+            : ($this->format = auth()->user()->formats()->create($validated));
+
+        if ($this->request_format_update === true) {
+            $this->request_format_update = false;
+            $this->dispatch('format-updated');
+        } else {
+            // redirect (reloads) to this page in case a new input was created
+            $this->redirect(
+                route('admin.schedule.update', ['format' => $this->format->id]),
+                navigate: true,
+            );
+        }
     }
 }

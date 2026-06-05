@@ -14,27 +14,30 @@ use Livewire\Component;
 class SendEmails extends Component
 {
     public Collection $users;
-    protected Collection $teams;
-
     #[Validate(rule: ['required'], message: ['group.required' => 'Please select an option'])]
     public ?string $group = null;
     public array $choices = ['players', 'captains', 'administrators'];
-    #[Validate(
-        rule: ['required', 'min:2', 'max:'.Constants::EMAIL_TITLE],
-        message: [
-            'title.required' => 'An email needs a title',
-            'title.min' => 'The title is too short, should be at least 2 chars',
-        ]
-    )]
+    #[
+        Validate(
+            rule: ['required', 'min:2', 'max:' . Constants::EMAIL_TITLE],
+            message: [
+                'title.required' => 'An email needs a title',
+                'title.min' => 'The title is too short, should be at least 2 chars',
+            ],
+        ),
+    ]
     public string $title;
-    #[Validate(
-        rule: ['required', 'min:20', 'max:'.Constants::EMAIL_BODY],
-        message: [
-            'body.required' => 'An email needs a message',
-            'body.min' => 'The message is too short, should be at least 20 chars',
-            ]
-    )]
+    #[
+        Validate(
+            rule: ['required', 'min:20', 'max:' . Constants::EMAIL_BODY],
+            message: [
+                'body.required' => 'An email needs a message',
+                'body.min' => 'The message is too short, should be at least 20 chars',
+            ],
+        ),
+    ]
     public string $body;
+    protected Collection $teams;
 
     public function render(): \Illuminate\View\View
     {
@@ -44,7 +47,7 @@ class SendEmails extends Component
     public function updatedGroup($value): void
     {
         $this->users = Collect();
-        $this->body = "A message for all " . Str::ucfirst($this->group) . ":\n\n";
+        $this->body = 'A message for all ' . Str::ucfirst($this->group) . ":\n\n";
 
         match ($value) {
             'players' => $this->getPlayers(),
@@ -54,43 +57,16 @@ class SendEmails extends Component
         };
     }
 
-    public function send(): void
-    {
-        $validated = $this->validate();
-        foreach ($this->users as $user) {
-            \Illuminate\Support\Facades\Mail::to($user)->queue(new \App\Mail\ContactPlayers($validated['title'], $validated['body']));
-        }
-
-        $this->reset();
-    }
-
     private function getPlayers(): void
     {
         $this->teams = Team::query()
             ->where('season_id', Context::getHidden('season_id'))
             ->with([
-                'players' => fn ($q) => $q->with('user')
+                'players' => fn ($q) => $q->with('user'),
             ])
             ->get();
 
         $this->getUsers();
-    }
-
-    private function getCaptains(): void
-    {
-        $this->teams = Team::query()
-            ->where('season_id', Context::getHidden('season_id'))
-            ->with([
-                'players' => fn ($q) => $q->whereCaptain(true)->with('user')
-            ])
-            ->get();
-
-        $this->getUsers();
-    }
-
-    private function getAdmins(): void
-    {
-        $this->users = User::query()->has('admin')->orderBy('name')->get();
     }
 
     private function getUsers(): void
@@ -104,5 +80,34 @@ class SendEmails extends Component
         }
 
         $this->users = $this->users->sortBy('name', SORT_NATURAL);
+    }
+
+    private function getCaptains(): void
+    {
+        $this->teams = Team::query()
+            ->where('season_id', Context::getHidden('season_id'))
+            ->with([
+                'players' => fn ($q) => $q->whereCaptain(true)->with('user'),
+            ])
+            ->get();
+
+        $this->getUsers();
+    }
+
+    private function getAdmins(): void
+    {
+        $this->users = User::query()->has('admin')->orderBy('name')->get();
+    }
+
+    public function send(): void
+    {
+        $validated = $this->validate();
+        foreach ($this->users as $user) {
+            \Illuminate\Support\Facades\Mail::to($user)->queue(
+                new \App\Mail\ContactPlayers($validated['title'], $validated['body']),
+            );
+        }
+
+        $this->reset();
     }
 }

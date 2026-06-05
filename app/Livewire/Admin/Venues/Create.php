@@ -27,7 +27,7 @@ class Create extends Component
     public function updated($name, $value): void
     {
         if ($name == 'venue_form.user_id') {
-            $this->venue_form->show_name = ! $value;
+            $this->venue_form->show_name = !$value;
         }
     }
 
@@ -35,6 +35,9 @@ class Create extends Component
     {
         $this->venue_form->create();
         session()->flash('status', "The venue {$this->venue_form->venue->name} has been created");
-        $this->redirect(route('venues.show', ['venue' => $this->venue_form->venue]), navigate: true);
+        $this->redirect(
+            route('venues.show', ['venue' => $this->venue_form->venue]),
+            navigate: true,
+        );
     }
 }

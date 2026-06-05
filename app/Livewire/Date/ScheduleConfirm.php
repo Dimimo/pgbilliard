@@ -18,18 +18,21 @@ class ScheduleConfirm extends Component
         $this->event = (new LiveScoreUpdater($event))->getEventScores();
     }
 
-    public function render(): \Illuminate\View\View
-    {
-        return view('livewire.date.schedule-confirm');
-    }
-
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores($response): void
     {
-        if ($this->event->id === $response['event_id'] && app()->environment($response['environment'])) {
+        if (
+            $this->event->id === $response['event_id'] &&
+            app()->environment($response['environment'])
+        ) {
             $this->event = (new LiveScoreUpdater($this->event))->getEventScores();
             $this->render();
         }
+    }
+
+    public function render(): \Illuminate\View\View
+    {
+        return view('livewire.date.schedule-confirm');
     }
 
     #[On('refresh-list')]

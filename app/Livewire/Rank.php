@@ -25,6 +25,18 @@ class Rank extends Component
         $this->median = $this->count = ceil($this->results->median('played'));
     }
 
+    public function getResults(): void
+    {
+        $this->results = $this->season
+            ->ranks()
+            ->with('player.team')
+            ->orderByDesc('percentage')
+            ->get()
+            ->groupBy('user_id')
+            ->map(fn ($ranks) => $ranks->sortByDesc('played')->first())
+            ->values();
+    }
+
     public function render(): \Illuminate\View\View
     {
         return view('livewire.rank');
@@ -39,8 +51,10 @@ class Rank extends Component
 
     public function toggleMedian(): void
     {
-        $this->show_all_results = ! $this->show_all_results;
-        $this->count = $this->show_all_results ? $this->results->count() : floor($this->results->median('played'));
+        $this->show_all_results = !$this->show_all_results;
+        $this->count = $this->show_all_results
+            ? $this->results->count()
+            : floor($this->results->median('played'));
         $this->dispatch('changed-median');
         $this->dispatch('refresh-request')->self();
     }
@@ -55,22 +69,13 @@ class Rank extends Component
         $this->dispatch('refresh-request')->self();
     }
 
-    public function getResults(): void
-    {
-        $this->results = $this->season
-            ->ranks()
-            ->with('player.team')
-            ->orderByDesc('percentage')
-            ->get()
-            ->groupBy('user_id')
-            ->map(fn ($ranks) => $ranks->sortByDesc('played')->first())
-            ->values();
-    }
-
     #[On('echo:live-score,ScoreEvent')]
     public function updateLiveScores(array $response): void
     {
-        if ($this->season->id === $response['season_id'] && app()->environment($response['environment'])) {
+        if (
+            $this->season->id === $response['season_id'] &&
+            app()->environment($response['environment'])
+        ) {
             $rankUpdater = new RankUpdater($this->season->id);
             $rankUpdater->update();
 

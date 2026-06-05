@@ -25,18 +25,18 @@ class PlayerForm extends Form
         return [
             'captain' => 'bool',
             'active' => 'bool',
-            'user_id' => Rule::unique(User::class, 'id')->ignore(\Illuminate\Support\Facades\Auth::user()),
-            'team_id' => [
-                'required',
-                'exists:teams,id',
-            ],
+            'user_id' => Rule::unique(User::class, 'id')->ignore(
+                \Illuminate\Support\Facades\Auth::user(),
+            ),
+            'team_id' => ['required', 'exists:teams,id'],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'user_id.unique' => 'Any user can be linked to only one player, this username is already taken by another player',
+            'user_id.unique' =>
+                'Any user can be linked to only one player, this username is already taken by another player',
             'team_id.required' => 'The player needs a team',
             'team_id.unique' => 'The given team does not exist',
         ];

@@ -20,7 +20,9 @@ class Create extends Component
 
     public function mount(): void
     {
-        $this->season = new Season(['cycle' => \Illuminate\Support\Facades\Date::now()->appTimezone()->format('Y/m')]);
+        $this->season = new Season([
+            'cycle' => \Illuminate\Support\Facades\Date::now()->appTimezone()->format('Y/m'),
+        ]);
         $this->cycle = $this->season->cycle;
         $this->day_of_week = Constants::STARTING_DAY;
         $this->players = Constants::MAX_TEAM_PLAYERS;
@@ -29,6 +31,22 @@ class Create extends Component
             ->next($this->day_of_week)
             ->format('Y-m-d');
         $this->validate($this->getValidation(), $this->getAlerts());
+    }
+
+    private function getValidation(): array
+    {
+        return [
+            'cycle' => ['date_format:Y/m', 'unique:seasons,cycle'],
+            'players' => ['required', 'int'],
+        ];
+    }
+
+    private function getAlerts(): array
+    {
+        return [
+            'cycle.date_format' => 'The new Season has to have the format yyyy/mm',
+            'cycle.unique' => 'This Season already exists, consider the next month',
+        ];
     }
 
     public function render(): View
@@ -42,7 +60,10 @@ class Create extends Component
         $season = Season::query()->create($validated);
         Date::query()->create([
             'season_id' => $season->id,
-            'date' => \Illuminate\Support\Facades\Date::createFromFormat('Y-m-d', $this->starting_date),
+            'date' => \Illuminate\Support\Facades\Date::createFromFormat(
+                'Y-m-d',
+                $this->starting_date,
+            ),
         ]);
         $this->dispatch('season-created');
         session(['alert' => "Season $season->cycle is created. Time to create the teams!"]);
@@ -59,13 +80,32 @@ class Create extends Component
             $this->has_bye = $value % 2 !== 0;
         } elseif ($name === 'day_of_week') {
             $this->day_of_week = $value;
-            $this->starting_date = \Illuminate\Support\Facades\Date::createFromFormat('Y-m-d', $this->starting_date)
+            $this->starting_date = \Illuminate\Support\Facades\Date::createFromFormat(
+                'Y-m-d',
+                $this->starting_date,
+            )
                 ->appTimezone()
                 ->firstOfMonth($this->getWeekDay())
                 ->format('Y-m-d');
         } elseif ($name === 'cycle') {
             $this->validate($this->getValidation(), $this->getAlerts());
         }
+    }
+
+    private function getWeekDay(): int
+    {
+        $weekdays = [
+            0 => 'Sunday',
+            1 => 'Monday',
+            2 => 'Tuesday',
+            3 => 'Wednesday',
+            4 => 'Thursday',
+            5 => 'Friday',
+            6 => 'Saturday',
+        ];
+        $weekdays = array_flip($weekdays);
+
+        return $weekdays[$this->day_of_week];
     }
 
     public function addMonth(): void
@@ -75,8 +115,12 @@ class Create extends Component
             ->addMonth()
             ->format('Y/m');
 
-        $this->starting_date = \Illuminate\Support\Facades\Date::createFromFormat('Y-m-d', $this->starting_date)
-            ->appTimezone()->addMonth()
+        $this->starting_date = \Illuminate\Support\Facades\Date::createFromFormat(
+            'Y-m-d',
+            $this->starting_date,
+        )
+            ->appTimezone()
+            ->addMonth()
             ->firstOfMonth($this->getWeekDay())
             ->format('Y-m-d');
 
@@ -94,73 +138,54 @@ class Create extends Component
         $this->validate($this->getValidation(), $this->getAlerts());
     }
 
-    public function addWeek(): void
-    {
-        $this->starting_date = \Illuminate\Support\Facades\Date::createFromFormat('Y-m-d', $this->starting_date)
-            ->appTimezone()
-            ->addWeek()
-            ->format('Y-m-d');
-    }
-
-    public function subWeek(): void
-    {
-        $this->starting_date = \Illuminate\Support\Facades\Date::createFromFormat('Y-m-d', $this->starting_date)
-            ->appTimezone()
-            ->subWeek()
-            ->format('Y-m-d');
-    }
-
-    private function getValidation(): array
-    {
-        return [
-            'cycle' => [
-                'date_format:Y/m',
-                'unique:seasons,cycle',
-            ],
-            'players' => [
-                'required',
-                'int',
-            ],
-        ];
-    }
-
-    private function getAlerts(): array
-    {
-        return [
-            'cycle.date_format' => 'The new Season has to have the format yyyy/mm',
-            'cycle.unique' => 'This Season already exists, consider the next month',
-        ];
-    }
-
-    //Checks if the subtracted date is younger than the current time
-    //as it first starts with the first weekday day of the month it is possible
     private function subMonthAndCheck(): void
     {
-        $this->starting_date = \Illuminate\Support\Facades\Date::createFromFormat('Y-m-d', $this->starting_date)
+        $this->starting_date = \Illuminate\Support\Facades\Date::createFromFormat(
+            'Y-m-d',
+            $this->starting_date,
+        )
             ->appTimezone()
             ->subMonth()
             ->firstOfMonth($this->getWeekDay())
             ->format('Y-m-d');
 
-        if (\Illuminate\Support\Facades\Date::createFromFormat('Y-m-d', $this->starting_date)->isSameMonth(\Illuminate\Support\Facades\Date::now())) {
-            $this->starting_date = \Illuminate\Support\Facades\Date::now()->appTimezone()->next($this->day_of_week)->format('Y-m-d');
+        if (
+            \Illuminate\Support\Facades\Date::createFromFormat(
+                'Y-m-d',
+                $this->starting_date,
+            )->isSameMonth(\Illuminate\Support\Facades\Date::now())
+        ) {
+            $this->starting_date = \Illuminate\Support\Facades\Date::now()
+                ->appTimezone()
+                ->next($this->day_of_week)
+                ->format('Y-m-d');
         }
     }
 
-    //Get the ISO number of the day of week
-    private function getWeekDay(): int
-    {
-        $weekdays = [
-            0 => 'Sunday',
-            1 => 'Monday',
-            2 => 'Tuesday',
-            3 => 'Wednesday',
-            4 => 'Thursday',
-            5 => 'Friday',
-            6 => 'Saturday',
-        ];
-        $weekdays = array_flip($weekdays);
+    //Checks if the subtracted date is younger than the current time
+    //as it first starts with the first weekday day of the month it is possible
 
-        return $weekdays[$this->day_of_week];
+    public function addWeek(): void
+    {
+        $this->starting_date = \Illuminate\Support\Facades\Date::createFromFormat(
+            'Y-m-d',
+            $this->starting_date,
+        )
+            ->appTimezone()
+            ->addWeek()
+            ->format('Y-m-d');
+    }
+
+    //Get the ISO number of the day of week
+
+    public function subWeek(): void
+    {
+        $this->starting_date = \Illuminate\Support\Facades\Date::createFromFormat(
+            'Y-m-d',
+            $this->starting_date,
+        )
+            ->appTimezone()
+            ->subWeek()
+            ->format('Y-m-d');
     }
 }
