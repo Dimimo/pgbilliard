@@ -40,17 +40,19 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Rank whereWon($value)
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Fillable([
-    'season_id',
-    'player_id',
-    'user_id',
-    'max_games',
-    'participated',
-    'won',
-    'lost',
-    'played',
-    'percentage',
-])]
+#[
+    \Illuminate\Database\Eloquent\Attributes\Fillable([
+        'season_id',
+        'player_id',
+        'user_id',
+        'max_games',
+        'participated',
+        'won',
+        'lost',
+        'played',
+        'percentage',
+    ]),
+]
 class Rank extends Model
 {
     use HasFactory;

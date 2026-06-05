@@ -48,18 +48,20 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Fillable([
-    'id',
-    'date_id',
-    'venue_id',
-    'team1',
-    'team2',
-    'score1',
-    'score2',
-    'confirmed',
-    'remark',
-    'games',
-])]
+#[
+    \Illuminate\Database\Eloquent\Attributes\Fillable([
+        'id',
+        'date_id',
+        'venue_id',
+        'team1',
+        'team2',
+        'score1',
+        'score2',
+        'confirmed',
+        'remark',
+        'games',
+    ]),
+]
 #[\Illuminate\Database\Eloquent\Attributes\Table(name: 'events')]
 class Event extends Model
 {
@@ -74,28 +76,34 @@ class Event extends Model
 
     public function playerBelongsToEvent(User $user): bool
     {
-        return $this->team_1->activePlayers()->where('user_id', $user->id)->count()
-            || $this->team_2->activePlayers()->where('user_id', $user->id)->count();
+        return $this->team_1->activePlayers()->where('user_id', $user->id)->count() ||
+            $this->team_2->activePlayers()->where('user_id', $user->id)->count();
     }
 
     public function hasScore(): bool
     {
-        return !is_null($this->score1) && !is_null($this->score2) && ($this->score1 != 0 && $this->score2 != 0);
+        return !is_null($this->score1) &&
+            !is_null($this->score2) &&
+            ($this->score1 != 0 && $this->score2 != 0);
     }
 
     public function scoreTable(bool $home, int $i): Collection
     {
         return $this->games()
-            ->where([
-                ['games.event_id', $this->id],
-                ['games.position', $i],
-                ['games.home', $home]
-            ])
+            ->where([['games.event_id', $this->id], ['games.position', $i], ['games.home', $home]])
             ->join('schedules', 'games.schedule_id', '=', 'schedules.id')
             ->with('player.user')
             ->select('games.*', 'schedules.player as player_position')
             ->orderBy('games.position')
             ->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Game, $this>
+     */
+    public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Game::class);
     }
 
     public function checkIfAllLastGamePositionsSelected(): bool
@@ -133,14 +141,6 @@ class Event extends Model
     public function team_2(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Team::class, 'team2', 'id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Game, $this>
-     */
-    public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Game::class);
     }
 
     /**

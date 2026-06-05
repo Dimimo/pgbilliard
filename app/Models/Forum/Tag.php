@@ -32,10 +32,7 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Fillable([
-    'name',
-    'slug',
-])]
+#[\Illuminate\Database\Eloquent\Attributes\Fillable(['name', 'slug'])]
 class Tag extends Model
 {
     use HasFactory;

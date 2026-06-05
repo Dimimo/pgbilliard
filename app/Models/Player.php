@@ -49,19 +49,16 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Appends([
-    'name',
-    'phone',
-    'email',
-    'gender',
-    'participated',
-])]
-#[\Illuminate\Database\Eloquent\Attributes\Fillable([
-    'user_id',
-    'team_id',
-    'captain',
-    'active',
-])]
+#[
+    \Illuminate\Database\Eloquent\Attributes\Appends([
+        'name',
+        'phone',
+        'email',
+        'gender',
+        'participated',
+    ]),
+]
+#[\Illuminate\Database\Eloquent\Attributes\Fillable(['user_id', 'team_id', 'captain', 'active'])]
 #[\Illuminate\Database\Eloquent\Attributes\Table(name: 'players')]
 class Player extends Model
 {
@@ -75,42 +72,6 @@ class Player extends Model
     protected $hidden = [];
 
     protected $with = [];
-
-    protected function name(): Attribute
-    {
-        return Attribute::make(get: fn () => $this->user?->name);
-    }
-
-    protected function phone(): Attribute
-    {
-        return Attribute::make(get: function () {
-            if (!$this->user?->contact_nr) {
-                return null;
-            }
-            if (!auth()->check()) {
-                return __('hidden');
-            }
-            return $this->user->contact_nr;
-        });
-    }
-
-    protected function gender(): Attribute
-    {
-        return Attribute::make(get: fn () => $this->user?->gender);
-    }
-
-    protected function email(): Attribute
-    {
-        return Attribute::make(get: fn () => $this->user?->email);
-    }
-
-    protected function participated(): Attribute
-    {
-        return Attribute::make(get: fn () => $this->games()
-            ->whereNotNull('win')
-            ->distinct()
-            ->count('event_id'));
-    }
 
     public function events(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -131,14 +92,6 @@ class Player extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Game, $this>
-     */
-    public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Game::class);
-    }
-
-    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Position, $this>
      */
     public function position(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -153,6 +106,52 @@ class Player extends Model
     {
         return $this->hasMany(Rank::class);
     }
+
+    protected function name(): Attribute
+    {
+        return Attribute::make(get: fn() => $this->user?->name);
+    }
+
+    protected function phone(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                if (!$this->user?->contact_nr) {
+                    return null;
+                }
+                if (!auth()->check()) {
+                    return __('hidden');
+                }
+                return $this->user->contact_nr;
+            },
+        );
+    }
+
+    protected function gender(): Attribute
+    {
+        return Attribute::make(get: fn() => $this->user?->gender);
+    }
+
+    protected function email(): Attribute
+    {
+        return Attribute::make(get: fn() => $this->user?->email);
+    }
+
+    protected function participated(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->games()->whereNotNull('win')->distinct()->count('event_id'),
+        );
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Game, $this>
+     */
+    public function games(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Game::class);
+    }
+
     /**
      * @return array<string, string>
      */

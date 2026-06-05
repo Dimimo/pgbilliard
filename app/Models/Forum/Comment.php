@@ -34,11 +34,7 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Fillable([
-    'body',
-    'user_id',
-    'post_id',
-])]
+#[\Illuminate\Database\Eloquent\Attributes\Fillable(['body', 'user_id', 'post_id'])]
 class Comment extends Model
 {
     use HasFactory;

@@ -48,25 +48,19 @@ use Illuminate\Support\Str;
  *
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Fillable([
-    'title',
-    'slug',
-    'body',
-    'user_id',
-    'is_locked',
-    'is_sticky',
-])]
+#[
+    \Illuminate\Database\Eloquent\Attributes\Fillable([
+        'title',
+        'slug',
+        'body',
+        'user_id',
+        'is_locked',
+        'is_sticky',
+    ]),
+]
 class Post extends Model
 {
     use HasFactory;
-
-    protected function title(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => str::apa($value),
-            set: fn ($value) => ['slug' => Str::slug($value), 'title' => $value]
-        );
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
@@ -99,6 +93,15 @@ class Post extends Model
     {
         return $this->belongsToMany(Tag::class, 'post_tag', 'post_id', 'tag_id');
     }
+
+    protected function title(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => str::apa($value),
+            set: fn($value) => ['slug' => Str::slug($value), 'title' => $value],
+        );
+    }
+
     #[\Override]
     protected function casts(): array
     {

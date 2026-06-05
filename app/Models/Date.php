@@ -41,14 +41,16 @@ use Illuminate\Support\Collection as PlayerList;
  *
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Fillable([
-    'id',
-    'season_id',
-    'date',
-    'regular',
-    'title',
-    'remark',
-])]
+#[
+    \Illuminate\Database\Eloquent\Attributes\Fillable([
+        'id',
+        'season_id',
+        'date',
+        'regular',
+        'title',
+        'remark',
+    ]),
+]
 #[\Illuminate\Database\Eloquent\Attributes\Table(name: 'dates')]
 class Date extends Model
 {
@@ -82,25 +84,18 @@ class Date extends Model
      */
     public function players(): PlayerList
     {
-        return
-            $this->events
-                ->map(
-                    fn ($event) => $event
-                        ->team_1
+        return $this->events
+            ->map(fn($event) => $event->team_1->activePlayers()->map(fn($player) => $player->user))
+            ->merge(
+                $this->events->map(
+                    fn($event) => $event->team_2
                         ->activePlayers()
-                        ->map(fn ($player) => $player->user)
-                )
-                ->merge(
-                    $this->events->map(
-                        fn ($event) => $event
-                            ->team_2
-                            ->activePlayers()
-                            ->map(fn ($player) => $player->user)
-                            ->merge(Admin::with('user')->get()->map(fn ($admin) => $admin->user))
-                    )
-                )
-                ->flatten()
-                ->unique();
+                        ->map(fn($player) => $player->user)
+                        ->merge(Admin::with('user')->get()->map(fn($admin) => $admin->user)),
+                ),
+            )
+            ->flatten()
+            ->unique();
     }
 
     /**
@@ -110,24 +105,21 @@ class Date extends Model
     public function getTeam(User $user): ?Team
     {
         return $this->events
-        ->map(
-            fn ($event) => $event
-                ->team_1
-                ->activePlayers()
-                ->filter(fn ($player) => $player->user_id === $user->id)
-        )
-        ->merge(
-            $this->events->map(
-                fn ($event) => $event
-                    ->team_2
+            ->map(
+                fn($event) => $event->team_1
                     ->activePlayers()
-                    ->filter(fn ($player) => $player->user_id == $user->id)
+                    ->filter(fn($player) => $player->user_id === $user->id),
             )
-        )
-        ->filter(fn ($c) => $c->count())
-        ->first()
-        ?->first()
-        ?->team;
+            ->merge(
+                $this->events->map(
+                    fn($event) => $event->team_2
+                        ->activePlayers()
+                        ->filter(fn($player) => $player->user_id == $user->id),
+                ),
+            )
+            ->filter(fn($c) => $c->count())
+            ->first()
+            ?->first()?->team;
     }
 
     /**
@@ -139,7 +131,7 @@ class Date extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Event, $this>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Event, $this>
      */
     public function events(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

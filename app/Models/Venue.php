@@ -50,16 +50,18 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Fillable([
-    'name',
-    'user_id',
-    'address',
-    'contact_name',
-    'contact_nr',
-    'lat',
-    'lng',
-    'remark',
-])]
+#[
+    \Illuminate\Database\Eloquent\Attributes\Fillable([
+        'name',
+        'user_id',
+        'address',
+        'contact_name',
+        'contact_nr',
+        'lat',
+        'lng',
+        'remark',
+    ]),
+]
 #[\Illuminate\Database\Eloquent\Attributes\Table(name: 'venues')]
 class Venue extends Model
 {
@@ -94,7 +96,7 @@ class Venue extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Event, $this>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Event, $this>
      */
     public function events(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -103,12 +105,22 @@ class Venue extends Model
 
     protected function getContactName(): Attribute
     {
-        return Attribute::make(get: fn () => $this->owner ? ($this->owner->name ?: $this->contact_name) : $this->contact_name);
+        return Attribute::make(
+            get: fn() => $this->owner
+                ? ($this->owner->name ?:
+                $this->contact_name)
+                : $this->contact_name,
+        );
     }
 
     protected function getContactNr(): Attribute
     {
-        return Attribute::make(get: fn () => $this->owner ? ($this->owner->contact_nr ?: $this->contact_nr) : $this->contact_nr);
+        return Attribute::make(
+            get: fn() => $this->owner
+                ? ($this->owner->contact_nr ?:
+                $this->contact_nr)
+                : $this->contact_nr,
+        );
     }
     /**
      * @return array<string, string>

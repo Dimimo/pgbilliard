@@ -48,13 +48,15 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Fillable([
-    'id',
-    'name',
-    'venue_id',
-    'season_id',
-    'remark',
-])]
+#[
+    \Illuminate\Database\Eloquent\Attributes\Fillable([
+        'id',
+        'name',
+        'venue_id',
+        'season_id',
+        'remark',
+    ]),
+]
 #[\Illuminate\Database\Eloquent\Attributes\Table(name: 'teams')]
 class Team extends Model
 {
@@ -77,38 +79,11 @@ class Team extends Model
      */
     public function percentage(array $result): float
     {
-        return floor(((($result['won'] / $result['max_games']) * 100) + (($result['for'] / (($result['max_games']) * 15)) * 100)) / 2);
-    }
-
-    protected function userId(): \Illuminate\Database\Eloquent\Casts\Attribute
-    {
-        return \Illuminate\Database\Eloquent\Casts\Attribute::make(get: fn () => $this->captain()?->user_id);
-    }
-
-    /**
-     * Return the captain of the team or null if there is no captain assigned
-     */
-    public function captain(): ?Player
-    {
-        return $this->players()->where([
-            ['active', true],
-            ['captain', true]
-        ])->first();
-    }
-
-    protected function captainName(): \Illuminate\Database\Eloquent\Casts\Attribute
-    {
-        return \Illuminate\Database\Eloquent\Casts\Attribute::make(get: fn () => $this->captain()?->name ?: '(unknown)');
-    }
-
-    protected function contactNr(): \Illuminate\Database\Eloquent\Casts\Attribute
-    {
-        return \Illuminate\Database\Eloquent\Casts\Attribute::make(get: function () {
-            if (!auth()->check()) {
-                return __('hidden');
-            }
-            return $this->captain()?->phone ?: $this->venue->contact_nr;
-        });
+        return floor(
+            (($result['won'] / $result['max_games']) * 100 +
+                ($result['for'] / ($result['max_games'] * 15)) * 100) /
+                2,
+        );
     }
 
     public function hasGames(): bool
@@ -116,26 +91,8 @@ class Team extends Model
         return $this->team_1()->count() || $this->team_2()->count();
     }
 
-    public function activePlayers(): Collection
-    {
-        return $this->players()->whereActive(true)->get()->sortBy('name')->sortByDesc('captain');
-    }
-
-    /**************************************
-     *
-     * The eloquent relationships
-     *
-     **************************************/
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Player, $this>
-     */
-    public function players(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Player::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Event, $this>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Event, $this>
      */
     public function team_1(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -143,11 +100,16 @@ class Team extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Event, $this>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Event, $this>
      */
     public function team_2(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Event::class, 'team2', 'id');
+    }
+
+    public function activePlayers(): Collection
+    {
+        return $this->players()->whereActive(true)->get()->sortBy('name')->sortByDesc('captain');
     }
 
     /**
@@ -166,6 +128,12 @@ class Team extends Model
         return $this->belongsTo(Venue::class, 'venue_id');
     }
 
+    /**************************************
+     *
+     * The eloquent relationships
+     *
+     **************************************/
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Game, $this>
      */
@@ -173,6 +141,51 @@ class Team extends Model
     {
         return $this->hasMany(Game::class);
     }
+
+    protected function userId(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: fn() => $this->captain()?->user_id,
+        );
+    }
+
+    /**
+     * Return the captain of the team or null if there is no captain assigned
+     */
+    public function captain(): ?Player
+    {
+        return $this->players()
+            ->where([['active', true], ['captain', true]])
+            ->first();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Player, $this>
+     */
+    public function players(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Player::class);
+    }
+
+    protected function captainName(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: fn() => $this->captain()?->name ?: '(unknown)',
+        );
+    }
+
+    protected function contactNr(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get: function () {
+                if (!auth()->check()) {
+                    return __('hidden');
+                }
+                return $this->captain()?->phone ?: $this->venue->contact_nr;
+            },
+        );
+    }
+
     /**
      * @return array<string, string>
      */

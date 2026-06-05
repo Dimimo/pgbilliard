@@ -33,11 +33,7 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Fillable([
-    'user_id',
-    'assigned_by',
-    'super_admin',
-])]
+#[\Illuminate\Database\Eloquent\Attributes\Fillable(['user_id', 'assigned_by', 'super_admin'])]
 #[\Illuminate\Database\Eloquent\Attributes\Table(name: 'admins')]
 class Admin extends Model
 {

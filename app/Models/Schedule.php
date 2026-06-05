@@ -30,12 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Fillable([
-    'format_id',
-    'position',
-    'player',
-    'home',
-])]
+#[\Illuminate\Database\Eloquent\Attributes\Fillable(['format_id', 'position', 'player', 'home'])]
 class Schedule extends Model
 {
     use HasFactory;

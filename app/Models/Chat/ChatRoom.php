@@ -38,11 +38,7 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Fillable([
-    'name',
-    'user_id',
-    'private',
-])]
+#[\Illuminate\Database\Eloquent\Attributes\Fillable(['name', 'user_id', 'private'])]
 #[\Illuminate\Database\Eloquent\Attributes\Table(name: 'chat_rooms')]
 class ChatRoom extends Model
 {

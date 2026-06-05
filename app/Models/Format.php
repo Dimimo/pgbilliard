@@ -30,18 +30,24 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Fillable([
-    'name',
-    'details',
-    'user_id',
-])]
+#[\Illuminate\Database\Eloquent\Attributes\Fillable(['name', 'details', 'user_id'])]
 class Format extends Model
 {
     use HasFactory;
 
     public function checkGameNumbers(int $player, bool $home): int
     {
-        return $this->schedules()->where([['player', $player], ['home', $home]])->count();
+        return $this->schedules()
+            ->where([['player', $player], ['home', $home]])
+            ->count();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Schedule, $this>
+     */
+    public function schedules(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Schedule::class);
     }
 
     /**
@@ -52,13 +58,6 @@ class Format extends Model
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Schedule, $this>
-     */
-    public function schedules(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Schedule::class);
-    }
     /**
      * @return array<string, string>
      */

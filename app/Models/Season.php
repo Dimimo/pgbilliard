@@ -34,10 +34,7 @@ use Illuminate\Support\Carbon;
  *
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Fillable([
-    'cycle',
-    'players',
-])]
+#[\Illuminate\Database\Eloquent\Attributes\Fillable(['cycle', 'players'])]
 class Season extends Model
 {
     use HasFactory;

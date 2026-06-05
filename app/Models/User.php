@@ -20,6 +20,8 @@ use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
 
+// my addition
+
 /**
  * App\Models\User
  *
@@ -75,19 +77,18 @@ use Laravel\Sanctum\PersonalAccessToken;
  *
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Fillable([
-    'id', // my addition
-    'name',
-    'email',
-    'password',
-    'contact_nr',
-    'gender',
-    'last_game',
-])]
-#[\Illuminate\Database\Eloquent\Attributes\Hidden([
-    'password',
-    'remember_token',
-])]
+#[
+    \Illuminate\Database\Eloquent\Attributes\Fillable([
+        'id',
+        'name',
+        'email',
+        'password',
+        'contact_nr',
+        'gender',
+        'last_game',
+    ]),
+]
+#[\Illuminate\Database\Eloquent\Attributes\Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     use HasApiTokens;
