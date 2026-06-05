@@ -5,10 +5,11 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Validation\Rule;
+
 use function Livewire\Volt\state;
 
 state([
-    'contact_nr' => fn() => auth()->user()->contact_nr,
+    'contact_nr' => fn () => auth()->user()->contact_nr,
 ]);
 
 $updateContactNr = function (): void {

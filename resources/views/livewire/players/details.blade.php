@@ -3,7 +3,8 @@
 
     <x-forms.sub-title title="{{__('Individual Games and Results')}}">
         @foreach ($games as $game)
-            @php if ($game->event->date->date != $date) {
+            @php
+                if ($game->event->date->date != $date) {
                     $date = $game->event->date->date;
                     $new_date = true;
                 } else {

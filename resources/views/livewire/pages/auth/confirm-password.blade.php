@@ -2,6 +2,7 @@
 
 use App\Providers\RouteServiceProvider;
 use Illuminate\Validation\ValidationException;
+
 use function Livewire\Volt\layout;
 use function Livewire\Volt\rules;
 use function Livewire\Volt\state;

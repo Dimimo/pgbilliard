@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Password;
+
 use function Livewire\Volt\layout;
 use function Livewire\Volt\rules;
 use function Livewire\Volt\state;

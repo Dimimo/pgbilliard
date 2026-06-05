@@ -4,11 +4,12 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Validation\Rule;
+
 use function Livewire\Volt\state;
 
 state([
-    'name' => fn() => auth()->user()->name,
-    'email' => fn() => auth()->user()->email
+    'name' => fn () => auth()->user()->name,
+    'email' => fn () => auth()->user()->email
 ]);
 
 $updateProfileInformation = function (): void {

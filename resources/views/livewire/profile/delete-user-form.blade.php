@@ -9,7 +9,7 @@ rules(['password' => ['required', 'string', 'current_password']]);
 
 $deleteUser = function (): void {
     $this->validate();
-    tap(auth()->user(), fn() => auth()->logout())->delete();
+    tap(auth()->user(), fn () => auth()->logout())->delete();
     session()->invalidate();
     session()->regenerateToken();
     $this->redirect('/', navigate: true);
