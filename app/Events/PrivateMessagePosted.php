@@ -30,8 +30,6 @@ class PrivateMessagePosted implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
-        return [
-            new PrivateChannel('private-room'),
-        ];
+        return [new PrivateChannel('private-room')];
     }
 }

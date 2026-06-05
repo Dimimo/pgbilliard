@@ -22,9 +22,8 @@ class MessagePosted implements ShouldBroadcastNow, ShouldDispatchAfterCommit
     /**
      * Create a new event instance.
      */
-    public function __construct(
-        public ChatMessage $message,
-    ) {
+    public function __construct(public ChatMessage $message)
+    {
         $this->user = $this->message->user;
     }
 
@@ -37,7 +36,7 @@ class MessagePosted implements ShouldBroadcastNow, ShouldDispatchAfterCommit
     {
         \Illuminate\Support\Facades\Log::info('from the event');
         \Illuminate\Support\Facades\Log::info($this->message->toJson());
-        return new PresenceChannel('chat.'.$this->message->room->id);
+        return new PresenceChannel('chat.' . $this->message->room->id);
     }
 
     /*public function broadcastAs(): string
@@ -51,7 +50,7 @@ class MessagePosted implements ShouldBroadcastNow, ShouldDispatchAfterCommit
             'id' => $this->user->id,
             'name' => $this->user->name,
             'data' => $this->message->message,
-            'created_id' => $this->message->created_at
+            'created_id' => $this->message->created_at,
         ];
     }
 }

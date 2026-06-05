@@ -20,8 +20,12 @@ class ScoreEvent implements ShouldBroadcastNow
     /**
      * Create the event listener.
      */
-    public function __construct(public int $season_id, public int $event_id, public ?int $player_id = null, public ?Collection $games = null)
-    {
+    public function __construct(
+        public int $season_id,
+        public int $event_id,
+        public ?int $player_id = null,
+        public ?Collection $games = null,
+    ) {
         $this->environment = app()->environment();
     }
 
@@ -30,8 +34,6 @@ class ScoreEvent implements ShouldBroadcastNow
      */
     public function broadcastOn(): array
     {
-        return [
-            new Channel('live-score')
-        ];
+        return [new Channel('live-score')];
     }
 }
