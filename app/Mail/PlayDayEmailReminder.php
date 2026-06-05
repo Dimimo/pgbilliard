@@ -22,10 +22,8 @@ class PlayDayEmailReminder extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      */
-    public function __construct(
-        public Date $date,
-        public Team $team
-    ) {
+    public function __construct(public Date $date, public Team $team)
+    {
         foreach ($this->date->events as $event) {
             if ($event->team1 === $this->team->id || $event->team2 === $this->team->id) {
                 $this->event = $event;
@@ -48,8 +46,6 @@ class PlayDayEmailReminder extends Mailable implements ShouldQueue
      */
     public function content(): Content
     {
-        return new Content(
-            markdown: 'mail.play-day-reminder',
-        );
+        return new Content(markdown: 'mail.play-day-reminder');
     }
 }

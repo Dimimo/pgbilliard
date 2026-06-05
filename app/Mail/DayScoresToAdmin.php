@@ -21,15 +21,14 @@ class DayScoresToAdmin extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      */
-    public function __construct(
-        public Date $date,
-        public array $mail_to,
-    ) {
-        $this->subject = 'Day scores results of '
-            . $this->date->date->format('d/m/Y')
-            . ' send to '
-            . count($this->mail_to)
-            . ' players';
+    public function __construct(public Date $date, public array $mail_to)
+    {
+        $this->subject =
+            'Day scores results of ' .
+            $this->date->date->format('d/m/Y') .
+            ' send to ' .
+            count($this->mail_to) .
+            ' players';
     }
 
     /**
@@ -38,9 +37,7 @@ class DayScoresToAdmin extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            to: [
-                new Address(config('mail.admin_to.address'), config('mail.admin_to.name'))
-            ],
+            to: [new Address(config('mail.admin_to.address'), config('mail.admin_to.name'))],
             subject: $this->subject,
         );
     }
@@ -50,8 +47,6 @@ class DayScoresToAdmin extends Mailable implements ShouldQueue
      */
     public function content(): Content
     {
-        return new Content(
-            markdown: 'mail.scores.day-score-admin',
-        );
+        return new Content(markdown: 'mail.scores.day-score-admin');
     }
 }

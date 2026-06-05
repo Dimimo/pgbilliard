@@ -18,11 +18,9 @@ class DayScoresConfirmed extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      */
-    public function __construct(
-        public Date $date,
-        public $subject = ''
-    ) {
-        $this->subject = 'Day scores of the '.$this->date->date->format('jS \o\f M Y');
+    public function __construct(public Date $date, public $subject = '')
+    {
+        $this->subject = 'Day scores of the ' . $this->date->date->format('jS \o\f M Y');
     }
 
     /**
@@ -30,9 +28,7 @@ class DayScoresConfirmed extends Mailable implements ShouldQueue
      */
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: $this->subject
-        );
+        return new Envelope(subject: $this->subject);
     }
 
     /**
@@ -40,8 +36,6 @@ class DayScoresConfirmed extends Mailable implements ShouldQueue
      */
     public function content(): Content
     {
-        return new Content(
-            markdown: 'mail.scores.day-score',
-        );
+        return new Content(markdown: 'mail.scores.day-score');
     }
 }

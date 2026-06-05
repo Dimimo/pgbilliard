@@ -17,10 +17,8 @@ class ContactPlayers extends Mailable implements ShouldQueue
     /**
      * Create a new message instance.
      */
-    public function __construct(
-        public string $title,
-        public string $body
-    ) {
+    public function __construct(public string $title, public string $body)
+    {
         //
     }
 
@@ -29,9 +27,7 @@ class ContactPlayers extends Mailable implements ShouldQueue
      */
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: "[PG billiard] " . $this->title,
-        );
+        return new Envelope(subject: '[PG billiard] ' . $this->title);
     }
 
     /**
@@ -39,8 +35,6 @@ class ContactPlayers extends Mailable implements ShouldQueue
      */
     public function content(): Content
     {
-        return new Content(
-            markdown: 'mail.contact-players',
-        );
+        return new Content(markdown: 'mail.contact-players');
     }
 }

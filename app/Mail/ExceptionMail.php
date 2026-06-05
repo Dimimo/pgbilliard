@@ -26,9 +26,7 @@ class ExceptionMail extends Mailable
      */
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: '[Error] ' . $this->subject,
-        );
+        return new Envelope(subject: '[Error] ' . $this->subject);
     }
 
     /**
@@ -40,7 +38,7 @@ class ExceptionMail extends Mailable
             view: 'mail.exception-email',
             with: [
                 'content' => $this->message,
-            ]
+            ],
         );
     }
 }

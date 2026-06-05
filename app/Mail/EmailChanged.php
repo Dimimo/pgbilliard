@@ -27,9 +27,7 @@ class EmailChanged extends Mailable implements ShouldQueue
      */
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: 'Your email address has been changed',
-        );
+        return new Envelope(subject: 'Your email address has been changed');
     }
 
     /**
@@ -37,9 +35,7 @@ class EmailChanged extends Mailable implements ShouldQueue
      */
     public function content(): Content
     {
-        return new Content(
-            markdown: 'mail.email-changed',
-        );
+        return new Content(markdown: 'mail.email-changed');
     }
 
     /**

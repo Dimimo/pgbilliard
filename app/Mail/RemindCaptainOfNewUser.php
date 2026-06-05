@@ -28,9 +28,7 @@ class RemindCaptainOfNewUser extends Mailable implements ShouldQueue
      */
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: 'Reminder: you created a new user '. $this->user->name,
-        );
+        return new Envelope(subject: 'Reminder: you created a new user ' . $this->user->name);
     }
 
     /**
@@ -38,8 +36,6 @@ class RemindCaptainOfNewUser extends Mailable implements ShouldQueue
      */
     public function content(): Content
     {
-        return new Content(
-            markdown: 'mail.captain-created-user',
-        );
+        return new Content(markdown: 'mail.captain-created-user');
     }
 }

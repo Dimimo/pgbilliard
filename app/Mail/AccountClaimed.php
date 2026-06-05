@@ -15,13 +15,13 @@ class AccountClaimed extends Mailable implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
+    public $markdown = 'vendor.mail.html.layout';
+
     /**
      * Create a new message instance.
      */
-    public function __construct(
-        public User $user,
-        public $subject,
-    ) {
+    public function __construct(public User $user, public $subject)
+    {
         //
     }
 
@@ -30,9 +30,7 @@ class AccountClaimed extends Mailable implements ShouldQueue
      */
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: $this->subject,
-        );
+        return new Envelope(subject: $this->subject);
     }
 
     /**
@@ -40,12 +38,8 @@ class AccountClaimed extends Mailable implements ShouldQueue
      */
     public function content(): Content
     {
-        return new Content(
-            markdown: 'mail.account-claimed',
-        );
+        return new Content(markdown: 'mail.account-claimed');
     }
-
-    public $markdown = 'vendor.mail.html.layout';
 
     /**
      * Get the attachments for the message.
