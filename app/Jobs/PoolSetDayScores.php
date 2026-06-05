@@ -19,9 +19,7 @@ class PoolSetDayScores implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(protected Date $date)
-    {
-    }
+    public function __construct(protected Date $date) {}
 
     /**
      * Check for events today, if they exist, set the scores to 0-0
@@ -43,7 +41,7 @@ class PoolSetDayScores implements ShouldQueue
                 }
             }
         }
-        $this->buildLogChannel()->info("The day scores has been set to 0-0");
+        $this->buildLogChannel()->info('The day scores has been set to 0-0');
 
         date_default_timezone_set(config('app.timezone'));
     }

@@ -14,9 +14,8 @@ class CaptainCreatedNewUser
     /**
      * Create a new job instance.
      */
-    public function __construct(
-        public User $user
-    ) {
+    public function __construct(public User $user)
+    {
         //
     }
 
@@ -25,9 +24,13 @@ class CaptainCreatedNewUser
      */
     public function handle(): void
     {
-        \Illuminate\Support\Facades\Mail::to(auth()->user())->queue(new RemindCaptainOfNewUser($this->user));
+        \Illuminate\Support\Facades\Mail::to(auth()->user())->queue(
+            new RemindCaptainOfNewUser($this->user),
+        );
         if (!Str::contains($this->user->email, '@pgbilliard.com')) {
-            \Illuminate\Support\Facades\Mail::to($this->user)->queue(new RemindCaptainOfNewUser($this->user));
+            \Illuminate\Support\Facades\Mail::to($this->user)->queue(
+                new RemindCaptainOfNewUser($this->user),
+            );
         }
     }
 }

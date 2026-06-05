@@ -15,10 +15,9 @@ class AccountHasBeenClaimed
     /**
      * Create a new job instance.
      */
-    public function __construct(
-        public User $user,
-    ) {
-        $this->subject = $this->user->name . " has claimed their account";
+    public function __construct(public User $user)
+    {
+        $this->subject = $this->user->name . ' has claimed their account';
     }
 
     /**
@@ -26,6 +25,8 @@ class AccountHasBeenClaimed
      */
     public function handle(): void
     {
-        \Illuminate\Support\Facades\Mail::to($this->user)->queue(new AccountClaimed($this->user, $this->subject));
+        \Illuminate\Support\Facades\Mail::to($this->user)->queue(
+            new AccountClaimed($this->user, $this->subject),
+        );
     }
 }

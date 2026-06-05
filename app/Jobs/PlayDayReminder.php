@@ -35,11 +35,15 @@ class PlayDayReminder
             // avoid players that haven't been claimed yet
             if (!Str::contains($user->email, '@pgbilliard.com')) {
                 $team = $date->getTeam($user);
-                \Illuminate\Support\Facades\Mail::to($user)->queue(new PlayDayEmailReminder($date, $team));
+                \Illuminate\Support\Facades\Mail::to($user)->queue(
+                    new PlayDayEmailReminder($date, $team),
+                );
                 $send_to = \Illuminate\Support\Arr::add($send_to, $user->id, $user->name);
             }
         }
-        \Illuminate\Support\Facades\Log::info('The reminder emails have been sent, ' . count($send_to) . ' players');
+        \Illuminate\Support\Facades\Log::info(
+            'The reminder emails have been sent, ' . count($send_to) . ' players',
+        );
     }
 
     //first check if the date tomorrow exists, if not, it returns null
@@ -48,6 +52,5 @@ class PlayDayReminder
         $date = now()->appTimezone()->addDay()->format('Y-m-d');
 
         return Date::query()->where('date', $date)->first();
-
     }
 }
