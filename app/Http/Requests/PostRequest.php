@@ -10,17 +10,9 @@ class PostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => [
-                'required',
-                'min:2',
-                'max:'.Constants::FORUM_TITLE,
-            ],
+            'title' => ['required', 'min:2', 'max:' . Constants::FORUM_TITLE],
             'slug' => ['required', 'string'],
-            'body' => [
-                'required',
-                'min:2',
-                'max:'.Constants::FORUM_BODY,
-            ],
+            'body' => ['required', 'min:2', 'max:' . Constants::FORUM_BODY],
             'user_id' => ['required', 'exists:users,id'],
             'is_locked' => ['boolean'],
             'is_sticky' => ['boolean'],
@@ -33,10 +25,10 @@ class PostRequest extends FormRequest
         return [
             'title.required' => 'A title is required',
             'title.min' => 'A title must have a minimum of 2 chars',
-            'title.max' => 'A title can\'t have more than '.Constants::FORUM_TITLE.' chars',
+            'title.max' => 'A title can\'t have more than ' . Constants::FORUM_TITLE . ' chars',
             'message.required' => 'A message is required',
             'message.min' => 'A message must have a minimum of 2 chars',
-            'message.max' => 'A message can\'t have more than '.Constants::FORUM_BODY.' chars',
+            'message.max' => 'A message can\'t have more than ' . Constants::FORUM_BODY . ' chars',
         ];
     }
 }

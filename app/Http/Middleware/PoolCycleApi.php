@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Context;
 
@@ -21,7 +20,9 @@ class PoolCycleApi
                 ->firstOrFail();
         } else {
             // probably first visit
-            $season = \Illuminate\Support\Facades\DB::table('seasons')->orderBy('cycle', 'desc')->first();
+            $season = \Illuminate\Support\Facades\DB::table('seasons')
+                ->orderBy('cycle', 'desc')
+                ->first();
             //what if the DB is empty?
             if (is_null($season)) {
                 Context::addHidden(['cycle', 'season_id']);
@@ -32,7 +33,7 @@ class PoolCycleApi
 
         Context::addHidden([
             'cycle' => $season->cycle,
-            'season_id' => $season->id
+            'season_id' => $season->id,
         ]);
 
         return $next($request);

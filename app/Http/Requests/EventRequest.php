@@ -13,16 +13,8 @@ class EventRequest extends FormRequest
             'venue_id' => ['required', 'exists:venues,id'],
             'team1' => ['required', 'exists:teams,id'],
             'team2' => ['required', 'exists:teams,id'],
-            'score1' => [
-                'nullable',
-                'integer',
-                'between:0, 15',
-            ],
-            'score2' => [
-                'nullable',
-                'integer',
-                'between:0, 15',
-            ],
+            'score1' => ['nullable', 'integer', 'between:0, 15'],
+            'score2' => ['nullable', 'integer', 'between:0, 15'],
             'confirmed' => ['boolean'],
             'remark' => ['nullable', 'max:1000'],
         ];

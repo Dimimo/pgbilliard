@@ -11,7 +11,7 @@ class TeamOfLoggedInUserMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (! $request->session()->exists('my_team')) {
+        if (!$request->session()->exists('my_team')) {
             if (!auth()->check()) {
                 $request->session()->put('my_team');
             } elseif (empty($request->session()->get('my_team'))) {

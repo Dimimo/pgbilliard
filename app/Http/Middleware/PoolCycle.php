@@ -23,14 +23,15 @@ class PoolCycle
         if (session()->has(['cycle', 'season_id'])) {
             Context::addHidden([
                 'cycle' => $request->session()->get('cycle'),
-                'season_id' => $request->session()->get('season_id')
-
+                'season_id' => $request->session()->get('season_id'),
             ]);
 
             return $next($request);
         } else {
             // get the most recent season
-            $season = \Illuminate\Support\Facades\DB::table('seasons')->orderBy('cycle', 'desc')->first();
+            $season = \Illuminate\Support\Facades\DB::table('seasons')
+                ->orderBy('cycle', 'desc')
+                ->first();
 
             //what if the DB is empty?
             if (is_null($season)) {
@@ -45,11 +46,11 @@ class PoolCycle
         // either way, set the hidden context
         $request->session()->put([
             'cycle' => $season->cycle,
-            'season_id' => $season->id
+            'season_id' => $season->id,
         ]);
         Context::addHidden([
             'cycle' => $season->cycle,
-            'season_id' => $season->id
+            'season_id' => $season->id,
         ]);
 
         return $next($request);

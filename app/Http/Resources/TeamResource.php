@@ -24,7 +24,10 @@ class TeamResource extends JsonResource
             'season' => $this->season->cycle,
             'venue' => new VenueResource($this->whenLoaded('venue')),
 
-            'players' => $this->whenLoaded('players', PlayerResource::collection($this->activePlayers())),
+            'players' => $this->whenLoaded(
+                'players',
+                PlayerResource::collection($this->activePlayers()),
+            ),
         ];
     }
 }

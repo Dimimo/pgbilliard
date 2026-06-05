@@ -13,7 +13,14 @@ use Knuckles\Scribe\Attributes\ResponseFromApiResource;
 #[Group(name: 'Events and Games', description: 'Here are the games', authenticated: false)]
 class EventResource extends JsonResource
 {
-    #[ResponseFromApiResource(name: 'Events and Games', model: Event::class, description: 'Shows the games and results', collection: false)]
+    #[
+        ResponseFromApiResource(
+            name: 'Events and Games',
+            model: Event::class,
+            description: 'Shows the games and results',
+            collection: false,
+        ),
+    ]
     #[Endpoint('Events and Games', 'Shows the games and results', false)]
     #[\Override]
     public function toArray(Request $request): array

@@ -13,11 +13,7 @@ class DateRequest extends FormRequest
             'season_id' => ['required', 'exists:seasons,id'],
             'date' => ['required', 'date'],
             'regular' => ['boolean'],
-            'title' => [
-                'nullable',
-                'string',
-                'max:20',
-            ],
+            'title' => ['nullable', 'string', 'max:20'],
             'remark' => ['nullable', 'max:100'],
         ];
     }
@@ -28,7 +24,7 @@ class DateRequest extends FormRequest
         return [
             'date.date' => 'The date has an incorrect format',
             'title.string' => 'Only string values allowed',
-            'title.max' => 'Max '.Constants::DATE_TITLE.' chars',
+            'title.max' => 'Max ' . Constants::DATE_TITLE . ' chars',
         ];
     }
 }
