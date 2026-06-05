@@ -1,7 +1,8 @@
 <?php
 
-use function Livewire\Volt\state;
 use Predis\Client;
+
+use function Livewire\Volt\state;
 
 state(['result' => function () {
     $client = new Predis\Client([

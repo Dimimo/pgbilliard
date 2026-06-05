@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Chat\ChatRoom;
+
 use function Laravel\Folio\name;
 
 name('chat.index');

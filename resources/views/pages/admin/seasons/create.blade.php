@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Season;
+
 use function Laravel\Folio\name;
 
 name('admin.seasons.create');

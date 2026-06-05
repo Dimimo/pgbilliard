@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Forum\Post;
+
 use function Laravel\Folio\name;
 
 name('forum.posts.create');
