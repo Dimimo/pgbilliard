@@ -15,11 +15,7 @@ class Handler extends ExceptionHandler
      *
      * @var array<int, string>
      */
-    protected $dontFlash = [
-        'current_password',
-        'password',
-        'password_confirmation',
-    ];
+    protected $dontFlash = ['current_password', 'password', 'password_confirmation'];
 
     /**
      * Register the exception handling callbacks for the application.
@@ -43,18 +39,19 @@ class Handler extends ExceptionHandler
     public function report(Throwable $e): void
     {
         try {
-            if (! $this->shouldntReport($e)) {
+            if (!$this->shouldntReport($e)) {
                 $title = $e->getMessage() . ' (' . \Illuminate\Support\Facades\URL::full() . ')';
                 $message = $title . "\n\n" . $e;
                 if (\Illuminate\Support\Facades\App::isProduction()) {
-                    \Illuminate\Support\Facades\Mail::to('admin@pgbilliard.com')->send(new ExceptionMail($title, nl2br($message)));
+                    \Illuminate\Support\Facades\Mail::to('admin@pgbilliard.com')->send(
+                        new ExceptionMail($title, nl2br($message)),
+                    );
                 }
             }
             parent::report($e);
         } catch (Exception $e) {
             \Illuminate\Support\Facades\Log::error($e->getMessage());
         }
-
     }
 
     /**
@@ -66,8 +63,10 @@ class Handler extends ExceptionHandler
      * @throws Throwable
      */
     #[\Override]
-    public function render($request, Exception|Throwable $e): \Symfony\Component\HttpFoundation\Response
-    {
+    public function render(
+        $request,
+        Exception|Throwable $e,
+    ): \Symfony\Component\HttpFoundation\Response {
         return parent::render($request, $e);
     }
 }
