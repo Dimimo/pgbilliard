@@ -82,6 +82,21 @@
                                     ----
                                 @endif
                             </td>
+                            <td class="text-center">
+                                @if ($event->games()->count() > 0)
+                                    <a
+                                        href="{{ route('schedule.event', ['event' => $event]) }}"
+                                        class="link"
+                                        wire:navigate
+                                    >
+                                        <x-svg.eye-regular
+                                            color="fill-sky-600"
+                                            size="4"
+                                            padding="mb-1"
+                                        />
+                                    </a>
+                                @endif
+                            </td>
                         </tr>
                     @elseif ($team->id === $event->team_2->id)
                         <tr>
@@ -152,6 +167,21 @@
                                     <span class="red">{{ __('Not in') }}</span>
                                 @else
                                     ----
+                                @endif
+                            </td>
+                            <td class="text-center">
+                                @if ($event->games()->count() > 0)
+                                    <a
+                                        href="{{ route('schedule.event', ['event' => $event]) }}"
+                                        class="link"
+                                        wire:navigate
+                                    >
+                                        <x-svg.eye-regular
+                                            color="fill-sky-600"
+                                            size="4"
+                                            padding="mb-1"
+                                        />
+                                    </a>
                                 @endif
                             </td>
                         </tr>
