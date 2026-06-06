@@ -46,6 +46,21 @@
                             <span @class(['text-green-700' => $game->event->score2 > 7])>
                                 {{ $game->event->team_2->name }}
                             </span>
+                            <span class="ml-2 inline-block">
+                                @if ($game->event->games()->count() > 0)
+                                    <a
+                                        href="{{ route('schedule.event', ['event' => $game->event]) }}"
+                                        class="link"
+                                        wire:navigate
+                                    >
+                                        <x-svg.eye-regular
+                                            color="fill-sky-600"
+                                            size="4"
+                                            padding="mb-1"
+                                        />
+                                    </a>
+                                @endif
+                            </span>
                         </div>
                         <div class="font-normal">
                             {{ __("Final Score") }}
