@@ -1,9 +1,9 @@
 ---
 name: livewire-development
-description: "Use for any task or question involving Livewire. Activate if user mentions Livewire, wire: directives, or Livewire-specific concepts like wire:model, wire:click, invoke this skill. Covers building new components, debugging reactivity issues, real-time form validation, loading states, migrating from Livewire 2 to 3, converting component formats (SFC/MFC/class-based), and performance optimization. Do not use for non-Livewire reactive UI (React, Vue, Alpine-only, Inertia.js) or standard Laravel forms without Livewire."
+description: 'Use for any task or question involving Livewire. Activate if user mentions Livewire, wire: directives, or Livewire-specific concepts like wire:model, wire:click, invoke this skill. Covers building new components, debugging reactivity issues, real-time form validation, loading states, migrating from Livewire 3 to 4, converting component formats (SFC/MFC/class-based), and performance optimization. Do not use for non-Livewire reactive UI (React, Vue, Alpine-only, Inertia.js) or standard Laravel forms without Livewire.'
 license: MIT
 metadata:
-  author: laravel
+    author: laravel
 ---
 
 # Livewire Development
@@ -28,6 +28,7 @@ Use the `php artisan make:livewire [Posts\CreatePost]` Artisan command to create
 ### Key Changes From Livewire 2
 
 These things changed in Livewire 3, but may not have been updated in this application. Verify this application's setup to ensure you follow existing conventions.
+
 - Use `wire:model.live` for real-time updates, `wire:model` is now deferred by default.
 - Components now use the `App\Livewire` namespace (not `App\Http\Livewire`).
 - Use `$this->dispatch()` to dispatch events (not `emit` or `dispatchBrowserEvent`).
@@ -52,6 +53,7 @@ These things changed in Livewire 3, but may not have been updated in this applic
 ### Using Keys in Loops
 
 <!-- Wire Key in Loops -->
+
 ```blade
 @foreach ($items as $item)
     <div wire:key="item-{{ $item->id }}">
@@ -65,6 +67,7 @@ These things changed in Livewire 3, but may not have been updated in this applic
 Prefer lifecycle hooks like `mount()`, `updatedFoo()` for initialization and reactive side effects:
 
 <!-- Lifecycle Hook Examples -->
+
 ```php
 public function mount(User $user) { $this->user = $user; }
 public function updatedSearch() { $this->resetPage(); }
@@ -75,6 +78,7 @@ public function updatedSearch() { $this->resetPage(); }
 You can listen for `livewire:init` to hook into Livewire initialization:
 
 <!-- Livewire Init Hook Example -->
+
 ```js
 document.addEventListener('livewire:init', function () {
     Livewire.hook('request', ({ fail }) => {
@@ -92,6 +96,7 @@ document.addEventListener('livewire:init', function () {
 ## Testing
 
 <!-- Example Livewire Component Test -->
+
 ```php
 Livewire::test(Counter::class)
     ->assertSet('count', 0)
@@ -102,9 +107,9 @@ Livewire::test(Counter::class)
 ```
 
 <!-- Testing Livewire Component Exists on Page -->
+
 ```php
-$this->get('/posts/create')
-    ->assertSeeLivewire(CreatePost::class);
+$this->get('/posts/create')->assertSeeLivewire(CreatePost::class);
 ```
 
 ## Common Pitfalls
