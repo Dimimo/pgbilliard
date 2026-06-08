@@ -73,19 +73,6 @@ class Team extends Model
 
     protected $appends = [];
 
-    /**
-     * Calculates the percentages of a given score table of a team
-     * The results are to be found in App\Traits\ResultsTrait
-     */
-    public function percentage(array $result): float
-    {
-        return floor(
-            (($result['won'] / $result['max_games']) * 100 +
-                ($result['for'] / ($result['max_games'] * 15)) * 100) /
-                2,
-        );
-    }
-
     public function hasGames(): bool
     {
         return $this->team_1()->count() || $this->team_2()->count();
