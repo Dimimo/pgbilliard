@@ -38,6 +38,8 @@ won or lost as a whole.
   played game for the team that has it.
 - **No-show ("not in"):** a recorded score of `0–0` means neither team showed up. It counts as a
   played event but adds no win and no loss.
+- **The command `php artisan pool:day-scores`** is run at midday (GMT +8), checks if there are planned games
+  and if so, sets the scores at `0-0`, the pregame default.
 
 ## The percentage (success rate)
 
@@ -92,7 +94,7 @@ percentage. Each collection is seeded by `startCollection()` and has these keys:
 
 It is **not always** a score collection. It can be:
 
-- the string `'not in'` — a 0–0 no-show
+- the string `'not in'` — a 0–0 planned but no scores yet
 - the string `'BYE'` — the team had a BYE that week
 - a `Collection` of the score, **normalized so `score1` is always THIS team and `score2` is always
   the opponent** (regardless of home/visitor). Note the visitor branch deliberately swaps the raw
