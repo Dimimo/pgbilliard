@@ -52,10 +52,7 @@ trait ResultsTrait
             $this->result->put('team', $this->team_names->find($team_id));
             foreach ($events as $this->event) {
                 if ($this->IsPlayedGame()) {
-                    $this->result->put('id', $this->event->id);
-                    $this->result->put('last_game_won', false);
-                    $this->result->put('games_played', $this->result->get('games_played') + 1);
-                    $this->result->put('last_play_date', $this->event->date->date);
+                    $this->initiateEventToResult();
                     //team plays home
                     if ($team_id === $this->event->team_1->id) {
                         $this->result->put('played', $this->event->team_2);
@@ -147,11 +144,11 @@ trait ResultsTrait
         //finalize the results collection
         $results->map(function ($result) use ($max_games) {
             //in case of (semi) finals, set the last result to false for teams that didn't make it
-            if ($max_games > $this->result->get('games_played')) {
-                $this->result->put('last_game_won', false);
+            if ($max_games > $result->get('games_played')) {
+                $result->put('last_game_won', false);
             }
-            $this->result->put('max_games', $max_games);
-            $this->result->put('percentage', $this->percentage());
+            $result->put('max_games', $max_games);
+            $result->put('percentage', $this->percentage($result));
 
             return $result;
         });
@@ -163,7 +160,7 @@ trait ResultsTrait
         //add the real ranking to the result object
         $rank = 1;
         foreach ($results as $key => $result) {
-            $this->result->put('rank', $rank);
+            $result->put('rank', $rank);
             $rank++;
             $results[$key] = $result;
         }
@@ -259,24 +256,37 @@ trait ResultsTrait
     }
 
     /**
+     * Every played game (Event) has a fixed set of (result) settings
+     *
+     * @return void
+     */
+    public function initiateEventToResult(): void
+    {
+        $this->result->put('id', $this->event->id);
+        $this->result->put('last_game_won', false);
+        $this->result->put('games_played', $this->result->get('games_played') + 1);
+        $this->result->put('last_play_date', $this->event->date->date);
+    }
+
+    /**
      * Calculates the percentages of a given score table of a team
      */
-    public function percentage(): int
+    public function percentage(Collection $result): int
     {
-        if (!$this->result->get('max_games')) {
+        if (!$result->get('max_games')) {
             return 0;
         }
 
         // multiply the percentages with a factor for the 2 teams in the final
         $factor = 1;
-        if ($this->result->get('finals') === 2) {
-            $this->result->get('last_game_won') ? ($factor = 1.3) : ($factor = 1.15);
+        if ($result->get('finals') === 2) {
+            $result->get('last_game_won') ? ($factor = 1.3) : ($factor = 1.15);
         }
 
         return (int) number_format(
             floor(
-                ((($this->result->get('won') / $this->result->get('max_games')) * 100 +
-                    ($this->result->get('for') / ($this->result->get('max_games') * 15)) * 100) /
+                ((($result->get('won') / $result->get('max_games')) * 100 +
+                    ($result->get('for') / ($result->get('max_games') * 15)) * 100) /
                     2) *
                     $factor,
             ),
