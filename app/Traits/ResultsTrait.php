@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Context;
 
 /**
  * Trait ResultsTrait
+ *
+ * The purpose of this Trait is to calculate the current state of the championship based on the Date, Team and Event models
+ * The method called is getResults() returning a collection with all data ready to be printed on the scoreboard table overview
  */
 trait ResultsTrait
 {
