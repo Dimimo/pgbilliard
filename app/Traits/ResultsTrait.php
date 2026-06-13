@@ -54,7 +54,7 @@ trait ResultsTrait
             $this->startResultCollection();
             $this->result->put('team', $this->team_names->find($team_id));
             foreach ($events as $this->event) {
-                if ($this->IsPlayedGame()) {
+                if ($this->isPlayedGame()) {
                     $this->initiateEventToResult();
                     //team plays home
                     if ($team_id === $this->event->team_1->id) {
@@ -251,7 +251,7 @@ trait ResultsTrait
      * Checks if a game is really played, or future (NULL) or planned
      * @return bool
      */
-    private function IsPlayedGame(): bool
+    private function isPlayedGame(): bool
     {
         return !is_null($this->event->score1) &&
             !is_null($this->event->score2) &&
@@ -263,7 +263,7 @@ trait ResultsTrait
      *
      * @return void
      */
-    public function initiateEventToResult(): void
+    private function initiateEventToResult(): void
     {
         $this->result->put('id', $this->event->id);
         $this->result->put('last_game_won', false);
