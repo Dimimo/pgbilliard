@@ -48,7 +48,7 @@ trait ResultsTrait
                     $result->put('id', $event->id);
                     $result->put('last_game_won', false);
                     $result->put('games_played', $result->get('games_played') + 1);
-                    $result->put('last_play_date', $event->date->date->format('M jS'));
+                    $result->put('last_play_date', $event->date->date);
                     //team plays home
                     if ($team_id === $event->team_1->id) {
                         $result->put('played', $event->team_2);
