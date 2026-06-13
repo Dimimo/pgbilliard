@@ -72,23 +72,23 @@ If `max_games` is 0 the percentage is 0. Standings are sorted by `percentage` de
 `getResults()` returns an **array of `Collection`s** (one per team, BYE excluded), already sorted by
 percentage. Each collection is seeded by `startCollection()` and has these keys:
 
-| key              | type / values                                                                     |
-| ---------------- | --------------------------------------------------------------------------------- |
-| `id`             | the last `Event` id processed for this team (null until the first event)          |
-| `team`           | the `Team` model for this row                                                     |
-| `played`         | the **opponent** `Team` of the most recent event (or the BYE team)                |
-| `won`            | total events won                                                                  |
-| `lost`           | total events lost                                                                 |
-| `for`            | total individual games won (0–15 per event)                                       |
-| `against`        | total individual games lost (0–15 per event)                                      |
-| `games_played`   | total events played (a BYE counts as played)                                      |
-| `last_result`    | **union** — see below                                                             |
-| `last_game_won`  | bool — was the most recent event a win                                            |
-| `percentage`     | int — success rate (see above)                                                    |
-| `rank`           | int — 1-based position in the standings                                           |
-| `max_games`      | max events anyone has played (grows for semis/finals where not all teams play)    |
-| `finals`         | 0 = none, 1 = played a semi-final, 2 = played a final (feeds the factor)          |
-| `last_play_date` | string `"M jS"` of the most recent event — **only present after ≥1 played event** |
+| key              | type / values                                                                                                |
+| ---------------- | ------------------------------------------------------------------------------------------------------------ |
+| `id`             | the last `Event` id processed for this team (null until the first event)                                     |
+| `team`           | the `Team` model for this row                                                                                |
+| `played`         | the **opponent** `Team` of the most recent event (or the BYE team)                                           |
+| `won`            | total events won                                                                                             |
+| `lost`           | total events lost                                                                                            |
+| `for`            | total individual games won (0–15 per event)                                                                  |
+| `against`        | total individual games lost (0–15 per event)                                                                 |
+| `games_played`   | total events played (a BYE counts as played)                                                                 |
+| `last_result`    | **union** — see below                                                                                        |
+| `last_game_won`  | bool — was the most recent event a win                                                                       |
+| `percentage`     | int — success rate (see above)                                                                               |
+| `rank`           | int — 1-based position in the standings                                                                      |
+| `max_games`      | max events anyone has played (grows for semis/finals where not all teams play)                               |
+| `finals`         | 0 = none, 1 = played a semi-final, 2 = played a final (feeds the factor)                                     |
+| `last_play_date` | Carbon date of the most recent event — **only present after ≥1 played event** (the view formats it `"M jS"`) |
 
 ### `last_result` is a union type
 
