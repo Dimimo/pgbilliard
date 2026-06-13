@@ -48,25 +48,28 @@ trait ResultsTrait
         $max_allowed_date_for_next_week = $this->maxAllowedDateForNextWeek();
 
         foreach ($this->teams as $team_id => $events) {
-            $result = $this->startCollection();
-            $result->put('team', $this->team_names->find($team_id));
+            $this->startResultCollection();
+            $this->result->put('team', $this->team_names->find($team_id));
             foreach ($events as $this->event) {
                 if ($this->IsPlayedGame()) {
-                    $result->put('id', $this->event->id);
-                    $result->put('last_game_won', false);
-                    $result->put('games_played', $result->get('games_played') + 1);
-                    $result->put('last_play_date', $this->event->date->date);
+                    $this->result->put('id', $this->event->id);
+                    $this->result->put('last_game_won', false);
+                    $this->result->put('games_played', $this->result->get('games_played') + 1);
+                    $this->result->put('last_play_date', $this->event->date->date);
                     //team plays home
                     if ($team_id === $this->event->team_1->id) {
-                        $result->put('played', $this->event->team_2);
-                        $result->put('for', $result->get('for') + $this->event->score1);
-                        $result->put('against', $result->get('against') + $this->event->score2);
+                        $this->result->put('played', $this->event->team_2);
+                        $this->result->put('for', $this->result->get('for') + $this->event->score1);
+                        $this->result->put(
+                            'against',
+                            $this->result->get('against') + $this->event->score2,
+                        );
                         //in case of not in (0/0)
                         if ($this->event->score1 == 0 && $this->event->score2 == 0) {
-                            $result->put('last_result', 'not in');
+                            $this->result->put('last_result', 'not in');
                         } else {
-                            // $result->put('last_result', "$this->event->score1/$this->event->score2");
-                            $result->put(
+                            // $this->result->put('last_result', "$this->event->score1/$this->event->score2");
+                            $this->result->put(
                                 'last_result',
                                 collect([
                                     'score1' => $this->event->score1,
@@ -75,28 +78,31 @@ trait ResultsTrait
                             );
                         }
                         if ($this->event->score1 > 7) {
-                            $result->put('won', $result->get('won') + 1);
-                            $result->put('last_game_won', true);
+                            $this->result->put('won', $this->result->get('won') + 1);
+                            $this->result->put('last_game_won', true);
                         } elseif (
                             // a fix in case of a score of 0-15 or 0-8, shouldn't be mixed up with a no show
                             ($this->event->score1 > 0 && $this->event->score2 > 0) ||
                             ($this->event->score1 === 0 && $this->event->score2 > 7)
                         ) {
-                            $result->put('lost', $result->get('lost') + 1);
-                            $result->put('last_game_won', false);
+                            $this->result->put('lost', $this->result->get('lost') + 1);
+                            $this->result->put('last_game_won', false);
                         }
                     }
                     //team plays as visitor
                     elseif ($team_id === $this->event->team_2->id) {
-                        $result->put('played', $this->event->team_1);
-                        $result->put('for', $result->get('for') + $this->event->score2);
-                        $result->put('against', $result->get('against') + $this->event->score1);
+                        $this->result->put('played', $this->event->team_1);
+                        $this->result->put('for', $this->result->get('for') + $this->event->score2);
+                        $this->result->put(
+                            'against',
+                            $this->result->get('against') + $this->event->score1,
+                        );
                         //in case of not in (0/0)
                         if ($this->event->score1 == 0 && $this->event->score2 == 0) {
-                            $result->put('last_result', 'not in');
+                            $this->result->put('last_result', 'not in');
                         } else {
-                            //$result->put('last_result', "$this->event->score2/$this->event->score1");
-                            $result->put(
+                            //$this->result->put('last_result', "$this->event->score2/$this->event->score1");
+                            $this->result->put(
                                 'last_result',
                                 collect([
                                     'score2' => $this->event->score1,
@@ -105,15 +111,15 @@ trait ResultsTrait
                             );
                         }
                         if ($this->event->score2 > 7) {
-                            $result->put('won', $result->get('won') + 1);
-                            $result->put('last_game_won', true);
+                            $this->result->put('won', $this->result->get('won') + 1);
+                            $this->result->put('last_game_won', true);
                         } elseif (
                             // a fix in case of a score of 0-15 or 0-8, shouldn't be mixed up with a no show
                             ($this->event->score1 > 0 && $this->event->score2 > 0) ||
                             ($this->event->score2 === 0 && $this->event->score1 > 7)
                         ) {
-                            $result->put('lost', $result->get('lost') + 1);
-                            $result->put('last_game_won', false);
+                            $this->result->put('lost', $this->result->get('lost') + 1);
+                            $this->result->put('last_game_won', false);
                         }
                     }
                 }
@@ -121,31 +127,31 @@ trait ResultsTrait
                 // 21/05/2026 I added an extra condition in case a future game has been played already
                 elseif (
                     $this->event->team_2->name === 'BYE' &&
-                    $result->get('games_played') <= $max_games - 1 &&
+                    $this->result->get('games_played') <= $max_games - 1 &&
                     $this->event->date->date->format('Y-m-d') < $max_allowed_date_for_next_week
                 ) {
-                    $result->put('games_played', $result->get('games_played') + 1);
-                    $result->put('played', $this->event->team_2);
-                    $result->put('last_result', 'BYE');
+                    $this->result->put('games_played', $this->result->get('games_played') + 1);
+                    $this->result->put('played', $this->event->team_2);
+                    $this->result->put('last_result', 'BYE');
                 }
-                if ($max_games < $result->get('games_played')) {
+                if ($max_games < $this->result->get('games_played')) {
                     $max_games++; // in case of semi and finals
                 }
-                $result->put('max_games', $max_games);
+                $this->result->put('max_games', $max_games);
                 if ($this->event->date->regular) {
-                    $result->put('finals', $result->get('finals') + 1);
+                    $this->result->put('finals', $this->result->get('finals') + 1);
                 }
             }
-            $results->push($result);
+            $results->push($this->result);
         }
         //finalize the results collection
         $results->map(function ($result) use ($max_games) {
             //in case of (semi) finals, set the last result to false for teams that didn't make it
-            if ($max_games > $result->get('games_played')) {
-                $result->put('last_game_won', false);
+            if ($max_games > $this->result->get('games_played')) {
+                $this->result->put('last_game_won', false);
             }
-            $result->put('max_games', $max_games);
-            $result->put('percentage', $this->percentage($result));
+            $this->result->put('max_games', $max_games);
+            $this->result->put('percentage', $this->percentage());
 
             return $result;
         });
@@ -157,7 +163,7 @@ trait ResultsTrait
         //add the real ranking to the result object
         $rank = 1;
         foreach ($results as $key => $result) {
-            $result->put('rank', $rank);
+            $this->result->put('rank', $rank);
             $rank++;
             $results[$key] = $result;
         }
@@ -222,25 +228,23 @@ trait ResultsTrait
     /**
      * Returns a collection, is called for the calculation of every other team in the calculation loop
      */
-    private function startCollection(): Collection
+    private function startResultCollection(): void
     {
-        $collection = collect();
-        $collection->put('id', null);
-        $collection->put('team', 'my team');
-        $collection->put('played', null);
-        $collection->put('won', 0);
-        $collection->put('lost', 0);
-        $collection->put('for', 0);
-        $collection->put('against', 0);
-        $collection->put('games_played', 0);
-        $collection->put('last_result', collect());
-        $collection->put('last_game_won', false);
-        $collection->put('percentage', 0);
-        $collection->put('rank', 0);
-        $collection->put('max_games', 0);
-        $collection->put('finals', 0);
-
-        return $collection;
+        $this->result = collect();
+        $this->result->put('id', null);
+        $this->result->put('team', 'my team');
+        $this->result->put('played', null);
+        $this->result->put('won', 0);
+        $this->result->put('lost', 0);
+        $this->result->put('for', 0);
+        $this->result->put('against', 0);
+        $this->result->put('games_played', 0);
+        $this->result->put('last_result', collect());
+        $this->result->put('last_game_won', false);
+        $this->result->put('percentage', 0);
+        $this->result->put('rank', 0);
+        $this->result->put('max_games', 0);
+        $this->result->put('finals', 0);
     }
 
     /**
@@ -257,22 +261,22 @@ trait ResultsTrait
     /**
      * Calculates the percentages of a given score table of a team
      */
-    public function percentage(Collection $result): int
+    public function percentage(): int
     {
-        if (!$result->get('max_games')) {
+        if (!$this->result->get('max_games')) {
             return 0;
         }
 
         // multiply the percentages with a factor for the 2 teams in the final
         $factor = 1;
-        if ($result->get('finals') === 2) {
-            $result->get('last_game_won') ? ($factor = 1.3) : ($factor = 1.15);
+        if ($this->result->get('finals') === 2) {
+            $this->result->get('last_game_won') ? ($factor = 1.3) : ($factor = 1.15);
         }
 
         return (int) number_format(
             floor(
-                ((($result->get('won') / $result->get('max_games')) * 100 +
-                    ($result->get('for') / ($result->get('max_games') * 15)) * 100) /
+                ((($this->result->get('won') / $this->result->get('max_games')) * 100 +
+                    ($this->result->get('for') / ($this->result->get('max_games') * 15)) * 100) /
                     2) *
                     $factor,
             ),
