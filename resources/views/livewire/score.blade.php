@@ -323,7 +323,7 @@
                             'lg:table-cell' => ! $show_full_table
                             ])
                         >
-                            {{ $score->get('last_play_date')->format('M jS') }}
+                            {{ $score->get('last_play_date')?->format('M jS') }}
                         </td>
                     </tr>
                 @empty
