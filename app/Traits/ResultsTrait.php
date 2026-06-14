@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Constants;
 use App\Models\Date;
 use App\Models\Event;
 use App\Models\Team;
@@ -47,106 +48,67 @@ trait ResultsTrait
         $this->getTeamsArray();
         $this->getEvents();
         $max_games = $this->played_weeks;
-        // 21/05/2026 I added an extra condition in case a future game has been played already
-        $max_allowed_date_for_next_week = $this->maxAllowedDateForNextWeek();
 
         foreach ($this->teams as $team_id => $events) {
             $this->startResultCollection();
             $this->result->put('team', $this->team_names->find($team_id));
             foreach ($events as $this->event) {
                 if ($this->isPlayedGame()) {
-                    $this->initiateEventToResult();
-                    //team plays home
+                    $this->populateEventToResult();
+                    // team plays home
                     if ($team_id === $this->event->team_1->id) {
-                        $this->result->put('played', $this->event->team_2);
-                        $this->result->put('for', $this->result->get('for') + $this->event->score1);
-                        $this->result->put(
-                            'against',
-                            $this->result->get('against') + $this->event->score2,
+                        $this->teamResultsByEvent(
+                            $this->event->team_2,
+                            $this->event->score1,
+                            $this->event->score2,
                         );
-                        //in case of not in (0/0)
-                        if ($this->event->score1 == 0 && $this->event->score2 == 0) {
-                            $this->result->put('last_result', 'not in');
-                        } else {
-                            // $this->result->put('last_result', "$this->event->score1/$this->event->score2");
-                            $this->result->put(
-                                'last_result',
-                                collect([
-                                    'score1' => $this->event->score1,
-                                    'score2' => $this->event->score2,
-                                ]),
-                            );
-                        }
-                        if ($this->event->score1 > 7) {
-                            $this->result->put('won', $this->result->get('won') + 1);
-                            $this->result->put('last_game_won', true);
-                        } elseif (
-                            // a fix in case of a score of 0-15 or 0-8, shouldn't be mixed up with a no show
-                            ($this->event->score1 > 0 && $this->event->score2 > 0) ||
-                            ($this->event->score1 === 0 && $this->event->score2 > 7)
-                        ) {
-                            $this->result->put('lost', $this->result->get('lost') + 1);
-                            $this->result->put('last_game_won', false);
-                        }
                     }
-                    //team plays as visitor
+                    // team is the visitor
                     elseif ($team_id === $this->event->team_2->id) {
-                        $this->result->put('played', $this->event->team_1);
-                        $this->result->put('for', $this->result->get('for') + $this->event->score2);
-                        $this->result->put(
-                            'against',
-                            $this->result->get('against') + $this->event->score1,
+                        $this->teamResultsByEvent(
+                            $this->event->team_1,
+                            $this->event->score2,
+                            $this->event->score1,
                         );
-                        //in case of not in (0/0)
-                        if ($this->event->score1 == 0 && $this->event->score2 == 0) {
-                            $this->result->put('last_result', 'not in');
-                        } else {
-                            //$this->result->put('last_result', "$this->event->score2/$this->event->score1");
-                            $this->result->put(
-                                'last_result',
-                                collect([
-                                    'score2' => $this->event->score1,
-                                    'score1' => $this->event->score2,
-                                ]),
-                            );
-                        }
-                        if ($this->event->score2 > 7) {
-                            $this->result->put('won', $this->result->get('won') + 1);
-                            $this->result->put('last_game_won', true);
-                        } elseif (
-                            // a fix in case of a score of 0-15 or 0-8, shouldn't be mixed up with a no show
-                            ($this->event->score1 > 0 && $this->event->score2 > 0) ||
-                            ($this->event->score2 === 0 && $this->event->score1 > 7)
-                        ) {
-                            $this->result->put('lost', $this->result->get('lost') + 1);
-                            $this->result->put('last_game_won', false);
-                        }
                     }
                 }
-                //HERE is a tricky one, to avoid that the nr 3 is higher ranked than the runner-up
-                // 21/05/2026 I added an extra condition in case a future game has been played already
+
+                // HERE is a tricky one, to avoid that the nr 3 is higher ranked than the runner-up in the
+                // scoreboard, (semi)finals add an extra game, although never played, which influences the .
+                // calculation of the percentage in the next phase
+                // 21/05/2026 I added an extra condition for the rare occasion a future game has been played
+                //            already which resulted in unpredictable scoreboard behavior
                 elseif (
                     $this->event->team_2->name === 'BYE' &&
                     $this->result->get('games_played') <= $max_games - 1 &&
-                    $this->event->date->date->format('Y-m-d') < $max_allowed_date_for_next_week
+                    $this->event->date->date->lt($this->maxAllowedDateForNextWeek())
                 ) {
                     $this->result->put('games_played', $this->result->get('games_played') + 1);
                     $this->result->put('played', $this->event->team_2);
                     $this->result->put('last_result', 'BYE');
                 }
+
+                // teams not participating in (semi)finals receive a negatively influenced percentage
+                // by adding a game they never played to $max_games
                 if ($max_games < $this->result->get('games_played')) {
-                    $max_games++; // in case of semi and finals
+                    $max_games++;
                 }
-                $this->result->put('max_games', $max_games);
+
+                // in the DB, the field 'regular' set as TRUE means a special game, aka, a (semi)final
+                // this is a mistake from my part
+                // in the 'events' table the field name 'regular' should be 'special' or 'finals'
                 if ($this->event->date->regular) {
                     $this->result->put('finals', $this->result->get('finals') + 1);
                 }
             }
+
             $results->push($this->result);
         }
-        //finalize the results collection
+
+        // finalize the results collection by adding the percentage and max played games
+        // the percentage (success rate) determines the ranking on the scoreboard
         $results->map(function ($result) use ($max_games) {
-            //in case of (semi) finals, set the last result to false for teams that didn't make it
+            // in case of (semi) finals, set the last result to false for teams that didn't make it
             if ($max_games > $result->get('games_played')) {
                 $result->put('last_game_won', false);
             }
@@ -155,25 +117,19 @@ trait ResultsTrait
 
             return $result;
         });
-        //and sort it by percentage (success rate)
-        $results = $results
+
+        // sort the collection by percentage and return the collection to the Score Livewire component
+        return $results
             ->sortByDesc('percentage', SORT_NATURAL)
             ->values()
             ->all();
-        //add the real ranking to the result object
-        $rank = 1;
-        foreach ($results as $key => $result) {
-            $result->put('rank', $rank);
-            $rank++;
-            $results[$key] = $result;
-        }
-
-        return $results;
     }
 
     /**
      * Get the Teams in the current cycle in alphabetical order
      * Flip it and prepare for the final calculation
+     * Needed to loop through the teams first followed up by looping through the events (games) next
+     * The events themselves are pushed into the collection in the getEvents() method
      */
     private function getTeamsArray(): void
     {
@@ -212,17 +168,17 @@ trait ResultsTrait
         });
     }
 
-    private function maxAllowedDateForNextWeek(): string
+    /**
+     * explanation: some games are not played on the planned day of the week (captains can agree on that)
+     * in the rare case, some games are played more than a week in advance, resulting in abnormal scoreboard behavior
+     * */
+    private function maxAllowedDateForNextWeek(): \Illuminate\Support\Carbon
     {
-        $first_date = Date::query()->where('season_id', Context::getHidden('season_id'))->first();
-        $day_of_week = \Illuminate\Support\Facades\Date::createFromFormat(
-            'Y-m-d',
-            $first_date->date->format('Y-m-d'),
-        )->dayOfWeek();
-        return \Illuminate\Support\Facades\Date::now()
-            ->next($day_of_week)
-            ->subDays(3)
-            ->format('Y-m-d');
+        $day_of_week = Date::query()
+            ->where('season_id', Context::getHidden('season_id'))
+            ->first()
+            ->date->dayOfWeek();
+        return \Illuminate\Support\Facades\Date::now()->next($day_of_week)->subDays(3);
     }
 
     /**
@@ -249,7 +205,7 @@ trait ResultsTrait
 
     /**
      * Checks if a game is really played and not a BYE
-     * remark: a NULL means a future game, 0-0 means a planned game but not scores yet
+     * remark: a NULL means a future game, 0-0 means a planned game but no scores are given yet
      *
      * @return bool
      */
@@ -265,7 +221,7 @@ trait ResultsTrait
      *
      * @return void
      */
-    private function initiateEventToResult(): void
+    private function populateEventToResult(): void
     {
         $this->result->put('id', $this->event->id);
         $this->result->put('last_game_won', false);
@@ -274,7 +230,45 @@ trait ResultsTrait
     }
 
     /**
+     * the method that puts the event data in the proper $this->result context (win, loss, group and individual scores)
+     * */
+    private function teamResultsByEvent(Team $visitorTeam, int $homeScore, int $visitorScore): void
+    {
+        $this->result->put('played', $visitorTeam);
+        $this->result->put('for', $this->result->get('for') + $homeScore);
+        $this->result->put('against', $this->result->get('against') + $visitorScore);
+
+        //in case of 'not in' 0-0 (a planned game but no scores yet)
+        if ($homeScore === 0 && $visitorScore === 0) {
+            $this->result->put('last_result', 'not in');
+        } else {
+            $this->result->put(
+                'last_result',
+                collect([
+                    'score1' => $homeScore,
+                    'score2' => $visitorScore,
+                ]),
+            );
+        }
+
+        // checks if the game is won
+        // also checks the rare occasion of a played game that ends of a team losing all games
+        if ($homeScore > 7) {
+            $this->result->put('won', $this->result->get('won') + 1);
+            $this->result->put('last_game_won', true);
+        } elseif (
+            // a fix in case of a score of 0-15 or 0-8, shouldn't be mixed up with a no show
+            ($homeScore > 0 && $visitorScore > 0) ||
+            ($homeScore === 0 && $visitorScore > 7)
+        ) {
+            $this->result->put('lost', $this->result->get('lost') + 1);
+            $this->result->put('last_game_won', false);
+        }
+    }
+
+    /**
      * Calculates the percentages of a given score table of a team
+     * Finalists receive an extra factor, to avoid that winners/runner ups have a lower ranking than the 3rd team
      */
     public function percentage(Collection $result): int
     {
@@ -285,10 +279,12 @@ trait ResultsTrait
         // multiply the percentages with a factor for the 2 teams in the final
         $factor = 1;
         if ($result->get('finals') === 2) {
-            $result->get('last_game_won') ? ($factor = 1.3) : ($factor = 1.15);
+            $result->get('last_game_won')
+                ? ($factor = Constants::FINALIST_MULTIPLICATION_FACTOR_WINNER)
+                : ($factor = Constants::FINALIST_MULTIPLICATION_FACTOR_LOSER);
         }
 
-        return (int) number_format(
+        $percentage = (int) number_format(
             floor(
                 ((($result->get('won') / $result->get('max_games')) * 100 +
                     ($result->get('for') / ($result->get('max_games') * 15)) * 100) /
@@ -296,5 +292,10 @@ trait ResultsTrait
                     $factor,
             ),
         );
+
+        // in rare cases, the percentage turns out to be bigger than 100
+        $percentage > 100 ?? ($percentage = 100);
+
+        return $percentage;
     }
 }
