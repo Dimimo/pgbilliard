@@ -173,7 +173,7 @@
                             class="bg-gray-200 p-2 text-center text-gray-900"
                             title="{{ __('Your current position') }}"
                         >
-                            <strong>{{ $i++ }}</strong>
+                            <strong>{{ $loop->iteration }}</strong>
                         </td>
                         <td
                             @class([
