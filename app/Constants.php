@@ -6,6 +6,8 @@ class Constants
 {
     public const int MAX_TEAM_PLAYERS = 6;
     public const string STARTING_DAY = 'Wednesday';
+    public const float FINALIST_MULTIPLICATION_FACTOR_WINNER = 1.3;
+    public const float FINALIST_MULTIPLICATION_FACTOR_LOSER = 1.15;
     public const int VENUECHARS = 24;
     public const int USERCHARS = 24;
     public const int TEAMCHARS = 16;
