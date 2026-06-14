@@ -23,7 +23,7 @@ trait ResultsTrait
     private array $teams;
 
     /**
-     * each team has events; for the sake of simplicity we store the even data in private Event Model
+     * each team has events; for the sake of simplicity we store the even here for use in other methods
      */
     private Event $event;
 
@@ -48,6 +48,7 @@ trait ResultsTrait
         $this->getTeamsArray();
         $this->getEvents();
         $max_games = $this->played_weeks;
+        $max_allowed = $this->maxAllowedDateForNextWeek();
 
         foreach ($this->teams as $team_id => $events) {
             $this->startResultCollection();
@@ -81,7 +82,7 @@ trait ResultsTrait
                 elseif (
                     $this->event->team_2->name === 'BYE' &&
                     $this->result->get('games_played') <= $max_games - 1 &&
-                    $this->event->date->date->lt($this->maxAllowedDateForNextWeek())
+                    $this->event->date->date->lt($max_allowed)
                 ) {
                     $this->result->put('games_played', $this->result->get('games_played') + 1);
                     $this->result->put('played', $this->event->team_2);
@@ -198,7 +199,6 @@ trait ResultsTrait
         $this->result->put('last_result', collect());
         $this->result->put('last_game_won', false);
         $this->result->put('percentage', 0);
-        $this->result->put('rank', 0);
         $this->result->put('max_games', 0);
         $this->result->put('finals', 0);
     }
@@ -232,34 +232,34 @@ trait ResultsTrait
     /**
      * the method that puts the event data in the proper $this->result context (win, loss, group and individual scores)
      * */
-    private function teamResultsByEvent(Team $visitorTeam, int $homeScore, int $visitorScore): void
+    private function teamResultsByEvent(Team $opponent, int $myScore, int $opponentScore): void
     {
-        $this->result->put('played', $visitorTeam);
-        $this->result->put('for', $this->result->get('for') + $homeScore);
-        $this->result->put('against', $this->result->get('against') + $visitorScore);
+        $this->result->put('played', $opponent);
+        $this->result->put('for', $this->result->get('for') + $myScore);
+        $this->result->put('against', $this->result->get('against') + $opponentScore);
 
         //in case of 'not in' 0-0 (a planned game but no scores yet)
-        if ($homeScore === 0 && $visitorScore === 0) {
+        if ($myScore === 0 && $opponentScore === 0) {
             $this->result->put('last_result', 'not in');
         } else {
             $this->result->put(
                 'last_result',
                 collect([
-                    'score1' => $homeScore,
-                    'score2' => $visitorScore,
+                    'score1' => $myScore,
+                    'score2' => $opponentScore,
                 ]),
             );
         }
 
         // checks if the game is won
         // also checks the rare occasion of a played game that ends of a team losing all games
-        if ($homeScore > 7) {
+        if ($myScore > 7) {
             $this->result->put('won', $this->result->get('won') + 1);
             $this->result->put('last_game_won', true);
         } elseif (
             // a fix in case of a score of 0-15 or 0-8, shouldn't be mixed up with a no show
-            ($homeScore > 0 && $visitorScore > 0) ||
-            ($homeScore === 0 && $visitorScore > 7)
+            ($myScore > 0 && $opponentScore > 0) ||
+            ($myScore === 0 && $opponentScore > 7)
         ) {
             $this->result->put('lost', $this->result->get('lost') + 1);
             $this->result->put('last_game_won', false);
@@ -294,8 +294,6 @@ trait ResultsTrait
         );
 
         // in rare cases, the percentage turns out to be bigger than 100
-        $percentage > 100 ?? ($percentage = 100);
-
-        return $percentage;
+        return min(100, $percentage);
     }
 }
