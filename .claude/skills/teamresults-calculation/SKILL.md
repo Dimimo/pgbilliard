@@ -64,8 +64,7 @@ The `factor` rewards reaching the final:
 - `finals === 2` and lost the final → `factor = 1.15`
 - otherwise → `factor = 1`
 
-If `max_games` is 0 the percentage is 0. Standings are sorted by `percentage` descending, then a
-1-based `rank` is assigned.
+If `max_games` is 0 the percentage is 0. Standings are sorted by `percentage` descending
 
 # The array returned by `getResults()`
 
@@ -85,7 +84,6 @@ percentage. Each collection is seeded by `startCollection()` and has these keys:
 | `last_result`    | **union** — see below                                                                                        |
 | `last_game_won`  | bool — was the most recent event a win                                                                       |
 | `percentage`     | int — success rate (see above)                                                                               |
-| `rank`           | int — 1-based position in the standings                                                                      |
 | `max_games`      | max events anyone has played (grows for semis/finals where not all teams play)                               |
 | `finals`         | 0 = none, 1 = played a semi-final, 2 = played a final (feeds the factor)                                     |
 | `last_play_date` | Carbon date of the most recent event — **only present after ≥1 played event** (the view formats it `"M jS"`) |
