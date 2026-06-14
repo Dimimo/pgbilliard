@@ -144,7 +144,7 @@ it('produces the frozen baseline for a complete season', function (): void {
 it('orders the standings by descending percentage', function (): void {
     $scores = Livewire::withoutLazyLoading()->test(Score::class)->get('scores');
 
-    $percentages = collect($scores)->map(fn(Collection $r): int => $r->get('percentage'))->all();
+    $percentages = collect($scores)->map(fn (Collection $r): int => $r->get('percentage'))->all();
 
     expect($percentages)
         ->toBe([73, 50, 21, 17, 4])
