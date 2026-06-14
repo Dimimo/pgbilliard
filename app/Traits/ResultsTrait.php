@@ -248,7 +248,9 @@ trait ResultsTrait
     }
 
     /**
-     * Checks if a game is really played, or future (NULL) or planned
+     * Checks if a game is really played and not a BYE
+     * remark: a NULL means a future game, 0-0 means a planned game but not scores yet
+     *
      * @return bool
      */
     private function isPlayedGame(): bool
