@@ -12,7 +12,11 @@ Your team **{{ $event->team_1->name }}** has a BYE.
 
 <x-mail::panel>
 ### Planned games:
-@foreach ($date->events as $game){{ $game->team_1->name }} - {{ $game->team_2->name }} @ {{ $game->venue->name }}
+@foreach ($date->events as $game)
+{{ $game->team_1->name }} - {{ $game->team_2->name }}
+@if($game->team_2->name !== 'BYE')
+@ {{ $game->venue->name }}
+@endif
 <br />
 @endforeach
 </x-mail::panel>
