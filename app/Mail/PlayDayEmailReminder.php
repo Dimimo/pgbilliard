@@ -27,6 +27,12 @@ class PlayDayEmailReminder extends Mailable implements ShouldQueue
         foreach ($this->date->events as $event) {
             if ($event->team1 === $this->team->id || $event->team2 === $this->team->id) {
                 $this->event = $event;
+                if ($event->team_2->name === 'BYE') {
+                    $this->subject = '[PG Billiard] Game Reminder for tomorrow: you have a BYE ';
+                } else {
+                    $this->subject =
+                        '[PG Billiard] Game Reminder for tomorrow at ' . $this->event->venue->name;
+                }
             }
         }
     }
@@ -36,9 +42,7 @@ class PlayDayEmailReminder extends Mailable implements ShouldQueue
      */
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: '[PG Billiard] Game Reminder for tomorrow at ' . $this->event->venue->name,
-        );
+        return new Envelope(subject: $this->subject);
     }
 
     /**
