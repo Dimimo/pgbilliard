@@ -27,7 +27,6 @@
         "league/flysystem-aws-s3-v3": "^3.34",
         "livewire/livewire": "^3.8",
         "livewire/volt": "^1.10",
-        "masmerise/livewire-toaster": "^2.10",
         "predis/predis": "^2.4",
         "spatie/laravel-backup": "^10.2",
         "wire-elements/modal": "^2.0"
