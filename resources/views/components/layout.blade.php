@@ -112,7 +112,7 @@
         @vite(['resources/js/app.js', 'resources/js/ably.js'])
         @stack('js')
         @livewire('wire-elements-modal')
-        <x-toaster-hub />
+        {{-- <x-toaster-hub /> --}}
         @RegisterServiceWorkerScript
         {{-- End script --}}
     </body>

@@ -4,7 +4,6 @@ namespace App\Livewire\Auth;
 
 use Illuminate\Support\Facades\Password;
 use Livewire\Component;
-use Masmerise\Toaster\Toaster;
 
 class ForgotPassword extends Component
 {
@@ -34,6 +33,5 @@ class ForgotPassword extends Component
         }
         $this->reset('email');
         session()->flash('status', __($status));
-        Toaster::success(__($status));
     }
 }

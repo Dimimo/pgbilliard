@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Str;
 use Livewire\Component;
-use Masmerise\Toaster\Toaster;
 
 class Overview extends Component
 {
@@ -36,9 +35,9 @@ class Overview extends Component
             ->where('last_game', '<', $date_filter)
             ->withCount(['games', 'players'])
             ->with([
-                'players' => fn (Relation $q) => $q
+                'players' => fn(Relation $q) => $q
                     ->orderByDesc('team_id')
-                    ->with(['team' => fn ($t) => $t->select(['id', 'name'])])
+                    ->with(['team' => fn($t) => $t->select(['id', 'name'])])
                     ->take(1),
             ])
             ->orderBy($this->orderBy, $this->asc ? 'asc' : 'desc')
@@ -73,7 +72,10 @@ class Overview extends Component
     {
         $user = User::query()->findOrFail($id);
         if ($user->games()->count()) {
-            Toaster::error($user->name . ' has registered games and can not be deleted');
+            session()->flash(
+                'status',
+                $user->name . ' has registered games and can not be deleted',
+            );
         } else {
             $user->players()->each(function (Player $q): void {
                 $q->position()->delete();
@@ -84,12 +86,12 @@ class Overview extends Component
             $user->visits()->delete();
             $user->comments()->delete();
             $user->posts()->count() ??
-                $user->posts()->each(fn (Post $q) => $q->update(['user_id' => 1]));
+                $user->posts()->each(fn(Post $q) => $q->update(['user_id' => 1]));
             $user->chatMessages()->delete();
             $user->chatRooms()->delete();
             $user->delete();
 
-            Toaster::success($user->name . ' has been deleted');
+            session()->flash('status', $user->name . ' has been deleted');
             $this->loadUsersList();
         }
     }

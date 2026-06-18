@@ -33,7 +33,7 @@ class Rank extends Component
             ->orderByDesc('percentage')
             ->get()
             ->groupBy('user_id')
-            ->map(fn ($ranks) => $ranks->sortByDesc('played')->first())
+            ->map(fn($ranks) => $ranks->sortByDesc('played')->first())
             ->values();
     }
 
@@ -82,7 +82,7 @@ class Rank extends Component
             $this->getResults();
             $this->player_id = $response['player_id'];
             $this->dispatch('refresh-request')->self();
-            \Toaster::success('The individual ranking is update');
+            session()->flash('status', 'The individual ranking is update');
         }
     }
 }
