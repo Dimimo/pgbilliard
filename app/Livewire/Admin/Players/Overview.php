@@ -35,9 +35,9 @@ class Overview extends Component
             ->where('last_game', '<', $date_filter)
             ->withCount(['games', 'players'])
             ->with([
-                'players' => fn(Relation $q) => $q
+                'players' => fn (Relation $q) => $q
                     ->orderByDesc('team_id')
-                    ->with(['team' => fn($t) => $t->select(['id', 'name'])])
+                    ->with(['team' => fn ($t) => $t->select(['id', 'name'])])
                     ->take(1),
             ])
             ->orderBy($this->orderBy, $this->asc ? 'asc' : 'desc')
@@ -86,7 +86,7 @@ class Overview extends Component
             $user->visits()->delete();
             $user->comments()->delete();
             $user->posts()->count() ??
-                $user->posts()->each(fn(Post $q) => $q->update(['user_id' => 1]));
+                $user->posts()->each(fn (Post $q) => $q->update(['user_id' => 1]));
             $user->chatMessages()->delete();
             $user->chatRooms()->delete();
             $user->delete();

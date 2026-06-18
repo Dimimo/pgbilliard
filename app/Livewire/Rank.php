@@ -33,7 +33,7 @@ class Rank extends Component
             ->orderByDesc('percentage')
             ->get()
             ->groupBy('user_id')
-            ->map(fn($ranks) => $ranks->sortByDesc('played')->first())
+            ->map(fn ($ranks) => $ranks->sortByDesc('played')->first())
             ->values();
     }
 
