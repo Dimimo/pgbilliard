@@ -10,7 +10,7 @@ metadata:
 
 ## Documentation
 
-Use `search-docs` for detailed Livewire 3 patterns and documentation.
+Use `search-docs` for detailed Livewire 4 patterns and documentation.
 
 ## Basic Usage
 
@@ -24,15 +24,6 @@ Use the `php artisan make:livewire [Posts\CreatePost]` Artisan command to create
 - All Livewire requests hit the Laravel backend; they're like regular HTTP requests. Always validate form data and run authorization checks in Livewire actions.
 
 ## Livewire 3 Specifics
-
-### Key Changes From Livewire 2
-
-These things changed in Livewire 3, but may not have been updated in this application. Verify this application's setup to ensure you follow existing conventions.
-
-- Use `wire:model.live` for real-time updates, `wire:model` is now deferred by default.
-- Components now use the `App\Livewire` namespace (not `App\Http\Livewire`).
-- Use `$this->dispatch()` to dispatch events (not `emit` or `dispatchBrowserEvent`).
-- Use the `components.layouts.app` view as the typical layout path (not `layouts.app`).
 
 ### New Directives
 
