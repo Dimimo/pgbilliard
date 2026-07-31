@@ -1,7 +1,7 @@
 <div>
     @if ($switches->get('chooseFormat'))
         @can('update', $event)
-            <div class="my-8" wire:transition.duration.250ms>
+            <div class="my-8" wire:transition>
                 <x-forms.sub-title title="{{__('Choose a day games format')}}">
                     <div class="flex justify-center">
                         @foreach (App\Models\Format::orderByDesc('name')->get() as $f)
