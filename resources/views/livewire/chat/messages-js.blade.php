@@ -32,8 +32,8 @@
                 console.log(e);
             })*/;
         });
-        Livewire.hook('request', ({succeed}) => {
-            succeed(() => {
+        Livewire.interceptRequest(({onSuccess}) => {
+            onSuccess(() => {
                 const el_chat = document.getElementById('chat-box');
                 el_chat.scrollTo({top: el_chat.scrollHeight, behavior: "smooth"});
             })
