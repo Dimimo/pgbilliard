@@ -196,8 +196,8 @@ Route::prefix('chat')->group(function (): void {
 });
 
 Route::middleware('auth')->group(function (): void {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
-    Route::view('profile', 'profile')->name('profile');
+    Route::view('dashboard', 'pages.dashboard')->name('dashboard');
+    Route::view('profile', 'pages.profile')->name('profile');
 });
 
 // authentification
