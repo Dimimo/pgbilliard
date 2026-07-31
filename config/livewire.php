@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |---------------------------------------------------------------------------
     | Class Namespace
@@ -26,7 +25,30 @@ return [
     |
     */
 
-    'view_path' => resource_path('views/livewire'),
+    'component_locations' => [
+        resource_path('views/components'),
+        resource_path('views/livewire'),
+        // resource_path('views/pages'),
+    ],
+
+    /*
+    |---------------------------------------------------------------------------
+    | Component Namespaces
+    |---------------------------------------------------------------------------
+    |
+    | This value sets default namespaces that will be used to resolve view-based
+    | components like single-file and multi-file components. These folders'll
+    | also be referenced when creating new components via the make command.
+    |
+    */
+
+    'component_namespaces' => [
+        'components' => resource_path('views/components'),
+        'layouts' => resource_path('views/layouts'),
+        //'livewire' => resource_path('views/livewire'),
+        'pages' => resource_path('views/pages'),
+        'placeholders' => resource_path('views/placeholders'),
+    ],
 
     /*
     |---------------------------------------------------------------------------
@@ -38,7 +60,7 @@ return [
     |
     */
 
-    'layout' => 'components.layout',
+    'component_layout' => 'layouts::app',
 
     /*
     |---------------------------------------------------------------------------
@@ -50,7 +72,53 @@ return [
     |
     */
 
-    'lazy_placeholder' => 'livewire.placeholder',
+    'component_placeholder' => 'placeholders::placeholder',
+
+    /*
+    |---------------------------------------------------------------------------
+    | Make Command
+    |---------------------------------------------------------------------------
+    | This value determines the default configuration for the artisan make command
+    | You can configure the component type (sfc, mfc, class) and whether to use
+    | the high-voltage (⚡) emoji as a prefix in the sfc|mfc component names.
+    |
+    */
+
+    'make_command' => [
+        'type' => 'class', // Options: 'sfc', 'mfc', 'class'
+        'emoji' => false, // Options: true, false
+        'with' => [
+            'js' => false,
+            'css' => false,
+            'test' => false,
+        ],
+    ],
+
+    /*
+    |---------------------------------------------------------------------------
+    | Class Path
+    |---------------------------------------------------------------------------
+    |
+    | This value is used to specify the path where Livewire component class files
+    | are created when running creation commands like `artisan make:livewire`.
+    | This path is customizable to match your projects directory structure.
+    |
+    */
+
+    'class_path' => app_path('Livewire'),
+
+    /*
+    |---------------------------------------------------------------------------
+    | View Path
+    |---------------------------------------------------------------------------
+    |
+    | This value is used to specify where Livewire component Blade templates are
+    | stored when running file creation commands like `artisan make:livewire`.
+    | It is also used if you choose to omit a component's render() method.
+    |
+    */
+
+    'view_path' => resource_path('views/pages'),
 
     /*
     |---------------------------------------------------------------------------
@@ -64,17 +132,33 @@ return [
     */
 
     'temporary_file_upload' => [
-        'disk' => 'default',        // Example: 'local', 's3'              | Default: 'default'
-        'rules' => ['required', 'file', 'max:12288'],       // Example: ['file', 'mimes:png,jpg']  | Default: ['required', 'file', 'max:12288'] (12MB)
-        'directory' => 'livewire-tmp',   // Example: 'tmp'                      | Default: 'livewire-tmp'
-        'middleware' => 'throttle:60,1',  // Example: 'throttle:5,1'             | Default: 'throttle:60,1'
-        'preview_mimes' => [   // Supported file types for temporary pre-signed file URLs...
-            'png', 'gif', 'bmp', 'svg', 'wav', 'mp4',
-            'mov', 'avi', 'wmv', 'mp3', 'm4a',
-            'jpg', 'jpeg', 'mpga', 'webp', 'wma',
+        'disk' => 'default', // Example: 'local', 's3'              | Default: 'default'
+        'rules' => ['required', 'file', 'max:12288'], // Example: ['file', 'mimes:png,jpg']  | Default: ['required', 'file', 'max:12288'] (12MB)
+        'directory' => 'livewire-tmp', // Example: 'tmp'                      | Default: 'livewire-tmp'
+        'middleware' => 'throttle:60,1', // Example: 'throttle:5,1'             | Default: 'throttle:60,1'
+        'preview_mimes' => [
+            // Supported file types for temporary pre-signed file URLs...
+            'png',
+            'gif',
+            'bmp',
+            'svg',
+            'wav',
+            'mp4',
+            'mov',
+            'avi',
+            'wmv',
+            'mp3',
+            'm4a',
+            'jpg',
+            'jpeg',
+            'mpga',
+            'webp',
+            'wma',
         ],
         'max_upload_time' => 5, // Max duration (in minutes) before an upload is invalidated...
-        'cleanup' => true, // Should clean up temporary uploads older than 24 hrs...
+        'cleanup' => true, // Should clean up temporary uploads older than 24 hrs...'chunking' => true, // Upload large files in resumable chunks (S3 multipart on S3 disks)...
+        'chunk_size' => null, // Example: 10 * 1024 * 1024 (bytes)  | Default: 1MB (5MB on S3 — the multipart minimum)
+        'chunk_threshold' => null, // Files larger than this are chunked | Default: chunk_size
     ],
 
     /*
@@ -147,6 +231,19 @@ return [
 
     /*
     |---------------------------------------------------------------------------
+    | Smart Wire Keys
+    |---------------------------------------------------------------------------
+    |
+    | Livewire uses loops and keys used within loops to generate smart keys that
+    | are applied to nested components that don't have them. This makes using
+    | nested components more reliable by ensuring that they all have keys.
+    |
+    */
+
+    'smart_wire_keys' => true,
+
+    /*
+    |---------------------------------------------------------------------------
     | Pagination Theme
     |---------------------------------------------------------------------------
     |
@@ -157,4 +254,35 @@ return [
     */
 
     'pagination_theme' => 'tailwind',
+
+    /*
+    |---------------------------------------------------------------------------
+    | CSP Safe
+    |---------------------------------------------------------------------------
+    |
+    | This config is used to determine if Livewire will use the CSP-safe version
+    | of Alpine in its bundle. This is useful for applications that are using
+    | strict Content Security Policy (CSP) to protect against XSS attacks.
+    |
+    */
+
+    'csp_safe' => false,
+
+    /*
+    |---------------------------------------------------------------------------
+    | Payload Guards
+    |---------------------------------------------------------------------------
+    |
+    | These settings protect against malicious or oversized payloads that could
+    | cause denial of service. The default values should feel reasonable for
+    | most web applications. Each can be set to null to disable the limit.
+    |
+    */
+
+    'payload' => [
+        'max_size' => 1024 * 1024, // 1MB - maximum request payload size in bytes
+        'max_nesting_depth' => 10, // Maximum depth of dot-notation property paths
+        'max_calls' => 50, // Maximum method calls per request
+        'max_components' => 200, // Maximum components per batch request
+    ],
 ];
