@@ -4,7 +4,7 @@ use App\Models\Season;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Livewire\Volt\Volt;
+use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
 
@@ -13,23 +13,19 @@ test('login screen can be rendered', function (): void {
 
     $response = $this->get('/login');
 
-    $response
-        ->assertSeeLivewire('auth.login')
-        ->assertOk();
+    $response->assertSeeLivewire('auth.login')->assertOk();
 });
 
 test('users can authenticate using the login screen', function (): void {
     $user = User::factory()->create();
 
-    $component = Volt::test('pages.auth.login')
+    $component = Livewire::test('pages.auth.login')
         ->set('email', $user->email)
         ->set('password', 'password');
 
     $component->call('login');
 
-    $component
-        ->assertHasNoErrors()
-        ->assertRedirect(RouteServiceProvider::HOME);
+    $component->assertHasNoErrors()->assertRedirect(RouteServiceProvider::HOME);
 
     $this->assertAuthenticated();
 });
@@ -37,15 +33,13 @@ test('users can authenticate using the login screen', function (): void {
 test('users can not authenticate with invalid password', function (): void {
     $user = User::factory()->create();
 
-    $component = Volt::test('pages.auth.login')
+    $component = Livewire::test('pages.auth.login')
         ->set('email', $user->email)
         ->set('password', 'wrong-password');
 
     $component->call('login');
 
-    $component
-        ->assertHasErrors()
-        ->assertNoRedirect();
+    $component->assertHasErrors()->assertNoRedirect();
 
     $this->assertGuest();
 });
@@ -59,10 +53,7 @@ test('navigation menu can be rendered', function (): void {
 
     $response = $this->get('/dashboard');
 
-    $response
-        ->assertOk()
-        ->assertSee($user->name)
-        ->assertSeeLivewire('dashboard');
+    $response->assertOk()->assertSee($user->name)->assertSeeLivewire('dashboard');
 });
 
 test('users can logout', function (): void {
@@ -71,13 +62,11 @@ test('users can logout', function (): void {
 
     $this->actingAs($user);
 
-    $component = Volt::test('layout.navigation');
+    $component = Livewire::test('layout.navigation');
 
     $component->call('logout');
 
-    $component
-        ->assertHasNoErrors()
-        ->assertRedirect('/');
+    $component->assertHasNoErrors()->assertRedirect('/');
 
     $this->assertGuest();
 });

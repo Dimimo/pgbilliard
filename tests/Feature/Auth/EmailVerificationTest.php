@@ -16,7 +16,7 @@ test('email verification screen can be rendered', function (): void {
 
     $this->actingAs($user);
 
-    \Livewire\Volt\Volt::test('pages.auth.verify-email')->assertOk();
+    \Livewire\Livewire::test('pages.auth.verify-email')->assertOk();
 });
 
 test('email can be verified', function (): void {
@@ -30,19 +30,16 @@ test('email can be verified', function (): void {
 
     Event::fake();
 
-    $verificationUrl = URL::temporarySignedRoute(
-        'verification.verify',
-        now()->addMinutes(60),
-        ['id' => $user->id, 'hash' => sha1((string) $user->email)]
-    );
+    $verificationUrl = URL::temporarySignedRoute('verification.verify', now()->addMinutes(60), [
+        'id' => $user->id,
+        'hash' => sha1($user->email),
+    ]);
 
-    $response = $this->actingAs($user)
-        ->get($verificationUrl)
-        ->assertStatus(302);
+    $response = $this->actingAs($user)->get($verificationUrl)->assertStatus(302);
 
     Event::assertDispatched(Verified::class);
     expect($user->fresh()->hasVerifiedEmail())->toBeTrue();
-    $response->assertRedirect(RouteServiceProvider::HOME.'dashboard?verified=1');
+    $response->assertRedirect(RouteServiceProvider::HOME . 'dashboard?verified=1');
 });
 
 test('email is not verified with invalid hash', function (): void {
@@ -52,11 +49,10 @@ test('email is not verified with invalid hash', function (): void {
     ]);
     User::reguard();
 
-    $verificationUrl = URL::temporarySignedRoute(
-        'verification.verify',
-        now()->addMinutes(60),
-        ['id' => $user->id, 'hash' => sha1('wrong-email')]
-    );
+    $verificationUrl = URL::temporarySignedRoute('verification.verify', now()->addMinutes(60), [
+        'id' => $user->id,
+        'hash' => sha1('wrong-email'),
+    ]);
 
     $this->actingAs($user)->get($verificationUrl);
 
