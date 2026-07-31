@@ -25,7 +25,7 @@
             as="style"
         />
 
-        @vite(['resources/css/app.css'/*, 'resources/js/app.js', 'resources/js/ably.js'*/])
+        @vite(['resources/css/app.css'])
         @stack('css')
         @PwaHead
 
