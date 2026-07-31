@@ -25,11 +25,7 @@ return [
     |
     */
 
-    'component_locations' => [
-        resource_path('views/components'),
-        resource_path('views/livewire'),
-        // resource_path('views/pages'),
-    ],
+    'component_locations' => [resource_path('views/components'), resource_path('views/livewire')],
 
     /*
     |---------------------------------------------------------------------------
@@ -37,15 +33,13 @@ return [
     |---------------------------------------------------------------------------
     |
     | This value sets default namespaces that will be used to resolve view-based
-    | components like single-file and multi-file components. These folders'll
+    | components like single-file and multi-file components. These folders will
     | also be referenced when creating new components via the make command.
     |
     */
 
     'component_namespaces' => [
-        'components' => resource_path('views/components'),
         'layouts' => resource_path('views/layouts'),
-        //'livewire' => resource_path('views/livewire'),
         'pages' => resource_path('views/pages'),
         'placeholders' => resource_path('views/placeholders'),
     ],
