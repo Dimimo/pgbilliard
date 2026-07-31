@@ -1,10 +1,10 @@
 {
-  "_chunk-QTnfLwEv.js": {
-    "file": "assets/chunk-QTnfLwEv.js",
-    "name": "chunk"
+  "_rolldown-runtime-hePW80VL.js": {
+    "file": "assets/rolldown-runtime-hePW80VL.js",
+    "name": "rolldown-runtime"
   },
   "resources/css/app.css": {
-    "file": "assets/app-CM_bRkAX.css",
+    "file": "assets/app-0UBEFpgk.css",
     "name": "app",
     "names": [
       "app.css"
@@ -13,21 +13,21 @@
     "isEntry": true
   },
   "resources/js/ably.js": {
-    "file": "assets/ably-CBOxo--s.js",
+    "file": "assets/ably-Dxh4Bwgm.js",
     "name": "ably",
     "src": "resources/js/ably.js",
     "isEntry": true,
     "imports": [
-      "_chunk-QTnfLwEv.js"
+      "_rolldown-runtime-hePW80VL.js"
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-DDKw8jZj.js",
+    "file": "assets/app-Cy1GTuZ-.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "imports": [
-      "_chunk-QTnfLwEv.js"
+      "_rolldown-runtime-hePW80VL.js"
     ]
   }
 }
