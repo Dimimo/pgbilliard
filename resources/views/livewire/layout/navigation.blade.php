@@ -48,7 +48,7 @@ $logout = function (): void {
                     <div class="-mr-2 flex items-center sm:hidden">
                         <button
                             @click="open = ! open"
-                            class="inline-flex items-center justify-center rounded-md p-2 text-gray-800 transition duration-150 ease-in-out hover:bg-transparent hover:text-gray-600 focus:bg-gray-50 focus:text-gray-600 focus:outline-none"
+                            class="inline-flex items-center justify-center rounded-md p-2 text-gray-800 transition duration-150 ease-in-out hover:bg-transparent hover:text-gray-600 focus:bg-gray-50 focus:outline-none"
                         >
                             <div class="mr-4">
                                 <div x-show="! open">Open Menu</div>
