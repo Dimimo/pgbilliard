@@ -1,6 +1,6 @@
 <div>
     <label for="venue_id"></label>
-    <select id="venue_id" wire:model.change="venue_id">
+    <select id="venue_id" wire:model.live.change="venue_id">
         <option readonly>{{ __('Select venue') }}...</option>
         @foreach ($venues as $venue)
             @if ($venue->name !== 'BYE')

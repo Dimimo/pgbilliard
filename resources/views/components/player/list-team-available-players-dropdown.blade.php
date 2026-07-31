@@ -6,7 +6,7 @@
             {{ __('Select a player from the users table') }}
         </label>
     </div>
-    <select id="user_id" wire:model.change="user_id">
+    <select id="user_id" wire:model.live.change="user_id">
         <option>-- select --</option>
         @foreach ($available_players->pluck('name', 'id') as $id => $name)
             <option wire:key="add-{{ $id }}" value="{{ $id }}">

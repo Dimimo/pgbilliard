@@ -79,7 +79,7 @@
                 <label for="carbon_sub">Select only players who were NOT active before</label>
             </div>
             <div class="p-2">
-                <select id="carbon_sub" wire:model.change="carbon_sub">
+                <select id="carbon_sub" wire:model.live.change="carbon_sub">
                     <option value="now">No limit</option>
                     <option value="6 months">6 months</option>
                     <option value="1 year">1 year</option>

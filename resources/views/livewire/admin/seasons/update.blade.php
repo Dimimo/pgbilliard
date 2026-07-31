@@ -46,7 +46,7 @@
         <form class="my-5" wire:submit="save">
             <div class="block">
                 <label for="team_select">Select team {{ $i++ }}</label>
-                <select name="team_select" id="team_select" wire:model.change="team_select">
+                <select name="team_select" id="team_select" wire:model.live.change="team_select">
                     <option value="">--- select ---</option>
                     @foreach ($dropdown_teams as $item)
                         @if (Str::upper($item->name) !== 'BYE')

@@ -3,7 +3,7 @@
     <select
         class="mb-1 inline-block w-min appearance-none flex-nowrap rounded border border-gray-500 bg-white px-2 py-1 text-base leading-normal text-gray-800"
         id="group"
-        wire:model.change="group"
+        wire:model.live.change="group"
     >
         <option value="">-- select --</option>
         @foreach ($choices as $i => $choice)

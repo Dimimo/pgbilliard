@@ -6,7 +6,7 @@
     </div>
     <div class="flex items-center p-2">
         <label class="mr-2" for="user_form.name">{{ __('Name') }}</label>
-        <input id="user_form.name" type="text" wire:model.blur="user_form.name" />
+        <input id="user_form.name" type="text" wire:model.live.blur="user_form.name" />
         <span class="w-10 flex-none">
             <x-forms.spinner target="user_form.name" />
         </span>
@@ -18,7 +18,7 @@
     </div>
     <div class="flex items-center p-2">
         <label class="mr-2" for="user_form.email">Email</label>
-        <input id="user_form.email" type="text" wire:model.blur="user_form.email" />
+        <input id="user_form.email" type="text" wire:model.live.blur="user_form.email" />
         <span class="w-10 flex-none">
             <x-forms.spinner target="user_form.email" />
         </span>
@@ -34,7 +34,11 @@
     <div class="p-2">
         <div class="flex items-center py-2">
             <label class="mr-2" for="user_form.contact_nr">Contact</label>
-            <input id="user_form.contact_nr" type="text" wire:model.blur="user_form.contact_nr" />
+            <input
+                id="user_form.contact_nr"
+                type="text"
+                wire:model.live.blur="user_form.contact_nr"
+            />
             <span class="w-10 flex-none"></span>
         </div>
 

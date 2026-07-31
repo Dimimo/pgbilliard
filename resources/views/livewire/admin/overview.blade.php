@@ -58,7 +58,7 @@
             </div>
             <div class="p-2">
                 <label for="user_id"></label>
-                <select id="user_id" wire:model.change="user_id">
+                <select id="user_id" wire:model.live.change="user_id">
                     <option>-- admin select --</option>
                     @foreach (array_diff_key($users, array_flip($adminIds)) as $id => $name)
                         <option value="{{ $id }}">{{ $name }}</option>

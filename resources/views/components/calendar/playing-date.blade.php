@@ -5,7 +5,7 @@
         <select
             class="mb-1 mr-4 block w-auto appearance-none rounded border border-gray-500 bg-white py-1 pl-4 pr-8 text-base leading-normal text-gray-800"
             id="date_id"
-            wire:model.change="form.date_id"
+            wire:model.live.change="form.date_id"
         >
             <option value="">-- {{ __('select date') }} --</option>
             @foreach ($dates as $date)
