@@ -81,7 +81,7 @@ The Puerto Galera Billiard League application is a web-based platform designed t
 
 ### Frontend Technologies
 
-- **Livewire 3**: Full-stack framework for building dynamic interfaces without writing JavaScript
+- **Livewire 4**: Full-stack framework for building dynamic interfaces without writing JavaScript
 - **Volt**: An elegantly crafted functional API for Livewire
 - **Tailwind CSS**: Utility-first CSS framework for rapid UI development
 - **Alpine.js**: Lightweight JavaScript framework for reactive components
