@@ -2,10 +2,11 @@
     "mcpServers": {
         "laravel-boost": {
             "command": "php",
-            "args": [
-                "artisan",
-                "boost:mcp"
-            ]
+            "args": ["artisan", "boost:mcp"]
+        },
+        "nativephp-docs": {
+            "command": "npx",
+            "args": ["-y", "mcp-remote", "https://nativephp.com/api/mcp/message"]
         }
     }
 }
