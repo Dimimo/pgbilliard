@@ -29,6 +29,7 @@
         "livewire/volt": "^1.10",
         "predis/predis": "^2.4",
         "spatie/laravel-backup": "^10.2",
+        "vlucas/phpdotenv": "*",
         "wire-elements/modal": "^3.0"
     },
     "require-dev": {
