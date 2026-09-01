@@ -17,16 +17,19 @@ class Create extends Component
     public ?string $details = null;
     public bool $request_format_update = false;
     public array $rounds = [1 => 'First', 6 => 'Second', 11 => 'Last'];
+    public int $players = 4;
 
     public function mount(?Format $format): void
     {
         if (!$format->exists) {
             $this->format = new Format();
+            $this->table = new Collection();
             $this->request_format_update = true;
         } else {
             $this->name = $this->format->name;
             $this->details = $this->format->details;
-            $this->table = $this->format->schedules;
+            $this->players = $this->format->players ?? 4;
+            $this->ensureScheduleSlots();
         }
     }
 
@@ -40,50 +43,57 @@ class Create extends Component
         $this->request_format_update = true;
     }
 
-    // when a player is chosen from the dropdown, this method is called
-    // it either updates an existing field or creates a new entry
-    // if the player is 0, delete the entry
-    public function player(int $player, int $position, bool $home = true): void
+    public function updatedPlayers($value): void
     {
-        if ($player === 0) {
-            $this->format
-                ->schedules()
-                ->where([['position', $position], ['home', $home]])
-                ->delete();
-        } else {
-            $schedule = $this->format
-                ->schedules()
-                ->where([['player', $player], ['position', $position], ['home', $home]])
-                ->first();
-
-            $exists = !is_null($schedule);
-            $exists
-                ? $schedule->update(['player' => $player, 'position' => $position, 'home' => $home])
-                : $this->format
-                    ->schedules()
-                    ->create(['player' => $player, 'position' => $position, 'home' => $home]);
-        }
-        $this->checkThirdDouble();
-        $this->table = $this->format->schedules;
+        $this->players = $value;
+        $this->format->players = $value;
     }
 
-    private function checkThirdDouble(): void
+    public function player(int $scheduleId, int $player): void
     {
-        if ($this->format->schedules()->wherePosition(15)->count() === 0) {
-            $this->insertLastDouble(true);
-            $this->insertLastDouble(false);
+        if ($player < 0 || $player > $this->players) {
+            $this->addError('table', 'The selected player position is invalid.');
+
+            return;
         }
+
+        $this->format->schedules()->findOrFail($scheduleId)->update(['player' => $player]);
+        $this->ensureScheduleSlots();
     }
 
-    private function insertLastDouble(bool $home): void
+    private function ensureScheduleSlots(): void
     {
-        $values = [
-            'format_id' => $this->format->id,
-            'position' => 15,
-            'player' => 0,
-            'home' => $home,
-        ];
-        $this->format->schedules()->insert([$values, $values]);
+        $schedules = $this->format->schedules()->get();
+        $missingSlots = [];
+
+        foreach (range(1, 15) as $position) {
+            foreach ([true, false] as $home) {
+                $existingSlots = $schedules
+                    ->where('position', $position)
+                    ->where('home', $home)
+                    ->count();
+                $requiredSlots = $position % 5 === 0 ? 2 : 1;
+
+                for ($slot = $existingSlots; $slot < $requiredSlots; $slot++) {
+                    $missingSlots[] = [
+                        'position' => $position,
+                        'player' => 0,
+                        'home' => $home,
+                    ];
+                }
+            }
+        }
+
+        if ($missingSlots !== []) {
+            $this->format->schedules()->createMany($missingSlots);
+        }
+
+        $this->table = $this->format
+            ->schedules()
+            ->orderBy('position')
+            ->orderByDesc('home')
+            ->orderBy('id')
+            ->get();
     }
 
     public function save(): void
@@ -91,10 +101,12 @@ class Create extends Component
         $validated = $this->validate([
             'name' => ['required', 'min:4', 'max:20'],
             'details' => ['nullable', 'max:255'],
+            'players' => ['int', 'min:2', 'max:6'],
         ]);
         $this->format->exists
             ? $this->format->update($validated)
             : ($this->format = auth()->user()->formats()->create($validated));
+        $this->ensureScheduleSlots();
 
         if ($this->request_format_update === true) {
             $this->request_format_update = false;

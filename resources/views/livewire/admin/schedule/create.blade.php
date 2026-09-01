@@ -30,7 +30,7 @@
                 <x-forms.primary-button class="w-min">
                     {{ $format->exists ? __('Update') : __('Create') }}
                 </x-forms.primary-button>
-                @error('name')
+                @error ('name')
                     <div class="text-red-700">{{ $message }}</div>
                 @enderror
             </form>
@@ -40,34 +40,46 @@
             <div
                 class="col-span-9 h-auto w-full rounded-lg border-2 border-indigo-400 bg-indigo-100 pt-2 text-center text-xl"
             >
-                {{ __('The format used is') }}
-                <span class="font-bold">{{ $format->name }}</span>
-                <button
-                    wire:click="requestFormatUpdate"
-                    title="{{ __("Edit the format's name and details") }}"
-                >
-                    <x-svg.pen-to-square-solid color="fill-green-600" size="4" padding="ml-2" />
-                </button>
+                <div>
+                    {{ __('The format used is') }}
+                    <span class="font-bold">{{ $format->name }}</span>
+                    <button
+                        class="cursor-pointer"
+                        wire:click="requestFormatUpdate"
+                        title="{{ __("Edit the format's name and details") }}"
+                    >
+                        <x-svg.pen-to-square-solid color="fill-green-600" size="4" padding="ml-2" />
+                    </button>
+                </div>
+
                 @if ($details)
                     <div class="m-2 text-center text-sm italic">{{ $details }}</div>
                 @endif
+                <div class="inline-flex flex-row space-x-2 align-middle">
+                    <div class="text-sm">Number of players:</div>
+                    <select class="mb-2 rounded-xl text-sm" wire:model.live="players">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
             </div>
             <div class="col-span-4 w-full bg-blue-50 p-4 text-right">
                 <div class="mb-4 text-lg text-indigo-700">{{ __('Home Team') }}</div>
-                @for ($i=1;$i<5;$i++)
+                @for ($i=1;$i<=$players;$i++)
                     <div>
-                        {{ __('Home') }} {{ $i }}
-                        ({!! trans_choice('plural.games', $format->checkGameNumbers($i, true)) !!})
+                        {{ __('Home Team') }} {{ $i }} ({!! trans_choice('plural.games', $format->checkGameNumbers($i, true)) !!})
                     </div>
                 @endfor
             </div>
             <div></div>
             <div class="col-span-4 w-full bg-green-50 p-4 text-left">
                 <div class="mb-4 text-lg text-green-700">{{ __('Visitors') }}</div>
-                @for ($i=1;$i<5;$i++)
+                @for ($i=1;$i<=$players;$i++)
                     <div>
-                        {{ __('Visit') }} {{ $i }}
-                        ({!! trans_choice('plural.games', $format->checkGameNumbers($i, false)) !!})
+                        {{ __('Visit') }} {{ $i }} ({!! trans_choice('plural.games', $format->checkGameNumbers($i, false)) !!})
                     </div>
                 @endfor
             </div>
