@@ -21,6 +21,7 @@ class FormatFactory extends Factory
             'name' => $this->faker->name(),
             'details' => $this->faker->sentence(),
             'user_id' => $user->id,
+            'players' => 4,
             'created_at' => \Illuminate\Support\Facades\Date::now(),
             'updated_at' => \Illuminate\Support\Facades\Date::now(),
         ];
