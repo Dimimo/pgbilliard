@@ -45,8 +45,8 @@ class Create extends Component
 
     public function updatedPlayers($value): void
     {
-        $this->players = $value;
-        $this->format->players = $value;
+        $this->players = $this->format->players = $value;
+        $this->format->update();
     }
 
     public function player(int $scheduleId, int $player): void
