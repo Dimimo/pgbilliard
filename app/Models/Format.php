@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $details
  * @property int $user_id
+ * @property int $players
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Schedule> $schedules
@@ -30,7 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @mixin Model
  */
-#[\Illuminate\Database\Eloquent\Attributes\Fillable(['name', 'details', 'user_id'])]
+#[\Illuminate\Database\Eloquent\Attributes\Fillable(['name', 'details', 'user_id', 'players'])]
 class Format extends Model
 {
     use HasFactory;
@@ -66,6 +67,7 @@ class Format extends Model
     {
         return [
             'user_id' => 'integer',
+            'players' => 'integer',
         ];
     }
 }
