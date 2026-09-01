@@ -20,7 +20,7 @@ it('shows the correct component', function (): void {
 
     $response
         ->assertOk()
-        ->assertSeeVolt('calendar');
+        ->assertSeeLivewire(Calendar::class);
 });
 
 it('renders successfully', function (): void {
