@@ -11,9 +11,8 @@
     </div>
     <div>Of course, a schedule is independent of Seasons, Venues and playing dates.</div>
     <div>
-        Any schedule is based on 4 players per 2 teams and 15 games. Additional players can be added
-        on the day schedule agreed by the captains. If only 3 players show up, it's a problem for
-        the captains. Not the schedule itself.
+        A schedule is based on the configured number of players per team and 15 games. Additional
+        players can still be added to the day schedule as reserves.
     </div>
     <div>
         <span class="font-bold">Why different schedules?</span>
@@ -24,22 +23,10 @@
         <span class="font-bold">Some practicalities:</span>
     </div>
     <ul class="ml-4 list-disc">
-        <li>Each player should add up to 4 games</li>
-        <li>
-            If you want to
-            <span class="font-bold">swap some games</span>
-            , reset them to
-            <span class="italic">--select--</span>
-            first (there is a complex bug I can't pinpoint, but... read next...)
-        </li>
-        <li>
-            If you do accidentally create a second game on a single game, set one to
-            <span class="italic">--select--</span>
-            to make it disappear
-        </li>
-        <li>The 15th (3rd double) is shown, just leave it empty or reset to empty</li>
+        <li>Each double contains two players per team</li>
+        <li>The 15th game is configured here only for a three-player schedule</li>
+        <li>For other formats, the players in the 15th game are selected on the game day</li>
         <li>Everything you change is immediately saved in the database</li>
-        <li class="font-bold">Sometimes it crashes, just reload to page 🤐</li>
     </ul>
     <div class="font-bold">
         Just make sure the status of each player is

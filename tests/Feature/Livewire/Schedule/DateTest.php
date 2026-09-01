@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\Game;
+use App\Services\ScheduleManager;
 use Illuminate\Support\Facades\Context;
+use Livewire\Livewire;
 
 beforeEach(function (): void {
     $this->seed(\Database\Seeders\CompleteSeasonSeeder::class);
@@ -113,4 +115,64 @@ it('checks if the players can be selected for the matrix overview', function ():
         ->assertCount('home_matrix', 4)
         ->assertCount('visit_matrix', 4)
         ->assertDispatched('player-selected');
+});
+
+it('applies a determined third double from a three-player format to the daily games', function (): void {
+    $event = \App\Models\Event::query()->findOrFail(1);
+    $event->update(['confirmed' => false]);
+    $admin = \App\Models\User::factory()->create(['name' => 'admin']);
+    \App\Models\Admin::factory()->create(['user_id' => $admin->id]);
+    session(['is_admin' => true]);
+
+    $format = \App\Models\Format::factory()->create([
+        'name' => 'Three players',
+        'players' => 3,
+        'user_id' => $admin->id,
+    ]);
+    Livewire::test(\App\Livewire\Admin\Schedule\Create::class, ['format' => $format]);
+
+    foreach ([true, false] as $home) {
+        $slots = $format->schedules()
+            ->wherePosition(15)
+            ->whereHome($home)
+            ->orderBy('id')
+            ->get();
+        $slots->first()->update(['player' => 1]);
+        $slots->last()->update(['player' => 2]);
+    }
+
+    (new ScheduleManager($event))->checkThirdGame($format);
+
+    $switches = collect([
+        'confirmed' => false,
+        'canUpdatePlayers' => true,
+        'chooseFormat' => false,
+        'rounds' => [1 => 'First', 6 => 'Second', 11 => 'Last'],
+        'games' => null,
+    ]);
+    $homePlayers = $event->team_1->activePlayers()->take(3)->values();
+    $visitPlayers = $event->team_2->activePlayers()->take(3)->values();
+
+    $component = Livewire::actingAs($admin)->test(
+        \App\Livewire\Date\SchedulePlayerSelector::class,
+        ['event' => $event, 'switches' => $switches],
+    );
+
+    foreach (range(1, 3) as $position) {
+        $component
+            ->call('playerSelected', $homePlayers[$position - 1]->id, $position, 'home')
+            ->call('playerSelected', $visitPlayers[$position - 1]->id, $position, 'visit');
+    }
+
+    expect($event->games()->wherePosition(15)->count())->toBe(4)
+        ->and($event->games()->wherePosition(15)->whereNotNull('player_id')->count())->toBe(4)
+        ->and(
+            $event->games()
+                ->wherePosition(15)
+                ->whereHas('schedule', fn ($query) => $query->wherePlayer(1))
+                ->pluck('player_id')
+                ->sort()
+                ->values()
+                ->all(),
+        )->toBe(collect([$homePlayers[0]->id, $visitPlayers[0]->id])->sort()->values()->all());
 });
