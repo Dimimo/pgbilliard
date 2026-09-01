@@ -49,7 +49,7 @@ it('updates an existing schedule slot instead of creating a duplicate', function
 it('edits both players in a double independently without creating duplicates', function (
     int $position,
 ): void {
-    $format = Format::factory()->create();
+    $format = Format::factory()->create(['players' => $position === 15 ? 3 : 4]);
     $component = Livewire::test(Create::class, ['format' => $format]);
     $slots = $format->schedules()
         ->wherePosition($position)
@@ -91,4 +91,65 @@ it('clears a schedule slot without removing it from the overlay', function (): v
         ->and(
             $format->schedules()->wherePosition(5)->whereHome(false)->count(),
         )->toBe(2);
+});
+
+it('persists the player count and clears assignments above it', function (): void {
+    $format = Format::factory()->create(['players' => 4]);
+    $component = Livewire::test(Create::class, ['format' => $format]);
+    $slot = $format->schedules()->wherePosition(1)->whereHome(true)->sole();
+
+    $component
+        ->call('player', $slot->id, 4)
+        ->set('players', 3)
+        ->assertHasNoErrors()
+        ->assertSet('players', 3);
+
+    expect($format->refresh()->players)->toBe(3)
+        ->and($slot->refresh()->player)->toBe(0);
+});
+
+it('allows a three-player format to determine the third double', function (): void {
+    $format = Format::factory()->create(['players' => 3]);
+    $component = Livewire::test(Create::class, ['format' => $format]);
+    $slots = $format->schedules()
+        ->wherePosition(15)
+        ->whereHome(true)
+        ->orderBy('id')
+        ->get();
+
+    $component
+        ->call('player', $slots->first()->id, 1)
+        ->call('player', $slots->last()->id, 2)
+        ->assertHasNoErrors();
+
+    expect($format->schedules()->wherePosition(15)->whereHome(true)->pluck('player')->all())
+        ->toBe([1, 2]);
+});
+
+it('keeps the third double undetermined for a four-player format', function (): void {
+    $format = Format::factory()->create(['players' => 4]);
+    $component = Livewire::test(Create::class, ['format' => $format]);
+    $slot = $format->schedules()->wherePosition(15)->whereHome(true)->firstOrFail();
+
+    $component
+        ->assertSee('Selected on game day')
+        ->call('player', $slot->id, 1)
+        ->assertHasErrors('table');
+
+    expect($slot->refresh()->player)->toBe(0);
+});
+
+it('clears a determined third double when changing away from three players', function (): void {
+    $format = Format::factory()->create(['players' => 3]);
+    $component = Livewire::test(Create::class, ['format' => $format]);
+    $slots = $format->schedules()->wherePosition(15)->orderBy('id')->get();
+
+    foreach ($slots as $index => $slot) {
+        $component->call('player', $slot->id, $index % 3 + 1);
+    }
+
+    $component->set('players', 4)->assertHasNoErrors();
+
+    expect($format->schedules()->wherePosition(15)->pluck('player')->unique()->all())
+        ->toBe([0]);
 });

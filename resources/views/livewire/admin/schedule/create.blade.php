@@ -93,13 +93,21 @@
                     {{ $round }} round
                 </div>
                 @for ($i;$i<$j;$i++)
-                    <x-schedule.schedule-table-position :table="$table" :position="$i" />
+                    <x-schedule.schedule-table-position
+                        :table="$table"
+                        :position="$i"
+                        :players="$players"
+                    />
                 @endfor
 
                 <div class="col-span-9 h-12 w-full bg-green-100 pt-2 text-center text-xl">
                     {{ $round }} double
                 </div>
-                <x-schedule.schedule-table-position :table="$table" :position="$i" />
+                <x-schedule.schedule-table-position
+                    :table="$table"
+                    :position="$i"
+                    :players="$players"
+                />
             @endforeach
         </div>
     @endif

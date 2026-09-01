@@ -45,8 +45,11 @@ class Create extends Component
 
     public function updatedPlayers($value): void
     {
-        $this->players = $this->format->players = $value;
-        $this->format->update();
+        $this->players = (int) $value;
+        $this->validate(['players' => ['int', 'min:2', 'max:6']]);
+        $this->format->update(['players' => $this->players]);
+        $this->resetErrorBag('table');
+        $this->ensureScheduleSlots();
     }
 
     public function player(int $scheduleId, int $player): void
@@ -57,12 +60,27 @@ class Create extends Component
             return;
         }
 
-        $this->format->schedules()->findOrFail($scheduleId)->update(['player' => $player]);
+        $schedule = $this->format->schedules()->findOrFail($scheduleId);
+
+        if ($schedule->position === 15 && $this->players !== 3) {
+            $this->addError('table', 'The third double is selected on the game day.');
+
+            return;
+        }
+
+        $this->resetErrorBag('table');
+        $schedule->update(['player' => $player]);
         $this->ensureScheduleSlots();
     }
 
     private function ensureScheduleSlots(): void
     {
+        $this->format->schedules()->where('player', '>', $this->players)->update(['player' => 0]);
+
+        if ($this->players !== 3) {
+            $this->format->schedules()->wherePosition(15)->update(['player' => 0]);
+        }
+
         $schedules = $this->format->schedules()->get();
         $missingSlots = [];
 
