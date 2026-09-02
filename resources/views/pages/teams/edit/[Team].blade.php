@@ -1,11 +1,13 @@
 <?php
 
+use function Laravel\Folio\middleware;
 use function Laravel\Folio\name;
 use function Livewire\Volt\state;
 use function Livewire\Volt\uses;
 
 state('team');
 name('teams.edit');
+middleware('season.visible:team,season');
 ?>
 
 <x-layout>

@@ -1,11 +1,13 @@
 <?php
 
 use function Laravel\Folio\name;
+use function Laravel\Folio\middleware;
 use function Livewire\Volt\state;
 use function Livewire\Volt\uses;
 
 state('event');
 name('schedule.event');
+middleware('season.visible:event,date.season');
 ?>
 
 <x-layout>

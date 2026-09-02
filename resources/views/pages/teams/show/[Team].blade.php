@@ -1,10 +1,12 @@
 <?php
 
+use function Laravel\Folio\middleware;
 use function Laravel\Folio\name;
 use function Livewire\Volt\state;
 
 state('team');
 name('teams.show');
+middleware('season.visible:team,season');
 ?>
 
 <x-layout>

@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\Date;
+use App\Models\Event;
+use App\Models\Player;
+use App\Models\Team;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -14,24 +18,24 @@ Route::get('privacy-policy', fn () => view('pages.privacy-policy'))->name('priva
 
 Route::get(
     'dates/show/{date}',
-    fn ($date) => view('pages.dates.show.[Date]', [
-        'date' => \App\Models\Date::query()->find($date),
+    fn (Date $date) => view('pages.dates.show.[Date]', [
+        'date' => $date,
     ]),
-)->name('dates.show');
+)->middleware('season.visible:date,season')->name('dates.show');
 
 Route::get(
     'players/show/{player}',
-    fn ($player) => view('pages.players.show.[Player]', [
-        'player' => \App\Models\Player::query()->find($player),
+    fn (Player $player) => view('pages.players.show.[Player]', [
+        'player' => $player,
     ]),
-)->name('players.show');
+)->middleware('season.visible:player,team.season')->name('players.show');
 
 Route::get(
     'schedule/event/{event}',
-    fn ($event) => view('pages.schedule.event.[Event]', [
-        'event' => \App\Models\Event::query()->find($event),
+    fn (Event $event) => view('pages.schedule.event.[Event]', [
+        'event' => $event,
     ]),
-)->name('schedule.event');
+)->middleware('season.visible:event,date.season')->name('schedule.event');
 
 /**
  * Routes for TEAMS
@@ -40,16 +44,16 @@ Route::prefix('team')->group(function (): void {
     Route::get('/', fn () => view('pages.teams.index'))->name('teams.index');
     Route::get(
         'show/{team}',
-        fn ($team) => view('pages.teams.show.[Team]', [
-            'team' => \App\Models\Team::query()->find($team),
+        fn (Team $team) => view('pages.teams.show.[Team]', [
+            'team' => $team,
         ]),
-    )->name('teams.show');
+    )->middleware('season.visible:team,season')->name('teams.show');
     Route::get(
         'edit/{team}',
-        fn ($team) => view('pages.teams.edit.[Team]', [
-            'team' => \App\Models\Team::query()->find($team),
+        fn (Team $team) => view('pages.teams.edit.[Team]', [
+            'team' => $team,
         ]),
-    )->name('teams.edit');
+    )->middleware('season.visible:team,season')->name('teams.edit');
 });
 
 /**
@@ -267,16 +271,14 @@ Route::middleware(['auth', 'admin'])->get('justfortesting', fn () => view('pages
  * Mail routes to test the email body
  */
 Route::prefix('mailable')->group(function (): void {
-    Route::get('date/{date}', function ($date) {
-        $date = \App\Models\Date::query()->find($date);
+    Route::get('date/{date}', function (Date $date) {
         return new \App\Mail\DayScoresConfirmed($date);
-    });
+    })->middleware('season.visible:date,season');
 
-    Route::get('date/{date}/admin', function ($date) {
-        $date = \App\Models\Date::query()->find($date);
+    Route::get('date/{date}/admin', function (Date $date) {
         $send_to = ['Joe Doe', 'Jane Doe'];
         return new \App\Mail\DayScoresToAdmin($date, \Illuminate\Support\Arr::sort($send_to));
-    });
+    })->middleware('season.visible:date,season');
 
     Route::get('account-claimed/{user}', function ($user) {
         $user = \App\Models\User::query()->find($user);
@@ -297,11 +299,12 @@ Route::prefix('mailable')->group(function (): void {
     });
 
     // try with /mailable/game-reminder/391/285
-    Route::get('game-reminder/{date}/{team}', function ($date, $team) {
-        $date = \App\Models\Date::query()->find($date);
-        $team = \App\Models\Team::query()->find($team);
+    Route::get('game-reminder/{date}/{team}', function (Date $date, Team $team) {
         return new \App\Mail\PlayDayEmailReminder($date, $team);
-    });
+    })->middleware([
+        'season.visible:date,season',
+        'season.visible:team,season',
+    ]);
 });
 
 require __DIR__ . '/auth.php';

@@ -1,11 +1,13 @@
 <?php
 
 use function Laravel\Folio\name;
+use function Laravel\Folio\middleware;
 use function Livewire\Volt\state;
 use function Livewire\Volt\uses;
 
 state('date');
 name('dates.show');
+middleware('season.visible:date,season');
 ?>
 
 <x-layout title="{{__('Day Scores and Game details')}}">

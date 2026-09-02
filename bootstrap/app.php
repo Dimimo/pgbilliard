@@ -28,6 +28,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'detect.android' => \App\Http\Middleware\DetectAndroid::class,
             'admin' => \App\Http\Middleware\IsAdmin::class,
             'locale' => \App\Http\Middleware\SetLocale::class,
+            'season.visible' => \App\Http\Middleware\EnsureSeasonIsVisible::class,
         ]);
         $middleware->statefulApi();
     })
