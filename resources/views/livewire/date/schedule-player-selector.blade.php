@@ -3,7 +3,7 @@
         @if (! $switches->get('confirmed'))
             <x-schedule.info-box-before-first-game
                 :event="$event"
-                :format="$format->name"
+                :format-name="$format->name"
                 :switches="$switches"
             />
         @endif
@@ -11,6 +11,7 @@
     <div class="relative col-span-4 h-full w-full bg-blue-50 p-4 text-right">
         <x-schedule.players-dropdown
             key="home-matrix-players"
+            :format-players="$format->players"
             :event="$event"
             :players="$home_players"
             place="home"
@@ -21,6 +22,7 @@
     <div class="col-span-4 h-full w-full bg-green-50 p-4 text-left">
         <x-schedule.players-dropdown
             key="visit-matrix-players"
+            :format-players="$format->players"
             :event="$event"
             :players="$visit_players"
             place="visit"

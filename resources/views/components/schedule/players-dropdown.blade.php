@@ -1,9 +1,9 @@
-@props(['event', 'players', 'matrix', 'place', 'switches'])
+@props (['formatPlayers', 'event', 'players', 'matrix', 'place', 'switches'])
 
 <div class="grid h-full content-between">
     <div>
         <div
-            @class([
+            @class ([
             'mb-4 flex flex-row items-center space-x-2 text-lg',
             'text-indigo-70 justify-end' => $place === 'home',
             'justify-start text-green-600' => $place === 'visit',
@@ -24,7 +24,7 @@
                 @endphp
 
                 <div
-                    @class([
+                    @class ([
                     'mb-1 flex items-center justify-end',
                     'flex-row-reverse' => $place === 'visit',
                     ])
@@ -32,7 +32,7 @@
                 >
                     @if ($switches->get('canUpdatePlayers') && Gate::authorize('update', $event))
                         <div class="mx-2">
-                            @if ($i <= 4)
+                            @if ($i <= $formatPlayers)
                                 {{ Str::ucfirst($place) }} {{ $i }}
                             @else
                                 {{ __('Reserve') }}
@@ -47,7 +47,7 @@
                                 @foreach ($players as $player)
                                     <option
                                         wire:key="selected-{{ $i }}-{{ $matrix->count() }}"
-                                        @selected($old_position_player_id === $player->id)
+                                        @selected ($old_position_player_id === $player->id)
                                         value="{{ $player->id }}"
                                     >
                                         {{ $player->name }}
@@ -82,7 +82,7 @@
     </div>
     @if ($switches->get('canUpdatePlayers') && Gate::authorize('update', $event))
         <div
-            @class([
+            @class ([
             'flex',
             'justify-end' => $place === 'home',
             'justify-start' => $place === 'visit',
