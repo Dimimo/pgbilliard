@@ -16,6 +16,7 @@ class SeasonFactory extends Factory
     {
         return [
             'cycle' => $this->faker->dateTimeThisYear()->format('Y/m'),
+            'is_public' => true,
             'created_at' => \Illuminate\Support\Facades\Date::now(),
             'updated_at' => \Illuminate\Support\Facades\Date::now(),
             'players' => $this->faker->numberBetween(4, 8),

@@ -27,6 +27,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Season newModelQuery()
  * @method static Builder|Season newQuery()
  * @method static Builder|Season query()
+ * @method static Builder|Season visibleTo(?User $user)
  * @method static Builder|Season whereCreatedAt($value)
  * @method static Builder|Season whereCycle($value)
  * @method static Builder|Season whereId($value)
@@ -40,6 +41,34 @@ use Illuminate\Support\Carbon;
 class Season extends Model
 {
     use HasFactory;
+
+    public function isVisibleTo(?User $user): bool
+    {
+        return self::query()
+            ->visibleTo($user)
+            ->whereKey($this->getKey())
+            ->exists();
+    }
+
+    public function scopeVisibleTo(Builder $query, ?User $user): Builder
+    {
+        if ($user?->isAdmin()) {
+            return $query;
+        }
+
+        return $query->where(function (Builder $visibilityQuery) use ($user): void {
+            $visibilityQuery->where('is_public', true);
+
+            if ($user) {
+                $visibilityQuery->orWhereHas(
+                    'teams.players',
+                    fn (Builder $playerQuery) => $playerQuery
+                        ->where('players.user_id', $user->id)
+                        ->where('players.active', true),
+                );
+            }
+        });
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Team, $this>
@@ -63,5 +92,17 @@ class Season extends Model
     public function ranks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Rank::class);
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    #[\Override]
+    protected function casts(): array
+    {
+        return [
+            'is_public' => 'boolean',
+            'players' => 'integer',
+        ];
     }
 }

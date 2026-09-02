@@ -10,14 +10,23 @@ class SeasonPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(): bool
+    public function before(User $user): ?bool
     {
-        return true;
+        if ($user->isAdmin()) {
+            return true;
+        }
+
+        return null;
     }
 
-    public function view(): bool
+    public function viewAny(?User $user): bool
     {
-        return true;
+        return Season::query()->visibleTo($user)->exists();
+    }
+
+    public function view(?User $user, Season $season): bool
+    {
+        return $season->isVisibleTo($user);
     }
 
     public function create(User $user): bool
