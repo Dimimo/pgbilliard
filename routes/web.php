@@ -268,43 +268,45 @@ Route::prefix('admin/help')
 Route::middleware(['auth', 'admin'])->get('justfortesting', fn () => view('pages.test'));
 
 /**
- * Mail routes to test the email body
+ * Local routes to preview email bodies.
  */
-Route::prefix('mailable')->group(function (): void {
-    Route::get('date/{date}', function (Date $date) {
-        return new \App\Mail\DayScoresConfirmed($date);
-    })->middleware('season.visible:date,season');
+if (app()->environment('local')) {
+    Route::prefix('mailable')->group(function (): void {
+        Route::get('date/{date}', function (Date $date) {
+            return new \App\Mail\DayScoresConfirmed($date);
+        })->middleware('season.visible:date,season');
 
-    Route::get('date/{date}/admin', function (Date $date) {
-        $send_to = ['Joe Doe', 'Jane Doe'];
-        return new \App\Mail\DayScoresToAdmin($date, \Illuminate\Support\Arr::sort($send_to));
-    })->middleware('season.visible:date,season');
+        Route::get('date/{date}/admin', function (Date $date) {
+            $send_to = ['Joe Doe', 'Jane Doe'];
+            return new \App\Mail\DayScoresToAdmin($date, \Illuminate\Support\Arr::sort($send_to));
+        })->middleware('season.visible:date,season');
 
-    Route::get('account-claimed/{user}', function ($user) {
-        $user = \App\Models\User::query()->find($user);
-        return new \App\Mail\AccountClaimed($user, 'The email has been changed');
+        Route::get('account-claimed/{user}', function ($user) {
+            $user = \App\Models\User::query()->find($user);
+            return new \App\Mail\AccountClaimed($user, 'The email has been changed');
+        });
+
+        Route::get('email-changed', fn () => new \App\Mail\EmailChanged());
+
+        Route::get('captain-reminder/{user}', function ($user) {
+            $user = \App\Models\User::query()->find($user);
+            return new \App\Mail\RemindCaptainOfNewUser($user);
+        });
+
+        Route::get('contact-players', function () {
+            $subject = 'A simple test';
+            $body = "The body content\nwith a new line";
+            return new \App\Mail\ContactPlayers($subject, $body);
+        });
+
+        // try with /mailable/game-reminder/391/285
+        Route::get('game-reminder/{date}/{team}', function (Date $date, Team $team) {
+            return new \App\Mail\PlayDayEmailReminder($date, $team);
+        })->middleware([
+            'season.visible:date,season',
+            'season.visible:team,season',
+        ]);
     });
-
-    Route::get('email-changed', fn () => new \App\Mail\EmailChanged());
-
-    Route::get('captain-reminder/{user}', function ($user) {
-        $user = \App\Models\User::query()->find($user);
-        return new \App\Mail\RemindCaptainOfNewUser($user);
-    });
-
-    Route::get('contact-players', function () {
-        $subject = 'A simple test';
-        $body = "The body content\nwith a new line";
-        return new \App\Mail\ContactPlayers($subject, $body);
-    });
-
-    // try with /mailable/game-reminder/391/285
-    Route::get('game-reminder/{date}/{team}', function (Date $date, Team $team) {
-        return new \App\Mail\PlayDayEmailReminder($date, $team);
-    })->middleware([
-        'season.visible:date,season',
-        'season.visible:team,season',
-    ]);
-});
+}
 
 require __DIR__ . '/auth.php';

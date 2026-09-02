@@ -44,10 +44,6 @@ it('redirects private web resources for non-participants', function (string $res
         'singular team edit' => "/team/edit/{$this->privateTeam->id}",
         'Folio team' => "/teams/show/{$this->privateTeam->id}",
         'Folio team edit' => "/teams/edit/{$this->privateTeam->id}",
-        'score email' => "/mailable/date/{$this->privateDate->id}",
-        'admin score email' => "/mailable/date/{$this->privateDate->id}/admin",
-        'reminder email' => "/mailable/game-reminder/{$this->privateDate->id}/{$this->privateTeam->id}",
-        'mixed reminder email' => "/mailable/game-reminder/{$this->publicDate->id}/{$this->privateTeam->id}",
     };
 
     $this->get($path)->assertRedirect(route('scoreboard'));
@@ -59,10 +55,6 @@ it('redirects private web resources for non-participants', function (string $res
     'singular team edit',
     'Folio team',
     'Folio team edit',
-    'score email',
-    'admin score email',
-    'reminder email',
-    'mixed reminder email',
 ]);
 
 it('redirects a logged-in non-participant and preserves their public fallback', function (): void {
