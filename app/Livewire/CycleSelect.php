@@ -20,7 +20,12 @@ class CycleSelect extends Component
 
     private function getCycles(): Collection
     {
-        return Season::query()->distinct()->orderBy('cycle', 'desc')->limit(4)->get();
+        return Season::query()
+            ->visibleTo(auth()->user())
+            ->distinct()
+            ->orderByDesc('cycle')
+            ->limit(4)
+            ->get();
     }
 
     public function render(): View
@@ -33,7 +38,12 @@ class CycleSelect extends Component
         if ($id === 0) {
             $this->redirect(route('seasons'), navigate: true);
         } else {
-            $season = Season::query()->findOrFail($id);
+            $season = Season::query()->visibleTo(auth()->user())->findOrFail($id);
+
+            if ((int) session('season_id') !== $season->id) {
+                session()->forget('my_team');
+            }
+
             session()->put(['cycle' => $season->cycle, 'season_id' => $season->id]);
             $this->redirect(route('scoreboard'));
         }

@@ -18,16 +18,25 @@ class CycleAll extends Component
     private function getCycles(): Collection
     {
         return Season::query()
+            ->visibleTo(auth()->user())
             ->distinct()
             ->withCount(['dates', 'teams'])
-            ->orderBy('cycle', 'desc')
+            ->orderByDesc('cycle')
             ->get();
     }
 
-    public function selectedSeason($id): void
+    public function selectedSeason(int $id): void
     {
-        $season = Season::query()->findOrFail($id);
-        session()->put('cycle', $season->cycle);
+        $season = Season::query()->visibleTo(auth()->user())->findOrFail($id);
+
+        if ((int) session('season_id') !== $season->id) {
+            session()->forget('my_team');
+        }
+
+        session()->put([
+            'cycle' => $season->cycle,
+            'season_id' => $season->id,
+        ]);
         $this->redirect(route('scoreboard'), navigate: true);
     }
 }
