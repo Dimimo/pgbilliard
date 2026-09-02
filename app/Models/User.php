@@ -97,7 +97,7 @@ class User extends Authenticatable
 
     public function isAdmin(): bool
     {
-        return session('is_admin');
+        return (bool) session('is_admin', false);
     }
 
     public function isSuperAdmin(): bool

@@ -19,7 +19,7 @@ class TeamOfLoggedInUserMiddleware
                     ->where('season_id', Context::getHidden('season_id'))
                     ->orderBy('dates.date')
                     ->first();
-                $team = $date->getTeam(auth()->user());
+                $team = $date?->getTeam(auth()->user());
                 $request->session()->put('my_team', $team?->id);
             }
         }
