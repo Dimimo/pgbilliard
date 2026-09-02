@@ -13,7 +13,7 @@
                 @foreach ($dates as $date)
                     <div class="w-full px-1 md:w-1/2 lg:w-1/3" wire:key="date_{{ $date->id }}">
                         <div
-                            @class([
+                            @class ([
                             'relative',
                             'grid',
                             'grid-flow-row',
@@ -35,7 +35,7 @@
                                 title="{{ __('click for details') }}"
                                 wire:navigate
                             >
-                                {{ $date->date->format('jS \o\f M Y') }}
+                                {{ $date->date->format('D, jS \o\f M Y') }}
                             </a>
                             @if ($date->checkOpenWindowAccess())
                                 <div class="text-lg text-yellow-100">
@@ -75,7 +75,7 @@
                                     @foreach ($date->events as $event)
                                         <tr wire:key="event_{{ $event->id }}">
                                             <td
-                                                @class(['bg-green-50' => $my_team === $event->team_1->id])
+                                                @class (['bg-green-50' => $my_team === $event->team_1->id])
                                             >
                                                 <div
                                                     class="flex justify-between p-1"
@@ -92,7 +92,7 @@
                                                     </div>
                                                     @if ($event->score1 !== null &&  $event->team_2->name !== 'BYE')
                                                         <div
-                                                            @class([
+                                                            @class ([
                                                             'mr-1',
                                                             'text-green-700' => $event->score1 > 7,
                                                             'text-red-700' => $event->score1 < 8,
@@ -107,7 +107,7 @@
                                                 </div>
                                             </td>
                                             <td
-                                                @class(['bg-green-50' => $my_team === $event->team_2->id])
+                                                @class (['bg-green-50' => $my_team === $event->team_2->id])
                                             >
                                                 <div
                                                     class="flex justify-between p-1"
@@ -115,7 +115,7 @@
                                                 >
                                                     @if ($event->score2 !== null &&  $event->team_2->name !== 'BYE')
                                                         <div
-                                                            @class([
+                                                            @class ([
                                                             'ml-1',
                                                             'text-green-700' => $event->score2 > 7,
                                                             'text-red-700' => $event->score2 < 8,
@@ -170,7 +170,7 @@
                             </table>
                         @else
                             <div class="border-x-2 border-b-2 border-green-500 bg-green-100/25 p-2">
-                                @can('create', $date)
+                                @can ('create', $date)
                                     {{ __('There are no games yet') }},
                                     <a
                                         href="{{ route('admin.calendar.update', ['season' => $date->season]) }}"
