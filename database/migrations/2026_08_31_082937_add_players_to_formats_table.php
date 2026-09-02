@@ -8,7 +8,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('formats', function (Blueprint $table) {
-            $table->unsignedSmallInteger('players')->after('user_id')->default(4)->index();
+            $table->unsignedSmallInteger('players')->default(4)->index()->after('user_id');
         });
     }
 

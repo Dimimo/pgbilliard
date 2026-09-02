@@ -8,7 +8,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('seasons', function (Blueprint $table) {
-            $table->boolean('is_public')->default(true)->index()->after('cycle');
+            $table->boolean('is_public')->default(1)->index()->after('cycle');
         });
     }
 
