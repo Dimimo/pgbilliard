@@ -5,13 +5,19 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::table('seasons', function (Blueprint $table) {
-            $table->boolean('is_public')->default(1)->index()->after('cycle');
+            $table->boolean('is_public')->after('cycle')->default(true)->index();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::table('seasons', function (Blueprint $table) {
