@@ -82,10 +82,21 @@
             </div>
             <div class="p-2">
                 <select id="players" wire:model="players">
-                    @for ($i = 6; $i <= 10; $i++)
+                    @for ($i = 3; $i <= 10; $i++)
                         <option value="{{ $i }}">{{ $i }}</option>
                     @endfor
                 </select>
+            </div>
+
+            <div class="p-2 text-right text-xl">
+                <label for="is_public">Public Season?</label>
+            </div>
+            <div class="p-2">
+                <input id="is_public" type="checkbox" wire:model="is_public" />
+                <p class="mt-1 text-sm text-gray-600">
+                    Private Seasons are visible only to administrators and active participating
+                    players.
+                </p>
             </div>
 
             <div class="p-2 text-right text-xl">

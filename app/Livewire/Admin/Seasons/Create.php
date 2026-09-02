@@ -16,12 +16,14 @@ class Create extends Component
     public int $players;
     public string $day_of_week;
     public string $starting_date;
+    public bool $is_public = true;
     public bool $has_bye = false;
 
     public function mount(): void
     {
         $this->season = new Season([
             'cycle' => \Illuminate\Support\Facades\Date::now()->appTimezone()->format('Y/m'),
+            'is_public' => true,
         ]);
         $this->cycle = $this->season->cycle;
         $this->day_of_week = Constants::STARTING_DAY;
@@ -37,6 +39,7 @@ class Create extends Component
     {
         return [
             'cycle' => ['date_format:Y/m', 'unique:seasons,cycle'],
+            'is_public' => ['required', 'boolean'],
             'players' => ['required', 'int'],
         ];
     }
