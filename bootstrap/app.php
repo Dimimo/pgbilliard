@@ -38,7 +38,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 $title = $e->getMessage() . ' (' . \URL::full() . ')';
                 $message = $title . "\n\n" . $e;
                 if (\App::environment() === 'production') {
-                    \Mail::to('admin@pgbilliard.com')->send(new ExceptionMail($title, nl2br($message)));
+                    \Mail::to(config('mail.admin_to.address'))->send(new ExceptionMail($title, nl2br($message)));
                 }
             } catch (Exception $e) {
                 \Log::error($e->getMessage());
