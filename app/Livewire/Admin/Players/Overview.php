@@ -32,7 +32,6 @@ class Overview extends Component
         $this->users = User::query()
             ->select(['id', 'name', 'email', 'contact_nr', 'last_game'])
             ->whereNotIn('id', $admin_ids)
-            ->where('last_game', '<', $date_filter)
             ->withCount(['games', 'players'])
             ->with([
                 'players' => fn (Relation $q) => $q
