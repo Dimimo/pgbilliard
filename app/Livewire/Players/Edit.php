@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Context;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -162,7 +163,6 @@ class Edit extends Component
         $this->setUserForm(new User());
         $this->setPlayerForm();
         $this->getPlayers();
-        //$this->user_form->reset(['name', 'email', 'contact_nr', 'gender', 'email_verified_at', 'last_game', 'password']);
     }
 
     public function toggleCaptain(int $user_id): void
@@ -193,7 +193,7 @@ class Edit extends Component
         $user = new User([
             'name' => $name,
             'email' => Str::lower(Str::snake($name)) . '@pgbilliard.com',
-            'password' => \Illuminate\Support\Facades\Hash::make('secret'),
+            'password' => Hash::make('secret'),
             'contact_nr' => $this->getPropertyValue('user_form.contact_nr'),
             'last_game' => now(),
         ]);
@@ -209,7 +209,8 @@ class Edit extends Component
         $this->setUserForm(new User());
         $this->setMaxReached();
         $this->dispatch('user-created');
-        dispatch_sync(new CaptainCreatedNewUser($user));
+        dispatch(new CaptainCreatedNewUser($user));
+        $this->user_form->reset(['name', 'email', 'contact_nr', 'gender', 'password']);
     }
 
     public function removePlayer($player_id): void
