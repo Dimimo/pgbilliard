@@ -38,6 +38,7 @@ trait WithLoadUsersList
                 '>',
                 \Illuminate\Support\Facades\Date::now()->sub($this->carbon_sub),
             )
+            ->orWhereNull('last_game')
             ->orderBy('name')
             ->whereNotIn('id', [1]); //get rid of the administrator
     }
