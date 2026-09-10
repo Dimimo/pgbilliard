@@ -5,6 +5,7 @@ window.Ably = Ably;
 window.Echo = new Echo({
     broadcaster: 'ably',
     key: import.meta.env.VITE_PUSHER_APP_KEY,
+    transportParams: { heartbeatInterval: 10000 },
 });
 
 window.Echo.connector.ably.connection.on((stateChange) => {
