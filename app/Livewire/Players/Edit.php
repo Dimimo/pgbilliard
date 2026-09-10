@@ -107,9 +107,13 @@ class Edit extends Component
                 ->with('team')
                 ->orderByDesc('id')
                 ->first();
-            $name = $q->name . ' (';
-            $name .= $player ? $player->team?->name : 'none';
-            $name .= ' - ' . $q->last_game->diffForHumans() . ')';
+            if ($player) {
+                $name = $q->name . ' (';
+                $name .= $player->team ? $player->team->name : 'none';
+                $name .= ' - ' . $q->last_game->diffForHumans() . ')';
+            } else {
+                $name = $q->name . ' (no history)';
+            }
             $q->setAttribute('name', $name);
         });
     }
