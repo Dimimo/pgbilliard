@@ -1,0 +1,9 @@
+[mcp_servers.phpstorm]
+url = "http://127.0.0.1:64442/stream"
+
+[mcp_servers.laravel-boost]
+command = "php"
+args = ["artisan", "boost:mcp"]
+
+[mcp_servers.ref]
+url = "https://api.ref.tools/mcp?apiKey=ref-331b890a370cebd1d241"
