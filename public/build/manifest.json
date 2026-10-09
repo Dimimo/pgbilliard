@@ -13,7 +13,7 @@
     "isEntry": true
   },
   "resources/js/ably.js": {
-    "file": "assets/ably-CV4Lph2D.js",
+    "file": "assets/ably-BfvxsDAL.js",
     "name": "ably",
     "src": "resources/js/ably.js",
     "isEntry": true,
@@ -22,7 +22,7 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-BoUsAGGq.js",
+    "file": "assets/app-BMG2oJrf.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
