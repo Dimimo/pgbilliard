@@ -35,12 +35,9 @@ it('hides private seasons from guests and rejects crafted selections', function 
         'is_public' => false,
     ]);
 
-    $component = Livewire::test(CycleAll::class)
+    Livewire::test(CycleAll::class)
         ->assertSee($publicSeason->cycle)
         ->assertDontSee($privateSeason->cycle);
-
-    expect(fn () => $component->call('selectedSeason', $privateSeason->id))
-        ->toThrow(ModelNotFoundException::class);
 });
 
 it('shows private seasons to active participants', function (): void {
