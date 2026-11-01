@@ -5,7 +5,6 @@ use App\Models\Player;
 use App\Models\Season;
 use App\Models\Team;
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Livewire;
 
 beforeEach(function (): void {
