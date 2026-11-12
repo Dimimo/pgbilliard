@@ -89,8 +89,7 @@
             </div>
         </div>
         <div class="mr-4 whitespace-nowrap text-right">
-            {{ $users->count() }} users selected ordered by {{ Str::replace('_', ' ', $orderBy) }}
-            {{ $asc ? 'ascending' : 'descending' }}
+            {{ $subscribers->count() }} users selected ordered by {{ Str::replace('_', ' ', $orderBy) }} {{ $asc ? 'ascending' : 'descending' }}
         </div>
     </div>
 
@@ -145,54 +144,106 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($users as $user)
+            @foreach ($subscribers as $subscriber)
                 <tr
                     class="whitespace-nowrap border border-b-indigo-700"
-                    wire:key="{{ $user->id }}"
+                    wire:key="{{ $subscriber->id }}"
+                    x-data="{ edit: false }"
                 >
-                    <td class="p-2 text-left text-gray-400">
-                        {{ $user->id }}
-                    </td>
-                    <td class="p-2 font-bold">
-                        {{ $user->name }}
-                    </td>
+                    <td class="p-2 text-left text-gray-400">{{ $subscriber->id }}</td>
+                    <td class="p-2 font-bold" x-show="!edit">{{ $subscriber->name }}</td>
                     @if ($show_email)
                         <td
-                            @class(['p-2', 'text-gray-400' => str($user->email)->contains('@pgbilliard.com')])
+                            @class (['p-2', 'text-gray-400' => str($subscriber->email)->contains('@pgbilliard.com')])
+                            x-show="!edit"
                         >
-                            {{ $user->email }}
+                            {{ $subscriber->email }}
                         </td>
                     @endif
 
-                    <td class="p-2">
-                        {{ $user->contact_nr }}
+                    <td class="p-2" x-show="!edit">{{ $subscriber->contact_nr }}</td>
+                    <td class="p-2" x-show="!edit">
+                        {{ $subscriber->last_game ? $subscriber->last_game->format('d/m/Y') : 'unknown' }}
                     </td>
-                    <td class="p-2">
-                        {{ $user->last_game ? $user->last_game->format('d/m/Y') : 'unknown' }}
+                    <td class="p-2 font-bold" x-show="!edit">
+                        {{ $subscriber->players->first()?->team ? $subscriber->players->first()->team->name : '---' }}
                     </td>
-                    <td class="p-2 font-bold">
-                        {{ $user->players->first()?->team ? $user->players->first()->team->name : '---' }}
+                    <td class="p-2 text-center" x-show="!edit">{{ $subscriber->players_count }}</td>
+                    <td class="p-2 text-center" x-show="!edit">{{ $subscriber->games_count }}</td>
+                    <td class="whitespace-nowrap p-2" x-show="edit" colspan="7">
+                        <form wire:submit="editUserUpdate">
+                            <div class="flex flex-row">
+                                <div>
+                                    <label for="user_edit.name_{{ $subscriber->id }}"></label>
+                                    <input
+                                        id="user_edit.name_{{ $subscriber->id }}"
+                                        type="text"
+                                        wire:model.live.debounce.1000ms="user_form.name"
+                                    />
+                                    @error ('user_form.name')
+                                        <span class="text-red-700">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label for="user_edit.email_{{ $subscriber->id }}"></label>
+                                    <input
+                                        id="user_edit.email_{{ $subscriber->id }}"
+                                        type="text"
+                                        wire:model.live.debounce.1000ms="user_form.email"
+                                    />
+                                    @error ('user_form.email')
+                                        <span class="text-red-700">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label for="user_edit.contact_{{ $subscriber->id }}"></label>
+                                    <input
+                                        id="user_edit.contact_{{ $subscriber->id }}"
+                                        type="text"
+                                        wire:model.live.debounce.1000ms="user_form.contact_nr"
+                                    />
+                                    @error ('user_form.contact_nr')
+                                        <span class="text-red-700">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <x-forms.secondary-button
+                                        type="submit"
+                                        x-on:click="edit = !edit"
+                                    >
+                                        Update
+                                    </x-forms.secondary-button>
+                                </div>
+                            </div>
+                        </form>
                     </td>
-                    <td class="p-2 text-center">
-                        {{ $user->players_count }}
-                    </td>
-                    <td class="p-2 text-center">
-                        {{ $user->games_count }}
-                    </td>
-                    <td class="p-2 text-center">
-                        @if ($user->games_count)
+                    <td class="p-2 text-center" x-show="!edit">
+                        @if ($subscriber->games_count > 0)
                             <x-svg.user-check-solid
                                 class="cursor-not-allowed"
                                 color="fill-green-700"
                                 size="6"
                             />
+                            <button
+                                class="ml-2 cursor-pointer"
+                                title="{{ __('Edit this player') }}"
+                                x-on:click="edit = !edit"
+                                wire:click="editUser({{ $subscriber->id }})"
+                            >
+                                <x-svg.pen-to-square-solid
+                                    color="fill-green-600"
+                                    size="5"
+                                    padding="mb-1 mr-2"
+                                />
+                            </button>
                         @else
                             <x-svg.user-minus-solid
+                                x-show="!edit"
                                 class="cursor-pointer"
                                 color="fill-red-700"
                                 size="6"
-                                wire:click="deleteUser({{ $user->id  }})"
-                                wire:confirm="Delete {{ $user->name }}? This can't be undone."
+                                wire:click="deleteUser({{ $subscriber->id  }})"
+                                wire:confirm="Delete {{ $subscriber->name }}? This can't be undone."
                             />
                         @endif
                     </td>

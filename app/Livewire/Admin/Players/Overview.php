@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Players;
 
+use App\Livewire\Forms\UserForm;
 use App\Models\Admin;
 use App\Models\Forum\Post;
 use App\Models\Player;
@@ -13,7 +14,8 @@ use Livewire\Component;
 
 class Overview extends Component
 {
-    public Collection $users;
+    public Collection $subscribers;
+    public UserForm $user_form;
     public bool $show_email = false;
     public string $carbon_sub = 'now';
     public string $orderBy = 'name';
@@ -21,7 +23,7 @@ class Overview extends Component
 
     public function mount(): void
     {
-        $this->show_email = auth()->user()->isSuperAdmin();
+        $this->show_email = auth()->user()->isAdmin();
         $this->loadUsersList();
     }
 
@@ -29,9 +31,10 @@ class Overview extends Component
     {
         $date_filter = \Illuminate\Support\Facades\Date::now()->sub($this->carbon_sub);
         $admin_ids = Admin::all()->pluck('user_id')->toArray();
-        $this->users = User::query()
+        $this->subscribers = User::query()
             ->select(['id', 'name', 'email', 'contact_nr', 'last_game'])
             ->whereNotIn('id', $admin_ids)
+            ->where('last_game', '<', $date_filter)
             ->withCount(['games', 'players'])
             ->with([
                 'players' => fn (Relation $q) => $q
@@ -46,7 +49,7 @@ class Overview extends Component
     public function render(): \Illuminate\View\View
     {
         return view('livewire.admin.players.overview')->with([
-            'users' => $this->users,
+            'users' => $this->subscribers,
         ]);
     }
 
@@ -93,5 +96,18 @@ class Overview extends Component
             session()->flash('status', $user->name . ' has been deleted');
             $this->loadUsersList();
         }
+    }
+
+    public function editUser(int $user_id): void
+    {
+        $user = User::query()->find($user_id);
+        $this->user_form->setUser($user);
+    }
+
+    public function editUserUpdate(): void
+    {
+        $this->user_form->update();
+        $this->user_form->setUser(new User());
+        $this->loadUsersList();
     }
 }
