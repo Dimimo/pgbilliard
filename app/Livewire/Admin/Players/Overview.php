@@ -106,7 +106,7 @@ class Overview extends Component
 
     public function editUserUpdate(): void
     {
-        $this->user_form->update();
+        $this->user_form->updateForUsersOverview();
         $this->user_form->setUser(new User());
         $this->loadUsersList();
     }

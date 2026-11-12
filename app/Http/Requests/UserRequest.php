@@ -5,10 +5,11 @@ namespace App\Http\Requests;
 use App\Constants;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
-    public function rules(): array
+    public function rules(User $user): array
     {
         return [
             'name' => [
@@ -16,7 +17,7 @@ class UserRequest extends FormRequest
                 'string',
                 'min:2',
                 'max:' . Constants::USERCHARS,
-                'unique:' . User::class . ',name',
+                Rule::unique(User::class)->ignore($user),
             ],
             'email' => ['required', 'email', 'max:254', 'unique:' . User::class . ',email'],
             'contact_nr' => ['nullable', 'max:' . Constants::PHONECHARS],
