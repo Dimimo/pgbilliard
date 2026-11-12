@@ -3,15 +3,14 @@
         <div class="mt-4">
             <div class="my-2 flex justify-center">
                 <div
-                    @class([
+                    @class ([
                     'max-w-min whitespace-nowrap rounded-lg border-2',
                     'border-teal-400 bg-teal-100' => !$max_reached,
                     'border-indigo-400 bg-indigo-50' => $max_reached,
                     'px-4 py-2 text-center text-xl',
                     ])
                 >
-                    {{ $players->count() }} {{ __('players selected of a maximum of') }}
-                    {{ $max_players }}
+                    {{ $players->count() }} {{ __('players selected of a maximum of') }} {{ $max_players }}
                 </div>
             </div>
 
@@ -39,9 +38,7 @@
                     <div class="basis-5/12 text-xl font-semibold" x-show="!edit">
                         {{ $player->name }}
                     </div>
-                    <div class="basis-4/12 text-xl" x-show="!edit">
-                        {{ $player->phone }}
-                    </div>
+                    <div class="basis-4/12 text-xl" x-show="!edit">{{ $player->phone }}</div>
                     <div class="basis-9/12" x-cloak x-show="edit">
                         <form wire:submit="editUserUpdate">
                             <x-player.admin-player-inline-change :player="$player" />
