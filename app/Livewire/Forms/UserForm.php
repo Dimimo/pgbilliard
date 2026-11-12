@@ -27,12 +27,12 @@ class UserForm extends Form
 
     public function rules(): array
     {
-        return (new UserRequest())->rules();
+        return new UserRequest()->rules();
     }
 
     public function messages(): array
     {
-        return (new UserRequest())->messages();
+        return new UserRequest()->messages();
     }
 
     public function setUser(User $user): void
