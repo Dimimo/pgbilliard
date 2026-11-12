@@ -27,7 +27,7 @@ class UserForm extends Form
 
     public function rules(): array
     {
-        return new UserRequest()->rules();
+        return new UserRequest()->rules($this->user);
     }
 
     public function messages(): array
@@ -65,5 +65,15 @@ class UserForm extends Form
             $this->user->update($this->only($update_only));
             $this->user->refresh();
         }
+    }
+
+    // used for the admin players (users) overview only
+    public function updateForUsersOverview(): void
+    {
+        if (session('is_admin')) {
+            $this->validateOnly('name');
+            $this->user->update($this->only(['name', 'contact_nr', 'email']));
+        }
+        $this->user->refresh();
     }
 }
